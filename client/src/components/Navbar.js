@@ -17,7 +17,6 @@ class Nav extends Component {
   render() {
     return (
       <div>
-        <h1>~~~~~~~~~~~NAV PLACEHOLDER section~~~~~~~~~~~~~~</h1>
         <ul className='nav-ul'>
           <li><Link to='/'>Home</Link></li>
           <li><Link to='/discover'>Discover</Link></li>

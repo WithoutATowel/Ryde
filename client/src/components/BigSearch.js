@@ -28,7 +28,7 @@ class BigSearch extends Component {
 
   render() {
     return (
-      <div>
+      <div className='col m4'>
         <form onSubmit={e=>this.handleBigSearch(e)}>
           <input type='number' maxLength='5' placeholder='Zipcode' ref={(input)=>{this.zipInput = input;}} />
           <br />
