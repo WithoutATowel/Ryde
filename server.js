@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
   res.locals.currentUser = req.user;
   next();
 });
-app.use('/seed', seed);
+app.use('/auth', auth);
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
