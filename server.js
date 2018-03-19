@@ -26,7 +26,27 @@ app.use(function(req, res, next) {
   res.locals.currentUser = req.user;
   next();
 });
+
+app.post('/bigsearch', (req, res, next) =>{
+  console.log(req.body);
+  res.send('data stuff hopefully')
+  // Trip.find({
+  //   time: req.body.zip
+  // }, function(err, trips){
+  //   console.log(trips)
+  //   if(err){
+  //     console.log(err);
+  //     res.send(err);
+  //   } else {
+  //     console.log(trips);
+  //     res.send(trips);
+  //   }
+  // })
+})
+
 app.use('/auth', auth);
+
+
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {

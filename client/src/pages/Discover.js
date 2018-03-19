@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import store from '../redux/store/index';
 import '../css/discover.css';
 import ListBox from '../components/ListBox';
+import BigSearch from '../components/BigSearch';
 
 class Discover extends Component {
   constructor(props) {
@@ -12,8 +13,11 @@ class Discover extends Component {
   render() {
     return (
       <div className='discover-div'>
-        <h1 className='discover-h1'>~~~~~~~~~~~~DISCOVER PLACEHOLDER PAGE~~~~~~~~~~~~~~</h1>
-        <ListBox />
+        <h1 className='discover-h1'>Find a Ryde</h1>
+        <div className='row'>
+          <BigSearch />
+          <ListBox />
+        </div>
         <br />
       </div>
     )

@@ -13,6 +13,8 @@ import { UserProfile } from './pages/UserProfile';
 import PublicProfile from './pages/PublicProfile';
 import { OurTeam } from './pages/OurTeam';
 import { Footer } from './components/Footer';
+import PostARyde from './pages/PostARyde';
+import MyRydes from './pages/MyRydes.js'
 import Login from './components/Login';
 import Signup from './components/Signup';
 import axios from 'axios'
@@ -93,7 +95,6 @@ class ConnectedApp extends Component {
         <Router>
           <div>  {/* div needs to be here bc router can only have one child */}
             <Navbar />
-            <BigSearch />
 
             {/* ROUTES BELOW HERE */}
             <div>
@@ -104,6 +105,7 @@ class ConnectedApp extends Component {
               <Route path='/login' component={Login} />  {/* placeholder so we can easily get to page */}
               <Route path='/signup' component={Signup} />  {/* placeholder so we can easily get to page */}
               <Route path='/ourteam' component={OurTeam} />
+              <Route path='/postaryde' component={PostARyde} />
               {/* <Route path='/login' component={() => (
                 <Login user={this.state.user} liftToken={this.liftTokenToState} />
               )} />
