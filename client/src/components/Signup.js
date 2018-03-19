@@ -52,6 +52,24 @@ class Signup extends Component {
         <br />
         Password: <input type='text' value={this.state.password} onChange={this.handlePasswordChange} />
         <br />
+        Home Street Address: <input type='text' />
+        <br />
+        Home City - required: <input type='text' />
+        <br />
+        Home State - required (WA): <input type='text' />
+        <br />
+        Home Zip: <input type='number' />
+        <br />
+        Work Street Address: <input type='text' />
+        <br />
+        Work City: <input type='text' />
+        <br />
+        Work State(WA): <input type='text' />
+        <br />
+        Work Zip: <input type='number' />
+        <br />
+        Date of birth (any number for now): <input type='number' />
+        <br />
         <input type='submit' value='Sign Up!' />
       </form>
     )
