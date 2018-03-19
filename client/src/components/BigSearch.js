@@ -16,22 +16,14 @@ class BigSearch extends Component {
     let leaveTime = this.leaveTimeInput.value
     let pets = this.petInput.checked
     let cost = this.costInput.value
-    let reoccur = this.reoccurrInput.checked
+    let reoccur = this.reoccurInput.checked
     let seat = this.seatInput.value
-    console.log(zip, dist, leave, reoccur)
-    // axios.post('/bigsearch', {
-    //   zip,
-    //   dist,
-    //   leave,
-    //   end,
-    //   leaveTime,
-    //   pets,
-    //   cost,
-    //   reoccur,
-    //   seat,
-    // }).then( result =>{
-    //   console.log(result.data);
-    // })
+    console.log(zip,dist,leave,end,leaveTime,pets,cost,reoccur,seat)
+    axios.post('/bigsearch',
+    {zip,dist,leave,end,leaveTime,pets,cost,reoccur,seat}).then(
+      result =>{
+      console.log(result.data);
+    })
   }
 
   render() {
@@ -48,11 +40,17 @@ class BigSearch extends Component {
           <br />
           <input type='number' placeholder='Leave time' ref={(input)=>{this.leaveTimeInput = input;}}/>
           <br />
-          <input type='checkbox' placeholder='Pets' ref={(input)=>{this.petInput = input;}}/>
+          <p>
+            <input id='pets' type='checkbox' placeholder='Pets' ref={(input)=>{this.petInput = input;}}/>
+            <label for='pets'>Pets?</label>
+          </p>
           <br />
           <input type='number' placeholder='Cost' ref={(input)=>{this.costInput = input;}}/>
           <br />
-          <input type='checkbox' placeholder='Reoccuring' ref={(input)=>{this.reoccurInput = input;}}/>
+          <p>
+            <input id='reoccur' type='checkbox' ref={(input)=>{this.reoccurInput = input;}}/>
+            <label for='reoccur'>Reoccuring?</label>
+          </p>
           <br />
           <input type='number' placeholder='Seatting' ref={(input)=>{this.seatInput = input;}}/>
           <br />
