@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../css/bigsearch.css';
+import axios from 'axios';
 
 class BigSearch extends Component {
   constructor(props) {
@@ -17,7 +18,20 @@ class BigSearch extends Component {
     let cost = this.costInput.value
     let reoccur = this.reoccurrInput.checked
     let seat = this.seatInput.value
-    console.log(zip, dist, leave, reoccur);
+    console.log(zip, dist, leave, reoccur)
+    // axios.post('/bigsearch', {
+    //   zip,
+    //   dist,
+    //   leave,
+    //   end,
+    //   leaveTime,
+    //   pets,
+    //   cost,
+    //   reoccur,
+    //   seat,
+    // }).then( result =>{
+    //   console.log(result.data);
+    // })
   }
 
   render() {
