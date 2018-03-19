@@ -1,3 +1,12 @@
 .public-h1 {
   color: green;
 }
+
+.pic-circle {
+  position: relative;
+  height: 14vw;
+  width: 13vw;
+  border-radius: 50%;
+  background-color: cornflowerblue;
+  overflow: hidden;
+}
