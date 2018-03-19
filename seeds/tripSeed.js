@@ -3,8 +3,8 @@ var Trips = require('../models/trips');
 
 mongoose.connect('mongodb://localhost/ryde');
 
-module.exports = {
-  seedTrips: (req,res)=>{
+
+
     var trips = [
       {
         driverId: 1,
@@ -70,14 +70,12 @@ module.exports = {
     ];
 
   //Need to figure out if I should use ("new Trips or new Trip") in the loop
-    for(trip of trips){
-      var newTrip = new Trips();
-      newTrip.create();
+    for(let trip of trips){
+      var newTrip = new Trips(trip);
+      newTrip.save();
     }
-    res.send(console.log('database seeded'));
-  }
-}
+
 
 // var userSeed = require('../seeds/userSeed')
 // var tripSeed = require('../seeds/tripSeed')
-// router.get('/users/seed',  userSeed.seedUsers, tripSeed.seedTrips);
+// app.get('/users/seed',  userSeed.seedUsers, tripSeed.seedTrips);

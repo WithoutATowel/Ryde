@@ -3,8 +3,6 @@ var User = require('../models/user');
 
 mongoose.connect('mongodb://localhost/ryde');
 
-module.exports = {
-  seedUsers: (req,res)=>{
 
     const users = [
       {
@@ -12,15 +10,15 @@ module.exports = {
         email: 'sean.cesmat@gmail.com',
         password: 'blahblah',
         address: {
-          street: blah st,
-          city: seattle,
-          state: WA,
+          street: 'blah st',
+          city: 'seattle',
+          state: 'WA',
           zip: 98021
         },
         workAddress: {
-          street: work st,
-          city: seattle,
-          state: WA,
+          street: 'work st',
+          city: 'seattle',
+          state: 'WA',
           zip: 98021
         },
         dob: 09081989,
@@ -28,18 +26,18 @@ module.exports = {
       },
       {
         name: 'Another User',
-        location: 'anotheruser@gmail.com',
+        email: 'anotheruser@gmail.com',
         password: 'blahblah',
         address: {
-          street: blah st,
-          city: seattle,
-          state: WA,
+          street: 'blah st',
+          city: 'seattle',
+          state: 'WA',
           zip: 98021
         },
         workAddress: {
-          street: work st,
-          city: seattle,
-          state: WA,
+          street: 'work st',
+          city: 'seattle',
+          state: 'WA',
           zip: 98021
         },
         dob: 09081989,
@@ -47,18 +45,18 @@ module.exports = {
       },
       {
         name: 'Brett',
-        location: 'brettuser@gmail.com',
+        email: 'brettuser@gmail.com',
         password: 'blahblah',
         address: {
-          street: blah st,
-          city: seattle,
-          state: WA,
+          street: 'blah st',
+          city: 'seattle',
+          state: 'WA',
           zip: 98021
         },
         workAddress: {
-          street: work st,
-          city: seattle,
-          state: WA,
+          street: 'work st',
+          city: 'seattle',
+          state: 'WA',
           zip: 98021
         },
         dob: 09081989,
@@ -66,18 +64,18 @@ module.exports = {
       },
       {
         name: 'brant',
-        location: 'brantuser@gmail.com',
+        email: 'brantuser@gmail.com',
         password: 'blahblah',
         address: {
-          street: blah st,
-          city: seattle,
-          state: WA,
+          street: 'blah st',
+          city: 'seattle',
+          state: 'WA',
           zip: 98021
         },
         workAddress: {
-          street: work st,
-          city: seattle,
-          state: WA,
+          street: 'work st',
+          city: 'seattle',
+          state: 'WA',
           zip: 98021
         },
         dob: 09081989,
@@ -85,18 +83,18 @@ module.exports = {
       },
       {
         name: 'Scott',
-        location: 'scottuser@gmail.com',
+        email: 'scottuser@gmail.com',
         password: 'blahblah',
         address: {
-          street: blah st,
-          city: seattle,
-          state: WA,
+          street: 'blah st',
+          city: 'seattle',
+          state: 'WA',
           zip: 98021
         },
         workAddress: {
-          street: work st,
-          city: seattle,
-          state: WA,
+          street: 'work st',
+          city: 'seattle',
+          state: 'WA',
           zip: 98021
         },
         dob: 09081989,
@@ -106,15 +104,7 @@ module.exports = {
     ];
 
 
-    for(user of users){
-      var newUser = new User();
-      newUser.create();
+    for(let user of users){
+      var newUser = new User(user);
+      newUser.save();
     }
-    res.send(console.log('database seeded'));
-  }
-
-}
-
-// var userSeed = require('../seeds/userSeed')
-// var tripSeed = require('../seeds/tripSeed')
-// router.get('/users/seed',  userSeed.seedUsers, tripSeed.seedTrips);
