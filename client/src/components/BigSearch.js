@@ -11,16 +11,16 @@ class BigSearch extends Component {
     e.preventDefault()
     let zip = this.zipInput.value
     let dist = this.distanceInput.value
-    let leave = this.leaveInput.value
-    let end = this.endInput.value
-    let leaveTime = this.leaveTimeInput.value
+    let sCity = this.sCityInput.value
+    let eCity= this.eCityInput.value
+    let sTime = this.sTimeInput.value
     let pets = this.petInput.checked
     let cost = this.costInput.value
     let reoccur = this.reoccurInput.checked
     let seat = this.seatInput.value
-    console.log(zip,dist,leave,end,leaveTime,pets,cost,reoccur,seat)
+
     axios.post('/bigsearch',
-    {zip,dist,leave,end,leaveTime,pets,cost,reoccur,seat}).then(
+    {zip,dist,sCity,eCity,sTime,pets,cost,reoccur,seat}).then(
       result =>{
       console.log(result.data);
     })
@@ -30,15 +30,15 @@ class BigSearch extends Component {
     return (
       <div className='col m4'>
         <form onSubmit={e=>this.handleBigSearch(e)}>
-          <input type='number' maxLength='5' placeholder='Zipcode' ref={(input)=>{this.zipInput = input;}} />
+          <input type='number' maxLength='5' placeholder='Leaving from...Zipcode?' ref={(input)=>{this.zipInput = input;}} />
           <br />
-          <input type='number' placeholder='distance' ref={(input)=>{this.distanceInput = input;}}/>
+          <input type='number' placeholder='Distance?' ref={(input)=>{this.distanceInput = input;}}/>
           <br />
-          <input type='text' placeholder='Leaving from' ref={(input)=>{this.leaveInput = input;}}/>
+          <input type='text' placeholder='Leaving...City?' ref={(input)=>{this.sCityInput = input;}}/>
           <br />
-          <input type='text' placeholder='End location' ref={(input)=>{this.endInput = input;}}/>
+          <input type='text' placeholder='Going to...City?' ref={(input)=>{this.eCityInput = input;}}/>
           <br />
-          <input type='number' placeholder='Leave time' ref={(input)=>{this.leaveTimeInput = input;}}/>
+          <input type='number' placeholder='Leave time' ref={(input)=>{this.sTimeInput = input;}}/>
           <br />
           <p>
             <input id='pets' type='checkbox' placeholder='Pets' ref={(input)=>{this.petInput = input;}}/>
