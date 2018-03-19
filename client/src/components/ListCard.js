@@ -25,6 +25,7 @@ class ListCard extends Component {
           <label>Pets</label>
           <input type='checkbox' disabled />
           <label>Smoking</label>
+          <Ryders />
           <h5>Comments</h5>
           <p>This is a comment</p>
         </div>
@@ -45,7 +46,6 @@ class ListCard extends Component {
         </div>
         {details}
         <button onClick={this.handleExpansionToggle}>Expand</button>
-        <Ryders />
         <br />
       </div>
     )

@@ -12,8 +12,10 @@ class Discover extends Component {
     return (
       <div className='discover-div'>
         <h1 className='discover-h1'>~~~~~~~~~~~~DISCOVER PLACEHOLDER PAGE~~~~~~~~~~~~~~</h1>
-        <BigSearch />
-        <ListBox />
+        <div className='row'>
+          <BigSearch />
+          <ListBox />
+        </div>
         <br />
       </div>
     )

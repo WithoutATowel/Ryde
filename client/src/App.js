@@ -90,7 +90,6 @@ class App extends Component {
         <Router>
           <div>  {/* div needs to be here bc router can only have one child */}
             <Navbar />
-            <BigSearch />
 
             {/* ROUTES BELOW HERE */}
             <div>

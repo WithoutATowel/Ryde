@@ -9,12 +9,9 @@ class ListBox extends Component {
 
   render() {
     return (
-      <div className='list-box-div row'>
-        <div className='col s12 m8'>
-          <h3>Matching Rydes</h3>
-          <ListCard />
-        </div>
-        <br />
+      <div className='list-box-div col s12 m8'>
+        <h3>Matching Rydes</h3>
+        <ListCard />
       </div>
     )
   }
