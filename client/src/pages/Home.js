@@ -10,7 +10,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1 className='home-h1'>~~~~~~~~~~HOME PLACEHOLDER PAGE~~~~~~~~~~~~</h1>
+        <img src="/img/home-hero.jpg" className="home-hero" alt="traffic-hero-image" />
         <MiniSearch />
       </div>
 
