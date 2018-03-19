@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../css/bigsearch.css';
 
 class BigSearch extends Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class BigSearch extends Component {
 
   render() {
     return (
-      <h1>~~~~~~~~~~~BIG SEARCH PLACEHOLDER section~~~~~~~~~~~~~</h1>
+      <h1 className='big-search-h1'>~~~~~~~~~~~BIG SEARCH PLACEHOLDER section~~~~~~~~~~~~~</h1>
     )
   }
 }

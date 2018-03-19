@@ -5,12 +5,13 @@ import Navbar from './Navbar';
 import BigSearch from './BigSearch';
 import Home from './Home';
 import Discover from './Discover';
+import { UserProfile } from './UserProfile';
+import PublicProfile from './PublicProfile';
 import MyRydes from './MyRydes';
 import { OurTeam } from './OurTeam';
 import { Footer } from './Footer';
 import Signup from './Signup';
 import Login from './Login';
-import { UserProfile } from './UserProfile';
 import axios from 'axios'
 
 class App extends Component {
@@ -86,7 +87,7 @@ class App extends Component {
     return (
       <div>
         <Router>
-          <div>  {/* needs to be here bc router can only have one child */}
+          <div>  {/* div needs to be here bc router can only have one child */}
             <Navbar />
             <BigSearch />
 
@@ -94,6 +95,8 @@ class App extends Component {
             <div>
               <Route exact path='/' component={Home} />
               <Route path='/discover' component={Discover} />
+              <Route path='/profile' component={UserProfile} />  {/* placeholder so we can easily get to page */}
+              <Route path='/publicprofile' component={PublicProfile} />  {/* placeholder so we can easily get to page */}
               <Route path='/ourteam' component={OurTeam} />
               <Route path='/myrydes' component={MyRydes} />
               {/* <Route path='/login' component={() => (

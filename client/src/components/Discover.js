@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../css/discover.css';
 
 class Discover extends Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class Discover extends Component {
 
   render() {
     return (
-      <h1>~~~~~~~~~~~~DISCOVER PLACEHOLDER PAGE~~~~~~~~~~~~~~</h1>
+      <h1 className='discover-h1'>~~~~~~~~~~~~DISCOVER PLACEHOLDER PAGE~~~~~~~~~~~~~~</h1>
     )
   }
 }
