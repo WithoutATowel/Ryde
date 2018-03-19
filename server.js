@@ -28,7 +28,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.post('/bigsearch', (req, res, next) =>{
+app.post('/bigsearch', (req, res, next) => {
   var bodhi = req.body
   var searchOptions = {
     'startAddress.zip': bodhi.zip,
@@ -50,6 +50,38 @@ app.post('/bigsearch', (req, res, next) =>{
 
   Trip.find(searchOptions, function(err, trips){
     // console.log(trips)
+    if(err){
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log(trips);
+      res.send(trips);
+    }
+  })
+})
+
+app.post('/mydryves', (req, res, next) => {
+  var searchOptions = {
+    driverId: req.body.userId
+  }
+
+  Trip.find(searchOptions, function(err, trips) {
+    if(err){
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log(trips);
+      res.send(trips);
+    }
+  })
+})
+
+app.post('/myrydes', (req, res, next) => {
+  var searchOptions = {
+    ridersId: req.body.userId
+  }
+
+  Trip.find(searchOptions, function(err, trips) {
     if(err){
       console.log(err);
       res.send(err);
