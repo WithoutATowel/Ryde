@@ -27,7 +27,6 @@ class ConnectedMyRydes extends Component {
 
   // TODO: add "componentDidMount" (or w/e) here and run a query for the user's rydes. Pass into Redux
   // state under the "searchResults" property
-  
 
   render() {
     return (
