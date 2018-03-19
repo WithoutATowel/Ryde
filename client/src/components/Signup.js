@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import store from '../redux/store/index';
+import { liftTokenToState } from '../redux/actions/index';
 import axios from 'axios';
 
 class Signup extends Component {
@@ -35,8 +38,8 @@ class Signup extends Component {
       password: this.state.password
     }).then( result => {
       console.log(result.data) // result is result from back end responding to post request and .data is where axios stores the returned data
-      localStorage.setItem('mernToken', result.data.token) // change 'mernToken' to your app name or something useful
-      this.props.liftToken(result.data)
+      localStorage.setItem('rydeAppToken', result.data.token) // change 'mernToken' to your app name or something useful
+      liftTokenToState(result.data)
     })
   }
 
