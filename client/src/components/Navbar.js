@@ -11,6 +11,8 @@ import PublicProfile from '../pages/PublicProfile';
 import Login from '../components/Login';
 import Signup from '../components/Signup';
 import { OurTeam } from '../pages/OurTeam';
+import NavLoggedIn from './NavLoggedIn';
+import NavLoggedOut from './NavLoggedOut';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -37,31 +39,50 @@ class ConnectedNav extends Component {
     if (theUser) {
       return (
         <div>
-          <h1>~~~~~~~~~~~NAV PLACEHOLDER section~~~~~~~~~~~~~~</h1>
-          <ul className='nav-ul'>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/discover'>Discover</Link></li>
-            <li><Link to='/myrydes'>My Rydes</Link></li>
-            <li><Link to='/profile'>User Profile</Link></li>  {/* placeholder so we can easily get to page */}
-            <li><Link to='/publicprofile'>Public Profile</Link></li>  {/* placeholder so we can easily get to page */}
-            <li><Link to='/ourteam'>OurTeam</Link></li>
-            <li><Link to='/' onClick={() => this.handleClick()}>Logout</Link></li>
+          <div class="navbar-fixed">
+            <nav>
+              <div class="nav-wrapper">
+                <Link to='/'><img src="/img/logo-md-white.png" className="logo" alt="ryde-logo" /></Link>
+                <ul class="right hide-on-med-and-down">
+                  <NavLoggedIn />
+                </ul>
+                <a href="#" data-activates="slide-out" class="main-menu-button-collapse hide-on-large-only">
+                  <i class="material-icons">menu</i>
+                </a>
+              </div>
+            </nav>
+          </div>
+
+          <ul id="slide-out" class="side-nav">
+            <NavLoggedIn />
           </ul>
+
         </div>
       )
     } else {
       return (
         <div>
-          <h1>~~~~~~~~~~~NAV PLACEHOLDER section~~~~~~~~~~~~~~</h1>
-          <ul className='nav-ul'>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/discover'>Discover</Link></li>
-            <li><Link to='/publicprofile'>Public Profile</Link></li>  {/* placeholder so we can easily get to page */}
-            <li><Link to='/ourteam'>OurTeam</Link></li>
-            <li><Link to='/login'>Log In</Link></li>  {/* placeholder so we can easily get to page */}
-            <li><Link to='/signup'>Sign Up</Link></li>  {/* placeholder so we can easily get to page */}
+          <div class="navbar-fixed">
+            <nav>
+              <div class="nav-wrapper">
+                <Link to='/'><img src="/img/logo-md-white.png" className="logo" alt="ryde-logo" /></Link>
+                <ul class="right hide-on-med-and-down">
+                  <NavLoggedOut />
+                </ul>
+                <a href="#" data-activates="slide-out" class="main-menu-button-collapse hide-on-large-only">
+                  <i class="material-icons">menu</i>
+                </a>
+              </div>
+            </nav>
+          </div>
+
+          <ul id="slide-out" class="side-nav">
+            <ul>
+              <NavLoggedOut />
+            </ul>
           </ul>
-        </div>
+
+      </div>
       )
     }
   }
