@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import '../css/App.css';
+import './css/App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Navbar from './Navbar';
-import BigSearch from './BigSearch';
-import Home from './Home';
-import Discover from './Discover';
-import MyRydes from './MyRydes';
-import { OurTeam } from './OurTeam';
-import { Footer } from './Footer';
-import Signup from './Signup';
-import Login from './Login';
-import { UserProfile } from './UserProfile';
+import Home from './pages/Home';
+import Discover from './pages/Discover';
+import MyRydes from './pages/MyRydes';
+import { OurTeam } from './pages/OurTeam';
+import { UserProfile } from './pages/UserProfile';
+import { Footer } from './components/Footer';
+import Signup from './components/Signup';
+import Login from './components/Login';
+import Navbar from './components/Navbar';
+import BigSearch from './components/BigSearch';
+
 import axios from 'axios'
 
 class App extends Component {

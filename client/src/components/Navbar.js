@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Home from './Home';
-import Discover from './Discover';
-import { OurTeam } from './OurTeam';
+import Home from '../pages/Home';
+import Discover from '../pages/Discover';
+import { OurTeam } from '../pages/OurTeam';
 import Login from './Login';
 import Signup from './Signup';
 

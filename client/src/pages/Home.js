@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MiniSearch from './MiniSearch';
+import MiniSearch from '../component/MiniSearch';
 
 class Home extends Component {
   constructor(props) {
