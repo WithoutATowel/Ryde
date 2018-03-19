@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import store from '../redux/store/index';
 import '../css/discover.css';
 import ListBox from '../components/ListBox';
 import BigSearch from '../components/BigSearch';

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import './css/App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import store from './redux/store/index';
+import { liftTokenToState } from './redux/actions/index';
+import { logout } from './redux/actions/index';
+import './css/App.css';
 import Navbar from './components/Navbar';
 import BigSearch from './components/BigSearch';
 import Home from './pages/Home';
@@ -15,43 +19,44 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import axios from 'axios'
 
-class App extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(logout())
+  }
+}
+
+const mapStateToProps = state => {
+  return { token: state.token, user: state.user };
+}
+
+class ConnectedApp extends Component {
   constructor(props){
     super(props)
-    this.state = {
-      token: '',
-      user: {}
-    }
-    this.liftTokenToState = this.liftTokenToState.bind(this)
-    this.logout = this.logout.bind(this)
   }
 
-  liftTokenToState(data) {
-    this.setState({
-      token: data.token,
-      user: data.user
-    })
-  }
+  // liftTokenToState(data) {
+  //   this.setState({
+  //     token: data.token,
+  //     user: data.user
+  //   })
+  // }
 
-  logout() {
-    console.log('Logging out')
-    localStorage.removeItem('mernToken')
-    this.setState({ token: '', user: {} })
-  }
+  // logout() {
+  //   console.log('Logging out')
+  //   localStorage.removeItem('rydeAppToken')
+  //   this.setState({ token: '', user: {} })
+  // }
 
   componentDidMount() {
-    var token = localStorage.getItem('mernToken')
-    if (token === 'undefined' || token === 'null' || token === '' || token === undefined) {
-      localStorage.removeItem('mernToken')
-      this.setState({
-        token: '',
-        user: {}
-      })
+    let token = localStorage.getItem('rydeAppToken')
+    if (token === 'undefined' || token === 'null' || token === '' || token === undefined || token === null) {
+      localStorage.removeItem('rydeAppToken')
+      this.props.logout()
     } else {
       axios.post('/auth/me/from/token', {
         token // same as token: token
       }).then( result => {
-        localStorage.setItem('mernToken', result.data.token)
+        localStorage.setItem('rydeAppToken', result.data.token)
         this.setState({
           token: result.data.token,
           user: result.data.user
@@ -118,5 +123,7 @@ class App extends Component {
     )
   }
 }
+
+const App = connect(mapStateToProps, mapDispatchToProps)(ConnectedApp);
 
 export default App;

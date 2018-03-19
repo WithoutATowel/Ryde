@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../redux/store/index';
-import { toggleRydesTab } from '../redux/actions/index'
+import { toggleRydesTab } from '../redux/actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -22,7 +22,7 @@ class ConnectedMyRydes extends Component {
     console.log('Post-toggle: ' + store.getState().rydesTabIsToggled);
   }
 
-  
+
 
   render() {
     return (

@@ -20,6 +20,7 @@ router.post('/login', (req, res, next) => {
     passwordMatch = bcrypt.compareSync(req.body.password, hashedPass)
     if (passwordMatch) {
       // The passwords match...
+      console.log("Password is correct")
       var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
         expiresIn: 60 * 60 * 24 // expires in 24 hours
       })
@@ -67,7 +68,7 @@ router.post('/me/from/token', (req, res, next) => {
   } else {
     jwt.verify(token, process.env.JWT_SECRET, function(err, user) {
       if (err) {
-        res.status(401).send(err)
+        res.status(401).send('GLALALGLALAL ' + err)
       } else {
         // TODO: Why does the "_id" need to be in quotes?
         User.findById({
