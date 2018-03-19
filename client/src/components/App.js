@@ -7,6 +7,7 @@ import Home from './Home';
 import Discover from './Discover';
 import { UserProfile } from './UserProfile';
 import PublicProfile from './PublicProfile';
+import MyRydes from './MyRydes';
 import { OurTeam } from './OurTeam';
 import { Footer } from './Footer';
 import Signup from './Signup';
@@ -97,6 +98,7 @@ class App extends Component {
               <Route path='/profile' component={UserProfile} />  {/* placeholder so we can easily get to page */}
               <Route path='/publicprofile' component={PublicProfile} />  {/* placeholder so we can easily get to page */}
               <Route path='/ourteam' component={OurTeam} />
+              <Route path='/myrydes' component={MyRydes} />
               {/* <Route path='/login' component={() => (
                 <Login user={this.state.user} liftToken={this.liftTokenToState} />
               )} />
