@@ -1,0 +1,14 @@
+.nav-ul li {
+  margin: .9vh;
+  list-style: none;
+}
+
+.nav-ul a {
+  color: tan;
+  text-decoration: none;
+}
+
+.nav-ul a:hover {
+  color: slateblue;
+  border-bottom: 2px solid slateblue;
+}
