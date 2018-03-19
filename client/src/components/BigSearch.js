@@ -37,7 +37,7 @@ class ConnectedBigSearch extends Component {
 
   render() {
     return (
-      <div>
+      <div className='col s12 m4'>
         <form onSubmit={e=>this.handleBigSearch(e)}>
           <input type='number' maxLength='5' placeholder='Leaving from...Zipcode?' ref={(input)=>{this.zipInput = input;}} />
           <br />
@@ -51,14 +51,14 @@ class ConnectedBigSearch extends Component {
           <br />
           <p>
             <input id='pets' type='checkbox' placeholder='Pets' ref={(input)=>{this.petInput = input;}}/>
-            <label for='pets'>Pets?</label>
+            <label htmlFor='pets'>Pets?</label>
           </p>
           <br />
           <input type='number' placeholder='Cost' ref={(input)=>{this.costInput = input;}}/>
           <br />
           <p>
             <input id='reoccur' type='checkbox' ref={(input)=>{this.reoccurInput = input;}}/>
-            <label for='reoccur'>Reoccuring?</label>
+            <label htmlFor='reoccur'>Reoccuring?</label>
           </p>
           <br />
           <input type='number' placeholder='Seatting' ref={(input)=>{this.seatInput = input;}}/>

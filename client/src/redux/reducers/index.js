@@ -53,6 +53,7 @@ const rootReducer = (state = initialState, action) => {
             return {...state, token: '', user: null };
         case LIFT_BIG_SEARCH:
             console.log('lifted big search results');
+            console.log(action.payload.searchResults);
             return {...state, searchResults: action.payload.searchResults}
         default:
             return state;
