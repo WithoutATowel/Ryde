@@ -45,15 +45,12 @@ router.post('/signup', (req, res, next) => {
       }, function(err, user) {
         if (err) {
           console.log("GOT AN ERROR CREATING THE USER")
-          console.log(err)
           res.send(err)
         } else {
           console.log("JUST ABOUT TO SIGN THE TOKEN")
           var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
             expiresIn: 60 * 60 * 24
           })
-          console.log("user: ", user)
-          console.log("token: ", token)
           res.json({user, token})
         }
       })
