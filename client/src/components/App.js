@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import BigSearch from './BigSearch';
 import Home from './Home';
 import Discover from './Discover';
+import MyRydes from './MyRydes';
 import { OurTeam } from './OurTeam';
 import { Footer } from './Footer';
 import Signup from './Signup';
@@ -94,6 +95,7 @@ class App extends Component {
               <Route exact path='/' component={Home} />
               <Route path='/discover' component={Discover} />
               <Route path='/ourteam' component={OurTeam} />
+              <Route path='/myrydes' component={MyRydes} />
               {/* <Route path='/login' component={() => (
                 <Login user={this.state.user} liftToken={this.liftTokenToState} />
               )} />
