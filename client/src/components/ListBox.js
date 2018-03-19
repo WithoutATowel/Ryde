@@ -10,8 +10,10 @@ class ListBox extends Component {
   render() {
     return (
       <div className='list-box-div'>
-        <h2 className='list-box-h2'>~~~~~~~~~~~~~LIST BOX PLACEHOLDER component</h2>
-        <ListCard />
+        <div className='col s12 m7'>
+          <h1>~~~~~~~~ ListBox ~~~~~~~~~</h1>
+          <ListCard />
+        </div>
         <br />
       </div>
     )
