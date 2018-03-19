@@ -5,12 +5,40 @@ var tripSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  start: {
+  rydeName: {
     type: String,
     required: true
   },
-  end: {
-    type: String,
+  startAddress: {
+    street: String,
+    city: {
+      type: String,
+      required: true
+    },
+    state: {
+      type: String,
+      required: true,
+      minLength: 2,
+      maxLength: 2
+    },
+    zip: Number
+  },
+  endAddress: {
+    street: String,
+    city: {
+      type: String,
+      required: true
+    },
+    state: {
+      type: String,
+      required: true,
+      minLength: 2,
+      maxLength: 2
+    },
+    zip: Number
+  },
+  departDate: {
+    type: Number,
     required: true
   },
   departTime: {
