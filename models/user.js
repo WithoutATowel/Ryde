@@ -20,7 +20,48 @@ var userSchema = new mongoose.Schema({
     required: true,
     minLength: 8,
     maxLength: 99
-  }
+  },
+  address: {
+    street: String,
+    city: {
+      type: String,
+      required: true
+    },
+    state: {
+      type: String,
+      required: true,
+      minLength: 2,
+      maxLength: 2
+    },
+    zip: Number
+  },
+  workAddress: {
+    street: String,
+    city: {
+      type: String,
+    },
+    state: {
+      type: String,
+      minLength: 2,
+      maxLength: 2
+    },
+    zip: Number
+  },
+  dob: {
+    type: Number,
+    required: true
+  },
+  driver: Boolean,
+  car: String,
+  license: String,
+  driverReviews: Array,
+  riderReviews: Array,
+  setTrips: Array,
+  pendingTrips: Array,
+  deniedTrips: Array,
+  completedTrips: Array,
+  seedId: Number,
+
 })
 
 userSchema.set('toJSON', {
