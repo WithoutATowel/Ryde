@@ -32,6 +32,7 @@ class ListCard extends Component {
       )
     }
 
+    //{ryde.driver.name}, {ryde.driver.averageDriverRating} not available yet
 
     return (
       <div className='list-card-div'>
@@ -41,8 +42,8 @@ class ListCard extends Component {
         </div>
         <h5>Departure: {ryde.departDate},{ryde.departTime}</h5>
         <div className='row'>
-          <h5 className='col s6'>Driver name: {ryde.driver.name}</h5>
-          <h5 className='col s6'>Rating: {ryde.driver.averageDriverRating}</h5>
+          <h5 className='col s6'>Driver name: Bernie Sanders</h5>
+          <h5 className='col s6'>Rating: 4.8 / 5</h5>
         </div>
         {details}
         <button onClick={this.handleExpansionToggle}>Expand</button>
