@@ -1,6 +1,7 @@
 import { TOGGLE_RYDES_TAB } from '../constants/action-types';
 import { LIFT_TOKEN_TO_STATE } from '../constants/action-types';
 import { LOGOUT_USER } from '../constants/action-types';
+import { LIFT_BIG_SEARCH } from '../constants/action-types';
 
 const initialState = {
     rydesTabIsToggled: true,
@@ -50,6 +51,9 @@ const rootReducer = (state = initialState, action) => {
         case LOGOUT_USER:
             console.log('Logging out user');
             return {...state, token: '', user: null };
+        case LIFT_BIG_SEARCH:
+            console.log('lifted big search results');
+            return {...state, searchResults: action.payload.searchResults}
         default:
             return state;
     }
