@@ -11,7 +11,7 @@ class Discover extends Component {
   render() {
     return (
       <div className='discover-div'>
-        <h1 className='discover-h1'>~~~~~~~~~~~~DISCOVER PLACEHOLDER PAGE~~~~~~~~~~~~~~</h1>
+        <h1 className='discover-h1'>Find a Ryde</h1>
         <div className='row'>
           <BigSearch />
           <ListBox />
