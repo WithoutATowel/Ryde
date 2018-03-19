@@ -106,6 +106,7 @@ class ConnectedApp extends Component {
               <Route path='/signup' component={Signup} />  {/* placeholder so we can easily get to page */}
               <Route path='/ourteam' component={OurTeam} />
               <Route path='/postaryde' component={PostARyde} />
+              <Route path='/myrydes' component={MyRydes} />
               {/* <Route path='/login' component={() => (
                 <Login user={this.state.user} liftToken={this.liftTokenToState} />
               )} />

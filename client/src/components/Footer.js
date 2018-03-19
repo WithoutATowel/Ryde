@@ -5,7 +5,7 @@ export const Footer = props => {
 
   return (
     <footer>
-      <h1 className='foot-h1'>~~~~~~~~~~FOOTER PLACEHOLDER section~~~~~~~~~~~~</h1>
+      <p>RYDE &copy; 2018. All Rights Reserved</p>
     </footer>
   )
 }

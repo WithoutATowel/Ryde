@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var Trip = require('./models/trips');
 
 
 // Mongoose stuff
@@ -28,20 +29,35 @@ app.use(function(req, res, next) {
 });
 
 app.post('/bigsearch', (req, res, next) =>{
-  console.log(req.body);
-  res.send('data stuff hopefully')
-  // Trip.find({
-  //   time: req.body.zip
-  // }, function(err, trips){
-  //   console.log(trips)
-  //   if(err){
-  //     console.log(err);
-  //     res.send(err);
-  //   } else {
-  //     console.log(trips);
-  //     res.send(trips);
-  //   }
-  // })
+  var bodhi = req.body
+  var searchOptions = {
+    'startAddress.zip': bodhi.zip,
+    'startAddress.city': bodhi.sCity,
+    'endAddress.city': bodhi.eCity,
+    departDate: bodhi.sTime,
+    pets: bodhi.pets,
+    cost: bodhi.cost,
+    reoccurring: bodhi.reoccur,
+    seats: bodhi.seat
+  }
+  console.log('full search options', searchOptions);
+  for (let key in searchOptions) {
+    if (searchOptions[key] === '' || searchOptions[key] === false) {
+      delete searchOptions[key]
+    }
+  }
+  console.log('deleted search fields', searchOptions);
+
+  Trip.find(searchOptions, function(err, trips){
+    // console.log(trips)
+    if(err){
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log(trips);
+      res.send(trips);
+    }
+  })
 })
 
 app.use('/auth', auth);
