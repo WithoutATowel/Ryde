@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../css/discover.css';
-import ListBox from './ListBox';
+import ListBox from '../components/ListBox';
 
 class Discover extends Component {
   constructor(props) {

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/navbar.css';
-import Home from './Home';
-import Discover from './Discover';
-import { UserProfile } from './UserProfile';
-import PublicProfile from './PublicProfile';
-import Login from './Login';
-import Signup from './Signup';
-import { OurTeam } from './OurTeam';
+import Home from '../pages/Home';
+import Discover from '../pages/Discover';
+import { UserProfile } from '../pages/UserProfile';
+import PublicProfile from '../pages/PublicProfile';
+import Login from '../components/Login';
+import Signup from '../components/Signup';
+import { OurTeam } from '../pages/OurTeam';
 
 class Nav extends Component {
   constructor(props) {
