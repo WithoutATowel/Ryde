@@ -41,6 +41,7 @@ class ConnectedNav extends Component {
           <ul className='nav-ul'>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/discover'>Discover</Link></li>
+            <li><Link to='/myrydes'>My Rydes</Link></li>
             <li><Link to='/profile'>User Profile</Link></li>  {/* placeholder so we can easily get to page */}
             <li><Link to='/publicprofile'>Public Profile</Link></li>  {/* placeholder so we can easily get to page */}
             <li><Link to='/ourteam'>OurTeam</Link></li>
