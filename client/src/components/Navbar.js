@@ -33,23 +33,6 @@ class ConnectedNav extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-    return (
-      <div>
-        <ul className='nav-ul'>
-          <li><Link to='/'>Home</Link></li>
-          <li><Link to='/discover'>Discover</Link></li>
-          <li><Link to='/myrydes'>My Rydes</Link></li>
-          <li><Link to='/profile'>User Profile</Link></li>  {/* placeholder so we can easily get to page */}
-          <li><Link to='/publicprofile'>Public Profile</Link></li>  {/* placeholder so we can easily get to page */}
-          <li><Link to='/login'>Log In</Link></li>  {/* placeholder so we can easily get to page */}
-          <li><Link to='/signup'>Sign Up</Link></li>  {/* placeholder so we can easily get to page */}
-          <li><Link to='/ourteam'>OurTeam</Link></li>
-          <li><Link to='/'>Logout</Link></li>
-        </ul>
-      </div>
-    )
-=======
     let theUser = this.props.user //|| this.state.googleUser
     if (theUser) {
       return (
@@ -58,6 +41,7 @@ class ConnectedNav extends Component {
           <ul className='nav-ul'>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/discover'>Discover</Link></li>
+            <li><Link to='/myrydes'>My Rydes</Link></li>
             <li><Link to='/profile'>User Profile</Link></li>  {/* placeholder so we can easily get to page */}
             <li><Link to='/publicprofile'>Public Profile</Link></li>  {/* placeholder so we can easily get to page */}
             <li><Link to='/ourteam'>OurTeam</Link></li>
@@ -80,7 +64,6 @@ class ConnectedNav extends Component {
         </div>
       )
     }
->>>>>>> 217cf4341de230fbcb12c56dd7ad45337fde08bc
   }
 }
 
