@@ -17,11 +17,11 @@ var tripSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  reocurring: {
+  reoccurring: {
     type: Boolean,
     required: true
   },
-  reocurringDays: Array,
+  reoccurringDays: Array,
   cost: {
     type: Number,
     required: true
