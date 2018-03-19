@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
 // Mongoose stuff
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/ryde');  // change db name here
@@ -25,8 +26,7 @@ app.use(function(req, res, next) {
   res.locals.currentUser = req.user;
   next();
 });
-
-app.use('/auth', auth);
+app.use('/seed', seed);
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
