@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../css/minisearch.css';
 
 class MiniSearch extends Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class MiniSearch extends Component {
 
   render() {
     return (
-      <h1>~~~~~~~~~~~~~~MINI SEARCH PLACEHOLDER section~~~~~~~~~~~~</h1>
+      <h1 className='ms-h1'>~~~~~~~~~~~~~~MINI SEARCH PLACEHOLDER section~~~~~~~~~~~~</h1>
     )
   }
 }
