@@ -14,7 +14,7 @@ class ConnectedUserProfile extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: null
+      user: null,
     }
   }
 
@@ -22,7 +22,6 @@ class ConnectedUserProfile extends Component {
     axios.post('/finduser', {
       _id: this.props.match.params.id
     }).then( result => {
-      console.log('here is userInfo', result.data)
       this.setState({
         user: result.data
       })

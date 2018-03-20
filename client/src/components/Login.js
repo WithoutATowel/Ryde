@@ -41,7 +41,7 @@ class ConnectedLogin extends Component {
       email: this.state.email,
       password: this.state.password
     }).then( result => {
-      localStorage.setItem('rydeAppToken', result.data.token) // change 'mernToken' to your app name or something useful
+      localStorage.setItem('rydeAppToken', result.data.token)
       this.props.liftTokenToState(result.data)
       console.log('here is result.data', result.data)
     }).catch( err => console.log(err) )

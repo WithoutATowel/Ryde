@@ -11,25 +11,7 @@ class PublicProfile extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   axios.post('/finduser', {
-  //     _id: this.props.userId
-  //   }).then( result => {
-  //     console.log('here is userInfo', result.data)
-  //     this.setState({
-  //       user: result.data
-  //     })
-  //   }).catch( err => console.log(err))
-  // }
-
   render() {
-    // console.log('userinfo', this.state.user)
-    // let userName = null
-    // if (this.state.user !== null) {
-    //   userName = this.state.user.user.name
-    // } else {
-    //   userName = 'DIDNT FIND USER'
-    // }
     if (this.props.user) {
       return (
         <div className='public-profile-page'>
@@ -41,7 +23,6 @@ class PublicProfile extends Component {
               </div>
               <br />
               <h5>~~~~~~{this.props.user.user.name} PLACHOLDER text~~~~~~~~~</h5>
-              {console.log(' LALA this.props.user', this.props.user)}
               <p>do we want gender here???</p>
             </div>
           </div>
@@ -54,7 +35,7 @@ class PublicProfile extends Component {
       )
     } else {
       return (
-        <h4>~~~~~~~~~~~~Loading...~~~~~~~~~~</h4> //FIX THIS
+        <h4>Loading...</h4>  /////////// FIX THIS
       )
     }
   }
