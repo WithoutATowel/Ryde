@@ -131,6 +131,7 @@ footer p {
 .list-card-add i {
   margin-top: 1%;
   transition: transform 0.5s ease;
+  color: black !important;
 }
 
 .list-card-expand-button {

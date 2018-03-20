@@ -109,11 +109,11 @@ app.get('/myrydes', (req, res, next) => {
 
 app.post('/myrydes', (req, res, next) => {
   console.log('Hit POST /myrydes route');
+  res.send('Ya did it, kid.');
+  // TODO: Add real code to add/remove a ryde for a user
 })
 
 app.use('/auth', auth);
-
-
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {

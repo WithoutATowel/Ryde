@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import '../css/listcard.css';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-class ListCard extends Component {
+const mapStateToProps = state => {
+  return { user: state.user }
+}
+
+class ConnectedListCard extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -23,33 +29,46 @@ class ListCard extends Component {
     let newRotation = e.target.style.transform === 'rotate(45deg)' ? 'rotate(0deg)' : 'rotate(45deg)';
     e.target.style.transform = newRotation;
     // Post addition to the database
-    axios.post('/myrydes', { userId: this.props.user._id, tripId: this.props.ryde._id })
+    axios.post('/myrydes', { userId: this.props.user._id });
   }
 
-  // <input type='checkbox' checked={ryde.reocurringDays.includes('sunday') ? 'checked' : null} disabled />
-  //         <label>Sunday</label>
-  //         <input type='checkbox' checked={ryde.reocurringDays.includes('monday') ? 'checked' : null} disabled />
-  //         <label>Monday</label>
-  //         <input type='checkbox' checked={ryde.reocurringDays.includes('tuesday') ? 'checked' : null} disabled />
-  //         <label>Tuesday</label>
-  //         <input type='checkbox' checked={ryde.reocurringDays.includes('wednesday') ? 'checked' : null} disabled />
-  //         <label>Wednesday</label>
-  //         <input type='checkbox' checked={ryde.reocurringDays.includes('thursday') ? 'checked' : null} disabled />
-  //         <label>Thursday</label>
-  //         <input type='checkbox' checked={ryde.reocurringDays.includes('friday') ? 'checked' : null} disabled />
-  //         <label>Friday</label>
-  //         <input type='checkbox' checked={ryde.reocurringDays.includes('saturday') ? 'checked' : null} disabled />
-  //         <label>Saturday</label>
-
   render() {
-    // console.log(this.props.ryde);
     let ryde = this.props.ryde;
-    let recurringDays, recurringColon
+    let reocurringDaysJSX, reocurringColon, addButton;
+    if (this.props.user) {
+      addButton = (
+        <div className='col s2 list-card-add right-align' onClick={ (e) => this.handleRydeAdd(e) }>
+          <i className='material-icons large'>add</i>
+        </div>
+      )
+    } else {
+      addButton = (
+        <div className='col s2 list-card-add right-align'>
+          <Link to='/login'>
+            <i className='material-icons large'>add</i>
+          </Link>
+        </div>
+      )
+    }
+
     if (ryde.reoccurring) {
-      console.log(ryde);
-      recurringColon = ': ';
-      recurringDays = (
+      reocurringColon = ': ';
+      reocurringDaysJSX = (
         <span className='list-card-recurring-days'>
+          <input type='checkbox' checked={ryde.reoccurringDays.includes('sunday') ? 'checked' : null} disabled />
+          <label>Sunday</label>
+          <input type='checkbox' checked={ryde.reoccurringDays.includes('monday') ? 'checked' : null} disabled />
+          <label>Monday</label>
+          <input type='checkbox' checked={ryde.reoccurringDays.includes('tuesday') ? 'checked' : null} disabled />
+          <label>Tuesday</label>
+          <input type='checkbox' checked={ryde.reoccurringDays.includes('wednesday') ? 'checked' : null} disabled />
+          <label>Wednesday</label>
+          <input type='checkbox' checked={ryde.reoccurringDays.includes('thursday') ? 'checked' : null} disabled />
+          <label>Thursday</label>
+          <input type='checkbox' checked={ryde.reoccurringDays.includes('friday') ? 'checked' : null} disabled />
+          <label>Friday</label>
+          <input type='checkbox' checked={ryde.reoccurringDays.includes('saturday') ? 'checked' : null} disabled />
+          <label>Saturday</label>
         </span>
       )
     }
@@ -81,9 +100,7 @@ class ListCard extends Component {
               </tbody>
             </table>
           </div>
-          <div className='col s2 list-card-add right-align' onClick={ (e) => this.handleRydeAdd(e) }>
-            <i className='material-icons large'>add</i>
-          </div>
+          {addButton}
         </div>
         <div className='list-card-details' ref='details'>
           <div className='row'>
@@ -96,16 +113,17 @@ class ListCard extends Component {
               <label>Smoking</label>
               <br />
               <input type='checkbox' checked={ryde.reoccurring ? 'checked' : null} disabled />
-              <label>Recurring{recurringColon}</label>
-              {recurringDays}
+              <label>Reocurring{reocurringColon}</label>
+              {reocurringDaysJSX}
             </div>
           </div>
-          
         </div>
         <button className='list-card-expand-button' onClick={ (e) => this.handleExpansionToggle(e) }></button>
       </div>
     )
   }
 }
+
+const ListCard = connect(mapStateToProps)(ConnectedListCard);
 
 export default ListCard;
