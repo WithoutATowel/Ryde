@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import '../css/postaryde.css';
 import RydeForm from '../components/RydeForm';
+import { connect } from 'react-redux';
+import store from '../redux/store/index';
+import axios from 'axios';
 
-class PostARyde extends Component {
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+class ConnectedPostARyde extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -64,10 +73,11 @@ class PostARyde extends Component {
     console.log('dateTime ', ...numDepartDate, ...numDepartTime)
     // year, month, day, hour, minute, second, and millisecond
     var departDateTime =  Date.UTC(...numDepartDate, ...numDepartTime)
+    console.log('departDateTime ', departDateTime)
 
 
     var trip = {
-      driverId: '',
+      driverId: this.props.user._id,
       rydeName: this.rydeName.value,
       startAddress: {
         street: this.startStreet.value,
@@ -81,8 +91,7 @@ class PostARyde extends Component {
         state: this.endState.value,
         zip: this.endZip.value,
       },
-      departDate: this.departDate.value,
-      departTime: this.departTime.value,
+      departDate: departDateTime,
       reoccurring: this.reoccurring.checked,
       reoccurringDays: reoccurringArray,
       cost: this.cost.value,
@@ -95,8 +104,25 @@ class PostARyde extends Component {
     console.log(trip)
 
     if (this.twoWay.checked) {
+      let newReturnDepartDate = this.returnDepartDate.value.split('-');
+      let newReturnDepartTime = this.returnDepartTime.value.split(':');
+
+      var numReturnDepartDate = []
+      var numReturnDepartTime = []
+
+      newReturnDepartDate.forEach(function(newDate) {
+        numReturnDepartDate.push(+newDate)
+      })
+      newReturnDepartTime.forEach(function(newDate) {
+        numReturnDepartTime.push(+newDate)
+      })
+
+      // year, month, day, hour, minute, second, and millisecond
+      var returnDepartDateTime =  Date.UTC(...numReturnDepartDate, ...numReturnDepartTime)
+      console.log('return departDateTime ', returnDepartDateTime)
+
       var returnTrip = {
-        driverId: '',
+        driverId: this.props.user._id,
         rydeName: this.rydeName.value,
         startAddress: {
           street: this.endStreet.value,
@@ -110,8 +136,7 @@ class PostARyde extends Component {
           state: this.startState.value,
           zip: this.startZip.value
         },
-        returnDepartDate: this.departDate.value,
-        returnDepartTime: this.departTime.value,
+        departDate: returnDepartDateTime,
         reoccurring: this.reoccurring.checked,
         reoccurringDays: reoccurringArray,
         cost: this.cost.value,
@@ -124,8 +149,16 @@ class PostARyde extends Component {
       console.log(returnTrip)
     }
 
-    // axios.post('/postaryde', trip).then(result => {
-    //   console.log(result.data)
+    // axios.post('/createryde', trip).then(result => {
+    //   console.log('added one way ', result.data)
+    //   if (this.twoWay.checked) {
+    //     axios.post('/createryde', returnTrip).then(result => {
+    //       console.log('added two way ', result.data)
+    //
+    //     }).catch(err => {
+    //       console.log(err);
+    //     })
+    //   }
     // }).catch(err => {
     //   console.log(err);
     // })
@@ -153,6 +186,8 @@ class PostARyde extends Component {
           twoWay={(input) => this.twoWay = input}
           onTwoWayChange={this.handleTwoWayChange}
           twoWayShowHide={twoWayShowHide}
+          returnDepartDate={(input) => this.returnDepartDate = input}
+          returnDepartTime={(input) => this.returnDepartTime = input}
           reoccurring={(input) => this.reoccurring = input}
           reoccurringShowHide={reoccurringShowHide}
           onReoccurringChange={this.handleReoccurringChange}
@@ -174,5 +209,8 @@ class PostARyde extends Component {
     )
   }
 }
+
+const PostARyde = connect(mapStateToProps)(ConnectedPostARyde);
+
 
 export default PostARyde;
