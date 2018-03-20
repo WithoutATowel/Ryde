@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var User = require('./models/user');
 var Trip = require('./models/trips');
 
 
@@ -27,6 +28,19 @@ app.use(function(req, res, next) {
   res.locals.currentUser = req.user;
   next();
 });
+
+app.post('/finduser', (req, res, next) => {
+  User.findOne({_id: req.body}, function(err, user) {
+    if (user) {
+      res.json({user})
+    } else {
+      res.status(420).json({
+        error: true,
+        message: 'Cant find user'
+      })
+    }
+  })
+})
 
 app.post('/bigsearch', (req, res, next) => {
   var bodhi = req.body

@@ -18,10 +18,10 @@ class ConnectedUserProfile extends Component {
       if (this.props.user._id === this.props.match.params.id) {
         return <PrivateProfile />
       } else {
-        return <PublicProfile />
+        return <PublicProfile userId={this.props.match.params.id} />
       }
     } else {
-      return <PublicProfile />
+      return <PublicProfile userId={this.props.match.params.id} />
     }
   }
 }

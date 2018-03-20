@@ -1,15 +1,36 @@
 import React, { Component } from 'react';
 import '../css/publicprofile.css';
 import ProfileDetails from '../components/ProfileDetails';
+import axios from 'axios';
 
 class PublicProfile extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      user: null
+    }
   }
 
-  axios.get
+  componentDidMount() {
+    axios.post('/finduser', {
+      _id: this.props.userId
+    }).then( result => {
+      console.log('here is userInfo', result.data)
+      this.setState({
+        user: result.data
+      })
+    }).catch( err => console.log(err))
+  }
 
   render() {
+    console.log('userinfo', this.state.user)
+    let userName = null
+    if (this.state.user !== null) {
+      userName = this.state.user.user.name
+    } else {
+      userName = 'DIDNT FIND USER'
+    }
+
     return (
       <div className='public-profile-page'>
         <div className='row'>
@@ -19,7 +40,7 @@ class PublicProfile extends Component {
               <img src='https://www.placecage.com/c/185/230' />
             </div>
             <br />
-            <h5>~~~~~~USER NAME PLACHOLDER text~~~~~~~~~</h5>
+            <h5>~~~~~~{userName} NAME PLACHOLDER text~~~~~~~~~</h5>
             <p>do we want gender here???</p>
           </div>
         </div>
