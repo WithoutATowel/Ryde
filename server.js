@@ -28,6 +28,11 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.post('/createryde', (req, res, next) => {
+  console.log(req.body);
+
+})
+
 app.post('/bigsearch', (req, res, next) => {
   var bodhi = req.body
   var searchOptions = {

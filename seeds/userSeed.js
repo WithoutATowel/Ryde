@@ -3,7 +3,6 @@ var User = require('../models/user');
 
 mongoose.connect('mongodb://localhost/ryde');
 
-
     const users = [
       {
         name: 'Sean Cesmat',
