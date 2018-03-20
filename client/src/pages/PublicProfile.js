@@ -7,6 +7,8 @@ class PublicProfile extends Component {
     super(props)
   }
 
+  axios.get
+
   render() {
     return (
       <div className='public-profile-page'>
