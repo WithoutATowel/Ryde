@@ -54,7 +54,6 @@ app.post('/bigsearch', (req, res, next) => {
   }
 
   Trip.find(searchOptions, function(err, trips){
-    // console.log(trips)
     if(err){
       console.log(err);
       res.send(err);
