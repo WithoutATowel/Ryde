@@ -11,6 +11,20 @@
   text-align: center;
 }
 
+.flexCol-vCenter-hCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.flexRow-vCenter-hCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
 /* ======== Navbar ========= */
 nav {
   background-color: #000000;
@@ -33,6 +47,9 @@ a.main-menu-button-collapse {
     width: 100%;
   }
 
+
+
+/*========= Discover ===========*/
 .discover-nav-btn-cont {
     display: flex;
     justify-content: center;
@@ -86,4 +103,66 @@ footer p {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s linear;
+}
+
+
+/* ======= Switcher ======= */
+
+.switcher {
+  display: inline-block;
+  height: 36px;
+  margin-top:3px;
+  padding: 4px;
+  background: #fff;
+  border-radius: 2px;
+  width: 200px;
+  border-radius: 30px;
+  border: solid 1px #ddd;
+  position: relative;
+}
+
+.switcher__input {
+  display: none;
+}
+
+body .switcher__label {
+  float: left;
+  width: 50%;
+  font-size: 12px;
+  line-height: 28px !important;
+  padding: 0 !important;
+  color: #000;
+  text-align: center;
+  cursor: pointer;
+  position: inherit;
+  z-index: 10;
+  transition: color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+  will-change: transform;
+}
+
+.switcher__label::before, .switcher__label::after {
+  display: none;
+}
+
+.switcher__toggle {
+  position: absolute;
+  float: left;
+  height: 30px;
+  width: 50%;
+  font-size: 12px !important;
+  line-height: 30px;
+  cursor: pointer;
+  background-color: #3366cc;
+  border-radius: 30px;
+  left: 2px;
+  top: 2px;
+  transition: left 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);
+  will-change: transform;
+}
+
+.switcher__input:checked + .switcher__label {
+  color: #fff;
+}
+.switcher__input--myDrives:checked ~ .switcher__toggle {
+  left: 97px;
 }
