@@ -24,22 +24,13 @@ class ConnectedMyRydes extends Component {
     super(props)
   }
 
-  // handleBigSearch = (e)=>{
-  //   e.preventDefault()
-
-  //   axios.post('/bigsearch',
-  //   {zip,dist,sCity,eCity,sTime,pets,cost,reoccur,seat}).then(
-  //     result =>{
-  //     this.props.liftBigSearch(result.data);
-  //   })
-  // }
+  willThisWork() { 
+    console.log('HUZZAH');
+  }
 
   handleTabToggle = (event) => {
-    // Update rydesTabIsToggled property in Redux
-    this.props.toggleRydesTab(!this.props.rydesTabIsToggled);
-
-    console.log('userId is: ' + this.props.user._id);
-    let route = this.props.rydesTabIsToggled ? '/myrydes' : '/mydryves';
+    // If Rydes tab currently selected, query against the '/mydryves' route and vice versa
+    let route = this.props.rydesTabIsToggled ? '/mydryves' : '/myrydes';
     // TODO: Add code to query for user's rydes and store in 'searchResults'
     axios.post(route, { userId: this.props.user._id })
       .then( result => {
@@ -48,11 +39,12 @@ class ConnectedMyRydes extends Component {
         } else {
           this.props.liftBigSearch([]);
         }
+        // Update rydesTabIsToggled state value in Redux
+        this.props.toggleRydesTab(!this.props.rydesTabIsToggled);
       });
   }
 
   componentDidMount() {
-    console.log('in the componentDidMount');
     axios.post('/myrydes', { userId: this.props.user._id })
       .then( result => {
         if (result.data && result.data.length > 0) {
@@ -64,6 +56,7 @@ class ConnectedMyRydes extends Component {
   }
 
   render() {
+    console.log(this.props.rydesTabIsToggled);
     return (
       <div>
         <h1>My Rydes</h1>
