@@ -32,9 +32,11 @@ app.use(function(req, res, next) {
 
 
 app.post('/finduser', (req, res, next) => {
-  User.findOne({_id: req.body}, function(err, user) {
+  User.findOne({_id: req.body.id}, function(err, user) {
     if (user) {
-      res.json({user})
+      console.log("Are we sure this is the user from the db?")
+      console.log(user)
+      res.json(user.toObject())
     } else {
       res.status(420).json({
         error: true,
