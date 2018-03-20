@@ -38,26 +38,30 @@ class ConnectedMyRydes extends Component {
     // Update rydesTabIsToggled property in Redux
     this.props.toggleRydesTab(!this.props.rydesTabIsToggled);
 
-    console.log('userId is: ' + this.props.user._id); 
-    if (this.props.rydesTabIsToggled) {
-      // TODO: Add code to query for user's rydes and store in 'searchResults'
-    } else {
-      // Find the user's dryves and store in 'searchResults'
-      axios.post('/mydryves', { userId: this.props.user._id })
-        .then( result => {
-          if (result.data && result.data.length > 0) {
-            this.props.liftBigSearch(result.data);
-          } else {
-            this.props.liftBigSearch([]);
-          }
+    console.log('userId is: ' + this.props.user._id);
+    let route = this.props.rydesTabIsToggled ? '/myrydes' : '/mydryves';
+    // TODO: Add code to query for user's rydes and store in 'searchResults'
+    axios.post(route, { userId: this.props.user._id })
+      .then( result => {
+        if (result.data && result.data.length > 0) {
+          this.props.liftBigSearch(result.data);
+        } else {
+          this.props.liftBigSearch([]);
         }
-      );
-    }
-     
+      });
   }
 
-  // TODO: add "componentDidMount" (or w/e) here and run a query for the user's rydes. Pass into Redux
-  // state under the "searchResults" property
+  componentDidMount() {
+    console.log('in the componentDidMount');
+    axios.post('/myrydes', { userId: this.props.user._id })
+      .then( result => {
+        if (result.data && result.data.length > 0) {
+          this.props.liftBigSearch(result.data);
+        } else {
+          this.props.liftBigSearch([]);
+        }
+      });
+  }
 
   render() {
     return (
