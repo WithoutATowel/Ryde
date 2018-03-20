@@ -13,10 +13,10 @@ class ProfileDetails extends Component {
     return (
       <div className='row profile-details-box'>
         <div className='col s10 l5 offset-l1'>
-          <ProfileRyderDetails />
+          <ProfileRyderDetails user={this.props.user} />
         </div>
         <div className='col s10 l5'>
-          <ProfileDryverDetails />
+          <ProfileDryverDetails user={this.props.user} />
         </div>
       </div>
     )

@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var User = require('./models/user');
 var Trip = require('./models/trips');
 var lowerCase = require('./middleware/toLowerCase')
 
@@ -29,22 +30,34 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.post('/createryde', (req, res, next) => {
-  console.log(req.body);
+
+app.post('/finduser', (req, res, next) => {
+  User.findOne({_id: req.body.id}, function(err, user) {
+    if (user) {
+      console.log("Are we sure this is the user from the db?")
+      console.log(user)
+      res.json(user.toObject())
+    } else {
+      res.status(420).json({
+        error: true,
+        message: 'Cant find user'
+      })
+    }
+  })
 })
 
 app.post('/bigsearch', (req, res, next) => {
-  var bodhi = lowerCase(req.body)
+  let body = lowerCase(req.body)
 
   var searchOptions = {
-    'startAddress.zip': bodhi.zip,
-    'startAddress.city': bodhi.sCity,
-    'endAddress.city': bodhi.eCity,
-    departDate: bodhi.sTime,
-    pets: bodhi.pets,
-    cost: bodhi.cost,
-    reoccurring: bodhi.reoccur,
-    seats: bodhi.seat
+    'startAddress.zip': body.zip,
+    'startAddress.city': body.sCity,
+    'endAddress.city': body.eCity,
+    departDate: body.sTime,
+    pets: body.pets,
+    cost: body.cost,
+    reoccurring: body.reoccur,
+    seats: body.seat
   }
 
   for (let key in searchOptions) {
@@ -64,7 +77,7 @@ app.post('/bigsearch', (req, res, next) => {
   })
 })
 
-app.post('/mydryves', (req, res, next) => {
+app.get('/mydryves', (req, res, next) => {
   var searchOptions = {
     driverId: req.body.userId
   }
@@ -79,8 +92,8 @@ app.post('/mydryves', (req, res, next) => {
   })
 })
 
-app.post('/myrydes', (req, res, next) => {
-  console.log('Hit myrydes route');
+app.get('/myrydes', (req, res, next) => {
+  console.log('Hit GET /myrydes route');
   var searchOptions = {
     ridersId: req.body.userId
   }
@@ -93,6 +106,10 @@ app.post('/myrydes', (req, res, next) => {
       res.send(trips);
     }
   })
+})
+
+app.post('/myrydes', (req, res, next) => {
+  console.log('Hit POST /myrydes route');
 })
 
 app.use('/auth', auth);
