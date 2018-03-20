@@ -47,17 +47,17 @@ app.post('/finduser', (req, res, next) => {
 })
 
 app.post('/bigsearch', (req, res, next) => {
-  var bodhi = lowerCase(req.body)
+  let body = lowerCase(req.body)
 
   var searchOptions = {
-    'startAddress.zip': bodhi.zip,
-    'startAddress.city': bodhi.sCity,
-    'endAddress.city': bodhi.eCity,
-    departDate: bodhi.sTime,
-    pets: bodhi.pets,
-    cost: bodhi.cost,
-    reoccurring: bodhi.reoccur,
-    seats: bodhi.seat
+    'startAddress.zip': body.zip,
+    'startAddress.city': body.sCity,
+    'endAddress.city': body.eCity,
+    departDate: body.sTime,
+    pets: body.pets,
+    cost: body.cost,
+    reoccurring: body.reoccur,
+    seats: body.seat
   }
 
   for (let key in searchOptions) {

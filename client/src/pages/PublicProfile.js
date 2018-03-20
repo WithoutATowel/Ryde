@@ -19,7 +19,7 @@ class PublicProfile extends Component {
             <div className='col s12 center-align'>
               <div className='profile-backing-off-white center-align'></div>
               <div className='pic-circle'>
-                <img src='https://www.placecage.com/c/185/230' />
+                <img src='https://www.placecage.com/c/185/230' alt='profile picture' />
               </div>
               <br />
               <h5>{this.props.user.name}</h5>

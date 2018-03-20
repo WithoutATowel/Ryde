@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store from '../redux/store/index';
 import { logout } from '../redux/actions/index';
 
 const mapDispatchToProps = dispatch => {
@@ -15,9 +14,9 @@ const mapStateToProps = state => {
 }
 
 class ConnectedNavLoggedIn extends Component {
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
 
   handleClick() {
     this.props.logout()

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../css/listcard.css';
-import Ryders from './Ryders';
 import axios from 'axios';
 
 class ListCard extends Component {
@@ -28,9 +27,8 @@ class ListCard extends Component {
   }
 
   render() {
-    console.log(this.props.ryde);
+    // console.log(this.props.ryde);
     let ryde = this.props.ryde;
-    let pets = ryde.pets ? 'checked' : null;
     let recurringDays, recurringColon
     if (ryde.reoccurring) {
       recurringColon = ': ';
@@ -73,10 +71,12 @@ class ListCard extends Component {
           </div>
           <div className='col s5 list-card-summary'>
             <table>
-              <tr><td className='right-align'><span className='bold'>From</span>:</td><td>{ryde.startAddress.street + ', ' + ryde.startAddress.city + ', ' + ryde.startAddress.state}</td></tr>
-              <tr><td className='right-align'><span className='bold'>To</span>:</td><td>{ryde.endAddress.street + ', ' + ryde.endAddress.city + ', ' + ryde.endAddress.state}</td></tr>
-              <tr><td className='right-align'><span className='bold'>Date</span>:</td><td>{ryde.departDate}</td></tr>
-              <tr><td className='right-align'><span className='bold'>Time</span>:</td><td>{ryde.departTime}</td></tr>
+              <tbody>
+                <tr><td className='right-align'><span className='bold'>From</span>:</td><td>{ryde.startAddress.street + ', ' + ryde.startAddress.city + ', ' + ryde.startAddress.state}</td></tr>
+                <tr><td className='right-align'><span className='bold'>To</span>:</td><td>{ryde.endAddress.street + ', ' + ryde.endAddress.city + ', ' + ryde.endAddress.state}</td></tr>
+                <tr><td className='right-align'><span className='bold'>Date</span>:</td><td>{ryde.departDate}</td></tr>
+                <tr><td className='right-align'><span className='bold'>Time</span>:</td><td>{ryde.departTime}</td></tr>
+              </tbody>
             </table>
           </div>
           <div className='col s2 list-card-add right-align' onClick={ (e) => this.handleRydeAdd(e) }>

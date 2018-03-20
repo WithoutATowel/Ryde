@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store from '../redux/store/index';
+// import store from '../redux/store/index';
 import { toggleRydesTab, liftBigSearch } from '../redux/actions/index';
 import ListBox from '../components/ListBox';
 import axios from 'axios';
@@ -20,9 +20,9 @@ const mapStateToProps = state => {
 }
 
 class ConnectedMyRydes extends Component {
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
 
   handleTabToggle = (event) => {
     // If Rydes tab currently selected, query against the '/mydryves' route and vice versa
