@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var User = require('./models/user');
 var Trip = require('./models/trips');
 var lowerCase = require('./middleware/toLowerCase')
 
@@ -29,8 +30,18 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.post('/createryde', (req, res, next) => {
-  console.log(req.body);
+
+app.post('/finduser', (req, res, next) => {
+  User.findOne({_id: req.body}, function(err, user) {
+    if (user) {
+      res.json({user})
+    } else {
+      res.status(420).json({
+        error: true,
+        message: 'Cant find user'
+      })
+    }
+  })
 })
 
 app.post('/bigsearch', (req, res, next) => {

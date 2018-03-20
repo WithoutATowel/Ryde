@@ -23,6 +23,9 @@ $( document ).ready(function() {
 
   $('select').material_select();
 
+  $(".discover-sidnav").sideNav();
+  
+
   $('.main-menu-button-collapse').sideNav({
       menuWidth: 300, // Default is 300
       edge: 'right', // Choose the horizontal origin

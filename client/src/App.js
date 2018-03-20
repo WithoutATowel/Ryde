@@ -9,7 +9,7 @@ import Navbar from './components/Navbar';
 import BigSearch from './components/BigSearch';
 import Home from './pages/Home';
 import Discover from './pages/Discover';
-import { UserProfile } from './pages/UserProfile';
+import UserProfile from './pages/UserProfile';
 import PublicProfile from './pages/PublicProfile';
 import { OurTeam } from './pages/OurTeam';
 import { Footer } from './components/Footer';
@@ -92,12 +92,6 @@ class ConnectedApp extends Component {
               <Route path='/ourteam' component={OurTeam} />
               <Route path='/postaryde' component={PostARyde} />
               <Route path='/myrydes' component={MyRydes} />
-              {/* <Route path='/login' component={() => (
-                <Login user={this.state.user} liftToken={this.liftTokenToState} />
-              )} />
-              <Route path='/signup' component={() => (
-                <Signup user={this.state.user} liftToken={this.liftTokenToState} />
-              )} /> */}
             </div>
             {/* ROUTES ABOVE HERE */}
 
