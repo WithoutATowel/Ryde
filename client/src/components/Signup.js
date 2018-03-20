@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import store from '../redux/store/index';
+// import { connect } from 'react-redux';
+// import store from '../redux/store/index';
 import { liftTokenToState } from '../redux/actions/index';
 import axios from 'axios';
 
