@@ -29,8 +29,7 @@ class ConnectedBigSearch extends Component {
     let seat = this.seatInput.value
 
     axios.post('/bigsearch',
-    {zip,dist,sCity,eCity,sTime,pets,cost,reoccur,seat}).then(
-      result =>{
+    {zip,dist,sCity,eCity,sTime,pets,cost,reoccur,seat}).then(result =>{
       this.props.liftBigSearch(result.data);
     })
   }

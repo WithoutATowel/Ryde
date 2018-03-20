@@ -43,10 +43,6 @@ var tripSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  departTime: {
-    type: Number,
-    required: true
-  },
   reoccurring: {
     type: Boolean,
     required: true

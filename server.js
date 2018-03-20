@@ -44,7 +44,7 @@ app.get('/finduser/:id', (req, res, next) => {
   })
 })
 
-app.post('/bigsearch', (req, res, next) => {
+app.post('/bigsearch', (req, res, next) =>{
   let body = lowerCase(req.body)
 
   var searchOptions = {
@@ -65,7 +65,6 @@ app.post('/bigsearch', (req, res, next) => {
   }
 
   Trip.find(searchOptions, function(err, trips){
-    // console.log(trips)
     if(err){
       console.log(err);
       res.send(err);
@@ -76,7 +75,27 @@ app.post('/bigsearch', (req, res, next) => {
   })
 })
 
+app.post('/minisearch', (re,res,next) =>{
+  let bodhi = req.body
+  for(let key in bodhi){
+    if (bodhi[key] === '' || bodhi[key] === false) {
+      delete bodhi[key]
+    }
+  }
+  console.log(bodhi);
+  // Trip.find(bodhi, function(err, trips){
+  //   if(err){
+  //     console.log(err);
+  //     res.send(err);
+  //   } else {
+  //     console.log(trips);
+  //     res.send(trips);
+  //   }
+  // })
+})
+
 app.get('/mydryves/:id', (req, res, next) => {
+
   var searchOptions = {
     driverId: req.params.id
   }
