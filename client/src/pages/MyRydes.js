@@ -24,14 +24,10 @@ class ConnectedMyRydes extends Component {
     super(props)
   }
 
-  willThisWork() { 
-    console.log('HUZZAH');
-  }
-
   handleTabToggle = (event) => {
     // If Rydes tab currently selected, query against the '/mydryves' route and vice versa
     let route = this.props.rydesTabIsToggled ? '/mydryves' : '/myrydes';
-    // TODO: Add code to query for user's rydes and store in 'searchResults'
+    // Query for user's rydes or dryves as needed, where results are stored by server in Redux under 'searchResults'
     axios.post(route, { userId: this.props.user._id })
       .then( result => {
         if (result.data && result.data.length > 0) {
@@ -44,8 +40,9 @@ class ConnectedMyRydes extends Component {
       });
   }
 
-  componentDidMount() {
-    axios.post('/myrydes', { userId: this.props.user._id })
+  componentDidMount() { 
+    if (this.props.user) {
+      axios.post('/myrydes', { userId: this.props.user._id })
       .then( result => {
         if (result.data && result.data.length > 0) {
           this.props.liftBigSearch(result.data);
@@ -53,6 +50,28 @@ class ConnectedMyRydes extends Component {
           this.props.liftBigSearch([]);
         }
       });
+    } else {
+      let token = localStorage.getItem('rydeAppToken')
+      if (token === 'undefined' || token === 'null' || token === '' || token === undefined || token === null) {
+        localStorage.removeItem('rydeAppToken')
+        this.props.logout()
+      } else {
+        axios.post('/auth/me/from/token', {
+          token
+        }).then( result => {
+          localStorage.setItem('rydeAppToken', result.data.token)
+          this.props.liftTokenToState(result.data);
+          axios.post('/myrydes', { userId: this.props.user._id })
+            .then( result => {
+              if (result.data && result.data.length > 0) {
+                this.props.liftBigSearch(result.data);
+              } else {
+                this.props.liftBigSearch([]);
+              }
+            });
+        }).catch( err => console.log(err))
+      }
+    }
   }
 
   render() {
