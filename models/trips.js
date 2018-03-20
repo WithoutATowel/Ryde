@@ -51,7 +51,7 @@ var tripSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
-  reoccurringDays: Array,
+  reocurringDays: Array,
   cost: {
     type: Number,
     required: true

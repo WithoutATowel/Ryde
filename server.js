@@ -38,7 +38,7 @@ app.get('/finduser/:id', (req, res, next) => {
     } else {
       res.status(420).json({
         error: true,
-        message: 'Cant find user'
+        message: 'Cant find user id'
       })
     }
   })

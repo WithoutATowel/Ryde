@@ -26,28 +26,30 @@ class ListCard extends Component {
     axios.post('/myrydes', { userId: this.props.user._id, tripId: this.props.ryde._id })
   }
 
+  // <input type='checkbox' checked={ryde.reocurringDays.includes('sunday') ? 'checked' : null} disabled />
+  //         <label>Sunday</label>
+  //         <input type='checkbox' checked={ryde.reocurringDays.includes('monday') ? 'checked' : null} disabled />
+  //         <label>Monday</label>
+  //         <input type='checkbox' checked={ryde.reocurringDays.includes('tuesday') ? 'checked' : null} disabled />
+  //         <label>Tuesday</label>
+  //         <input type='checkbox' checked={ryde.reocurringDays.includes('wednesday') ? 'checked' : null} disabled />
+  //         <label>Wednesday</label>
+  //         <input type='checkbox' checked={ryde.reocurringDays.includes('thursday') ? 'checked' : null} disabled />
+  //         <label>Thursday</label>
+  //         <input type='checkbox' checked={ryde.reocurringDays.includes('friday') ? 'checked' : null} disabled />
+  //         <label>Friday</label>
+  //         <input type='checkbox' checked={ryde.reocurringDays.includes('saturday') ? 'checked' : null} disabled />
+  //         <label>Saturday</label>
+
   render() {
     // console.log(this.props.ryde);
     let ryde = this.props.ryde;
     let recurringDays, recurringColon
     if (ryde.reoccurring) {
+      console.log(ryde);
       recurringColon = ': ';
       recurringDays = (
         <span className='list-card-recurring-days'>
-          <input type='checkbox' checked={ryde.reocurringDays.includes('sunday') ? 'checked' : null} disabled />
-          <label>Sunday</label>
-          <input type='checkbox' checked={ryde.reocurringDays.includes('monday') ? 'checked' : null} disabled />
-          <label>Monday</label>
-          <input type='checkbox' checked={ryde.reocurringDays.includes('tuesday') ? 'checked' : null} disabled />
-          <label>Tuesday</label>
-          <input type='checkbox' checked={ryde.reocurringDays.includes('wednesday') ? 'checked' : null} disabled />
-          <label>Wednesday</label>
-          <input type='checkbox' checked={ryde.reocurringDays.includes('thursday') ? 'checked' : null} disabled />
-          <label>Thursday</label>
-          <input type='checkbox' checked={ryde.reocurringDays.includes('friday') ? 'checked' : null} disabled />
-          <label>Friday</label>
-          <input type='checkbox' checked={ryde.reocurringDays.includes('saturday') ? 'checked' : null} disabled />
-          <label>Saturday</label>
         </span>
       )
     }
