@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import store from '../redux/store/index';
-import { logout } from '../redux/actions/index';
 import '../css/navbar.css';
 import Home from '../pages/Home';
 import Discover from '../pages/Discover';
@@ -14,12 +13,6 @@ import { OurTeam } from '../pages/OurTeam';
 import NavLoggedIn from './NavLoggedIn';
 import NavLoggedOut from './NavLoggedOut';
 
-const mapDispatchToProps = dispatch => {
-  return {
-    logout: () => dispatch(logout())
-  }
-}
-
 const mapStateToProps = state => {
   return { user: state.user };
 }
@@ -27,11 +20,6 @@ const mapStateToProps = state => {
 class ConnectedNav extends Component {
   constructor(props) {
     super(props)
-  }
-
-  handleClick() {
-    this.props.logout()
-    localStorage.removeItem('rydeAppToken');
   }
 
   render() {
@@ -43,11 +31,11 @@ class ConnectedNav extends Component {
             <nav>
               <div className="nav-wrapper">
                 <Link to='/'><img src="/img/logo-md-white.png" className="logo" alt="ryde-logo" /></Link>
-                <ul class="right hide-on-med-and-down">
+                <ul className="right hide-on-med-and-down">
                   <NavLoggedIn />
                 </ul>
                 <a href="#" data-activates="slide-out" className="main-menu-button-collapse hide-on-large-only">
-                  <i class="material-icons">menu</i>
+                  <i className="material-icons">menu</i>
                 </a>
               </div>
             </nav>
@@ -88,6 +76,6 @@ class ConnectedNav extends Component {
   }
 }
 
-const Nav = connect(mapStateToProps, mapDispatchToProps)(ConnectedNav);
+const Nav = connect(mapStateToProps)(ConnectedNav);
 
 export default Nav;
