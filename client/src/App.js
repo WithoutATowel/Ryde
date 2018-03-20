@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store from './redux/store/index';
+// import store from './redux/store/index';
 import { liftTokenToState } from './redux/actions/index';
 import { logout } from './redux/actions/index';
 import './css/App.css';
 import Navbar from './components/Navbar';
-import BigSearch from './components/BigSearch';
 import Home from './pages/Home';
 import Discover from './pages/Discover';
 import UserProfile from './pages/UserProfile';
@@ -31,9 +30,9 @@ const mapStateToProps = state => {
 }
 
 class ConnectedApp extends Component {
-  constructor(props){
-    super(props)
-  }
+  // constructor(props){
+  //   super(props)
+  // }
 
   componentDidMount() {
     let token = localStorage.getItem('rydeAppToken')

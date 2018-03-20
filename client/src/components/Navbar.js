@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store from '../redux/store/index';
+// import store from '../redux/store/index';
 import '../css/navbar.css';
-import Home from '../pages/Home';
-import Discover from '../pages/Discover';
-import { UserProfile } from '../pages/UserProfile';
-import PublicProfile from '../pages/PublicProfile';
-import Login from '../components/Login';
-import Signup from '../components/Signup';
-import { OurTeam } from '../pages/OurTeam';
 import NavLoggedIn from './NavLoggedIn';
 import NavLoggedOut from './NavLoggedOut';
 
@@ -18,9 +11,9 @@ const mapStateToProps = state => {
 }
 
 class ConnectedNav extends Component {
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
 
   render() {
     let theUser = this.props.user //|| this.state.googleUser
