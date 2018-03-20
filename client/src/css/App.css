@@ -41,5 +41,35 @@ footer p {
   background: #333;
   text-align: center;
   margin: 20px 0 0 0;
-  padding: 10px;
+  padding: 5vh;
+}
+
+/* ======== Listcards ======= */
+
+.list-card-div {
+  margin-bottom: 2%;
+}
+
+.list-card-expand-button {
+  display: block;
+  height: 35px;
+  width: 45px;
+  border: none;
+  background: url('/img/down-arrow.svg');
+  background-size: cover;
+  background-repeat: none;
+  background-position: center;
+  margin: 0 auto;
+  transition: transform 0.5s ease;
+}
+
+.list-card-expand-button:focus {
+  background-color: transparent;
+}
+
+.list-card-details {
+  height: auto;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s linear;
 }

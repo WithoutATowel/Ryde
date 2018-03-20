@@ -35,33 +35,16 @@ class ConnectedApp extends Component {
     super(props)
   }
 
-  // liftTokenToState(data) {
-  //   this.setState({
-  //     token: data.token,
-  //     user: data.user
-  //   })
-  // }
-
-  // logout() {
-  //   console.log('Logging out')
-  //   localStorage.removeItem('rydeAppToken')
-  //   this.setState({ token: '', user: {} })
-  // }
-
   componentDidMount() {
     let token = localStorage.getItem('rydeAppToken')
     if (token === 'undefined' || token === 'null' || token === '' || token === undefined || token === null) {
-      console.log('cant find toke: ', token);
       localStorage.removeItem('rydeAppToken')
       this.props.logout()
     } else {
       axios.post('/auth/me/from/token', {
-        token // same as token: token
+        token
       }).then( result => {
         localStorage.setItem('rydeAppToken', result.data.token)
-        console.log('COMP DID MOUNT FULL RESULT: ', result.data)
-        // console.log('RESULT.TOKEN', result.data.token)
-        // console.log('RESULT.USER', result.data.user)
         this.props.liftTokenToState(result.data);
       }).catch( err => console.log(err))
     }
@@ -102,7 +85,7 @@ class ConnectedApp extends Component {
             <div>
               <Route exact path='/' component={Home} />
               <Route path='/discover' component={Discover} />
-              <Route path='/profile' component={UserProfile} />  {/* placeholder so we can easily get to page */}
+              <Route path='/profile/:id' component={UserProfile} />  {/* placeholder so we can easily get to page */}
               <Route path='/publicprofile' component={PublicProfile} />  {/* placeholder so we can easily get to page */}
               <Route path='/login' component={Login} />  {/* placeholder so we can easily get to page */}
               <Route path='/signup' component={Signup} />  {/* placeholder so we can easily get to page */}

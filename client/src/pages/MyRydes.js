@@ -24,23 +24,10 @@ class ConnectedMyRydes extends Component {
     super(props)
   }
 
-  // handleBigSearch = (e)=>{
-  //   e.preventDefault()
-
-  //   axios.post('/bigsearch',
-  //   {zip,dist,sCity,eCity,sTime,pets,cost,reoccur,seat}).then(
-  //     result =>{
-  //     this.props.liftBigSearch(result.data);
-  //   })
-  // }
-
   handleTabToggle = (event) => {
-    // Update rydesTabIsToggled property in Redux
-    this.props.toggleRydesTab(!this.props.rydesTabIsToggled);
-
-    console.log('userId is: ' + this.props.user._id);
-    let route = this.props.rydesTabIsToggled ? '/myrydes' : '/mydryves';
-    // TODO: Add code to query for user's rydes and store in 'searchResults'
+    // If Rydes tab currently selected, query against the '/mydryves' route and vice versa
+    let route = this.props.rydesTabIsToggled ? '/mydryves' : '/myrydes';
+    // Query for user's rydes or dryves as needed, where results are stored by server in Redux under 'searchResults'
     axios.post(route, { userId: this.props.user._id })
       .then( result => {
         if (result.data && result.data.length > 0) {
@@ -48,12 +35,14 @@ class ConnectedMyRydes extends Component {
         } else {
           this.props.liftBigSearch([]);
         }
+        // Update rydesTabIsToggled state value in Redux
+        this.props.toggleRydesTab(!this.props.rydesTabIsToggled);
       });
   }
 
-  componentDidMount() {
-    console.log('in the componentDidMount');
-    axios.post('/myrydes', { userId: this.props.user._id })
+  componentDidMount() { 
+    if (this.props.user) {
+      axios.post('/myrydes', { userId: this.props.user._id })
       .then( result => {
         if (result.data && result.data.length > 0) {
           this.props.liftBigSearch(result.data);
@@ -61,9 +50,32 @@ class ConnectedMyRydes extends Component {
           this.props.liftBigSearch([]);
         }
       });
+    } else {
+      let token = localStorage.getItem('rydeAppToken')
+      if (token === 'undefined' || token === 'null' || token === '' || token === undefined || token === null) {
+        localStorage.removeItem('rydeAppToken')
+        this.props.logout()
+      } else {
+        axios.post('/auth/me/from/token', {
+          token
+        }).then( result => {
+          localStorage.setItem('rydeAppToken', result.data.token)
+          this.props.liftTokenToState(result.data);
+          axios.post('/myrydes', { userId: this.props.user._id })
+            .then( result => {
+              if (result.data && result.data.length > 0) {
+                this.props.liftBigSearch(result.data);
+              } else {
+                this.props.liftBigSearch([]);
+              }
+            });
+        }).catch( err => console.log(err))
+      }
+    }
   }
 
   render() {
+    console.log(this.props.rydesTabIsToggled);
     return (
       <div>
         <h1>My Rydes</h1>
