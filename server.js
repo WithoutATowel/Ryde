@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var User = require('./models/user');
 var Trip = require('./models/trips');
+var lowerCase = require('./middleware/toLowerCase')
 
 
 // Mongoose stuff
@@ -29,6 +30,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+
 app.post('/finduser', (req, res, next) => {
   User.findOne({_id: req.body}, function(err, user) {
     if (user) {
@@ -43,7 +45,8 @@ app.post('/finduser', (req, res, next) => {
 })
 
 app.post('/bigsearch', (req, res, next) => {
-  var bodhi = req.body
+  var bodhi = lowerCase(req.body)
+
   var searchOptions = {
     'startAddress.zip': bodhi.zip,
     'startAddress.city': bodhi.sCity,
@@ -54,13 +57,12 @@ app.post('/bigsearch', (req, res, next) => {
     reoccurring: bodhi.reoccur,
     seats: bodhi.seat
   }
-  console.log('full search options', searchOptions);
+
   for (let key in searchOptions) {
     if (searchOptions[key] === '' || searchOptions[key] === false) {
       delete searchOptions[key]
     }
   }
-  console.log('deleted search fields', searchOptions);
 
   Trip.find(searchOptions, function(err, trips){
     // console.log(trips)
