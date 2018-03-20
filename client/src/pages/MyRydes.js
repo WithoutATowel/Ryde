@@ -28,7 +28,7 @@ class ConnectedMyRydes extends Component {
     // If Rydes tab currently selected, query against the '/mydryves' route and vice versa
     let route = !this.props.rydesTabIsToggled ? '/mydryves' : '/myrydes';
     // Query for user's rydes or dryves as needed, where results are stored by server in Redux under 'searchResults'
-    axios.post(route, { userId: this.props.user._id })
+    axios.get(route, { userId: this.props.user._id })
       .then( result => {
         if (result.data && result.data.length > 0) {
           this.props.liftBigSearch(result.data);

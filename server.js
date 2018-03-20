@@ -78,7 +78,7 @@ app.post('/bigsearch', (req, res, next) => {
   })
 })
 
-app.post('/mydryves', (req, res, next) => {
+app.get('/mydryves', (req, res, next) => {
   var searchOptions = {
     driverId: req.body.userId
   }
@@ -93,8 +93,8 @@ app.post('/mydryves', (req, res, next) => {
   })
 })
 
-app.post('/myrydes', (req, res, next) => {
-  console.log('Hit myrydes route');
+app.get('/myrydes', (req, res, next) => {
+  console.log('Hit GET /myrydes route');
   var searchOptions = {
     ridersId: req.body.userId
   }
@@ -107,6 +107,10 @@ app.post('/myrydes', (req, res, next) => {
       res.send(trips);
     }
   })
+})
+
+app.post('/myrydes', (req, res, next) => {
+  console.log('Hit POST /myrydes route');
 })
 
 app.use('/auth', auth);
