@@ -81,7 +81,6 @@ User.find({}, (err, users) => {
     newTrip.save();
     console.log('done')
   })
-  process.exit();
 })
 
   //Need to figure out if I should use ("new Trips or new Trip") in the loop
@@ -89,6 +88,7 @@ User.find({}, (err, users) => {
     //   var newTrip = new Trips(trip);
     //   newTrip.save();
     // }
+
 
 // var userSeed = require('../seeds/userSeed')
 // var tripSeed = require('../seeds/tripSeed')

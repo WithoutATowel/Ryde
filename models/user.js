@@ -49,7 +49,7 @@ var userSchema = new mongoose.Schema({
     zip: Number
   },
   dob: {
-    type: Number,
+    type: String,
     required: true
   },
   driver: Boolean,
