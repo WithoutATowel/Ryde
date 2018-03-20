@@ -18,7 +18,10 @@ class Discover extends Component {
             <h1 className='discover-h1'>Find a Ryde</h1>
             <BigSearch />
           </div>
-          <ListBox />
+          <div className='list-box-div col s12 m8'>
+            <h1>Search Results</h1>
+            <ListBox />
+          </div>
         </div>
         <br />
       </div>

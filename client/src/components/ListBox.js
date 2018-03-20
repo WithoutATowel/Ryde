@@ -19,9 +19,7 @@ class ConnectedListBox extends Component {
     });
 
     return (
-      <div className='list-box-div col s12 m8'>
-        <h1>Search Results</h1>
-
+      <div>
         {rydes}
       </div>
     )
