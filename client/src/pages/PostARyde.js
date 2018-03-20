@@ -149,19 +149,19 @@ class ConnectedPostARyde extends Component {
       console.log(returnTrip)
     }
 
-    // axios.post('/createryde', trip).then(result => {
-    //   console.log('added one way ', result.data)
-    //   if (this.twoWay.checked) {
-    //     axios.post('/createryde', returnTrip).then(result => {
-    //       console.log('added two way ', result.data)
-    //
-    //     }).catch(err => {
-    //       console.log(err);
-    //     })
-    //   }
-    // }).catch(err => {
-    //   console.log(err);
-    // })
+    axios.post('/postARyde', trip).then(result => {
+      console.log('added one way ', result.data)
+      if (this.twoWay.checked) {
+        axios.post('/postARyde', returnTrip).then(result => {
+          console.log('added two way ', result.data)
+
+        }).catch(err => {
+          console.log(err);
+        })
+      }
+    }).catch(err => {
+      console.log(err);
+    })
 
   }
 

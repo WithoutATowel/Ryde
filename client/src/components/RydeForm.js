@@ -20,7 +20,7 @@ const RydeForm = props => {
           <label>
             One Way
             <input type="checkbox" ref={props.twoWay} onChange={props.onTwoWayChange} />
-            <span class="lever"></span>
+            <span className="lever"></span>
             Two Way
           </label>
         </div>
@@ -32,7 +32,7 @@ const RydeForm = props => {
           <label>
             One Time Trip
             <input type="checkbox" ref={props.reoccurring} onChange={props.onReoccurringChange} />
-            <span class="lever"></span>
+            <span className="lever"></span>
             Reoccurring Trip
           </label>
         </div>
@@ -77,7 +77,7 @@ const RydeForm = props => {
           <label htmlFor="tripPets">Pets</label>
         </p>
         <input type="text" placeholder="Car Type" ref={props.carType} />
-         <div class="input-field col s12">
+         <div className="input-field col s12">
         <select ref={props.seats}>
           <option value="" disabled selected>Choose your option</option>
           <option value="1">1 Seat</option>

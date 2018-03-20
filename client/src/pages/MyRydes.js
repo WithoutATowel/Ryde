@@ -28,7 +28,7 @@ class ConnectedMyRydes extends Component {
     // If Rydes tab currently selected, query against the '/mydryves' route and vice versa
     let route = !this.props.rydesTabIsToggled ? '/mydryves' : '/myrydes';
     // Query for user's rydes or dryves as needed, where results are stored by server in Redux under 'searchResults'
-    axios.get(route, { userId: this.props.user._id })
+    axios.get(route + '/' + this.props.user._id)
       .then( result => {
         if (result.data && result.data.length > 0) {
           this.props.liftBigSearch(result.data);
@@ -43,7 +43,7 @@ class ConnectedMyRydes extends Component {
   componentDidMount() {
     if (this.props.user) {
       let route = this.props.rydesTabIsToggled ? '/mydryves' : '/myrydes';
-      axios.post(route, { userId: this.props.user._id })
+      axios.get(route + '/' + this.props.user._id)
       .then( result => {
         if (result.data && result.data.length > 0) {
           this.props.liftBigSearch(result.data);
@@ -62,7 +62,8 @@ class ConnectedMyRydes extends Component {
         }).then( result => {
           localStorage.setItem('rydeAppToken', result.data.token)
           this.props.liftTokenToState(result.data);
-          axios.post('/myrydes', { userId: this.props.user._id })
+          let route = this.props.rydesTabIsToggled ? '/mydryves' : '/myrydes';
+          axios.get(route + '/' + this.props.user._id)
             .then( result => {
               if (result.data && result.data.length > 0) {
                 this.props.liftBigSearch(result.data);
@@ -80,7 +81,7 @@ class ConnectedMyRydes extends Component {
     console.log('isRyde ', this.props.rydesTabIsToggled)
     return (
       <div>
-        <div class="flexCol-vCenter-hCenter">
+        <div className="flexCol-vCenter-hCenter">
           <h1>My Rydes</h1>
           <div className="switcher">
             <input
@@ -90,7 +91,7 @@ class ConnectedMyRydes extends Component {
               id="my-rydes-radio"
               className="switcher__input switcher__input--myRydes"
               onChange={this.handleTabToggle}
-              defaultChecked={!this.props.rydesTabIsToggled ? 'checked' : null} />
+              defaultChecked={this.props.rydesTabIsToggled ? 'checked' : null} />
             <label htmlFor="my-rydes-radio" className="switcher__label">My Rydes</label>
 
             <input
@@ -100,7 +101,7 @@ class ConnectedMyRydes extends Component {
               id="my-drives-radio"
               className="switcher__input switcher__input--myDrives"
               onChange={this.handleTabToggle}
-              defaultChecked={this.props.rydesTabIsToggled ? 'checked' : null} />
+              defaultChecked={!this.props.rydesTabIsToggled ? 'checked' : null} />
             <label htmlFor="my-drives-radio" className="switcher__label">My Drives</label>
 
             <span className="switcher__toggle"></span>
