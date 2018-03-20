@@ -15,11 +15,20 @@
 nav {
   background-color: #000000;
 }
+
+label {
+  color: black;
+}
+
 .nav-wrapper {
   padding: 0 4vw;
 }
 .logo {
   max-height: 100%;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 a.main-menu-button-collapse {
@@ -48,6 +57,49 @@ footer p {
 
 .list-card-div {
   margin-bottom: 2%;
+  padding-bottom: 1.5%;
+  background-color: white;
+  color: black;
+  border-radius: 2px;
+}
+
+.list-card-header {
+  background-color: #306FB5;
+  color: white;
+}
+
+.list-card-main, .list-card-details {
+  padding: 1%;
+  font-size: 1.2em;
+  margin-bottom: 0;
+}
+
+.list-card-main table, tr, td {
+  padding: 0 2%;
+}
+
+.list-card-main li {
+  list-style: none;
+}
+
+.list-card-driver-pic {
+  display: inline-block;
+}
+
+.list-card-driver-pic img {
+  height: 100px;
+  width: auto;
+}
+
+.list-card-driver-details {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 10px;
+}
+
+.list-card-add i {
+  margin-top: 1%;
+  transition: transform 0.5s ease;
 }
 
 .list-card-expand-button {
@@ -55,12 +107,12 @@ footer p {
   height: 35px;
   width: 45px;
   border: none;
-  background: url('/img/down-arrow.svg');
+  background: url('/img/down-arrow-black.svg');
   background-size: cover;
   background-repeat: none;
   background-position: center;
   margin: 0 auto;
-  transition: transform 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 .list-card-expand-button:focus {
@@ -71,5 +123,14 @@ footer p {
   height: auto;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s linear;
+  transition: all 0.5s linear;
+}
+
+.list-card-recurring-days {
+  margin-left: 50px;
+}
+
+.list-card-recurring-days label {
+  padding-left: 25px;
+  margin-right: 2%;
 }
