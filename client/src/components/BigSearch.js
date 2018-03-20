@@ -37,7 +37,7 @@ class ConnectedBigSearch extends Component {
 
   render() {
     return (
-      <div className='col s12 m4'>
+      <div>
         <form onSubmit={e=>this.handleBigSearch(e)}>
           <input type='number' maxLength='5' placeholder='Leaving from...Zipcode?' ref={(input)=>{this.zipInput = input;}} />
           <br />
