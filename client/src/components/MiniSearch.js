@@ -3,9 +3,9 @@ import '../css/minisearch.css';
 import axios from 'axios';
 
 class MiniSearch extends Component {
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
 
   handleMiniSearch = (e) =>{
     e.preventDefault()

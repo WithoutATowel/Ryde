@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store from '../redux/store/index';
+// import store from '../redux/store/index';
 import { liftTokenToState } from '../redux/actions/index';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 const mapDispatchToProps = dispatch => {

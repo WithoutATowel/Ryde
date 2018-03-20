@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../css/bigsearch.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import store from '../redux/store/index';
+// import store from '../redux/store/index';
 import { liftBigSearch } from '../redux/actions/index';
 
 const mapDispatchToProps = dispatch => {
@@ -12,9 +12,9 @@ const mapDispatchToProps = dispatch => {
 }
 
 class ConnectedBigSearch extends Component {
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
 
   handleBigSearch = (e)=>{
     e.preventDefault()

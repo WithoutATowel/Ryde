@@ -1,3 +1,7 @@
 .our-team-h1 {
   color: purple;
 }
+
+.team-member-col > a{
+  margin: 0 1vw;
+}

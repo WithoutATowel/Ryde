@@ -62,7 +62,7 @@ class ListCard extends Component {
         <div className='row list-card-main'>
           <div className='col s5 list-card-driver'>
             <div className='list-card-driver-pic'>
-              <img src='https://www.placecage.com/c/185/230' />
+              <img src='https://www.placecage.com/c/185/230' alt='dryver' />
             </div>
             <div className='list-card-driver-details'>
               <li>Bernie Sanders</li>

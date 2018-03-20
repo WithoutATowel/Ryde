@@ -31,11 +31,9 @@ app.use(function(req, res, next) {
 });
 
 
-app.post('/finduser', (req, res, next) => {
-  User.findOne({_id: req.body.id}, function(err, user) {
+app.get('/finduser/:id', (req, res, next) => {
+  User.findOne({_id: req.params.id}, function(err, user) {
     if (user) {
-      console.log("Are we sure this is the user from the db?")
-      console.log(user)
       res.json(user.toObject())
     } else {
       res.status(420).json({
@@ -95,9 +93,11 @@ app.post('/minisearch', (re,res,next) =>{
   //   }
   // })
 })
-app.get('/mydryves', (req, res, next) => {
+
+app.get('/mydryves/:id', (req, res, next) => {
+
   var searchOptions = {
-    driverId: req.body.userId
+    driverId: req.params.id
   }
 
   Trip.find(searchOptions, function(err, trips) {
@@ -110,12 +110,12 @@ app.get('/mydryves', (req, res, next) => {
   })
 })
 
-app.get('/myrydes', (req, res, next) => {
+app.get('/myrydes/:id', (req, res, next) => {
   console.log('Hit GET /myrydes route');
   var searchOptions = {
-    ridersId: req.body.userId
+    ridersId: req.params.id
   }
-
+  console.log(req.params.id)
   Trip.find(searchOptions, function(err, trips) {
     if(err){
       console.log(err);
@@ -128,6 +128,19 @@ app.get('/myrydes', (req, res, next) => {
 
 app.post('/myrydes', (req, res, next) => {
   console.log('Hit POST /myrydes route');
+})
+
+app.post('/postARyde', (req, res, next) => {
+  let reqBody = lowerCase(req.body)
+  console.log('Hit POST /postARyde route');
+  console.log(reqBody)
+  Trip.create(reqBody, function(err, ryde) {
+    if (err) {
+      console.log("GOT AN ERROR CREATING THE RYDE", err)
+    } else {
+      res.json({ryde})
+    }
+  })
 })
 
 app.use('/auth', auth);
