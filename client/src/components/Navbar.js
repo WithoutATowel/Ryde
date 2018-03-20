@@ -39,21 +39,21 @@ class ConnectedNav extends Component {
     if (theUser) {
       return (
         <div>
-          <div class="navbar-fixed">
+          <div className="navbar-fixed">
             <nav>
-              <div class="nav-wrapper">
+              <div className="nav-wrapper">
                 <Link to='/'><img src="/img/logo-md-white.png" className="logo" alt="ryde-logo" /></Link>
                 <ul class="right hide-on-med-and-down">
                   <NavLoggedIn />
                 </ul>
-                <a href="#" data-activates="slide-out" class="main-menu-button-collapse hide-on-large-only">
+                <a href="#" data-activates="slide-out" className="main-menu-button-collapse hide-on-large-only">
                   <i class="material-icons">menu</i>
                 </a>
               </div>
             </nav>
           </div>
 
-          <ul id="slide-out" class="side-nav">
+          <ul id="slide-out" className="side-nav">
             <NavLoggedIn />
           </ul>
 
@@ -62,21 +62,21 @@ class ConnectedNav extends Component {
     } else {
       return (
         <div>
-          <div class="navbar-fixed">
+          <div className="navbar-fixed">
             <nav>
-              <div class="nav-wrapper">
+              <div className="nav-wrapper">
                 <Link to='/'><img src="/img/logo-md-white.png" className="logo" alt="ryde-logo" /></Link>
-                <ul class="right hide-on-med-and-down">
+                <ul className="right hide-on-med-and-down">
                   <NavLoggedOut />
                 </ul>
-                <a href="#" data-activates="slide-out" class="main-menu-button-collapse hide-on-large-only">
-                  <i class="material-icons">menu</i>
+                <a href="#" data-activates="slide-out" className="main-menu-button-collapse hide-on-large-only">
+                  <i className="material-icons">menu</i>
                 </a>
               </div>
             </nav>
           </div>
 
-          <ul id="slide-out" class="side-nav">
+          <ul id="slide-out" className="side-nav">
             <ul>
               <NavLoggedOut />
             </ul>
