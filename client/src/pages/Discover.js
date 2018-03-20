@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import store from '../redux/store/index';
 import '../css/discover.css';
 import ListBox from '../components/ListBox';
 import BigSearch from '../components/BigSearch';
 
 class Discover extends Component {
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
 
   render() {
     return (

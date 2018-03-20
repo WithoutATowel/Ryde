@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../css/postaryde.css';
 import RydeForm from '../components/RydeForm';
 import { connect } from 'react-redux';
-import store from '../redux/store/index';
+// import store from '../redux/store/index';
 import axios from 'axios';
 
 const mapStateToProps = state => {

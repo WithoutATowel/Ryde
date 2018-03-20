@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store from '../redux/store/index';
+// import store from '../redux/store/index';
 import { PrivateProfile } from './PrivateProfile';
 import PublicProfile from './PublicProfile';
 import axios from 'axios';

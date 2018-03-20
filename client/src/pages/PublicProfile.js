@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../css/publicprofile.css';
 import ProfileDetails from '../components/ProfileDetails';
-import axios from 'axios';
+// import axios from 'axios';
 
 class PublicProfile extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class PublicProfile extends Component {
             <div className='col s12 center-align'>
               <div className='profile-backing-off-white center-align'></div>
               <div className='pic-circle'>
-                <img src='https://www.placecage.com/c/185/230' />
+                <img src='https://www.placecage.com/c/185/230' alt='profile' />
               </div>
               <br />
               <h5>{this.props.user.name}</h5>
