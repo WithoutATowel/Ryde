@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import store from '../redux/store/index';
 import { PrivateProfile } from './PrivateProfile';
 import PublicProfile from './PublicProfile';
+import axios from 'axios';
+
 
 const mapStateToProps = state => {
   return { user: state.user };
@@ -11,17 +13,31 @@ const mapStateToProps = state => {
 class ConnectedUserProfile extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      user: null
+    }
+  }
+
+  componentDidMount() {
+    axios.post('/finduser', {
+      _id: this.props.match.params.id
+    }).then( result => {
+      console.log('here is userInfo', result.data)
+      this.setState({
+        user: result.data
+      })
+    }).catch( err => console.log(err))
   }
 
   render() {
     if (this.props.user) {
       if (this.props.user._id === this.props.match.params.id) {
-        return <PrivateProfile />
+        return <PrivateProfile user={this.props.user} />
       } else {
-        return <PublicProfile userId={this.props.match.params.id} />
+        return <PublicProfile user={this.state.user} />
       }
     } else {
-      return <PublicProfile userId={this.props.match.params.id} />
+      return <PublicProfile user={this.state.user} />
     }
   }
 }
