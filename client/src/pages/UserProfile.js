@@ -1,12 +1,46 @@
-import React from 'react';
-import '../css/userprofile.css';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import store from '../redux/store/index';
+import { PrivateProfile } from './PrivateProfile';
+import PublicProfile from './PublicProfile';
+import axios from 'axios';
 
-export const UserProfile = props => {
-  return (
-    <div>
-      <h1 className='user-profile-h1'>~~~~~~~~~~~~~~USER PROFILE PLACEHOLDER PAGE~~~~~~~~~~~~~</h1>
-      {/* <p>Hello, {props.user.name}!</p>
-      <a onClick={props.logout}>Log Out!</a> */}
-    </div>
-  )
+
+const mapStateToProps = state => {
+  return { user: state.user };
 }
+
+class ConnectedUserProfile extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      user: null,
+    }
+  }
+
+  componentDidMount() {
+    axios.post('/finduser', {
+      _id: this.props.match.params.id
+    }).then( result => {
+      this.setState({
+        user: result.data
+      })
+    }).catch( err => console.log(err))
+  }
+
+  render() {
+    if (this.props.user) {
+      if (this.props.user._id === this.props.match.params.id) {
+        return <PrivateProfile user={this.props.user} />
+      } else {
+        return <PublicProfile user={this.state.user} />
+      }
+    } else {
+      return <PublicProfile user={this.state.user} />
+    }
+  }
+}
+
+const UserProfile = connect(mapStateToProps)(ConnectedUserProfile);
+
+export default UserProfile;
