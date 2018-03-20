@@ -6,7 +6,7 @@ mongoose.connect('mongodb://localhost/ryde');
 
 var trips = [
   {
-    rydeName: 'portland',
+    rydeName: 'Portland',
     startAddress: {street:'1130 14th ave',city:'seattle',state:'WA',zip:'98021'},
     endAddress: {street:'taco time',city:'seattle',state:'WA',zip:'98021'},
     departDate: 09082018,
@@ -19,7 +19,7 @@ var trips = [
     seats: 4
   },
   {
-    rydeName: 'portland',
+    rydeName: 'Seattle',
     startAddress: {street:'1130 14th ave',city:'seattle',state:'WA',zip:'98021'},
     endAddress: {street:'taco time',city:'seattle',state:'WA',zip:'98021'},
     departDate: 09082018,
@@ -32,7 +32,7 @@ var trips = [
     seats: 4
   },
   {
-    rydeName: 'portland',
+    rydeName: 'San Francisco',
     startAddress: {street:'1130 14th ave',city:'seattle',state:'WA',zip:'98021'},
     endAddress: {street:'taco time',city:'seattle',state:'WA',zip:'98021'},
     departDate: 09082018,
@@ -45,7 +45,7 @@ var trips = [
     seats: 4
   },
   {
-    rydeName: 'portland',
+    rydeName: 'Olympia',
     startAddress: {street:'1130 14th ave',city:'seattle',state:'WA',zip:'98021'},
     endAddress: {street:'taco time',city:'seattle',state:'WA',zip:'98021'},
     departDate: 09082018,
@@ -58,7 +58,7 @@ var trips = [
     seats: 4
   },
   {
-    rydeName: 'portland',
+    rydeName: 'Everett',
     startAddress: {street:'1130 14th ave',city:'seattle',state:'WA',zip:'98021'},
     endAddress: {street:'taco time',city:'seattle',state:'WA',zip:'98021'},
     departDate: 09082018,

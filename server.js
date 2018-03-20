@@ -70,13 +70,13 @@ app.post('/mydryves', (req, res, next) => {
       console.log(err);
       res.send(err);
     } else {
-      console.log(trips);
       res.send(trips);
     }
   })
 })
 
 app.post('/myrydes', (req, res, next) => {
+  console.log('Hit myrydes route');
   var searchOptions = {
     ridersId: req.body.userId
   }
@@ -86,7 +86,6 @@ app.post('/myrydes', (req, res, next) => {
       console.log(err);
       res.send(err);
     } else {
-      console.log(trips);
       res.send(trips);
     }
   })
