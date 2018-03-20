@@ -20,11 +20,12 @@ class ConnectedUserProfile extends Component {
 
   componentDidMount() {
     axios.post('/finduser', {
-      _id: this.props.match.params.id
+      id: this.props.match.params.id
     }).then( result => {
       this.setState({
         user: result.data
       })
+      console.log('result.data', result.data)
     }).catch( err => console.log(err))
   }
 

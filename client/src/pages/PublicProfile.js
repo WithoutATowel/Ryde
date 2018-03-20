@@ -17,18 +17,18 @@ class PublicProfile extends Component {
         <div className='public-profile-page'>
           <div className='row'>
             <div className='col s12 center-align'>
-              <h1 className='public-h1'>~~~~~Working on pub profile~~~~</h1>
+              <div className='profile-backing-off-white center-align'></div>
               <div className='pic-circle'>
                 <img src='https://www.placecage.com/c/185/230' />
               </div>
               <br />
-              <h5>~~~~~~{this.props.user.user.name} PLACHOLDER text~~~~~~~~~</h5>
+              <h5>{this.props.user.name}</h5>
               <p>do we want gender here???</p>
             </div>
           </div>
           <div className='row center-align'>
             <div className='col s10 offset-s1'>
-              <ProfileDetails />
+              <ProfileDetails user={this.props.user} />
             </div>
           </div>
         </div>

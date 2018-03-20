@@ -1,10 +1,11 @@
 .ryder-dryver-details-wrapper {
-  background: yellow;
-  border: 2px solid black;
-  border-radius: 1vw;
+  color: #F7F7F7;
+  background: #18ED6E;
+  box-shadow: 0 0 .5vw rgba(0,0,0,.5), 0 0 .5vw rgba(0,0,0,.5) inset;
 }
 
 .profile-details-box {
   padding: 1vw;
-  background: lightcoral;
+  background: #306FB5;
+  box-shadow: 0 .5vh 1vw rgba(0,0,0,.5);
 }
