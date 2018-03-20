@@ -11,7 +11,7 @@ class ProfileDetails extends Component {
 
   render() {
     return (
-      <div className='row'>
+      <div className='row profile-details-box'>
         <div className='col s10 l5 offset-l1'>
           <ProfileRyderDetails />
         </div>

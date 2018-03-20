@@ -11,7 +11,6 @@ export const toggleRydesTab = (rydesTabIsToggled) => (
 )
 
 export const liftTokenToState = data => (
-  console.log(data),
   {
     type: LIFT_TOKEN_TO_STATE,
     payload: {
