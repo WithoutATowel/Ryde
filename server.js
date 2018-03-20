@@ -38,7 +38,7 @@ app.get('/finduser/:id', (req, res, next) => {
     } else {
       res.status(420).json({
         error: true,
-        message: 'Cant find user'
+        message: 'Cant find user id'
       })
     }
   })
@@ -109,6 +109,8 @@ app.get('/myrydes/:id', (req, res, next) => {
 
 app.post('/myrydes', (req, res, next) => {
   console.log('Hit POST /myrydes route');
+  res.send('Ya did it, kid.');
+  // TODO: Add real code to add/remove a ryde for a user
 })
 
 app.post('/postARyde', (req, res, next) => {
@@ -125,8 +127,6 @@ app.post('/postARyde', (req, res, next) => {
 })
 
 app.use('/auth', auth);
-
-
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
