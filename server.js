@@ -31,11 +31,9 @@ app.use(function(req, res, next) {
 });
 
 
-app.post('/finduser', (req, res, next) => {
-  User.findOne({_id: req.body.id}, function(err, user) {
+app.get('/finduser/:id', (req, res, next) => {
+  User.findOne({_id: req.params.id}, function(err, user) {
     if (user) {
-      console.log("Are we sure this is the user from the db?")
-      console.log(user)
       res.json(user.toObject())
     } else {
       res.status(420).json({
