@@ -21,7 +21,8 @@ import axios from 'axios'
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    liftTokenToState: (data) => dispatch(liftTokenToState(data))
   }
 }
 
@@ -50,6 +51,7 @@ class ConnectedApp extends Component {
   componentDidMount() {
     let token = localStorage.getItem('rydeAppToken')
     if (token === 'undefined' || token === 'null' || token === '' || token === undefined || token === null) {
+      console.log('cant find toke: ', token);
       localStorage.removeItem('rydeAppToken')
       this.props.logout()
     } else {
@@ -57,10 +59,10 @@ class ConnectedApp extends Component {
         token // same as token: token
       }).then( result => {
         localStorage.setItem('rydeAppToken', result.data.token)
-        this.setState({
-          token: result.data.token,
-          user: result.data.user
-        })
+        console.log('COMP DID MOUNT FULL RESULT: ', result.data)
+        // console.log('RESULT.TOKEN', result.data.token)
+        // console.log('RESULT.USER', result.data.user)
+        this.props.liftTokenToState(result.data);
       }).catch( err => console.log(err))
     }
   }

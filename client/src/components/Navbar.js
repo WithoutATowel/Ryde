@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import store from '../redux/store/index';
-import { logout } from '../redux/actions/index';
 import '../css/navbar.css';
 import Home from '../pages/Home';
 import Discover from '../pages/Discover';
@@ -11,12 +10,8 @@ import PublicProfile from '../pages/PublicProfile';
 import Login from '../components/Login';
 import Signup from '../components/Signup';
 import { OurTeam } from '../pages/OurTeam';
-
-const mapDispatchToProps = dispatch => {
-  return {
-    logout: () => dispatch(logout())
-  }
-}
+import NavLoggedIn from './NavLoggedIn';
+import NavLoggedOut from './NavLoggedOut';
 
 const mapStateToProps = state => {
   return { user: state.user };
@@ -27,46 +22,60 @@ class ConnectedNav extends Component {
     super(props)
   }
 
-  handleClick() {
-    this.props.logout()
-    localStorage.removeItem('rydeAppToken');
-  }
-
   render() {
     let theUser = this.props.user //|| this.state.googleUser
     if (theUser) {
       return (
         <div>
-          <h1>~~~~~~~~~~~NAV PLACEHOLDER section~~~~~~~~~~~~~~</h1>
-          <ul className='nav-ul'>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/discover'>Discover</Link></li>
-            <li><Link to='/myrydes'>My Rydes</Link></li>
-            <li><Link to='/profile'>User Profile</Link></li>  {/* placeholder so we can easily get to page */}
-            <li><Link to='/publicprofile'>Public Profile</Link></li>  {/* placeholder so we can easily get to page */}
-            <li><Link to='/ourteam'>OurTeam</Link></li>
-            <li><Link to='/' onClick={() => this.handleClick()}>Logout</Link></li>
+          <div className="navbar-fixed">
+            <nav>
+              <div className="nav-wrapper">
+                <Link to='/'><img src="/img/logo-md-white.png" className="logo" alt="ryde-logo" /></Link>
+                <ul className="right hide-on-med-and-down">
+                  <NavLoggedIn />
+                </ul>
+                <a href="#" data-activates="slide-out" className="main-menu-button-collapse hide-on-large-only">
+                  <i className="material-icons">menu</i>
+                </a>
+              </div>
+            </nav>
+          </div>
+
+          <ul id="slide-out" className="side-nav">
+            <NavLoggedIn />
           </ul>
+
         </div>
       )
     } else {
       return (
         <div>
-          <h1>~~~~~~~~~~~NAV PLACEHOLDER section~~~~~~~~~~~~~~</h1>
-          <ul className='nav-ul'>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/discover'>Discover</Link></li>
-            <li><Link to='/publicprofile'>Public Profile</Link></li>  {/* placeholder so we can easily get to page */}
-            <li><Link to='/ourteam'>OurTeam</Link></li>
-            <li><Link to='/login'>Log In</Link></li>  {/* placeholder so we can easily get to page */}
-            <li><Link to='/signup'>Sign Up</Link></li>  {/* placeholder so we can easily get to page */}
+          <div className="navbar-fixed">
+            <nav>
+              <div className="nav-wrapper">
+                <Link to='/'><img src="/img/logo-md-white.png" className="logo" alt="ryde-logo" /></Link>
+                <ul className="right hide-on-med-and-down">
+                  <NavLoggedOut />
+                </ul>
+                <a href="#" data-activates="slide-out" className="main-menu-button-collapse hide-on-large-only">
+                  <i className="material-icons">menu</i>
+                </a>
+              </div>
+            </nav>
+          </div>
+
+          <ul id="slide-out" className="side-nav">
+            <ul>
+              <NavLoggedOut />
+            </ul>
           </ul>
-        </div>
+
+      </div>
       )
     }
   }
 }
 
-const Nav = connect(mapStateToProps, mapDispatchToProps)(ConnectedNav);
+const Nav = connect(mapStateToProps)(ConnectedNav);
 
 export default Nav;

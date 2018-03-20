@@ -11,6 +11,30 @@
   text-align: center;
 }
 
+/* ======== Navbar ========= */
+nav {
+  background-color: #000000;
+}
+.nav-wrapper {
+  padding: 0 4vw;
+}
+.logo {
+  max-height: 100%;
+}
+
+a.main-menu-button-collapse {
+    position: absolute;
+    right: 25px;
+}
+
+
+/* =========== HOME ========= */
+  .home-hero {
+    width: 100%;
+  }
+
+
+/* ======= Footer =========== */
 
 footer p {
   color: #fff;

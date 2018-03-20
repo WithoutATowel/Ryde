@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
+var Schema = mongoose.Schema;
 
 var userSchema = new mongoose.Schema({
   name: {
@@ -21,7 +22,7 @@ var userSchema = new mongoose.Schema({
     minLength: 8,
     maxLength: 99
   },
-  address: {
+  homeAddress: {
     street: String,
     city: {
       type: String,
@@ -48,7 +49,7 @@ var userSchema = new mongoose.Schema({
     zip: Number
   },
   dob: {
-    type: Number,
+    type: String,
     required: true
   },
   driver: Boolean,
@@ -61,7 +62,7 @@ var userSchema = new mongoose.Schema({
   deniedTrips: Array,
   completedTrips: Array,
   seedId: Number,
-
+  trips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }]
 })
 
 userSchema.set('toJSON', {
