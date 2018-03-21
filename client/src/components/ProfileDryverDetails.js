@@ -11,6 +11,7 @@ class ConnectedProfileDryverDetails extends Component {
   // }
 
   render() {
+    let cUser = this.props.clickedUser
     return (
       <div className='row'>
         <div className='col s12 center-align'>

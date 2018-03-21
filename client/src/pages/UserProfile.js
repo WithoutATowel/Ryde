@@ -35,8 +35,6 @@ class ConnectedUserProfile extends Component {
 
   render() {
     console.log('@@@ USER PROFILE, this.props.clikedUser:', this.props.clickedUser)
-    console.log('@@@ USER PROFILE, this.props.user._id:', this.props.user._id)
-    console.log('@@@ USER PROFILE, this.props.match.params.id:', this.props.match.params.id)
     if (this.props.user) {
       if (this.props.user._id === this.props.match.params.id) {
         return <PrivateProfile user={this.props.user} />
