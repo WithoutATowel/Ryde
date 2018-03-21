@@ -43,6 +43,9 @@ class ConnectedListCard extends Component {
     axios.post('/myrydes', { userId: this.props.user._id, tripId: this.props.ryde._id })
       .then( (result) => {
         if (this.props.myRydesPage) {
+          // If this handler gets called from the MyRydes page, we know the user is removing a trip.
+          // Call axios for the user's new list of rydes and lift to state to trigger a re-render.
+          // This causes a flicker. Just use refs to hide the listcard div instead?
           axios.get('/myrydes/' + this.props.user._id)
             .then( (result) => {
               if (result.data && result.data.length > 0) {
@@ -129,6 +132,10 @@ class ConnectedListCard extends Component {
       riders = ( <Ryders ryde={this.props.ryde} /> );
     }
 
+    let rawDate = new Date(ryde.departDate);
+    let date = rawDate.getFullYear() + '-' + rawDate.getMonth() + '-' + rawDate.getDate();
+    let time = rawDate.getHours() + ':' + rawDate.getMinutes();
+
     //{ryde.driver.name}, {ryde.driver.averageDriverRating} not available yet
     return (
       <div className='list-card-div'>
@@ -151,8 +158,8 @@ class ConnectedListCard extends Component {
               <tbody>
                 <tr><td className='right-align'><span className='bold'>From</span>:</td><td>{ryde.startAddress.street + ', ' + ryde.startAddress.city + ', ' + ryde.startAddress.state}</td></tr>
                 <tr><td className='right-align'><span className='bold'>To</span>:</td><td>{ryde.endAddress.street + ', ' + ryde.endAddress.city + ', ' + ryde.endAddress.state}</td></tr>
-                <tr><td className='right-align'><span className='bold'>Date</span>:</td><td>{ryde.departDate}</td></tr>
-                <tr><td className='right-align'><span className='bold'>Time</span>:</td><td>{ryde.departTime}</td></tr>
+                <tr><td className='right-align'><span className='bold'>Date</span>:</td><td>{date}</td></tr>
+                <tr><td className='right-align'><span className='bold'>Time</span>:</td><td>{time}</td></tr>
               </tbody>
             </table>
           </div>
