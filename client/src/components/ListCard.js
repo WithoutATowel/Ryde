@@ -34,10 +34,9 @@ class ConnectedListCard extends Component {
 
   componentDidMount() {
     console.log('On mount: ');
-    console.log(this.props.user);
-    // if(this.props.user.setTrips.includes(this.props.ryde._id) || this.props.user.pendingTrips.includes(this.props.ryde._id)) {
-    //   this.refs.addButton.style.transform = 'rotate(45deg)';
-    // }
+    if(this.props.ryde.ridersId.includes(this.props.user._id) || this.props.ryde.pendingRiders.includes(this.props.user._id)) {
+      this.refs.addButton.style.transform = 'rotate(45deg)';
+    }
   }
 
   render() {
