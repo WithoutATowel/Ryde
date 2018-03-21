@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 // import store from '../redux/store/index';
 
 const mapStateToProps = state => {
-  return { rydes: state.searchResults }
+  return { 
+    searchResults: state.searchResults,
+    myRydesDryves: state.myRydesDryves
+  }
 }
 
 class ConnectedListBox extends Component {
@@ -14,9 +17,16 @@ class ConnectedListBox extends Component {
   // }
 
   render() {
-    let rydes = this.props.rydes.map((item, index) => {
-      return <ListCard ryde={item} key={index} myRydesPage={this.props.myRydesPage} />
-    });
+    let rydes; 
+    if (this.props.myRydesPage) {
+      rydes = this.props.myRydesDryves.map((item, index) => {
+        return <ListCard ryde={item} key={index} myRydesPage={this.props.myRydesPage} />
+      });
+    } else {
+      rydes = this.props.searchResults.map((item, index) => {
+        return <ListCard ryde={item} key={index} myRydesPage={this.props.myRydesPage} />
+      });
+    }
 
     return (
       <div>
