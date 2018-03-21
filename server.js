@@ -52,17 +52,26 @@ app.post('/bigsearch', (req, res, next) =>{
     'startAddress.zip': body.zip,
     'startAddress.city': body.sCity,
     'endAddress.city': body.eCity,
-    departDate: {$gte: body.sTime},
+    departDate: {$gte: body.dateTime || body.current},
     pets: body.pets,
-    cost: {$lte: body.cost},
+    cost: {$gte: body.cost},
     reoccurring: body.reoccur,
     seats: body.seat
   }
-  console.log(searchOptions.cost);
+  console.log(searchOptions);
   for (let key in searchOptions) {
-    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key]['$lte'] === undefined || searchOptions[key]['$gte'] === undefined) {
+    console.log('key:', key);
+    console.log('lte:', searchOptions[key]['$lte'] === '');
+    console.log('gte:',searchOptions[key]['$gte'] === '');
+    console.log('--------------');
+    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key]['$lte'] === '' || searchOptions[key]['$gte'] === ''){
       delete searchOptions[key]
     }
+  }
+  //for some reason this key value pair was always being deleted I assume it had to do with a hidden js having to do with $ne
+  if(body.userId){
+    searchOptions.driverId = {$ne:ObjectId(body.userId)}
+    searchOptions.deniedRiders = {$ne: body.userId}
   }
   console.log(searchOptions);
   Trip.find(searchOptions, function(err, trips){

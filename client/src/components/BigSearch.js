@@ -10,6 +10,9 @@ const mapDispatchToProps = dispatch => {
     liftBigSearch: data => dispatch(liftBigSearch(data))
   }
 }
+const mapStateToProps = state =>{
+  return {user: state.user}
+}
 
 class ConnectedBigSearch extends Component {
   // constructor(props) {
@@ -18,7 +21,9 @@ class ConnectedBigSearch extends Component {
 
   handleBigSearch = (e)=>{
     e.preventDefault()
-
+    if(this.props.user){
+      var userId = this.props.user._id
+    }
     let zip = this.zipInput.value
     let dist = this.distanceInput.value
     let sCity = this.sCityInput.value
@@ -37,17 +42,15 @@ class ConnectedBigSearch extends Component {
     let reoccur = this.reoccurInput.checked
     let seat = this.seatInput.value
     //Date.UTC turns the unpacked date and time into a time stamp
-    console.log('The inputs are: ');
-    console.log(...sDate,...sTime);
     let dateTime = Date.UTC(...sDate,...sTime)
-    console.log(this.departDate.value,this.departTime.value);
-    console.log('timestamp: ',dateTime);
-    console.log('this timestamp: ',(new Date(dateTime)).toUTCString());
-    console.log((new Date(1525170120000)).toUTCString());
+    let current = Date.now();
 
+    console.log('this timestamp: ',(new Date(dateTime)).toUTCString());
 
     axios.post('/bigsearch',
-    {zip,dist,sCity,eCity,dateTime,pets,cost,reoccur,seat}).then(result =>{
+    {zip,dist,sCity,eCity,dateTime,pets,cost,reoccur,seat,userId,current}).then(result =>{
+
+      console.log(result);
       this.props.liftBigSearch(result.data);
     })
   }
@@ -113,5 +116,5 @@ class ConnectedBigSearch extends Component {
     )
   }
 }
-const BigSearch = connect(null, mapDispatchToProps)(ConnectedBigSearch);
+const BigSearch = connect(mapStateToProps, mapDispatchToProps)(ConnectedBigSearch);
 export default BigSearch;
