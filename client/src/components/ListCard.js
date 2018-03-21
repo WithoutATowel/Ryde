@@ -3,9 +3,13 @@ import '../css/listcard.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Ryders from './Ryders';
 
 const mapStateToProps = state => {
-  return { user: state.user }
+  return { 
+    user: state.user,
+    rydesTabIsToggled: state.rydesTabIsToggled
+  }
 }
 
 class ConnectedListCard extends Component {
@@ -33,7 +37,6 @@ class ConnectedListCard extends Component {
   }
 
   componentDidMount() {
-    console.log('On mount: ');
     if(this.props.ryde.ridersId.includes(this.props.user._id) || this.props.ryde.pendingRiders.includes(this.props.user._id)) {
       this.refs.addButton.style.transform = 'rotate(45deg)';
     }
@@ -41,7 +44,7 @@ class ConnectedListCard extends Component {
 
   render() {
     let ryde = this.props.ryde;
-    let reocurringDaysJSX, reocurringColon, addButton;
+    let reocurringDaysJSX, reocurringColon, addButton, riders;
     if (this.props.user) {
       addButton = (
         <div className='col s2 list-card-add right-align' ref='addButton' onClick={ (e) => this.handleRydeAdd(e) }>
@@ -78,6 +81,10 @@ class ConnectedListCard extends Component {
           <label>Saturday</label>
         </span>
       )
+    }
+
+    if (this.props.myRydesPage && !this.props.rydesTabIsToggled) {
+      riders = ( <Ryders ryde={this.props.ryde} /> );
     }
 
     //{ryde.driver.name}, {ryde.driver.averageDriverRating} not available yet
@@ -124,6 +131,7 @@ class ConnectedListCard extends Component {
               {reocurringDaysJSX}
             </div>
           </div>
+          {riders}
         </div>
         <button className='list-card-expand-button' onClick={ (e) => this.handleExpansionToggle(e) }></button>
       </div>

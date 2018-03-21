@@ -45,8 +45,6 @@ class ConnectedMyRydes extends Component {
       let route = this.props.rydesTabIsToggled ? '/myrydes' : '/mydryves';
       axios.get(route + '/' + this.props.user._id)
       .then( result => {
-        console.log('The result is: ');
-        console.log(result);
         if (result.data && result.data.length > 0) {
           this.props.liftBigSearch(result.data);
         } else {
@@ -107,7 +105,7 @@ class ConnectedMyRydes extends Component {
             <span className="switcher__toggle"></span>
           </div>
         </div>
-        <ListBox />
+        <ListBox myRydesPage={true} />
       </div>
 
     )

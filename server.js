@@ -101,7 +101,6 @@ app.post('/minisearch', (req,res,next) =>{
 })
 
 app.get('/mydryves/:id', (req, res, next) => {
-
   var searchOptions = {
     driverId: ObjectId(req.params.id)
   }
@@ -115,6 +114,34 @@ app.get('/mydryves/:id', (req, res, next) => {
     }
   })
 })
+
+app.post('/mydryves', (req, res, next) => {
+  console.log('Hit POST /mydryves route');
+  let { userId, tripId, action } = req.body;
+  Trip.findById(tripId, function (err, trip) {
+    User.findById(userId, function (err, user) {
+      let message = '';
+      if(action === 'approve') {
+        trip.ridersId.push(userId);
+        trip.pendingRiders.splice(trip.pendingRiders.indexOf(userId),1);
+        user.setTrips.push(tripId);
+        user.pendingTrips.splice(user.pendingTrips.indexOf(tripId),1);
+        message = 'Approved the user!';
+      } else if (action === 'reject') {
+        trip.deniedRiders.push(userId);
+        trip.pendingRiders.splice(trip.pendingRiders.indexOf(userId),1);
+        user.deniedTrips.push(tripId);
+        user.pendingTrips.splice(user.pendingTrips.indexOf(tripId),1);
+        message = 'Denied the user!';
+      }
+      trip.save(function (err, updatedTrip) {
+        user.save(function (err, updatedUser) {
+          res.send(message);
+        });
+      });
+    });
+  });
+});
 
 app.get('/myrydes/:id', (req, res, next) => {
   console.log('Hit GET /myrydes route');
@@ -132,6 +159,7 @@ app.get('/myrydes/:id', (req, res, next) => {
   })
 })
 
+//TODO refactor this to be more like POST /mydryves
 app.post('/myrydes', (req, res, next) => {
   console.log('Hit POST /myrydes route');
   let { userId, tripId } = req.body;
