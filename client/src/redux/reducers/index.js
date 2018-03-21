@@ -2,6 +2,7 @@ import { TOGGLE_RYDES_TAB } from '../constants/action-types';
 import { LIFT_CURRENT_PAGE_TO_STATE } from '../constants/action-types';
 import { LIFT_TOKEN_TO_STATE } from '../constants/action-types';
 import { LOGOUT_USER } from '../constants/action-types';
+import { LIFT_CLICKED_USER } from '../constants/action-types';
 import { LIFT_BIG_SEARCH } from '../constants/action-types';
 import { LIFT_MINI_SEARCH } from '../constants/action-types';
 import { LIFT_MY_RYDES_DRYVES } from '../constants/action-types';
@@ -12,6 +13,7 @@ const initialState = {
     currentPage: '/',
     token: '',
     user: null,
+    clickedUser: null,
     searchResults: [],
     myRydesDryves: []
 };
@@ -31,6 +33,9 @@ const rootReducer = (state = initialState, action) => {
         case LOGOUT_USER:
             console.log('Logging out user');
             return {...state, token: '', user: null };
+        case LIFT_CLICKED_USER:
+            console.log('Lifting clickedUser to Redux');
+            return {...state, clickedUser: action.payload}
         case LIFT_BIG_SEARCH:
             console.log('Lifted big search results');
             return {...state, searchResults: action.payload.searchResults};

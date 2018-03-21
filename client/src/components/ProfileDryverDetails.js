@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-class ProfileDryverDetails extends Component {
+const mapStateToProps = state => {
+  return { clickedUser: state.clickedUser };
+}
+
+class ConnectedProfileDryverDetails extends Component {
   // constructor(props) {
   //   super(props)
   // }
@@ -20,5 +25,7 @@ class ProfileDryverDetails extends Component {
     )
   }
 }
+
+const ProfileDryverDetails = connect(mapStateToProps)(ConnectedProfileDryverDetails);
 
 export default ProfileDryverDetails;

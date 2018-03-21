@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-class ProfileRyderDetails extends Component {
+const mapStateToProps = state => {
+  return { clickedUser: state.clickedUser };
+}
+
+class ConnectedProfileRyderDetails extends Component {
   // constructor(props) {
   //   super(props)
   // }
 
   render() {
+
+    console.log('profile ryder, this props clickedUser', this.props.clickedUser)
+
     return (
       <div className='row'>
         <div className='col s12 center-align'>
@@ -20,5 +28,7 @@ class ProfileRyderDetails extends Component {
     )
   }
 }
+
+const ProfileRyderDetails = connect(mapStateToProps)(ConnectedProfileRyderDetails);
 
 export default ProfileRyderDetails;

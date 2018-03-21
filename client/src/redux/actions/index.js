@@ -2,13 +2,14 @@ import { TOGGLE_RYDES_TAB } from '../constants/action-types';
 import { LIFT_CURRENT_PAGE_TO_STATE } from '../constants/action-types';
 import { LIFT_TOKEN_TO_STATE } from '../constants/action-types';
 import { LOGOUT_USER } from '../constants/action-types';
+import { LIFT_CLICKED_USER } from '../constants/action-types';
 import { LIFT_BIG_SEARCH } from '../constants/action-types';
 import { LIFT_MINI_SEARCH } from '../constants/action-types';
 import { LIFT_MY_RYDES_DRYVES } from '../constants/action-types';
 
 export const toggleRydesTab = (rydesTabIsToggled) => (
-  { 
-    type: TOGGLE_RYDES_TAB, 
+  {
+    type: TOGGLE_RYDES_TAB,
     payload: rydesTabIsToggled
   }
 )
@@ -29,6 +30,13 @@ export const liftTokenToState = data => (
 
 export const logout = () => (
   { type: LOGOUT_USER }
+)
+
+export const liftClickedUser = data => (
+  {
+    type: LIFT_CLICKED_USER,
+    payload: data
+  }
 )
 
 export const liftBigSearch = data => (
