@@ -3,6 +3,7 @@
    Green: #18ED6E
    GreenLight: #21fb79
    Blue: #306FB5
+   BlueLight: #4784c8
    Off White: #F7F6D4
    Light Gray: #F7F7F7
 */
@@ -55,10 +56,10 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
     border-bottom: 1px solid #306FB5;
     -webkit-box-shadow: 0 1px 0 0 #306FB5;
     box-shadow: 0 1px 0 0 #306FB5;
-    margin: 0 0 10px 0;
+    margin: 0 0 11px 0;
 }
 
-.rydeBtn {
+.rydeGreenBtn {
   background: #18ED6E;
   padding: 1px 40px;
   color: #ffffff;
@@ -66,8 +67,20 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
   display: table;
 }
 
-.rydeBtn:hover {
+.rydeGreenBtn:hover {
   background: #21fb79;
+}
+
+.rydeBlueBtn {
+  background: #306FB5;
+  padding: 1px 40px;
+  color: #ffffff;
+  margin: 0 auto;
+  display: table;
+}
+
+.rydeBlueBtn:hover {
+  background: #4784c8;
 }
 
 .switch label input[type=checkbox]:checked+.lever {
@@ -118,6 +131,13 @@ a.main-menu-button-collapse {
 .nav-link-div a:hover {
   background-color: #333333;
   color: #18ED6E;
+}
+
+#login-modal {
+  max-width: 100%;
+  width: 500px;
+  background: #f7f7f7;
+  border-radius: 5px;
 }
 
 

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import store from '../redux/store/index';
 import '../css/navbar.css';
+import Login from './Login';
+import Signup from './Signup';
 import NavLoggedIn from './NavLoggedIn';
 import NavLoggedOut from './NavLoggedOut';
 
@@ -43,6 +45,16 @@ class ConnectedNav extends Component {
     } else {
       return (
         <div>
+          <div id="login-modal" className="modal">
+            <div className="modal-content">
+              <Login />
+            </div>
+          </div>
+          <div id="signup-modal" className="modal">
+            <div className="modal-content">
+              <Signup />
+            </div>
+          </div>
           <div className="navbar-fixed">
             <nav>
               <div className="nav-wrapper">
