@@ -25,7 +25,7 @@ class ConnectedNavLoggedIn extends Component {
 
   render() {
     return (
-      <div>
+      <div className='nav-link-div'>
 
         <li><Link to='/profile/5ab050cb20b8b12fdff5b67d'>ScottPT</Link></li>
         <li><Link to='/profile/5ab050cb20b8b12fdff5b679'>SeanPT</Link></li>
