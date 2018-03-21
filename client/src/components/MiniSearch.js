@@ -4,6 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import store from '../redux/store/index';
 import { liftMiniSearch } from '../redux/actions/index';
+import { Link,Redirect } from 'react-router-dom';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -14,6 +15,9 @@ const mapDispatchToProps = dispatch => {
 class ConnectedMiniSearch extends Component {
   constructor(props) {
     super(props)
+    this.state ={
+      redirect:false
+    }
   }
 
   handleMiniSearch = (e) =>{
@@ -25,14 +29,21 @@ class ConnectedMiniSearch extends Component {
     axios.post('/minisearch',
     {startZip,endZip,date}).then(result =>{
       console.log(result.data)
-      this.props.liftMiniSearch(result.data);
+      this.props.liftMiniSearch(result.data)
+      this.setState({
+        redirect:true
+      })
     })
   }
 
   render() {
+    if(this.state.redirect){
+      return(<Redirect to="/discover"/>)
+    }
+    console.log(this.state.redirect);
     return (
       <div>
-        <form onSubmit={e=>this.handleMiniSearch(e)}>
+        <form onSubmit={(e)=>this.handleMiniSearch(e)}>
           <input type='number' maxLength='5' placeholder='Starting... Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipStartInput = input;}} />
           <br />
           <input type='number' maxLength='5' placeholder='Going to... Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipEndInput = input;}} />
