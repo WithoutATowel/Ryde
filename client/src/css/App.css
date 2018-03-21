@@ -34,6 +34,14 @@ label {
   color: black;
 }
 
+nav ul li {
+  transition: background-color 0s;
+}
+
+nav ul a {
+  transition: color 0s;
+}
+
 .nav-wrapper {
   padding: 0 4vw;
 }
@@ -49,6 +57,13 @@ a.main-menu-button-collapse {
     position: absolute;
     right: 25px;
 }
+
+.nav-link-div a:hover {
+  background-color: #333333;
+  color: #18ED6E;
+}
+
+
 
 
 /* =========== HOME ========= */
@@ -131,6 +146,7 @@ footer p {
 .list-card-add i {
   margin-top: 1%;
   transition: transform 0.5s ease;
+  color: black !important;
 }
 
 .list-card-expand-button {
