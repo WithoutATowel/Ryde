@@ -4,6 +4,13 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Ryders from './Ryders';
+import { liftMyRydesDryves } from '../redux/actions/index';
+
+const mapDispatchToProps = dispatch => {
+  return {
+    liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data))
+  }
+}
 
 const mapStateToProps = state => {
   return { 
@@ -33,35 +40,68 @@ class ConnectedListCard extends Component {
     let newRotation = e.target.style.transform === 'rotate(45deg)' ? 'rotate(0deg)' : 'rotate(45deg)';
     e.target.style.transform = newRotation;
     // Post addition to the database
-    axios.post('/myrydes', { userId: this.props.user._id, tripId: this.props.ryde._id });
+    axios.post('/myrydes', { userId: this.props.user._id, tripId: this.props.ryde._id })
+      .then( (result) => {
+        if (this.props.myRydesPage) {
+          axios.get('/myrydes/' + this.props.user._id)
+            .then( (result) => {
+              if (result.data && result.data.length > 0) {
+                this.props.liftMyRydesDryves(result.data);
+              } else {
+                this.props.liftMyRydesDryves([]);
+              }
+            });
+        }
+        console.log(result.data);
+      });
   }
 
   componentDidMount() {
     if(this.props.user) {
       if(this.props.ryde.ridersId.includes(this.props.user._id) || this.props.ryde.pendingRiders.includes(this.props.user._id)) {
-        this.refs.addButton.style.transform = 'rotate(45deg)';
+        console.log('did mount', this.refs)
+        this.refs.addRemoveButton.style.transform = 'rotate(45deg)';
       }
-    }
+    } 
   }
 
   render() {
     let ryde = this.props.ryde;
-    let reocurringDaysJSX, reocurringColon, addButton, riders;
-    if (this.props.user) {
-      addButton = (
-        <div className='col s2 list-card-add right-align' ref='addButton' onClick={ (e) => this.handleRydeAdd(e) }>
-          <i className='material-icons large'>add</i>
-        </div>
-      )
-    } else {
-      addButton = (
+    let reocurringDaysJSX, reocurringColon, actionButton, riders;
+
+    if (!this.props.user) {
+      // If the user is not logged in, always show the plus sign, linking to login
+      actionButton = (
         <div className='col s2 list-card-add right-align'>
           <Link to='/login'>
             <i className='material-icons large'>add</i>
           </Link>
         </div>
       )
+    } else if (this.props.myRydesPage && !this.props.rydesTabIsToggled) {
+      // The user is logged in, on the MyRydes page, toggled to Dryves
+      console.log('Youre on the MyRydes page Dryves tab');
+      // total hack otherwise edit/delete will be rotated for god knows why
+      if (this.refs.addRemoveButton) {
+        this.refs.addRemoveButton.style.transform = 'rotate(0deg)';
+      }
+      actionButton = (
+        <div>
+          <button>Edit</button>
+          <button>Delete</button>
+        </div>
+      )
+    } else {
+      // The user is logged in, but isn't on the Dryves tab of the MyRydes page
+      console.log('Youre on the MyRydes page Rydes tab');
+      actionButton = (
+        <div className='col s2 list-card-add right-align' ref='addRemoveButton' onClick={ (e) => this.handleRydeAdd(e) }>
+          <i className='material-icons large'>add</i>
+        </div>
+      )
     }
+
+    // 
 
     if (ryde.reoccurring) {
       reocurringColon = ': ';
@@ -116,7 +156,7 @@ class ConnectedListCard extends Component {
               </tbody>
             </table>
           </div>
-          {addButton}
+          {actionButton}
         </div>
         <div className='list-card-details' ref='details'>
           <div className='row'>
@@ -141,6 +181,6 @@ class ConnectedListCard extends Component {
   }
 }
 
-const ListCard = connect(mapStateToProps)(ConnectedListCard);
+const ListCard = connect(mapStateToProps, mapDispatchToProps)(ConnectedListCard);
 
 export default ListCard;

@@ -17,6 +17,7 @@ class ConnectedListBox extends Component {
   // }
 
   render() {
+    console.log(this.props.myRydesDryves);
     let rydes; 
     if (this.props.myRydesPage) {
       rydes = this.props.myRydesDryves.map((item, index) => {
