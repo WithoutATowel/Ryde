@@ -24,7 +24,7 @@ router.post('/login', (req, res, next) => {
       var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
         expiresIn: 60 * 60 * 24 // expires in 24 hours
       })
-      res.json({user, token})
+      res.json({user: user.toObject(), token})
     } else {
       console.log("Passwords don't match")
       res.status(401).json({

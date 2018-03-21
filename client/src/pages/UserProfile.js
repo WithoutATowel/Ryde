@@ -24,6 +24,7 @@ class ConnectedUserProfile extends Component {
         this.setState({
           user: result.data
         })
+        console.log(this.props.user)
     }).catch( err => console.log(err.message))
   }
 
