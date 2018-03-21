@@ -56,12 +56,13 @@ var userSchema = new mongoose.Schema({
   car: String,
   license: String,
   driverReviews: Array,
+  driverRating: Array,
   riderReviews: Array,
+  riderRating: Array,
   setTrips: Array,
   pendingTrips: Array,
   deniedTrips: Array,
   completedTrips: Array,
-  seedId: Number,
   trips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }]
 })
 

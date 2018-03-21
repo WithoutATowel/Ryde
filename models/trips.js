@@ -65,7 +65,6 @@ var tripSchema = new mongoose.Schema({
   },
   comments: Array,
   ridersId: Array,
-  setRiders: Array,
   pendingRiders: Array,
   deniedRiders: Array
 })
