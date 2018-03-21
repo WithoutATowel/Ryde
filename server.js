@@ -75,23 +75,28 @@ app.post('/bigsearch', (req, res, next) =>{
   })
 })
 
-app.post('/minisearch', (re,res,next) =>{
-  let bodhi = req.body
-  for(let key in bodhi){
-    if (bodhi[key] === '' || bodhi[key] === false) {
-      delete bodhi[key]
+app.post('/minisearch', (req,res,next) =>{
+  let bodh = req.body
+  var miniSearchObj ={
+    'startAddress.zip': bodh.startZip,
+    'endAddress.zip': bodh.endZip,
+    departDate: bodh.date
+  }
+  for(let key in miniSearchObj){
+    if (miniSearchObj[key] === '' || miniSearchObj[key] === false) {
+      delete miniSearchObj[key]
     }
   }
-  console.log(bodhi);
-  // Trip.find(bodhi, function(err, trips){
-  //   if(err){
-  //     console.log(err);
-  //     res.send(err);
-  //   } else {
-  //     console.log(trips);
-  //     res.send(trips);
-  //   }
-  // })
+  console.log(miniSearchObj);
+  Trip.find(miniSearchObj, function(err, trips){
+    if(err){
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log(trips);
+      res.send(trips);
+    }
+  })
 })
 
 app.get('/mydryves/:id', (req, res, next) => {
