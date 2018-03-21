@@ -54,7 +54,7 @@ class ConnectedPostARyde extends Component {
     reoccurringArray.push(Fri)
     reoccurringArray.push(Sat)
 
-
+    console.log(this.departDate.value,this.departTime.value,this.departDate.value.split('-'),this.departTime.value.split(':'));
     let newDepartDate = this.departDate.value.split('-');
     let newDepartTime = this.departTime.value.split(':');
 

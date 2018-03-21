@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../css/publicprofile.css';
-import ProfileDetails from '../components/ProfileDetails';
+import { ProfileDetails } from '../components/ProfileDetails';
 // import axios from 'axios';
 
 class PublicProfile extends Component {

@@ -38,7 +38,7 @@ class ConnectedMiniSearch extends Component {
 
   render() {
     if(this.state.redirect){
-      return(<Redirect to="/discover"/>)
+      return(<Redirect to="/discover" startZip={()=>{this.zipStartInput}}endZip={()=>{this.zipEndInput}}date={()=>{this.startDateInput}}/>)
     }
     console.log(this.state.redirect);
     return (
