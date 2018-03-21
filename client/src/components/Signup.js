@@ -44,7 +44,7 @@ class ConnectedSignup extends Component {
         .then( result => {
         localStorage.setItem('rydeAppToken', result.data.token) // change 'mernToken' to your app name or something useful
         this.props.liftTokenToState(result.data)
-    })
+    }).catch( err => console.log(err) )
   }
 
   render() {

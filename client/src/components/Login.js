@@ -37,13 +37,10 @@ class ConnectedLogin extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log("############# This is the state:")
-    console.log(this.state)
     axios.post('/auth/login', {
       email: this.state.email,
       password: this.state.password
     }).then( result => {
-      console.log("############# This is the result:")
       console.log(result.data)
       if (result.data.user) {
         localStorage.setItem('rydeAppToken', result.data.token)

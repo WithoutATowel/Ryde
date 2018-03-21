@@ -12,20 +12,12 @@ var jwt = require('jsonwebtoken');
 router.post('/login', (req, res, next) => {
   let hashedPass = ''
   let passwordMatch = false
-  console.log('First entering /login route: req.body.email is ', req.body.email)
-
   // Look up the User
   User.findOne({email: req.body.email}, function(err, user) {
-    console.log("error:", err);
-    console.log("user:", user);
     if (!user) {
       res.json({user: null, token: ''});
     } else {
-      console.log("Trying to find a user in the db...")
-      console.log('req.body.password: ', req.body.password)
       hashedPass = user.password
-      console.log('setting hashed pass to user.pass before hashing, hashed pass: ', hashedPass)
-
       // Compare hashedPass to submitted password
       passwordMatch = bcrypt.compareSync(req.body.password, hashedPass)
       if (passwordMatch) {
