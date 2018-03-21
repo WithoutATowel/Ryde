@@ -4,7 +4,6 @@ import { ProfileDetails } from '../components/ProfileDetails';
 // import axios from 'axios';
 
 export const PublicProfile = props => {
-  console.log('@@@@@ PUB PROFILE props.clickedUser', props.clickedUser)
   if (props.clickedUser) {
     return (
       <div className='public-profile-page'>
