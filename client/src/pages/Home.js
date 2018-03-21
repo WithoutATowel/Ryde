@@ -23,7 +23,10 @@ class ConnectedHome extends Component {
     return (
       <div>
         <img src="/img/home-hero.jpg" className="home-hero" alt="traffic-hero" />
-        <MiniSearch />
+        <div className='miniSearch'>
+          <MiniSearch />
+        </div>
+
       </div>
 
     )
