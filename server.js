@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var User = require('./models/user');
 var Trip = require('./models/trips');
-var lowerCase = require('./middleware/toLowerCase')
+var lowerCase = require('./middleware/toLowerCase');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 
 // Mongoose stuff
@@ -102,7 +103,7 @@ app.post('/minisearch', (req,res,next) =>{
 app.get('/mydryves/:id', (req, res, next) => {
 
   var searchOptions = {
-    driverId: req.params.id
+    driverId: ObjectId(req.params.id)
   }
 
   Trip.find(searchOptions, function(err, trips) {
@@ -117,11 +118,11 @@ app.get('/mydryves/:id', (req, res, next) => {
 
 app.get('/myrydes/:id', (req, res, next) => {
   console.log('Hit GET /myrydes route');
-  var searchOptions = {
-    ridersId: req.params.id
-  }
-  console.log(req.params.id)
-  Trip.find(searchOptions, function(err, trips) {
+  var searchOptions = [
+    { pendingRiders: req.params.id },
+    { ridersId: req.params.id }
+  ];
+  Trip.find({ $or: searchOptions }, function(err, trips) {
     if(err){
       console.log(err);
       res.send(err);
@@ -136,8 +137,8 @@ app.post('/myrydes', (req, res, next) => {
   let { userId, tripId } = req.body;
   Trip.findById(tripId, function (err, trip) {
     User.findById(userId, function (err, user) {
-      if(trip.driverId === userId) {
-        // THIS DOESN'T WORK YET BECAUSE driverId IS WRAPPED WITH 'ObjectId()'
+      if(trip.driverId === ObjectId(userId)) {
+        // THIS DOESN'T WORK YET
         res.send("You're the driver for this trip!");
       } else if(trip.deniedRiders.includes(userId)) {
         // User has already been denied for ride.
