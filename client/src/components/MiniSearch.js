@@ -42,17 +42,20 @@ class ConnectedMiniSearch extends Component {
     }
     console.log(this.state.redirect);
     return (
-      <div>
-        <form onSubmit={(e)=>this.handleMiniSearch(e)}>
-          <input type='number' maxLength='5' placeholder='Starting... Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipStartInput = input;}} />
-          <br />
-          <input type='number' maxLength='5' placeholder='Going to... Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipEndInput = input;}} />
-          <br />
-          <input type='number' placeholder='Departure Date' autoComplete='departure-time' ref={(input)=>{this.startDateInput = input;}}/>
-          <br />
-          <button type='submit'>Submit</button>
+
+        <form className="row center" onSubmit={(e)=>this.handleMiniSearch(e)}>
+          <div className='col m4'>
+            <input className='minisearchinput' type='number' maxLength='5' placeholder='Starting... Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipStartInput = input;}} />
+          </div>
+          <div className='col m4'>
+            <input className='minisearchinput' type='number' maxLength='5' placeholder='Going to... Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipEndInput = input;}} />
+          </div>
+          <div className='col m4'>
+            <input className='minisearchinput' type='number' placeholder='Departure Date' autoComplete='departure-time' ref={(input)=>{this.startDateInput = input;}}/>
+          </div>
+          <button className='center' type='submit'>Submit</button>
         </form>
-      </div>
+
     )
   }
 }

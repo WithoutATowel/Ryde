@@ -24,15 +24,26 @@ class ConnectedBigSearch extends Component {
     let sCity = this.sCityInput.value
     let eCity= this.eCityInput.value
     //split returns an array without special characters which I parseint with +
-    let sDate= this.departDate.value.split('-').map(date=>+date)
+    let sDate= this.departDate.value.split('-').map((date,index)=>{
+      if(index === 1){
+        return +date-1
+      } else {
+        return +date
+      }
+    })
     let sTime = this.departTime.value.split(':').map(time=>+time)
     let pets = this.petInput.checked
     let cost = this.costInput.value
     let reoccur = this.reoccurInput.checked
     let seat = this.seatInput.value
     //Date.UTC turns the unpacked date and time into a time stamp
+    console.log('The inputs are: ');
+    console.log(...sDate,...sTime);
     let dateTime = Date.UTC(...sDate,...sTime)
+    console.log(this.departDate.value,this.departTime.value);
     console.log('timestamp: ',dateTime);
+    console.log('this timestamp: ',(new Date(dateTime)).toUTCString());
+    console.log((new Date(1525170120000)).toUTCString());
 
 
     axios.post('/bigsearch',
@@ -94,7 +105,7 @@ class ConnectedBigSearch extends Component {
               </p>
             </div>
             <br />
-            <button type='submit' className='rydeBtn btn'>Submit</button>
+            <button type='submit' className='rydeBtn Green btn'>Submit</button>
           </div>
 
         </form>
