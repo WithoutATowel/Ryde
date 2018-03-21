@@ -22,6 +22,8 @@ class PrivateProfile extends Component {
               <br />
               <h5>{this.props.user.name}</h5>
               <p>do we want gender here???</p>
+              <p><Link to='/postaryde'>Post a Ryde</Link></p>
+
               <Link to='/myrydes'>My Rydes</Link>
             </div>
           </div>

@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-  return { clickedUser: state.clickedUser };
+  return { user: state.user, clickedUser: state.clickedUser };
 }
 
 class ConnectedUserProfile extends Component {
@@ -29,17 +29,14 @@ class ConnectedUserProfile extends Component {
     this.props.liftCurrentPageToState('/profile/' + this.props.match.params.id)
     axios.get('/finduser/' + this.props.match.params.id)
       .then( result => {
-        // this.setState({
-        //   user: result.data
-        // })
         this.props.liftClickedUser(result.data)
-        console.log('result.data:', result.data)
     }).catch( err => console.log(err.message))
   }
 
   render() {
-    console.log('USER PROFILE this.props.clickedUser', this.props.clickedUser)
-
+    console.log('@@@ USER PROFILE, this.props.clikedUser:', this.props.clickedUser)
+    console.log('@@@ USER PROFILE, this.props.user._id:', this.props.user._id)
+    console.log('@@@ USER PROFILE, this.props.match.params.id:', this.props.match.params.id)
     if (this.props.user) {
       if (this.props.user._id === this.props.match.params.id) {
         return <PrivateProfile user={this.props.user} />

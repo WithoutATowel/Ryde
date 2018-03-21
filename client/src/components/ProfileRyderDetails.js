@@ -11,16 +11,14 @@ class ConnectedProfileRyderDetails extends Component {
   // }
 
   render() {
-
-    console.log('profile ryder, this props clickedUser', this.props.clickedUser)
-
+    let cUser = this.props.clickedUser
     return (
       <div className='row'>
         <div className='col s12 center-align'>
           <div className='ryder-dryver-details-wrapper'>
             <h4>Ryder</h4>
             <p>Rating goes here: ####</p>
-            <p>Number of rydes goes here: ####</p>
+            <p>Number of rydes: {cUser.trips}</p>
             <p>~~~~~~~FIGURE OUT HOW TO LIST REVIEWS/COMMENTS HERE~~~~~~~~</p>
           </div>
         </div>
