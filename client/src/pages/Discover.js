@@ -21,12 +21,12 @@ class Discover extends Component {
               Filter Results
             </a>
           </div>
-          <div className='col s12 m4 hide-on-med-and-down'>
-            <h1 className='discover-h1'>Find a Ryde</h1>
+          <div className='col s12 l3 hide-on-med-and-down discover-side-column'>
+            <h2 className='discover-h1'>Find a Ryde</h2>
             <BigSearch />
           </div>
-          <div className='list-box-div col s12 m12 l8'>
-            <h1>Search Results</h1>
+          <div className='list-box-div col s12 m12 l9'>
+            <h2>Search Results</h2>
             <ListBox />
           </div>
         </div>
