@@ -154,7 +154,7 @@ const RydeForm = props => {
         </div>
 
 
-        <input type="submit" value="Post Your Ryde" className="rydeBtn btn" />
+        <input type="submit" value="Post Your Ryde" className="rydeGreenBtn btn" />
       </form>
     </div>
   )

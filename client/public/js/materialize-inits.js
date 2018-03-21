@@ -9,6 +9,8 @@ $( document ).ready(function() {
     closeOnSelect: false // Close upon selecting a date,
   });
 
+  $('.modal').modal();
+
   $('.timepicker').pickatime({
     default: 'now', // Set default time: 'now', '1:30AM', '16:30'
     fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
@@ -24,7 +26,8 @@ $( document ).ready(function() {
   $('select').material_select();
 
   $(".discover-sidnav").sideNav();
-  
+
+
 
   $('.main-menu-button-collapse').sideNav({
       menuWidth: 300, // Default is 300
