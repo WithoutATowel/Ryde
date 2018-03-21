@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { liftCurrentPageToState } from '../redux/actions/index';
 // import store from '../redux/store/index';
-import { PrivateProfile } from './PrivateProfile';
+import PrivateProfile from './PrivateProfile';
 import PublicProfile from './PublicProfile';
 import axios from 'axios';
 
+const mapDispatchToProps = dispatch => {
+  return {
+    liftCurrentPageToState: page => dispatch(liftCurrentPageToState(page))
+  }
+}
 
 const mapStateToProps = state => {
   return { user: state.user };
@@ -19,12 +25,12 @@ class ConnectedUserProfile extends Component {
   }
 
   componentDidMount() {
+    this.props.liftCurrentPageToState('/profile/' + this.props.match.params.id)
     axios.get('/finduser/' + this.props.match.params.id)
       .then( result => {
         this.setState({
           user: result.data
         })
-        console.log(this.props.user)
     }).catch( err => console.log(err.message))
   }
 
@@ -41,6 +47,6 @@ class ConnectedUserProfile extends Component {
   }
 }
 
-const UserProfile = connect(mapStateToProps)(ConnectedUserProfile);
+const UserProfile = connect(mapStateToProps, mapDispatchToProps)(ConnectedUserProfile);
 
 export default UserProfile;

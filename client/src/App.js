@@ -10,7 +10,7 @@ import Home from './pages/Home';
 import Discover from './pages/Discover';
 import UserProfile from './pages/UserProfile';
 import PublicProfile from './pages/PublicProfile';
-import { OurTeam } from './pages/OurTeam';
+import OurTeam from './pages/OurTeam';
 import { Footer } from './components/Footer';
 import PostARyde from './pages/PostARyde';
 import MyRydes from './pages/MyRydes.js'

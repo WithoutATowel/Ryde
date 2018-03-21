@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import store from '../redux/store/index';
-import { toggleRydesTab, liftBigSearch } from '../redux/actions/index';
+import { toggleRydesTab, liftCurrentPageToState, liftBigSearch } from '../redux/actions/index';
 import ListBox from '../components/ListBox';
 import axios from 'axios';
 
 const mapDispatchToProps = dispatch => {
   return {
     toggleRydesTab: bool => dispatch(toggleRydesTab(bool)),
-    liftBigSearch: data => dispatch(liftBigSearch(data))
+    liftBigSearch: data => dispatch(liftBigSearch(data)),
   }
 }
 

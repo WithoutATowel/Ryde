@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { liftCurrentPageToState } from '../redux/actions/index';
 import '../css/discover.css';
 import ListBox from '../components/ListBox';
 import BigSearch from '../components/BigSearch';
 
-class Discover extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    liftCurrentPageToState: page => dispatch(liftCurrentPageToState(page))
+  }
+}
+
+class ConnectedDiscover extends Component {
   // constructor(props) {
   //   super(props)
   // }
+
+  componentDidMount() {
+    this.props.liftCurrentPageToState('/discover')
+  }
 
   render() {
     return (
@@ -35,5 +47,7 @@ class Discover extends Component {
     )
   }
 }
+
+const Discover = connect(null, mapDispatchToProps)(ConnectedDiscover);
 
 export default Discover;
