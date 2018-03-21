@@ -97,6 +97,10 @@ app.post('/minisearch', (req,res,next) =>{
       delete miniSearchObj[key]
     }
   }
+  if(body.userId){
+    searchOptions.driverId = {$ne:ObjectId(body.userId)}
+    searchOptions.deniedRiders = {$ne: body.userId}
+  }
   console.log(miniSearchObj);
   Trip.find(miniSearchObj, function(err, trips){
     if(err){
