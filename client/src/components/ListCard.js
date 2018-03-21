@@ -37,8 +37,10 @@ class ConnectedListCard extends Component {
   }
 
   componentDidMount() {
-    if(this.props.ryde.ridersId.includes(this.props.user._id) || this.props.ryde.pendingRiders.includes(this.props.user._id)) {
-      this.refs.addButton.style.transform = 'rotate(45deg)';
+    if(this.props.user) {
+      if(this.props.ryde.ridersId.includes(this.props.user._id) || this.props.ryde.pendingRiders.includes(this.props.user._id)) {
+        this.refs.addButton.style.transform = 'rotate(45deg)';
+      }
     }
   }
 
