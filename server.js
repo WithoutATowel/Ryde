@@ -52,7 +52,7 @@ app.post('/bigsearch', (req, res, next) =>{
     'startAddress.zip': body.zip,
     'startAddress.city': body.sCity,
     'endAddress.city': body.eCity,
-    departDate: body.sTime,
+    departDate: {$gte: body.sTime},
     pets: body.pets,
     cost: body.cost,
     reoccurring: body.reoccur,
@@ -81,7 +81,7 @@ app.post('/minisearch', (req,res,next) =>{
   var miniSearchObj ={
     'startAddress.zip': bodh.startZip,
     'endAddress.zip': bodh.endZip,
-    departDate: bodh.date
+    departDate: {$gte: bodh.date}
   }
   for(let key in miniSearchObj){
     if (miniSearchObj[key] === '' || miniSearchObj[key] === false) {
