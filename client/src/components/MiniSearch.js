@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import '../css/minisearch.css';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import store from '../redux/store/index';
+import { liftMiniSearch } from '../redux/actions/index';
 
-class MiniSearch extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    liftMiniSearch: data => dispatch(liftMiniSearch(data))
+  }
+}
+
+class ConnectedMiniSearch extends Component {
   constructor(props) {
     super(props)
   }
@@ -16,7 +25,7 @@ class MiniSearch extends Component {
     axios.post('/minisearch',
     {startZip,endZip,date}).then(result =>{
       console.log(result.data)
-      // this.props.liftMiniSearch(result.data);
+      this.props.liftMiniSearch(result.data);
     })
   }
 
@@ -37,4 +46,5 @@ class MiniSearch extends Component {
   }
 }
 
+const MiniSearch = connect(null, mapDispatchToProps)(ConnectedMiniSearch);
 export default MiniSearch;

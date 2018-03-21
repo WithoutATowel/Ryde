@@ -2,6 +2,7 @@ import { TOGGLE_RYDES_TAB } from '../constants/action-types';
 import { LIFT_TOKEN_TO_STATE } from '../constants/action-types';
 import { LOGOUT_USER } from '../constants/action-types';
 import { LIFT_BIG_SEARCH } from '../constants/action-types';
+import { LIFT_MINI_SEARCH } from '../constants/action-types';
 
 // Actions are objs, build an action with a simple function that takes 1 parameter.
 // It returns a new ready to dispatch action obj with a "type" and a "payload".
@@ -27,6 +28,15 @@ export const logout = () => (
 export const liftBigSearch = data => (
   {
     type: LIFT_BIG_SEARCH,
+    payload: {
+      searchResults: data
+    }
+  }
+)
+
+export const liftMiniSearch = data => (
+  {
+    type: LIFT_MINI_SEARCH,
     payload: {
       searchResults: data
     }
