@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import store from '../redux/store/index';
-import { toggleRydesTab, liftMyRydesDryves } from '../redux/actions/index';
+import { toggleRydesTab, liftMyRydesDryves, liftTokenToState } from '../redux/actions/index';
 import ListBox from '../components/ListBox';
 import axios from 'axios';
 
 const mapDispatchToProps = dispatch => {
   return {
     toggleRydesTab: bool => dispatch(toggleRydesTab(bool)),
-    liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data))
+    liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data)),
+    liftTokenToState: data => dispatch(liftTokenToState(data))
   }
 }
 
