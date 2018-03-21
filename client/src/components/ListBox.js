@@ -15,7 +15,7 @@ class ConnectedListBox extends Component {
 
   render() {
     let rydes = this.props.rydes.map((item, index) => {
-      return <ListCard ryde={item} key={index} />
+      return <ListCard ryde={item} key={index} myRydesPage={this.props.myRydesPage} />
     });
 
     return (

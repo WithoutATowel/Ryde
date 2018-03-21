@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var User = require('./models/user');
 var Trip = require('./models/trips');
-var lowerCase = require('./middleware/toLowerCase')
+var lowerCase = require('./middleware/toLowerCase');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 
 // Mongoose stuff
@@ -100,9 +101,8 @@ app.post('/minisearch', (req,res,next) =>{
 })
 
 app.get('/mydryves/:id', (req, res, next) => {
-
   var searchOptions = {
-    driverId: req.params.id
+    driverId: ObjectId(req.params.id)
   }
 
   Trip.find(searchOptions, function(err, trips) {
@@ -114,14 +114,42 @@ app.get('/mydryves/:id', (req, res, next) => {
     }
   })
 })
+
+app.post('/mydryves', (req, res, next) => {
+  console.log('Hit POST /mydryves route');
+  let { userId, tripId, action } = req.body;
+  Trip.findById(tripId, function (err, trip) {
+    User.findById(userId, function (err, user) {
+      let message = '';
+      if(action === 'approve') {
+        trip.ridersId.push(userId);
+        trip.pendingRiders.splice(trip.pendingRiders.indexOf(userId),1);
+        user.setTrips.push(tripId);
+        user.pendingTrips.splice(user.pendingTrips.indexOf(tripId),1);
+        message = 'Approved the user!';
+      } else if (action === 'reject') {
+        trip.deniedRiders.push(userId);
+        trip.pendingRiders.splice(trip.pendingRiders.indexOf(userId),1);
+        user.deniedTrips.push(tripId);
+        user.pendingTrips.splice(user.pendingTrips.indexOf(tripId),1);
+        message = 'Denied the user!';
+      }
+      trip.save(function (err, updatedTrip) {
+        user.save(function (err, updatedUser) {
+          res.send(message);
+        });
+      });
+    });
+  });
+});
 
 app.get('/myrydes/:id', (req, res, next) => {
   console.log('Hit GET /myrydes route');
-  var searchOptions = {
-    ridersId: req.params.id
-  }
-  console.log(req.params.id)
-  Trip.find(searchOptions, function(err, trips) {
+  var searchOptions = [
+    { pendingRiders: req.params.id },
+    { ridersId: req.params.id }
+  ];
+  Trip.find({ $or: searchOptions }, function(err, trips) {
     if(err){
       console.log(err);
       res.send(err);
@@ -131,10 +159,47 @@ app.get('/myrydes/:id', (req, res, next) => {
   })
 })
 
+//TODO refactor this to be more like POST /mydryves
 app.post('/myrydes', (req, res, next) => {
   console.log('Hit POST /myrydes route');
-  res.send('Ya did it, kid.');
-  // TODO: Add real code to add/remove a ryde for a user
+  let { userId, tripId } = req.body;
+  Trip.findById(tripId, function (err, trip) {
+    User.findById(userId, function (err, user) {
+      if(trip.driverId === ObjectId(userId)) {
+        // THIS DOESN'T WORK YET
+        res.send("You're the driver for this trip!");
+      } else if(trip.deniedRiders.includes(userId)) {
+        // User has already been denied for ride.
+        res.send('Sorry! The driver has rejected your request.');
+      } else if (trip.ridersId.includes(userId)) {
+        // User has already been approved for ride, so they must want to remove it.
+        trip.ridersId.splice(trip.ridersId.indexOf(userId),1);
+        user.setTrips.splice(user.setTrips.indexOf(tripId),1);
+        trip.save(function (err, updatedTrip) {
+          user.save(function (err, updatedUser) {
+            res.send('Removed user from approved riders');
+          });
+        });
+      } else if(trip.pendingRiders.includes(userId)) {
+        // User is already pending for ride, so they must want to remove it.
+        trip.pendingRiders.splice(trip.pendingRiders.indexOf(userId),1);
+        user.pendingTrips.splice(user.pendingTrips.indexOf(tripId),1);
+        trip.save(function (err, updatedTrip) {
+          user.save(function (err, updatedUser) {
+            res.send('Removed user from pending riders');
+          });
+        });
+      } else {
+        trip.pendingRiders.push(userId);
+        user.pendingTrips.push(tripId);
+        trip.save(function (err, updatedTrip) {
+          user.save(function (err, updatedUser) {
+            res.send('Added user to pending riders');
+          });
+        });
+      }
+    });
+  });
 })
 
 app.post('/postARyde', (req, res, next) => {
