@@ -54,23 +54,23 @@ app.post('/bigsearch', (req, res, next) =>{
     'endAddress.city': body.eCity,
     departDate: {$gte: body.sTime},
     pets: body.pets,
-    cost: body.cost,
+    cost: {$lte: body.cost},
     reoccurring: body.reoccur,
     seats: body.seat
   }
-
+  console.log(searchOptions.cost);
   for (let key in searchOptions) {
-    if (searchOptions[key] === '' || searchOptions[key] === false) {
+    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key]['$lte'] === undefined || searchOptions[key]['$gte'] === undefined) {
       delete searchOptions[key]
     }
   }
-
+  console.log(searchOptions);
   Trip.find(searchOptions, function(err, trips){
     if(err){
       console.log(err);
       res.send(err);
     } else {
-      console.log(trips);
+      // console.log(trips);
       res.send(trips);
     }
   })
