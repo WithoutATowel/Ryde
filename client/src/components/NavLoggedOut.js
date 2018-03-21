@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const NavLoggedOut = props => (
-  <div>
+  <div className='nav-link-div'>
 
     <li><Link to='/profile/5ab050cb20b8b12fdff5b67d'>Scott public test</Link></li>
     <li><Link to='/profile/5ab050cb20b8b12fdff5b679'>Sean public test</Link></li>

@@ -24,7 +24,7 @@ router.post('/login', (req, res, next) => {
       var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
         expiresIn: 60 * 60 * 24 // expires in 24 hours
       })
-      res.json({user, token})
+      res.json({user: user.toObject(), token})
     } else {
       console.log("Passwords don't match")
       res.status(401).json({
@@ -36,6 +36,7 @@ router.post('/login', (req, res, next) => {
 })
 
 router.post('/signup', (req, res, next) => {
+  console.log(req.body);
   User.findOne({ email: req.body.email }, function(err, user) {
     if (user) {
       res.redirect('/auth/signup')
@@ -43,7 +44,10 @@ router.post('/signup', (req, res, next) => {
       User.create({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        'homeAddress.city': req.body.city,
+        'homeAddress.state': req.body.state,
+        dob: req.body.dob
       }, function(err, user) {
         if (err) {
           console.log("GOT AN ERROR CREATING THE USER")
