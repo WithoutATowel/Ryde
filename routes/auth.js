@@ -36,6 +36,7 @@ router.post('/login', (req, res, next) => {
 })
 
 router.post('/signup', (req, res, next) => {
+  console.log(req.body);
   User.findOne({ email: req.body.email }, function(err, user) {
     if (user) {
       res.redirect('/auth/signup')
@@ -43,7 +44,10 @@ router.post('/signup', (req, res, next) => {
       User.create({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        'homeAddress.city': req.body.city,
+        'homeAddress.state': req.body.state,
+        dob: req.body.dob
       }, function(err, user) {
         if (err) {
           console.log("GOT AN ERROR CREATING THE USER")
