@@ -26,7 +26,7 @@ class ConnectedMyRydes extends Component {
 
   handleTabToggle = (event) => {
     // If Rydes tab currently selected, query against the '/mydryves' route and vice versa
-    let route = !this.props.rydesTabIsToggled ? '/mydryves' : '/myrydes';
+    let route = this.props.rydesTabIsToggled ? '/mydryves' : '/myrydes';
     // Query for user's rydes or dryves as needed, where results are stored by server in Redux under 'searchResults'
     axios.get(route + '/' + this.props.user._id)
       .then( result => {
@@ -35,14 +35,14 @@ class ConnectedMyRydes extends Component {
         } else {
           this.props.liftBigSearch([]);
         }
-        // Update rydesTabIsToggled state value in Redux
+        // Flip the rydesTabIsToggled state value in Redux
         this.props.toggleRydesTab(!this.props.rydesTabIsToggled);
       });
   }
 
   componentDidMount() {
     if (this.props.user) {
-      let route = this.props.rydesTabIsToggled ? '/mydryves' : '/myrydes';
+      let route = this.props.rydesTabIsToggled ? '/myrydes' : '/mydryves';
       axios.get(route + '/' + this.props.user._id)
       .then( result => {
         if (result.data && result.data.length > 0) {
@@ -62,7 +62,7 @@ class ConnectedMyRydes extends Component {
         }).then( result => {
           localStorage.setItem('rydeAppToken', result.data.token)
           this.props.liftTokenToState(result.data);
-          let route = this.props.rydesTabIsToggled ? '/mydryves' : '/myrydes';
+          let route = this.props.rydesTabIsToggled ? '/myrydes' : '/mydryves';
           axios.get(route + '/' + this.props.user._id)
             .then( result => {
               if (result.data && result.data.length > 0) {
@@ -77,8 +77,6 @@ class ConnectedMyRydes extends Component {
   }
 
   render() {
-    console.log(this.props.rydesTabIsToggled);
-    console.log('isRyde ', this.props.rydesTabIsToggled)
     return (
       <div>
         <div className="flexCol-vCenter-hCenter">
@@ -107,7 +105,7 @@ class ConnectedMyRydes extends Component {
             <span className="switcher__toggle"></span>
           </div>
         </div>
-        <ListBox />
+        <ListBox myRydesPage={true} />
       </div>
 
     )
