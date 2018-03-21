@@ -133,8 +133,44 @@ app.get('/myrydes/:id', (req, res, next) => {
 
 app.post('/myrydes', (req, res, next) => {
   console.log('Hit POST /myrydes route');
-  res.send('Ya did it, kid.');
-  // TODO: Add real code to add/remove a ryde for a user
+  let { userId, tripId } = req.body;
+  Trip.findById(tripId, function (err, trip) {
+    User.findById(userId, function (err, user) {
+      if(trip.driverId === userId) {
+        // THIS DOESN'T WORK YET BECAUSE driverId IS WRAPPED WITH 'ObjectId()'
+        res.send("You're the driver for this trip!");
+      } else if(trip.deniedRiders.includes(userId)) {
+        // User has already been denied for ride.
+        res.send('Sorry! The driver has rejected your request.');
+      } else if (trip.ridersId.includes(userId)) {
+        // User has already been approved for ride, so they must want to remove it.
+        trip.ridersId.splice(trip.ridersId.indexOf(userId),1);
+        user.setTrips.splice(user.setTrips.indexOf(tripId),1);
+        trip.save(function (err, updatedTrip) {
+          user.save(function (err, updatedUser) {
+            res.send('Removed user from approved riders');
+          });
+        });
+      } else if(trip.pendingRiders.includes(userId)) {
+        // User is already pending for ride, so they must want to remove it.
+        trip.pendingRiders.splice(trip.pendingRiders.indexOf(userId),1);
+        user.pendingTrips.splice(user.pendingTrips.indexOf(tripId),1);
+        trip.save(function (err, updatedTrip) {
+          user.save(function (err, updatedUser) {
+            res.send('Removed user from pending riders');
+          });
+        });
+      } else {
+        trip.pendingRiders.push(userId);
+        user.pendingTrips.push(tripId);
+        trip.save(function (err, updatedTrip) {
+          user.save(function (err, updatedUser) {
+            res.send('Added user to pending riders');
+          });
+        });
+      }
+    });
+  });
 })
 
 app.post('/postARyde', (req, res, next) => {

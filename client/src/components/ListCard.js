@@ -29,7 +29,14 @@ class ConnectedListCard extends Component {
     let newRotation = e.target.style.transform === 'rotate(45deg)' ? 'rotate(0deg)' : 'rotate(45deg)';
     e.target.style.transform = newRotation;
     // Post addition to the database
-    axios.post('/myrydes', { userId: this.props.user._id });
+    axios.post('/myrydes', { userId: this.props.user._id, tripId: this.props.ryde._id });
+  }
+
+  componentDidMount() {
+    console.log('On mount: ');
+    if(this.props.ryde.ridersId.includes(this.props.user._id) || this.props.ryde.pendingRiders.includes(this.props.user._id)) {
+      this.refs.addButton.style.transform = 'rotate(45deg)';
+    }
   }
 
   render() {
@@ -37,7 +44,7 @@ class ConnectedListCard extends Component {
     let reocurringDaysJSX, reocurringColon, addButton;
     if (this.props.user) {
       addButton = (
-        <div className='col s2 list-card-add right-align' onClick={ (e) => this.handleRydeAdd(e) }>
+        <div className='col s2 list-card-add right-align' ref='addButton' onClick={ (e) => this.handleRydeAdd(e) }>
           <i className='material-icons large'>add</i>
         </div>
       )
