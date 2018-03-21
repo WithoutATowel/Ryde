@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import store from '../redux/store/index';
-import { toggleRydesTab, liftBigSearch } from '../redux/actions/index';
+import { toggleRydesTab, liftMyRydesDryves, liftTokenToState } from '../redux/actions/index';
 import ListBox from '../components/ListBox';
 import axios from 'axios';
 
 const mapDispatchToProps = dispatch => {
   return {
     toggleRydesTab: bool => dispatch(toggleRydesTab(bool)),
-    liftBigSearch: data => dispatch(liftBigSearch(data))
+    liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data)),
+    liftTokenToState: data => dispatch(liftTokenToState(data))
   }
 }
 
@@ -20,9 +21,6 @@ const mapStateToProps = state => {
 }
 
 class ConnectedMyRydes extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
 
   handleTabToggle = (event) => {
     // If Rydes tab currently selected, query against the '/mydryves' route and vice versa
@@ -31,9 +29,9 @@ class ConnectedMyRydes extends Component {
     axios.get(route + '/' + this.props.user._id)
       .then( result => {
         if (result.data && result.data.length > 0) {
-          this.props.liftBigSearch(result.data);
+          this.props.liftMyRydesDryves(result.data);
         } else {
-          this.props.liftBigSearch([]);
+          this.props.liftMyRydesDryves([]);
         }
         // Flip the rydesTabIsToggled state value in Redux
         this.props.toggleRydesTab(!this.props.rydesTabIsToggled);
@@ -42,13 +40,13 @@ class ConnectedMyRydes extends Component {
 
   componentDidMount() {
     if (this.props.user) {
-      let route = this.props.rydesTabIsToggled ? '/myrydes' : '/mydryves';
-      axios.get(route + '/' + this.props.user._id)
+      let route = this.props.rydesTabIsToggled ? '/myrydes/' : '/mydryves/';
+      axios.get(route + this.props.user._id)
       .then( result => {
         if (result.data && result.data.length > 0) {
-          this.props.liftBigSearch(result.data);
+          this.props.liftMyRydesDryves(result.data);
         } else {
-          this.props.liftBigSearch([]);
+          this.props.liftMyRydesDryves([]);
         }
       });
     } else {
@@ -66,9 +64,9 @@ class ConnectedMyRydes extends Component {
           axios.get(route + '/' + this.props.user._id)
             .then( result => {
               if (result.data && result.data.length > 0) {
-                this.props.liftBigSearch(result.data);
+                this.props.liftMyRydesDryves(result.data);
               } else {
-                this.props.liftBigSearch([]);
+                this.props.liftMyRydesDryves([]);
               }
             });
         }).catch( err => console.log(err))

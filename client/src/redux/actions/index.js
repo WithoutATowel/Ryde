@@ -1,14 +1,20 @@
 import { TOGGLE_RYDES_TAB } from '../constants/action-types';
+import { LIFT_CURRENT_PAGE_TO_STATE } from '../constants/action-types';
 import { LIFT_TOKEN_TO_STATE } from '../constants/action-types';
 import { LOGOUT_USER } from '../constants/action-types';
 import { LIFT_BIG_SEARCH } from '../constants/action-types';
 import { LIFT_MINI_SEARCH } from '../constants/action-types';
-
-// Actions are objs, build an action with a simple function that takes 1 parameter.
-// It returns a new ready to dispatch action obj with a "type" and a "payload".
+import { LIFT_MY_RYDES_DRYVES } from '../constants/action-types';
 
 export const toggleRydesTab = (rydesTabIsToggled) => (
-  { type: TOGGLE_RYDES_TAB, payload: rydesTabIsToggled }
+  { 
+    type: TOGGLE_RYDES_TAB, 
+    payload: rydesTabIsToggled
+  }
+)
+
+export const liftCurrentPageToState = page => (
+  { type: LIFT_CURRENT_PAGE_TO_STATE, payload: page }
 )
 
 export const liftTokenToState = data => (
@@ -42,12 +48,12 @@ export const liftMiniSearch = data => (
     }
   }
 )
-// Notes on Actions!
 
-// The only way to change state is to send a signal to the store.
-// dispatching that action is the process of sending that signal
-
-// Actions are objects. E.g.:
-// { type: 'ACTION_HERE', payload: thingYouWantToSendToStore }
-
-// Naming your action - action names should be descriptive and reflect what they do
+export const liftMyRydesDryves = data => (
+  {
+    type: LIFT_MY_RYDES_DRYVES,
+    payload: {
+      myRydesDryves: data
+    }
+  }
+)

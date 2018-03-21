@@ -12,25 +12,28 @@ var jwt = require('jsonwebtoken');
 router.post('/login', (req, res, next) => {
   let hashedPass = ''
   let passwordMatch = false
-
   // Look up the User
   User.findOne({email: req.body.email}, function(err, user) {
-    hashedPass = user.password
-    // Compare hashedPass to submitted password
-    passwordMatch = bcrypt.compareSync(req.body.password, hashedPass)
-    if (passwordMatch) {
-      // The passwords match...
-      console.log("Password is correct")
-      var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
-        expiresIn: 60 * 60 * 24 // expires in 24 hours
-      })
-      res.json({user: user.toObject(), token})
+    if (!user) {
+      res.json({user: null, token: ''});
     } else {
-      console.log("Passwords don't match")
-      res.status(401).json({
-        error: true,
-        message: 'Email or password is incorrect'
-      })
+      hashedPass = user.password
+      // Compare hashedPass to submitted password
+      passwordMatch = bcrypt.compareSync(req.body.password, hashedPass)
+      if (passwordMatch) {
+        // The passwords match...
+        console.log("Password is correct")
+        var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
+          expiresIn: 60 * 60 * 24 // expires in 24 hours
+        })
+        res.json({user: user.toObject(), token})
+      } else {
+        console.log("Passwords don't match")
+        res.status(401).json({
+          error: true,
+          message: 'Email or password is incorrect'
+        })
+      }
     }
   })
 })
@@ -45,9 +48,15 @@ router.post('/signup', (req, res, next) => {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        'homeAddress.city': req.body.city,
-        'homeAddress.state': req.body.state,
-        dob: req.body.dob
+        dob: req.body.dob,
+        'homeAddress.street': req.body.homeStreet,
+        'homeAddress.city': req.body.homeCity,
+        'homeAddress.state': req.body.homeState,
+        'homeAddress.zip': req.body.homeZip,
+        'workAddress.street': req.body.workStreet,
+        'workAddress.city': req.body.workCity,
+        'workAddress.state': req.body.workState,
+        'workAddress.zip': req.body.workZip
       }, function(err, user) {
         if (err) {
           console.log("GOT AN ERROR CREATING THE USER")
@@ -57,7 +66,7 @@ router.post('/signup', (req, res, next) => {
           var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
             expiresIn: 60 * 60 * 24
           })
-          res.json({user, token})
+          res.json({user: user.toObject(), token})
         }
       })
     }

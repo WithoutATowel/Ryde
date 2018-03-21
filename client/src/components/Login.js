@@ -12,7 +12,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-  return { token: state.token, user: state.user };
+  return { token: state.token, user: state.user, currentPage: state.currentPage };
 }
 
 class ConnectedLogin extends Component {
@@ -41,15 +41,19 @@ class ConnectedLogin extends Component {
       email: this.state.email,
       password: this.state.password
     }).then( result => {
-      localStorage.setItem('rydeAppToken', result.data.token)
-      this.props.liftTokenToState(result.data)
-      console.log('here is result.data', result.data)
+      console.log(result.data)
+      if (result.data.user) {
+        localStorage.setItem('rydeAppToken', result.data.token)
+        this.props.liftTokenToState(result.data)
+      } else {
+        console.log("Handle the lack of user here...")
+      }
     }).catch( err => console.log(err) )
   }
 
   render() {
     if ( this.props.user && Object.keys(this.props.user).length > 0 ) {
-      return (<Redirect to={{ pathname: '/' }} />)  // ~~~~~~~~~~~NEED TO FIX REDIRECT TO CURRENT PAGE~~~~~~~~~~~~~
+      return (<Redirect to={{ pathname: this.props.currentPage }} />)  // ~~~~~~~~~~~NEED TO FIX REDIRECT TO CURRENT PAGE~~~~~~~~~~~~~
     } else {
       return(
         <form onSubmit={this.handleSubmit}>

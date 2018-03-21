@@ -24,8 +24,15 @@ class ConnectedMiniSearch extends Component {
     e.preventDefault()
     let startZip = this.zipStartInput.value
     let endZip = this.zipEndInput.value
-    let date = this.startDateInput.value
-
+    let dateFormat = this.departDate.value.split('-').map((date,index)=>{
+      if(index === 1){
+        return +date-1
+      } else {
+        return +date
+      }
+    })
+    let date = Date.UTC(...dateFormat)
+    console.log(date);
     axios.post('/minisearch',
     {startZip,endZip,date}).then(result =>{
       console.log(result.data)
@@ -38,21 +45,24 @@ class ConnectedMiniSearch extends Component {
 
   render() {
     if(this.state.redirect){
-      return(<Redirect to="/discover"/>)
+      return(<Redirect to="/discover" startZip={()=>{this.zipStartInput}}endZip={()=>{this.zipEndInput}}date={()=>{this.startDateInput}}/>)
     }
     console.log(this.state.redirect);
     return (
-      <div>
-        <form onSubmit={(e)=>this.handleMiniSearch(e)}>
-          <input type='number' maxLength='5' placeholder='Starting... Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipStartInput = input;}} />
-          <br />
-          <input type='number' maxLength='5' placeholder='Going to... Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipEndInput = input;}} />
-          <br />
-          <input type='number' placeholder='Departure Date' autoComplete='departure-time' ref={(input)=>{this.startDateInput = input;}}/>
-          <br />
-          <button type='submit'>Submit</button>
+
+        <form className="row center" onSubmit={(e)=>this.handleMiniSearch(e)}>
+          <div className='col m4'>
+            <input className='minisearchinput' type='number' maxLength='5' placeholder='Starting... Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipStartInput = input;}} />
+          </div>
+          <div className='col m4'>
+            <input className='minisearchinput' type='number' maxLength='5' placeholder='Going to... Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipEndInput = input;}} />
+          </div>
+          <div className='col m4'>
+            <input type="date" className="datepicker minisearchinput" placeholder="Date To Depart" autoComplete='departure-time' ref={(input)=>{this.departDate = input;}} />
+          </div>
+          <button className='center' type='submit'>Submit</button>
         </form>
-      </div>
+
     )
   }
 }
