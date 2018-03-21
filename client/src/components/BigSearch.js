@@ -38,31 +38,49 @@ class ConnectedBigSearch extends Component {
     return (
       <div>
         <form onSubmit={e=>this.handleBigSearch(e)}>
-          <input type='number' maxLength='5' placeholder='Departing Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipInput = input;}} />
-          <br />
-          <input type='number' placeholder='Max Distance' ref={(input)=>{this.distanceInput = input;}}/>
-          <br />
-          <input type='text' placeholder='Departing City' autoComplete='departing-city' ref={(input)=>{this.sCityInput = input;}}/>
-          <br />
-          <input type='text' placeholder='Destination City' autoComplete='destination-city' ref={(input)=>{this.eCityInput = input;}}/>
-          <br />
-          <input type='number' placeholder='Departure Time' autoComplete='departure-time' ref={(input)=>{this.sTimeInput = input;}}/>
-          <br />
-          <p>
-            <input id='pets' type='checkbox' placeholder='Pets' ref={(input)=>{this.petInput = input;}}/>
-            <label htmlFor='pets'>Pets</label>
-          </p>
-          <br />
-          <input type='number' placeholder='Cost' ref={(input)=>{this.costInput = input;}}/>
-          <br />
-          <p>
-            <input id='reoccur' type='checkbox' ref={(input)=>{this.reoccurInput = input;}}/>
-            <label htmlFor='reoccur'>Reoccuring</label>
-          </p>
-          <br />
-          <input type='number' placeholder='Seatting' ref={(input)=>{this.seatInput = input;}}/>
-          <br />
-          <button type='submit'>Submit</button>
+          <div className="row">
+            <div className="col s12 m6">
+              <input type='number' maxLength='5' placeholder='Departing Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipInput = input;}} />
+            </div>
+            <div className="col s12 m6">
+              <input type='number' placeholder='Max Distance' ref={(input)=>{this.distanceInput = input;}}/>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col s12 m6">
+              <input type='text' placeholder='Departing City' autoComplete='departing-city' ref={(input)=>{this.sCityInput = input;}}/>
+            </div>
+            <div className="col s12 m6">
+            <input type='text' placeholder='Destination City' autoComplete='destination-city' ref={(input)=>{this.eCityInput = input;}}/>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col s12 m6">
+              <input type='number' placeholder='Max Cost' ref={(input)=>{this.costInput = input;}}/>
+            </div>
+            <div className="col s12 m6">
+              <input type='number' placeholder='Departure Time' autoComplete='departure-time' ref={(input)=>{this.sTimeInput = input;}}/>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col s12 m6">
+              <input type='number' placeholder='Seats Available' ref={(input)=>{this.seatInput = input;}}/>
+            </div>
+            <div className="col s12 m6">
+              <p>
+                <input id='pets' type='checkbox' placeholder='Pets' ref={(input)=>{this.petInput = input;}}/>
+                <label htmlFor='pets'>Pets</label>
+              </p>
+              <p>
+                <input id='reoccur' type='checkbox' ref={(input)=>{this.reoccurInput = input;}}/>
+                <label htmlFor='reoccur'>Reoccuring</label>
+              </p>
+            </div>
+            <br />
+            <button type='submit' className='rydeBtn btn'>Submit</button>
+          </div>
         </form>
       </div>
     )

@@ -169,7 +169,7 @@ class ConnectedPostARyde extends Component {
     const reoccurringShowHide = this.state.reoccurring ? 'show' : 'hide';
     const twoWayShowHide = this.state.twoWay ? 'show' : 'hide';
     return (
-      <div id="post-a-ryde">
+      <div id="post-a-ryde" className="container">
         <h2>Post A Ryde</h2>
         <RydeForm
           rydeName={(input) => this.rydeName = input}
