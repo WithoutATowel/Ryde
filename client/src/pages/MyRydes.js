@@ -25,16 +25,17 @@ class ConnectedMyRydes extends Component {
   handleTabToggle = (event) => {
     // If Rydes tab currently selected, query against the '/mydryves' route and vice versa
     let route = this.props.rydesTabIsToggled ? '/mydryves' : '/myrydes';
-    // Query for user's rydes or dryves as needed, where results are stored by server in Redux under 'searchResults'
+    // Query for user's rydes or dryves as needed, where results are stored by server in Redux under 'myRydesDryves'
     axios.get(route + '/' + this.props.user._id)
       .then( result => {
+        // Flip the rydesTabIsToggled state value in Redux
+        this.props.toggleRydesTab(!this.props.rydesTabIsToggled);
+        // Lift the results to myRydesDryves in Redux
         if (result.data && result.data.length > 0) {
           this.props.liftMyRydesDryves(result.data);
         } else {
           this.props.liftMyRydesDryves([]);
         }
-        // Flip the rydesTabIsToggled state value in Redux
-        this.props.toggleRydesTab(!this.props.rydesTabIsToggled);
       });
   }
 
