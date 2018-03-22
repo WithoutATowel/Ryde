@@ -72,11 +72,11 @@ class ConnectedEditARyde extends Component {
 
   componentDidMount() {
     var getAndStorePost = () => {
-      axios.get('/editARyde/' + '5ab194b8d10bf8064db31947')
+      axios.get('/editARyde/' + '5ab3fc64ff09fb4194b3ef68')
       .then( result => {
         if (result.data && result.data.length > 0) {
-          console.log('results: ',result.data[0])
-          let results = result.data[0]
+          console.log('results: ', result.data[0]);
+          let results = result.data[0];
           this.setState({
             reoccurring: false,
             twoWay: false,
@@ -93,22 +93,20 @@ class ConnectedEditARyde extends Component {
             departTime: '',
             returnDepartDate: '',
             returnDepartTime: '',
-            reoccurringSun: results.reoccurringDays[0] ? 'checked' : null,
-            reoccurringMon: results.reoccurringDays[1] ? 'checked' : null,
-            reoccurringTues: results.reoccurringDays[2] ? 'checked' : null,
-            reoccurringWed: results.reoccurringDays[3] ? 'checked' : null,
-            reoccurringThurs: results.reoccurringDays[4] ? 'checked' : null,
-            reoccurringFri: results.reoccurringDays[5] ? 'checked' : null,
-            reoccurringSat: results.reoccurringDays[6] ? 'checked' : null,
+            reoccurringSun: results.reoccurringDays[0],
+            reoccurringMon: results.reoccurringDays[1],
+            reoccurringTues: results.reoccurringDays[2],
+            reoccurringWed: results.reoccurringDays[3],
+            reoccurringThurs: results.reoccurringDays[4],
+            reoccurringFri: results.reoccurringDays[5],
+            reoccurringSat: results.reoccurringDays[6],
             cost: results.cost,
             costBreakdown: results.costBreakdown,
             smoking: results.smoking,
-            tripPets: results.pets ? 'checked' : '',
+            tripPets: results.pets,
             carType:  results.carType,
             seats: results.seats,
           });
-
-
         } else {
           this.setState({results: []});
           console.log('fails')
@@ -150,23 +148,17 @@ class ConnectedEditARyde extends Component {
 
   handlePostARydeSubmit(e) {
     e.preventDefault()
-    let Sun = this.state.reoccurringSun
-    let Mon = this.state.reoccurringMon
-    let Tues = this.state.reoccurringTues
-    let Wed = this.state.reoccurringWed
-    let Thurs = this.state.reoccurringThurs
-    let Fri = this.state.reoccurringFri
-    let Sat = this.state.reoccurringSat
-    let reoccurringArray = []
-    reoccurringArray.push(Sun)
-    reoccurringArray.push(Mon)
-    reoccurringArray.push(Tues)
-    reoccurringArray.push(Wed)
-    reoccurringArray.push(Thurs)
-    reoccurringArray.push(Fri)
-    reoccurringArray.push(Sat)
+    let reoccurringArray = [
+      this.state.reoccurringSun,
+      this.state.reoccurringMon,
+      this.state.reoccurringTues,
+      this.state.reoccurringWed,
+      this.state.reoccurringThurs,
+      this.state.reoccurringFri,
+      this.state.reoccurringSat
+    ];
 
-    console.log(this.state.departDate,this.state.departTime,this.state.departDate.split('-'),this.state.departTime.split(':'));
+    console.log(this.state.departDate, this.state.departTime, this.state.departDate.split('-'), this.state.departTime.split(':'));
     let newDepartDate = this.state.departDate.split('-');
     let newDepartTime = this.state.departTime.split(':');
 
@@ -215,7 +207,7 @@ class ConnectedEditARyde extends Component {
     }
     console.log(trip)
 
-    axios.post('/editARyde/' + '5ab194b8d10bf8064db31947', trip).then(result => {
+    axios.post('/editARyde/' + '5ab3fc64ff09fb4194b3ef68', trip).then(result => {
       console.log('added one way ', result.data)
 
     }).catch(err => {
@@ -235,7 +227,6 @@ class ConnectedEditARyde extends Component {
         <RydeForm
           isEditPage={true}
           rydeName={this.state.rydeName}
-          onInputChange={this.handleInputChange}
           startStreet={this.state.startStreet}
           startCity={this.state.startCity}
           startState={this.state.startState}
@@ -267,6 +258,7 @@ class ConnectedEditARyde extends Component {
           pets={this.state.tripPets}
           carType={this.state.carType}
           seats={this.state.seats}
+          onInputChange={this.handleInputChange}
           onPostARydeSubmit={this.handlePostARydeSubmit} />
       </div>
     )

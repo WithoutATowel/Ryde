@@ -1,5 +1,5 @@
 import React from 'react';
-import {Input} from 'react-materialize'
+import {Input} from 'react-materialize';
 
 
 const RydeForm = props => {
@@ -7,10 +7,8 @@ const RydeForm = props => {
   const submitPostEdit = props.isEditPage ? 'Edit Your Ryde' : 'Post Your Ryde'
   const showReoccurringOnEdit = props.isEditPage || props.reoccurringShowHide === 'show' ? 'show' : 'hide'
 
-  const isCheckedMon = props.reoccurringMon ? 'checked' : ''
   const oneSeat = true  ? 'active selected' : 'fdf'
   console.log(props.seats)
-  console.log(isCheckedMon)
   console.log('this string ', props.reoccurringSun)
 
   return (
@@ -131,31 +129,31 @@ const RydeForm = props => {
 
               <div id="sun-sat" className={showReoccurringOnEdit}>
                 <p>
-                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringSun" defaultChecked={props.reoccurringSun} id="sunday" />
+                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringSun" checked={props.reoccurringSun ? 'checked' : null} id="sunday" />
                   <label htmlFor="sunday">Sun</label>
                 </p>
                 <p>
-                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringMon" defaultChecked={props.reoccurringMon} id="monday" />
+                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringMon" checked={props.reoccurringMon ? 'checked' : null} id="monday" />
                   <label htmlFor="monday">Mon</label>
                 </p>
                 <p>
-                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringTues" defaultChecked={props.reoccurringTues} id="tuesday" />
+                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringTues" checked={props.reoccurringTues ? 'checked' : null} id="tuesday" />
                   <label htmlFor="tuesday">Tues</label>
                 </p>
                 <p>
-                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringWed" defaultChecked={props.reoccurringWed} id="wednesday" />
+                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringWed" checked={props.reoccurringWed ? 'checked' : null} id="wednesday" />
                   <label htmlFor="wednesday">Wed</label>
                 </p>
                 <p>
-                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringThurs" defaultChecked={props.reoccurringThurs} id="thursday" />
+                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringThurs" checked={props.reoccurringThurs ? 'checked' : null} id="thursday" />
                   <label htmlFor="thursday">Thurs</label>
                 </p>
                 <p>
-                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringFri" defaultChecked={props.reoccurringFri} id="friday" />
+                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringFri" checked={props.reoccurringFri ? 'checked' : null} id="friday" />
                   <label htmlFor="friday">Fri</label>
                 </p>
                 <p>
-                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringSat" value={props.reoccurringSat} id="saturday" />
+                  <input type="checkbox" onChange={props.onInputChange} name="reoccurringSat" checked={props.reoccurringSat ? 'checked' : null} id="saturday" />
                   <label htmlFor="saturday">Sat</label>
                 </p>
               </div>
