@@ -1,21 +1,38 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { liftCurrentPageToState } from '../redux/actions/index';
 import MiniSearch from '../components/MiniSearch';
 import '../css/home.css';
 
-class Home extends Component {
-  constructor(props) {
-    super(props)
+const mapDispatchToProps = dispatch => {
+  return {
+    liftCurrentPageToState: page => dispatch(liftCurrentPageToState(page))
+  }
+}
+
+class ConnectedHome extends Component {
+  // constructor(props) {
+  //   super(props)
+  // }
+
+  componentDidMount() {
+    this.props.liftCurrentPageToState('/')
   }
 
   render() {
     return (
       <div>
-        <h1 className='home-h1'>~~~~~~~~~~HOME PLACEHOLDER PAGE~~~~~~~~~~~~</h1>
-        <MiniSearch />
+        <img src="/img/home-hero.jpg" className="home-hero" alt="traffic-hero" />
+        <div className='miniSearch'>
+          <MiniSearch />
+        </div>
+
       </div>
 
     )
   }
 }
+
+const Home = connect(null, mapDispatchToProps)(ConnectedHome);
 
 export default Home;

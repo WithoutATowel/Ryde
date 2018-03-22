@@ -1,3 +1,23 @@
 .our-team-h1 {
-  color: purple;
+  display:inline-block;
+  color: #18ED6E;
+  text-shadow: .1em .05em .07em #306FB5;
+  transition: all .8s;
+}
+
+.our-team-h1:hover {
+  color: #306FB5;
+  text-shadow: .1em .05em .07em #18ED6E;
+}
+
+.team-member-col > a {
+  margin-right: 1vw;
+  padding-bottom: .5vh;
+  font-size: 1.3em;
+  color: #306FB5;
+  text-decoration: none;
+}
+
+.team-member-col > a:hover {
+  border-bottom: 3px solid #18ED6E;
 }

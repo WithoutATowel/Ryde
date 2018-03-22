@@ -1,5 +1,7 @@
+/* blue #306FB5 */
 .list-box-div {
-  background-color: aquamarine;
+  border-left: 2px solid black;
+  background-color: #18ED6E;
 }
 
 .list-box-h2 {

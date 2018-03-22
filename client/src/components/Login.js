@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+// import store from '../redux/store/index';
+import { liftTokenToState } from '../redux/actions/index';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-class Login extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    liftTokenToState: data => dispatch(liftTokenToState(data))
+  }
+}
+
+const mapStateToProps = state => {
+  return { token: state.token, user: state.user, currentPage: state.currentPage };
+}
+
+class ConnectedLogin extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -27,24 +41,34 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     }).then( result => {
-      console.log(result.data) // result is result from back end responding to post request and .data is where axios stores the returned data
-      localStorage.setItem('mernToken', result.data.token) // change 'mernToken' to your app name or something useful
-      this.props.liftToken(result.data)
+      console.log(result.data)
+      if (result.data.user) {
+        localStorage.setItem('rydeAppToken', result.data.token)
+        this.props.liftTokenToState(result.data)
+      } else {
+        console.log("Handle the lack of user here...")
+      }
     }).catch( err => console.log(err) )
   }
 
   render() {
-    return(
-      <form onSubmit={this.handleSubmit}>
-        Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} />
-        <br />
-        Password: <input type='text' value={this.state.password} onChange={this.handlePasswordChange} />
-        <br />
-        <input type='submit' value='Log In!' />
-      </form>
-    )
+    if ( this.props.user && Object.keys(this.props.user).length > 0 ) {
+      return (<Redirect to={{ pathname: this.props.currentPage }} />)  // ~~~~~~~~~~~NEED TO FIX REDIRECT TO CURRENT PAGE~~~~~~~~~~~~~
+    } else {
+      return(
+        <form onSubmit={this.handleSubmit}>
+          Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} />
+          <br />
+          Password: <input type='text' value={this.state.password} onChange={this.handlePasswordChange} />
+          <br />
+          <input type='submit' className="rydeBlueBtn btn" value='Log In!' />
+        </form>
+      )
+    }
+    // return (<p>yo</p>)
   }
-
 }
+
+const Login = connect(mapStateToProps, mapDispatchToProps)(ConnectedLogin);
 
 export default Login;

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
+var Schema = mongoose.Schema;
 
 var userSchema = new mongoose.Schema({
   name: {
@@ -21,7 +22,7 @@ var userSchema = new mongoose.Schema({
     minLength: 8,
     maxLength: 99
   },
-  address: {
+  homeAddress: {
     street: String,
     city: {
       type: String,
@@ -48,20 +49,21 @@ var userSchema = new mongoose.Schema({
     zip: Number
   },
   dob: {
-    type: Number,
+    type: String,
     required: true
   },
   driver: Boolean,
   car: String,
   license: String,
   driverReviews: Array,
+  driverRating: Array,
   riderReviews: Array,
+  riderRating: Array,
   setTrips: Array,
   pendingTrips: Array,
   deniedTrips: Array,
   completedTrips: Array,
-  seedId: Number,
-
+  trips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }]
 })
 
 userSchema.set('toJSON', {
@@ -78,6 +80,7 @@ userSchema.set('toJSON', {
 userSchema.methods.authenticated = function(password, cb) {
   bcrypt.compare(password, this.password, function(err, res) {
     if (err) {
+      console.log(err)
       cb(err)
     } else {
       cb(null, res ? this : false)
@@ -89,6 +92,14 @@ userSchema.pre('save', function(next) {
   var hash = bcrypt.hashSync(this.password, 10)
   this.password = hash;
   next();
+})
+
+userSchema.set('toObject', {
+  transform: function(doc, ret, options) {  // ret stands for return
+    let returnObject = {...ret};
+    delete returnObject.password
+    return returnObject
+  }
 })
 
 var User = mongoose.model('User', userSchema);

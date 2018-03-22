@@ -1,18 +1,67 @@
 import { TOGGLE_RYDES_TAB } from '../constants/action-types';
-
-// Actions are objs, build an action with a simple function that takes 1 parameter.
-// It returns a new ready to dispatch action obj with a "type" and a "payload".
+import { LIFT_CURRENT_PAGE_TO_STATE } from '../constants/action-types';
+import { LIFT_TOKEN_TO_STATE } from '../constants/action-types';
+import { LOGOUT_USER } from '../constants/action-types';
+import { LIFT_CLICKED_USER } from '../constants/action-types';
+import { LIFT_BIG_SEARCH } from '../constants/action-types';
+import { LIFT_MINI_SEARCH } from '../constants/action-types';
+import { LIFT_MY_RYDES_DRYVES } from '../constants/action-types';
 
 export const toggleRydesTab = (rydesTabIsToggled) => (
-  { type: TOGGLE_RYDES_TAB, payload: rydesTabIsToggled }
+  {
+    type: TOGGLE_RYDES_TAB,
+    payload: rydesTabIsToggled
+  }
 )
 
-// Notes on Actions!
+export const liftCurrentPageToState = page => (
+  { type: LIFT_CURRENT_PAGE_TO_STATE, payload: page }
+)
 
-// The only way to change state is to send a signal to the store.
-// dispatching that action is the process of sending that signal
+export const liftTokenToState = data => (
+  {
+    type: LIFT_TOKEN_TO_STATE,
+    payload: {
+      token: data.token,
+      user: data.user
+    }
+  }
+)
 
-// Actions are objects. E.g.:
-// { type: 'ACTION_HERE', payload: thingYouWantToSendToStore }
+export const logout = () => (
+  { type: LOGOUT_USER }
+)
 
-// Naming your action - action names should be descriptive and reflect what they do
+export const liftClickedUser = data => (
+  {
+    type: LIFT_CLICKED_USER,
+    payload: data
+  }
+)
+
+export const liftBigSearch = data => (
+  {
+    type: LIFT_BIG_SEARCH,
+    payload: {
+      searchResults: data
+    }
+  }
+)
+
+export const liftMiniSearch = data => (
+  {
+    type: LIFT_MINI_SEARCH,
+    payload: {
+      searchResults: data
+    }
+  }
+)
+
+export const liftMyRydesDryves = data => (
+  {
+    type: LIFT_MY_RYDES_DRYVES,
+    payload: {
+      myRydesDryves: data
+    }
+  }
+)

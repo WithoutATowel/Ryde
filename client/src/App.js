@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+// import store from './redux/store/index';
+import { liftTokenToState } from './redux/actions/index';
+import { logout } from './redux/actions/index';
 import './css/App.css';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import BigSearch from './components/BigSearch';
 import Home from './pages/Home';
 import Discover from './pages/Discover';
-import { UserProfile } from './pages/UserProfile';
+import UserProfile from './pages/UserProfile';
 import PublicProfile from './pages/PublicProfile';
-import { OurTeam } from './pages/OurTeam';
+import OurTeam from './pages/OurTeam';
 import { Footer } from './components/Footer';
 import PostARyde from './pages/PostARyde';
 import MyRydes from './pages/MyRydes.js'
@@ -15,47 +18,33 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import axios from 'axios'
 
-class App extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      token: '',
-      user: {}
-    }
-    this.liftTokenToState = this.liftTokenToState.bind(this)
-    this.logout = this.logout.bind(this)
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(logout()),
+    liftTokenToState: (data) => dispatch(liftTokenToState(data))
   }
+}
 
-  liftTokenToState(data) {
-    this.setState({
-      token: data.token,
-      user: data.user
-    })
-  }
+const mapStateToProps = state => {
+  return { token: state.token, user: state.user };
+}
 
-  logout() {
-    console.log('Logging out')
-    localStorage.removeItem('mernToken')
-    this.setState({ token: '', user: {} })
-  }
+class ConnectedApp extends Component {
+  // constructor(props){
+  //   super(props)
+  // }
 
   componentDidMount() {
-    var token = localStorage.getItem('mernToken')
-    if (token === 'undefined' || token === 'null' || token === '' || token === undefined) {
-      localStorage.removeItem('mernToken')
-      this.setState({
-        token: '',
-        user: {}
-      })
+    let token = localStorage.getItem('rydeAppToken')
+    if (token === 'undefined' || token === 'null' || token === '' || token === undefined || token === null) {
+      localStorage.removeItem('rydeAppToken')
+      this.props.logout()
     } else {
       axios.post('/auth/me/from/token', {
-        token // same as token: token
+        token
       }).then( result => {
-        localStorage.setItem('mernToken', result.data.token)
-        this.setState({
-          token: result.data.token,
-          user: result.data.user
-        })
+        localStorage.setItem('rydeAppToken', result.data.token)
+        this.props.liftTokenToState(result.data);
       }).catch( err => console.log(err))
     }
   }
@@ -90,24 +79,18 @@ class App extends Component {
         <Router>
           <div>  {/* div needs to be here bc router can only have one child */}
             <Navbar />
-            <BigSearch />
 
             {/* ROUTES BELOW HERE */}
             <div>
               <Route exact path='/' component={Home} />
               <Route path='/discover' component={Discover} />
-              <Route path='/profile' component={UserProfile} />  {/* placeholder so we can easily get to page */}
+              <Route path='/profile/:id' component={UserProfile} />  {/* placeholder so we can easily get to page */}
               <Route path='/publicprofile' component={PublicProfile} />  {/* placeholder so we can easily get to page */}
               <Route path='/login' component={Login} />  {/* placeholder so we can easily get to page */}
               <Route path='/signup' component={Signup} />  {/* placeholder so we can easily get to page */}
               <Route path='/ourteam' component={OurTeam} />
               <Route path='/postaryde' component={PostARyde} />
-              {/* <Route path='/login' component={() => (
-                <Login user={this.state.user} liftToken={this.liftTokenToState} />
-              )} />
-              <Route path='/signup' component={() => (
-                <Signup user={this.state.user} liftToken={this.liftTokenToState} />
-              )} /> */}
+              <Route path='/myrydes' component={MyRydes} />
             </div>
             {/* ROUTES ABOVE HERE */}
 
@@ -119,5 +102,7 @@ class App extends Component {
     )
   }
 }
+
+const App = connect(mapStateToProps, mapDispatchToProps)(ConnectedApp);
 
 export default App;

@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var tripSchema = new mongoose.Schema({
   driverId: {
-    type: Number,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   },
   rydeName: {
@@ -41,10 +43,6 @@ var tripSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  departTime: {
-    type: Number,
-    required: true
-  },
   reoccurring: {
     type: Boolean,
     required: true
@@ -67,7 +65,6 @@ var tripSchema = new mongoose.Schema({
   },
   comments: Array,
   ridersId: Array,
-  setRiders: Array,
   pendingRiders: Array,
   deniedRiders: Array
 })

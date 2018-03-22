@@ -1,3 +1,23 @@
 .public-h1 {
   color: green;
 }
+
+.pic-circle {
+  position: relative;
+  height: 14vw;
+  width: 13vw;
+  margin: 5vh auto 0;
+  border-radius: 50%;
+  background-color: cornflowerblue;
+  overflow: hidden;
+}
+
+.profile-backing-off-white {
+  position: absolute;
+  height: 68vh;
+  width: 96vw;
+  left: 2vw;
+  background-color: #F7F6D4;
+  box-shadow: 0 .5vh 1vw rgba(0,0,0,.5);
+  z-index: -50;
+}

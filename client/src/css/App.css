@@ -1,12 +1,370 @@
 /* COLORS
    Dark Gray: #333333
    Green: #18ED6E
+   GreenLight: #21fb79
    Blue: #306FB5
+   BlueLight: #4784c8
    Off White: #F7F6D4
    Light Gray: #F7F7F7
 */
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 833.812;
+}
 
 .App {
   text-align: center;
+}
+
+.flexCol-vCenter-hCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.flexRow-vCenter-hCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.switch {
+  display: flex;
+  justify-content: center;
+}
+
+.gray-card {
+  padding: 2vw 2vw 1vw;
+  background: #f7f7f7;
+}
+
+.gray-container {
+  padding: 20px;
+  background: #f7f7f7;
+  border-radius: 5px;
+}
+
+input[type="text"] {
+  font-weight: bold;
+  letter-spacing: .05em;
+}
+
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+  border-bottom: 2px solid #9e9e9e;
+}
+
+input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #306FB5;
+    -webkit-box-shadow: 0 1px 0 0 #306FB5;
+    box-shadow: 0 1px 0 0 #306FB5;
+    margin: 0 0 11px 0;
+}
+
+.rydeGreenBtn {
+  background: #18ED6E;
+  padding: 1px 40px;
+  color: #ffffff;
+  margin: 0 auto;
+  display: table;
+}
+
+.rydeGreenBtn:hover {
+  background: #21fb79;
+}
+
+.rydeBlueBtn {
+  background: #306FB5;
+  padding: 1px 40px;
+  color: #ffffff;
+  margin: 0 auto;
+  display: table;
+}
+
+.rydeBlueBtn:hover {
+  background: #4784c8;
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: #7aa2da;
+}
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: #306FB5;
+}
+
+[type="checkbox"]:checked+label:before {
+  border-right: 2px solid #306FB5;
+  border-bottom: 2px solid #306FB5;
+}
+
+/* ======== Navbar ========= */
+nav {
+  background-color: #000000;
+}
+
+label {
+  color: black;
+}
+
+nav ul li {
+  transition: background-color 0s;
+}
+
+nav ul a {
+  transition: color 0s;
+}
+
+.nav-wrapper {
+  padding: 0 4vw;
+}
+.logo {
+  max-height: 100%;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+a.main-menu-button-collapse {
+    position: absolute;
+    right: 25px;
+}
+
+.nav-link-div a:hover {
+  background-color: #333333;
+  color: #18ED6E;
+}
+
+#login-modal {
+  max-width: 100%;
+  width: 500px;
+  background: #f7f7f7;
+  border-radius: 5px;
+}
+
+
+
+
+/* =========== HOME ========= */
+  .home-hero {
+    width: 100%;
+  }
+
+
+
+/*========= Discover ===========*/
+
+.discover-div > .row {
+  margin: 0;
+}
+
+#discover-slide-out {
+  display: flex;
+  align-items: center;
+}
+
+.discover-nav-btn-cont {
+    display: flex;
+    justify-content: center;
+}
+.discover-sidnav {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  position: absolute;
+  background: #f7f7f7;
+  padding: 5px;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.rydeBtn {
+  margin-top: 80px;
+}
+
+.discover-side-column {
+  background: #f7f7f7
+}
+
+/* ======== Post A Ryde ======== */
+#sun-sat {
+  display: flex;
+  justify-content: space-between;
+}
+#sun-sat [type="checkbox"]+label {
+  padding-left: 25px;
+}
+#sun-sat p {
+  display: inline-block;
+}
+.extra-options {
+  padding: 20px;
+  margin: 28px 0px;
+}
+#post-a-ryde input[type="submit"] {
+  margin-top: 40px;
+}
+
+.car-type-input {
+  margin-top: 16px !important;
+  margin-bottom: 7px !important;
+}
+
+
+
+/* ======= Footer =========== */
+
+footer p {
+  color: #fff;
+  background: #333;
+  text-align: center;
+  margin: 0;
+  padding: 5vh;
+}
+
+/* ======== Listcards ======= */
+
+.list-card-div {
+  margin-bottom: 2%;
+  padding-bottom: 1.5%;
+  background-color: white;
+  color: black;
+  border-radius: 2px;
+}
+
+.list-card-header {
+  background-color: #306FB5;
+  color: white;
+}
+
+.list-card-main, .list-card-details {
+  padding: 1%;
+  font-size: 1.2em;
+  margin-bottom: 0;
+}
+
+.list-card-main table, tr, td {
+  padding: 0 2%;
+}
+
+.list-card-main li {
+  list-style: none;
+}
+
+.list-card-driver-pic {
+  display: inline-block;
+}
+
+.list-card-driver-pic img {
+  height: 100px;
+  width: auto;
+}
+
+.list-card-driver-details {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 10px;
+}
+
+.list-card-add i {
+  margin-top: 1%;
+  transition: transform 0.5s ease;
+  color: black !important;
+}
+
+.list-card-expand-button {
+  display: block;
+  height: 35px;
+  width: 45px;
+  border: none;
+  background: url('/img/down-arrow-black.svg');
+  background-size: cover;
+  background-repeat: none;
+  background-position: center;
+  margin: 0 auto;
+  transition: all 0.5s ease;
+}
+
+.list-card-expand-button:focus {
+  background-color: transparent;
+}
+
+.list-card-details {
+  height: auto;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s linear;
+}
+
+.list-card-recurring-days {
+  margin-left: 50px;
+}
+
+.list-card-recurring-days label {
+  padding-left: 25px;
+  margin-right: 2%;
+}
+
+
+/* ======= Switcher ======= */
+
+.switcher {
+  display: inline-block;
+  height: 36px;
+  margin-top:3px;
+  padding: 4px;
+  background: #fff;
+  border-radius: 2px;
+  width: 200px;
+  border-radius: 30px;
+  border: solid 1px #ddd;
+  position: relative;
+}
+
+.switcher__input {
+  display: none;
+}
+
+body .switcher__label {
+  float: left;
+  width: 50%;
+  font-size: 12px;
+  line-height: 28px !important;
+  padding: 0 !important;
+  color: #000;
+  text-align: center;
+  cursor: pointer;
+  position: inherit;
+  z-index: 10;
+  transition: color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+  will-change: transform;
+}
+
+.switcher__label::before, .switcher__label::after {
+  display: none;
+}
+
+.switcher__toggle {
+  position: absolute;
+  float: left;
+  height: 30px;
+  width: 50%;
+  font-size: 12px !important;
+  line-height: 30px;
+  cursor: pointer;
+  background-color: #3366cc;
+  border-radius: 30px;
+  left: 2px;
+  top: 2px;
+  transition: left 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);
+  will-change: transform;
+}
+
+.switcher__input:checked + .switcher__label {
+  color: #fff;
+}
+.switcher__input--myDrives:checked ~ .switcher__toggle {
+  left: 97px;
 }
