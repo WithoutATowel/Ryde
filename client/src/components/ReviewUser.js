@@ -20,20 +20,17 @@ class ReviewUser extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log('HANDLE SUBMIT this props clickeduserid', this.props.clickedUserId)
-    console.log('this props usertype', this.props.userType)
     axios.post('/profile/' + this.props.clickedUserId + '/reviewuser', {
-      id: this.props.clickedUserId,
+      clickedId: this.props.clickedUserId,
       rating: parseInt(this.state.selectedRating),
-      userType: this.props.userType
+      userType: this.props.userType,
+      theUser: this.props.theUser
     }).then( result => {
-      console.log('here is result from backend, result.data', result.data)
+      this.props.userType === 'ryder' ? this.props.updateProfileRyderDetails(result.data) : this.props.updateProfileDryverDetails(result.data)
     }).catch( err => console.log(err) )
   }
 
   render() {
-    console.log(this.state.selectedRating)
-
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
         <input name='this.props.inputName' value='1' checked={this.state.selectedRating === '1'} onChange={this.handleRatingChange} type='radio' id={this.props.userType + 'one-star'}/>

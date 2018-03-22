@@ -26,7 +26,6 @@ class ConnectedUserProfile extends Component {
   }
 
   componentDidMount() {
-    console.log('@@@ USER PROFILE this.props.user', this.props.user)
     this.props.liftCurrentPageToState('/profile/' + this.props.match.params.id)
     axios.get('/finduser/' + this.props.match.params.id)
       .then( result => {
@@ -35,10 +34,8 @@ class ConnectedUserProfile extends Component {
   }
 
   render() {
-    console.log('@@@ USER PROFILE, this.props.clikedUser:', this.props.clickedUser)
     if (this.props.user) {
       if (this.props.user._id === this.props.match.params.id) {
-        console.log('@@@ USER PROFILE this props user: ', this.props.user);
         return <PrivateProfile user={this.props.user} />
       } else {
         return <PublicProfile clickedUser={this.props.clickedUser} />
