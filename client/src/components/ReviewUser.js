@@ -25,7 +25,7 @@ class ReviewUser extends Component {
     axios.post('/profile/' + this.props.clickedUserId + '/reviewuser', {
       id: this.props.clickedUserId,
       rating: parseInt(this.state.selectedRating),
-      user: this.props.userType
+      userType: this.props.userType
     }).then( result => {
       console.log('here is result from backend, result.data', result.data)
     }).catch( err => console.log(err) )

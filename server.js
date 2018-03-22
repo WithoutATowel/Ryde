@@ -166,10 +166,35 @@ app.get('/myrydes/:id', (req, res, next) => {
 })
 
 app.post('/profile/:id/reviewuser', (req, res, next) => {
-  User.findById({_id: req.params.id}, function (err, user) {  ////// SHOULD I USE FindOneAndUpdate() ??????
+  let { id, rating, userType } = req.body;
+  let whichRatings = (userType === 'ryder' ? 'ryderRatings' : 'dryverRatings')
+
+  User.findOneAndUpdate({_id: id}, {$push: {[userType + 'Ratings']: rating} }, {new: true}, function(err, doc) {
+    if (err) {
+      console.log('An error occurred in post /profile/:id/reviewuser : ', err);
+    } else {
+      User.findOneAndUpdate({_id: id}, {$set: {
+        [userType + 'RatingAvg']: (doc.whichRatings
+          .reduce((acc, curVal) => acc + curVal) / doc.whichRatings.length).toFixed(2)
+      } }, {new: true}, function(err, doc) {
+        if (err) {
+          console.log('### An error occurred in post /profile/:id/reviewuser : ', err);
+        } else {
+          console.log('here is the doc: ', doc);
+        }
+      })
+    }
+  })
+
+  // let reducedArr = arr.reduce((accumulator, currentValue) => accumulator + currentValue) / arr.length;
+
+
+  User.findOneAndUpdate({_id: req.params.id}, function (err, user) {
     console.log(user);
     res.json('here is user', user);
   })
+
+
 })
 
 //TODO refactor this to be more like POST /mydryves

@@ -20,7 +20,8 @@ class ConnectedProfileRyderDetails extends Component {
           <div className='ryder-dryver-details-wrapper'>
             <h4>Ryder</h4>
             <ReviewUser key='1' clickedUserId={cUser._id} userType='ryder' inputName='ryder-review' />
-            <p>Rating goes here: {cUser.ryderRatings.length > 0 ? cUser.ryderRatings : 'no ratings yet'}</p>
+            <p>Ratings goes here: {cUser.ryderRatings.length > 0 ? cUser.ryderRatings : 'no ratings yet'}</p>
+            <p>Rating avg goes here: {cUser.ryderRatingAvg > 0 ? cUser.ryderRatingAvg : 'no ratings yet'}</p>
             <p>Number of rydes: {cUser.trips.length > 0 ? cUser.trips : 'no trips yet'}</p>
             <p>~~~~~~~FIGURE OUT HOW TO LIST REVIEWS/COMMENTS HERE~~~~~~~~</p>
           </div>
