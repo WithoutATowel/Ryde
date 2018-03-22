@@ -93,17 +93,17 @@ class ConnectedEditARyde extends Component {
             departTime: '',
             returnDepartDate: '',
             returnDepartTime: '',
-            reoccurringSun: results.reoccurringDays[0],
-            reoccurringMon: results.reoccurringDays[1],
-            reoccurringTues: results.reoccurringDays[2],
-            reoccurringWed: results.reoccurringDays[3],
-            reoccurringThurs: results.reoccurringDays[4],
-            reoccurringFri: results.reoccurringDays[5],
-            reoccurringSat: results.reoccurringDays[6],
+            reoccurringSun: results.reoccurringDays[0] ? 'checked' : null,
+            reoccurringMon: results.reoccurringDays[1] ? 'checked' : null,
+            reoccurringTues: results.reoccurringDays[2] ? 'checked' : null,
+            reoccurringWed: results.reoccurringDays[3] ? 'checked' : null,
+            reoccurringThurs: results.reoccurringDays[4] ? 'checked' : null,
+            reoccurringFri: results.reoccurringDays[5] ? 'checked' : null,
+            reoccurringSat: results.reoccurringDays[6] ? 'checked' : null,
             cost: results.cost,
             costBreakdown: results.costBreakdown,
             smoking: results.smoking,
-            tripPets: results.pets,
+            tripPets: results.pets ? 'checked' : '',
             carType:  results.carType,
             seats: results.seats,
           });
@@ -224,11 +224,11 @@ class ConnectedEditARyde extends Component {
 
   }
 
+
   render() {
     const reoccurringShowHide = this.state.reoccurring ? 'show' : 'hide';
     const twoWayShowHide = this.state.twoWay ? 'show' : 'hide';
-    console.log(this.props)
-
+    console.log('currentState: ', this.state)
     return (
       <div id="post-a-ryde" className="container">
         <h2>Edit A Ryde</h2>
