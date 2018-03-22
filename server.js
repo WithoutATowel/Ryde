@@ -82,8 +82,10 @@ app.post('/bigsearch', (req, res, next) =>{
   Trip.find(searchOptions).lean().exec( function(err, trips){
     let count = 0;
     let newTrips = []
-    console.log('tripslength',trips.length);
+
     trips.forEach((trip,index)=>{
+      console.log('trip date: ',(new Date(trip.departDate)).toUTCString());
+      console.log('search date: ',(new Date(req.body.dateTime)).toUTCString());
       let id = {'_id': ObjectId(trip.driverId)}
       let tripAvailability = (trip.seats - trip.ridersId.length - req.body.seat)
       //if no seats Available delete from index and count up
