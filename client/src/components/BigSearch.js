@@ -44,13 +44,15 @@ class ConnectedBigSearch extends Component {
     //Date.UTC turns the unpacked date and time into a time stamp
     let dateTime = Date.UTC(...sDate,...sTime)
     let current = Date.now();
-
+    if(dateTime<=current){
+      dateTime = current
+    }
     console.log('this timestamp: ',(new Date(dateTime)).toUTCString());
 
     axios.post('/bigsearch',
     {zip,dist,sCity,eCity,dateTime,pets,cost,reoccur,seat,userId,current}).then(result =>{
 
-      console.log(result);
+      console.log(result.data);
       this.props.liftBigSearch(result.data);
     })
   }
