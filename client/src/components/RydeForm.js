@@ -6,61 +6,60 @@ const RydeForm = props => {
   const hideSwitchOnEdit = props.isEditPage ? 'switch hide' : 'switch show'
   const submitPostEdit = props.isEditPage ? 'Edit Your Ryde' : 'Post Your Ryde'
   const showReoccurringOnEdit = props.isEditPage || props.reoccurringShowHide === 'show' ? 'show' : 'hide'
-
-  const oneSeat = true  ? 'active selected' : 'fdf'
-  console.log(props.seats)
-  console.log('this string ', props.reoccurringSun)
+  
+  let seats = props.seats.toString();
 
   return (
     <div className="gray-container">
       <form onSubmit={props.onPostARydeSubmit}>
         <div className="row">
           <div className="col s12 m5">
-            <input type="text" placeholder="Ryde Name" onChange={props.onInputChange} name="rydeName" value={props.rydeName} required />
+            <input type="text" placeholder="Ryde Name" onChange={props.onInputChange} name="rydeName" value={props.rydeName} required autoComplete="ryde-name" />
           </div>
           <div className="col s12 m3">
-            <input type="number" placeholder="Trip Cost (per person)" onChange={props.onInputChange} name="cost" value={props.cost} required />
+            <input type="number" placeholder="Trip Cost (per person)" onChange={props.onInputChange} name="cost" value={props.cost} required autoComplete="ryde-cost" />
           </div>
           <div className="col s12 m4">
-            <input type="text" placeholder="Trip Cost Breakdown (optional)" onChange={props.onInputChange} name="costBreakdown" value={props.costBreakdown} />
+            <input type="text" placeholder="Trip Cost Breakdown (optional)" onChange={props.onInputChange} name="costBreakdown" value={props.costBreakdown} autoComplete="ryde-cost" />
           </div>
         </div>
 
         <div className="row">
           <div className="col s12 m5">
-            <input type="text" placeholder="Starting Street" onChange={props.onInputChange} name="startStreet" value={props.startStreet} />
+            <input type="text" placeholder="Starting Street" onChange={props.onInputChange} name="startStreet" value={props.startStreet} autoComplete="start-street" />
           </div>
           <div className="col s12 m3">
-            <input type="text" placeholder="Starting City" onChange={props.onInputChange} name="startCity" value={props.startCity} required />
+            <input type="text" placeholder="Starting City" onChange={props.onInputChange} name="startCity" value={props.startCity} required autoComplete="start-city" />
           </div>
 
           <div className="col s12 m2">
-            <input type="text" placeholder="Starting State" onChange={props.onInputChange} name="startState" value={props.startState} required />
+            <input type="text" placeholder="Starting State" onChange={props.onInputChange} name="startState" value={props.startState} required autoComplete="start-state" />
           </div>
 
           <div className="col s12 m2">
-            <input type="text" placeholder="Starting ZipCode" onChange={props.onInputChange} name="startZip" value={props.startZip} />
+            <input type="text" placeholder="Starting ZipCode" onChange={props.onInputChange} name="startZip" value={props.startZip} autoComplete="start-zip" />
           </div>
         </div>
 
         <div className="row">
           <div className="col s12 m5">
-            <input type="text" placeholder="Ending Street" onChange={props.onInputChange} name="endStreet" value={props.endStreet} />
+            <input type="text" placeholder="Ending Street" onChange={props.onInputChange} name="endStreet" value={props.endStreet} autoComplete="end-street" />
           </div>
           <div className="col s12 m3">
-            <input type="text" placeholder="Ending City" onChange={props.onInputChange} name="endCity" value={props.endCity} required />
+            <input type="text" placeholder="Ending City" onChange={props.onInputChange} name="endCity" value={props.endCity} required autoComplete="end-city" />
           </div>
 
           <div className="col s12 m2">
-            <input type="text" placeholder="Ending State" onChange={props.onInputChange} name="endState" value={props.endState} required />
+            <input type="text" placeholder="Ending State" onChange={props.onInputChange} name="endState" value={props.endState} required autoComplete="end-state" />
           </div>
 
           <div className="col s12 m2">
-            <input type="text" placeholder="Ending ZipCode" onChange={props.onInputChange} name="endZip" value={props.endZip} />
+            <input type="text" placeholder="Ending ZipCode" onChange={props.onInputChange} name="endZip" value={props.endZip} autoComplete="end-zip" />
           </div>
         </div>
 
         <div className="row">
+
           <div className="col s12 m4">
             <div className={hideSwitchOnEdit}>
               <label>
@@ -75,20 +74,17 @@ const RydeForm = props => {
             <Input type="time" className="timepicker" options={{twelvehour: false}} placeholder="Time To Depart" onChange={props.onInputChange} name="departTime" value={props.departTime} required />
 
             <div className={props.twoWayShowHide}>
-              <Input type="date" className="datepicker" options={{format: 'yyyy-mm-dd'}} placeholder="Return Date To Depart" onChange={props.onInputChange} name="returnDepartDate" value={props.returnDepartDate} />
-              <Input type="time" className="timepicker" options={{twelvehour: false}} placeholder="Return Time To Depart" onChange={props.onInputChange} name="returnDepartTime" value={props.returnDepartTime} />
+              <Input type="date" className="datepicker" options={{format: 'yyyy-mm-dd'}} placeholder="Return Date To Depart" onChange={props.onInputChange} name="returnDepartDate" value={props.returnDate} />
+              <Input type="time" className="timepicker" options={{twelvehour: false}} placeholder="Return Time To Depart" onChange={props.onInputChange} name="returnDepartTime" value={props.returnTime} />
             </div>
-
-
-
-
           </div>
+
           <div className="col s12 m4">
             <input type="text" placeholder="Car Type" className="car-type-input" name="carType" onChange={props.onInputChange} value={props.carType} required />
             <div className="input-field col s12">
-              <Input type='select' label="How Many Seats Available?" name='seats' onChange={props.onInputChange} defaultValue={props.seats} required>
+              <Input type='select' label="How Many Seats Available?" name='seats' onChange={props.onInputChange} defaultValue={seats} required>
                 <option value="" disabled >Choose your option</option>
-                <option value="1" className={oneSeat}>1 Seat</option>
+                <option value="1">1 Seat</option>
                 <option value="2">2 Seats</option>
                 <option value="3">3 Seats</option>
                 <option value="4">4 Seats</option>
@@ -102,6 +98,7 @@ const RydeForm = props => {
                 <option value="12">12 Seats</option>
               </Input>
             </div>
+
           </div>
           <div className="col s12 m4">
             <p>
@@ -160,7 +157,6 @@ const RydeForm = props => {
             </div>
           </div>
         </div>
-
 
         <input type="submit" value={submitPostEdit} className="rydeGreenBtn btn" />
       </form>

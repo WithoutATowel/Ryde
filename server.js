@@ -304,10 +304,10 @@ app.post('/editARyde/:id', (req, res, next) => {
       console.log(err);
       res.send(err);
     } else {
-      console.log(req.body)
-      // trip.set(req.body)
-      // trip.save(function (err, ))
-      res.send(trip);
+      Object.assign(trip, req.body);
+      trip.save(function (err, updatedTrip) {
+        res.send(updatedTrip);
+      });
     }
   })
 })

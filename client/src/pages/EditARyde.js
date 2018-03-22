@@ -50,9 +50,9 @@ class ConnectedEditARyde extends Component {
       tripPets: false,
       carType: '',
       seats: '',
-
+      rydeLoaded: false
     }
-    console.log('initial state: ', this.state)
+    // console.log('initial state: ', this.state)
     this.handlePostARydeSubmit = this.handlePostARydeSubmit.bind(this)
     this.handleReoccurringChange = this.handleReoccurringChange.bind(this)
     this.handleTwoWayChange = this.handleTwoWayChange.bind(this)
@@ -60,7 +60,7 @@ class ConnectedEditARyde extends Component {
   }
 
   handleInputChange(event) {
-    console.log('on Input Change')
+    console.log('on Input Change');
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -75,8 +75,23 @@ class ConnectedEditARyde extends Component {
       axios.get('/editARyde/' + '5ab3fc64ff09fb4194b3ef68')
       .then( result => {
         if (result.data && result.data.length > 0) {
-          console.log('results: ', result.data[0]);
+          // console.log('results: ', result.data[0]);
           let results = result.data[0];
+
+          // Convert depart timestamp into YYYY-MM-DD format and extract departTime
+          let rawDepartDate = new Date(results.departDate);
+          let departMonth = rawDepartDate.getMonth() < 10 ? ('0' + rawDepartDate.getMonth()) : rawDepartDate.getMonth();
+          let departDate = rawDepartDate.getDate() < 10 ? ('0' + rawDepartDate.getDate()) : rawDepartDate.getDate();
+          let fullDepartDate = rawDepartDate.getFullYear() + '-' + departMonth + '-' + departDate;
+          let departTime = rawDepartDate.getHours() + ':' + rawDepartDate.getMinutes();
+
+          // Convert return timestamp into YYYY-MM-DD format and extract returnTime
+          let rawReturnDate = new Date(results.departDate);
+          let returnMonth = rawReturnDate.getMonth() < 10 ? ('0' + rawReturnDate.getMonth()) : rawReturnDate.getMonth();
+          let returnDate = rawReturnDate.getDate() < 10 ? ('0' + rawReturnDate.getDate()) : rawReturnDate.getDate();
+          let fullReturnDate = rawReturnDate.getFullYear() + '-' + returnMonth + '-' + rawReturnDate.getDate();
+          let returnTime = rawReturnDate.getHours() + ':' + rawReturnDate.getMinutes();
+
           this.setState({
             reoccurring: false,
             twoWay: false,
@@ -89,10 +104,10 @@ class ConnectedEditARyde extends Component {
             endCity: results.endAddress.city,
             endState: results.endAddress.state,
             endZip: results.endAddress.zip,
-            departDate: '',
-            departTime: '',
-            returnDepartDate: '',
-            returnDepartTime: '',
+            departDate: fullDepartDate,
+            departTime: departTime,
+            returnDepartDate: fullReturnDate,
+            returnDepartTime: returnTime,
             reoccurringSun: results.reoccurringDays[0],
             reoccurringMon: results.reoccurringDays[1],
             reoccurringTues: results.reoccurringDays[2],
@@ -106,6 +121,7 @@ class ConnectedEditARyde extends Component {
             tripPets: results.pets,
             carType:  results.carType,
             seats: results.seats,
+            rydeLoaded: true
           });
         } else {
           this.setState({results: []});
@@ -117,7 +133,7 @@ class ConnectedEditARyde extends Component {
     if (this.props.user) {
       getAndStorePost()
     } else {
-      console.log('hello else')
+      // console.log('hello else')
       let token = localStorage.getItem('rydeAppToken')
       if (token === 'undefined' || token === 'null' || token === '' || token === undefined || token === null) {
         localStorage.removeItem('rydeAppToken')
@@ -158,7 +174,7 @@ class ConnectedEditARyde extends Component {
       this.state.reoccurringSat
     ];
 
-    console.log(this.state.departDate, this.state.departTime, this.state.departDate.split('-'), this.state.departTime.split(':'));
+    // console.log(this.state.departDate, this.state.departTime, this.state.departDate.split('-'), this.state.departTime.split(':'));
     let newDepartDate = this.state.departDate.split('-');
     let newDepartTime = this.state.departTime.split(':');
 
@@ -172,12 +188,12 @@ class ConnectedEditARyde extends Component {
       numDepartTime.push(+newDate)
     })
 
-    console.log('numDepartDate ', numDepartDate)
-    console.log('numDepartTime ', numDepartTime)
-    console.log('dateTime ', ...numDepartDate, ...numDepartTime)
+    // console.log('numDepartDate ', numDepartDate)
+    // console.log('numDepartTime ', numDepartTime)
+    // console.log('dateTime ', ...numDepartDate, ...numDepartTime)
     // year, month, day, hour, minute, second, and millisecond
     var departDateTime =  Date.UTC(...numDepartDate, ...numDepartTime)
-    console.log('departDateTime ', departDateTime)
+    // console.log('departDateTime ', departDateTime)
 
 
     var trip = {
@@ -208,8 +224,8 @@ class ConnectedEditARyde extends Component {
     console.log(trip)
 
     axios.post('/editARyde/' + '5ab3fc64ff09fb4194b3ef68', trip).then(result => {
-      console.log('added one way ', result.data)
-
+      // console.log('added one way ', result.data)
+      console.log('Updated ryde!');
     }).catch(err => {
       console.log(err);
     })
@@ -220,48 +236,56 @@ class ConnectedEditARyde extends Component {
   render() {
     const reoccurringShowHide = this.state.reoccurring ? 'show' : 'hide';
     const twoWayShowHide = this.state.twoWay ? 'show' : 'hide';
-    console.log('currentState: ', this.state)
-    return (
-      <div id="post-a-ryde" className="container">
-        <h2>Edit A Ryde</h2>
-        <RydeForm
-          isEditPage={true}
-          rydeName={this.state.rydeName}
-          startStreet={this.state.startStreet}
-          startCity={this.state.startCity}
-          startState={this.state.startState}
-          startZip={this.state.startZip}
-          endStreet={this.state.endStreet}
-          endCity={this.state.endCity}
-          endState={this.state.endState}
-          endZip={this.state.endZip}
-          departDate={this.state.departDate}
-          departTime={this.state.departTime}
-          twoWay={this.state.twoWay}
-          onTwoWayChange={this.handleTwoWayChange}
-          twoWayShowHide={twoWayShowHide}
-          returnDepartDate={this.state.returnDepartDate}
-          returnDepartTime={this.state.returnDepartTime}
-          reoccurring={this.state.reoccurring}
-          reoccurringShowHide={reoccurringShowHide}
-          onReoccurringChange={this.handleReoccurringChange}
-          reoccurringSun={this.state.reoccurringSun}
-          reoccurringMon={this.state.reoccurringMon}
-          reoccurringTues={this.state.reoccurringTues}
-          reoccurringWed={this.state.reoccurringWed}
-          reoccurringThurs={this.state.reoccurringThurs}
-          reoccurringFri={this.state.reoccurringFri}
-          reoccurringSat={this.state.reoccurringSat}
-          cost={this.state.cost}
-          costBreakdown={this.state.costBreakdown}
-          smoking={this.state.smoking}
-          pets={this.state.tripPets}
-          carType={this.state.carType}
-          seats={this.state.seats}
-          onInputChange={this.handleInputChange}
-          onPostARydeSubmit={this.handlePostARydeSubmit} />
-      </div>
-    )
+    // console.log('currentState: ', this.state)
+    if (this.state.rydeLoaded) {
+      return (
+        <div id="post-a-ryde" className="container">
+          <h2>Edit A Ryde</h2>
+          <RydeForm
+            isEditPage={true}
+            rydeName={this.state.rydeName}
+            startStreet={this.state.startStreet}
+            startCity={this.state.startCity}
+            startState={this.state.startState}
+            startZip={this.state.startZip}
+            endStreet={this.state.endStreet}
+            endCity={this.state.endCity}
+            endState={this.state.endState}
+            endZip={this.state.endZip}
+            departDate={this.state.departDate}
+            departTime={this.state.departTime}
+            twoWay={this.state.twoWay}
+            onTwoWayChange={this.handleTwoWayChange}
+            twoWayShowHide={twoWayShowHide}
+            returnDepartDate={this.state.returnDepartDate}
+            returnDepartTime={this.state.returnDepartTime}
+            reoccurring={this.state.reoccurring}
+            reoccurringShowHide={reoccurringShowHide}
+            onReoccurringChange={this.handleReoccurringChange}
+            reoccurringSun={this.state.reoccurringSun}
+            reoccurringMon={this.state.reoccurringMon}
+            reoccurringTues={this.state.reoccurringTues}
+            reoccurringWed={this.state.reoccurringWed}
+            reoccurringThurs={this.state.reoccurringThurs}
+            reoccurringFri={this.state.reoccurringFri}
+            reoccurringSat={this.state.reoccurringSat}
+            cost={this.state.cost}
+            costBreakdown={this.state.costBreakdown}
+            smoking={this.state.smoking}
+            pets={this.state.tripPets}
+            carType={this.state.carType}
+            seats={this.state.seats}
+            onInputChange={this.handleInputChange}
+            onPostARydeSubmit={this.handlePostARydeSubmit} />
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <p>Loading data...</p>
+        </div>
+      )
+    }
   }
 }
 
