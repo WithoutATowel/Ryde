@@ -315,6 +315,7 @@ app.post('/postARyde', (req, res, next) => {
   Trip.create(reqBody, function(err, ryde) {
     if (err) {
       console.log("GOT AN ERROR CREATING THE RYDE", err)
+      res.send(err)
     } else {
       res.json({ryde})
     }
