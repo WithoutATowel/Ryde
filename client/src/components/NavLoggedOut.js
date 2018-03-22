@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 const NavLoggedOut = props => (
   <div className='nav-link-div'>
 
-    <li><Link to='/profile/5ab050cb20b8b12fdff5b67d'>Scott public test</Link></li>
-    <li><Link to='/profile/5ab050cb20b8b12fdff5b679'>Sean public test</Link></li>
-    <li><Link to='/profile/5ab050cb20b8b12fdff5b67c'>Brant public test</Link></li>
-    <li><Link to='/profile/5ab050cb20b8b12fdff5b67b'>Brett public test</Link></li>
+    <li><Link to='/profile/5ab305a197d5bb4ae3a86e9a'>ScottPT</Link></li>
+    <li><Link to='/profile/5ab305a197d5bb4ae3a86e96'>SeanPT</Link></li>
+    <li><Link to='/profile/5ab305a197d5bb4ae3a86e99'>BrantPT</Link></li>
+    <li><Link to='/profile/5ab305a197d5bb4ae3a86e98'>BrettPT</Link></li>
 
     <li><Link to='/'>Home</Link></li>
     <li><Link to='/discover'>Discover</Link></li>

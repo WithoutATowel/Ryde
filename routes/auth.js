@@ -90,7 +90,7 @@ router.post('/me/from/token', (req, res, next) => {
           if (err) {
             res.status(401).send(err)
           } else {
-            res.json({user, token})
+            res.json({user: user.toObject(), token})
           }
         })
       }
