@@ -23,7 +23,9 @@ class ConnectedListCard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      expanded: false
+      expanded: false,
+      driver: '',
+      driverRating: 4.5
     }
   }
 
@@ -55,14 +57,12 @@ class ConnectedListCard extends Component {
               }
             });
         }
-        console.log(result.data);
       });
   }
 
   componentDidMount() {
     if(this.props.user) {
-      if(this.props.ryde.ridersId.includes(this.props.user._id) || this.props.ryde.pendingRiders.includes(this.props.user._id)) {
-        console.log('did mount', this.refs)
+      if(!this.props.dryvesTab && (this.props.ryde.ridersId.includes(this.props.user._id) || this.props.ryde.pendingRiders.includes(this.props.user._id))) {
         this.refs.addRemoveButton.style.transform = 'rotate(45deg)';
       }
     } 

@@ -7,7 +7,7 @@ mongoose.connect('mongodb://localhost/ryde');
 var trips = [
   {
     rydeName: 'Portland',
-    startAddress: {street:'1130 14th ave',city:'seattle',state:'WA',zip:'98021'},
+    startAddress: {street:'1130 14th ave',city:'Tacoma',state:'WA',zip:'98021'},
     endAddress: {street:'wendys',city:'seattle',state:'WA',zip:'98021'},
     departDate: 1525170120000,
     reoccurring: false,
@@ -21,9 +21,9 @@ var trips = [
   },
   {
     rydeName: 'Seattle',
-    startAddress: {street:'1130 14th ave',city:'seattle',state:'WA',zip:'98021'},
+    startAddress: {street:'1130 14th ave',city:'Everett',state:'WA',zip:'98021'},
     endAddress: {street:'taco time',city:'seattle',state:'WA',zip:'98021'},
-    departDate: 1525170120000,
+    departDate: 1522209000000,
     reoccurring: true,
     reoccurringDays: ['friday', 'thursday'],
     cost: 12,
@@ -36,7 +36,7 @@ var trips = [
     rydeName: 'San Francisco',
     startAddress: {street:'1130 14th ave',city:'seattle',state:'WA',zip:'98021'},
     endAddress: {street:'mcdonalds',city:'seattle',state:'WA',zip:'98021'},
-    departDate: 1525170120000,
+    departDate: 1527479400000,
     reoccurring: true,
     reoccurringDays: ['friday', 'monday'],
     cost: 10,
@@ -47,9 +47,9 @@ var trips = [
   },
   {
     rydeName: 'Olympia',
-    startAddress: {street:'1130 14th ave',city:'seattle',state:'WA',zip:'98021'},
+    startAddress: {street:'1130 14th ave',city:'Port Townsend',state:'WA',zip:'98021'},
     endAddress: {street:'taco time',city:'seattle',state:'WA',zip:'98021'},
-    departDate: 1525170120000,
+    departDate: 1527854400000,
     reoccurring: true,
     reoccurringDays: ['sunday', 'saturday'],
     cost: 5,
@@ -60,9 +60,9 @@ var trips = [
   },
   {
     rydeName: 'Everett',
-    startAddress: {street:'1130 14th ave',city:'seattle',state:'WA',zip:'98021'},
+    startAddress: {street:'1130 14th ave',city:'Edmonds',state:'WA',zip:'98021'},
     endAddress: {street:'kitty',city:'seattle',state:'WA',zip:'98021'},
-    departDate: 1525170120000,
+    departDate: 1496318400000,
     reoccurring: true,
     reoccurringDays: ['friday'],
     cost: 25,
@@ -83,19 +83,19 @@ User.find({}, (err, users) => {
     while(denied === user._id){
       denied = users[Math.floor(5*Math.random())]._id;
     }
-    trip['deniedRiders'] = [denied];
+    trip['deniedRiders'] = [denied.toString()];
 
     let rider = users[Math.floor(5*Math.random())]._id;
     while(denied === rider || user._id === rider){
       rider = users[Math.floor(5*Math.random())]._id;
     }
-    trip['ridersId'] = [rider]
+    trip['ridersId'] = [rider.toString()]
 
     let prider = users[Math.floor(5*Math.random())]._id;
     while(denied === prider || user._id === prider || rider === prider){
       prider = users[Math.floor(5*Math.random())]._id;
     }
-    trip['pendingRiders'] = [prider]
+    trip['pendingRiders'] = [prider.toString()]
     trip['carType'] = user.car
     var newTrip = new Trips(trip);
     newTrip.save();
