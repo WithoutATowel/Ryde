@@ -209,7 +209,7 @@ class ConnectedSignup extends Component {
 
             <div className="row">
               <div className="col s12">
-                <input type='submit' className="rydeBlueBtn btn" value='Sign Up!' />
+                <input type='submit' className="rydeBlueBtn btn modal-action modal-close" value='Sign Up!' />
               </div>
             </div>
           </form>
