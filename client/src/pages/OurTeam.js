@@ -10,9 +10,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 class ConnectedOurTeam extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   componentDidMount() {
     this.props.liftCurrentPageToState('/ourteam')

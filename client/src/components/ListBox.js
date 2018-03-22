@@ -14,9 +14,6 @@ const mapStateToProps = state => {
 }
 
 class ConnectedListBox extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
 
   render() {
     let rydes, confirmedRydesHeader, pendingRydesHeader, confirmedRydes, pendingRydes;

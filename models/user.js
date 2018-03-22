@@ -61,6 +61,8 @@ var userSchema = new mongoose.Schema({
   ryderRatings: Array,
   ryderRatingAvg: Number,
   ryderReviews: Array,
+  reviewedDryvers: Array,
+  reviewedRyders: Array,
   setTrips: Array,
   pendingTrips: Array,
   deniedTrips: Array,
