@@ -28,7 +28,7 @@ const rootReducer = (state = initialState, action) => {
             console.log('The current page is...', action.payload);
             return {...state, currentPage: action.payload};
         case LIFT_TOKEN_TO_STATE:
-            console.log('Lifted token to Redux state');
+            // console.log('Lifted token to Redux state');
             return {...state, token: action.payload.token, user: action.payload.user};
         case LOGOUT_USER:
             console.log('Logging out user');
