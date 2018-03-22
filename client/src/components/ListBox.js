@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 // import store from '../redux/store/index';
 
 const mapStateToProps = state => {
-  return { 
+  return {
     searchResults: state.searchResults,
     myRydesDryves: state.myRydesDryves,
     rydesTabIsToggled: state.rydesTabIsToggled,
@@ -37,9 +37,9 @@ class ConnectedListBox extends Component {
         pendingRydesHeader = pendingRydesHeader ? (<h3>Pending Rydes</h3>) : '';
         rydes = (
           <div>
-            {confirmedRydesHeader} 
-            {confirmedRydes} 
-            {pendingRydesHeader} 
+            {confirmedRydesHeader}
+            {confirmedRydes}
+            {pendingRydesHeader}
             {pendingRydes}
           </div>
         );
@@ -55,10 +55,10 @@ class ConnectedListBox extends Component {
     } else {
       rydes = ( <h5>No Rydes found.</h5> );
     }
-    
+
 
     return (
-      <div>
+      <div id='list-box-outer-div'>
         {rydes}
       </div>
     )

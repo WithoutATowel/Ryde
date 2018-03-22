@@ -145,7 +145,12 @@ a.main-menu-button-collapse {
 }
 
 #search-results-box {
+  position: relative;
   overflow: auto;
+}
+
+#list-box-outer-div {
+  position: absolute;
 }
 
 
