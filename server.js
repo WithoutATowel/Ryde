@@ -63,7 +63,7 @@ app.post('/bigsearch', (req, res, next) =>{
     pets: body.pets,
     cost: {$lte: body.cost},
     reoccurring: body.reoccur,
-    seats: body.seat
+    seats: {$lte:body.seat}
   }
   // console.log(searchOptions);
   for (let key in searchOptions) {
@@ -80,33 +80,25 @@ app.post('/bigsearch', (req, res, next) =>{
   console.log(searchOptions);
 
   Trip.find(searchOptions).lean().exec( function(err, trips){
-    if(err){
-      // console.log(err);
-      res.send(err);
-    } else {
-      let count = 0;
-      function send(){
-        // console.log('sending')
-      }
-      var users = []
-      trips.forEach((trip,index)=>{
-        let id = {'_id': ObjectId(trip.driverId)}
+    let count = 0;
+    trips.forEach((trip,index)=>{
+      let id = {'_id': ObjectId(trip.driverId)}
+      let tripAvailable = (trip.seats - trip.ridersId.length)
+      console.log('tripavaible',tripAvailable);
+      tripAvailable === 0 ? (
+        delete trips[index]
+      //tertiary are sad either way you look at them lol
+      ) : (
         User.findOne(id, function(err, user){
-
-
-          // console.log('trip', trips)
           trip.driver = user;
-          console.log('finding users', trip.driver);
-          console.log('finding users', trip);
           count++
           if(count === trips.length){
-
-            send()
-            res.send({msg:'hello brett',trips, users});
+            console.log('sending')
+            res.send({trips});
           }
         })
-      })
-    }
+      )
+    })
   })
 })
 

@@ -54,7 +54,7 @@ class ConnectedBigSearch extends Component {
     {zip,dist,sCity,eCity,dateTime,pets,cost,reoccur,seat,userId,current}).then(result =>{
 
       console.log(result.data);
-      this.props.liftBigSearch(result.data);
+      this.props.liftBigSearch(result.data.trips);
 
     })
   }
