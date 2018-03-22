@@ -55,10 +55,9 @@ class ConnectedListBox extends Component {
     } else {
       rydes = ( <h5>No Rydes found.</h5> );
     }
-
-
+    const relativeOnMyRydes = this.props.myRydesPage ? 'position-relative container' : ''
     return (
-      <div id='list-box-outer-div'>
+      <div id='list-box-outer-div' className={relativeOnMyRydes}>
         {rydes}
       </div>
     )

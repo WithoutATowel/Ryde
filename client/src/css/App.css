@@ -153,6 +153,10 @@ a.main-menu-button-collapse {
   position: absolute;
 }
 
+#list-box-outer-div.position-relative {
+  position: relative;
+}
+
 
 /* =========== HOME ========= */
   .home-hero {
@@ -311,6 +315,12 @@ footer p {
 .list-card-recurring-days label {
   padding-left: 25px;
   margin-right: 2%;
+}
+
+
+/* ======= My Rides/Dryves ======= */
+.pending-users {
+  background: #306FB5;
 }
 
 

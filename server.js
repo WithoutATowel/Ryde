@@ -348,6 +348,33 @@ app.post('/editARyde/:id', (req, res, next) => {
   })
 })
 
+app.post('/ryders/pending', (req, res, next) => {
+  console.log('Hit GET /ryders Route')
+  User.find({ _id: req.body.pending },
+  ).lean().exec( function(err, user) {
+    if (err) {
+      console.log('ehllo')
+    } else {
+      console.log('user', user)
+      res.send(user)
+    }
+  })
+})
+
+app.post('/ryders/confirmed', (req, res, next) => {
+  console.log('Hit GET /ryders Route')
+  User.find({ _id: req.body.confirmed }
+  ).lean().exec(function(err, user) {
+      if (err) {
+        console.log('ehllo')
+      } else {
+        console.log('user', user)
+        res.send(user)
+      }
+    }
+  )
+})
+
 app.use('/auth', auth);
 
 const PORT = process.env.PORT || 5000
