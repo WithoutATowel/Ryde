@@ -93,7 +93,6 @@ class ConnectedPostARyde extends Component {
     reoccurringArray.push(Fri)
     reoccurringArray.push(Sat)
 
-    console.log(this.state.departDate,this.state.departTime,this.state.departDate.split('-'),this.state.departTime.split(':'));
     let newDepartDate = this.state.departDate.split('-');
     let newDepartTime = this.state.departTime.split(':');
 
@@ -107,12 +106,9 @@ class ConnectedPostARyde extends Component {
       numDepartTime.push(+newDate)
     })
 
-    console.log('numDepartDate ', numDepartDate)
-    console.log('numDepartTime ', numDepartTime)
-    console.log('dateTime ', ...numDepartDate, ...numDepartTime)
+
     // year, month, day, hour, minute, second, and millisecond
     var departDateTime =  Date.UTC(...numDepartDate, ...numDepartTime)
-    console.log('departDateTime ', departDateTime)
 
 
     var trip = {
@@ -140,7 +136,6 @@ class ConnectedPostARyde extends Component {
       carType: this.state.carType,
       seats: this.state.seats,
     }
-    console.log(trip)
 
     if (this.state.twoWay) {
       let newReturnDepartDate = this.state.returnDepartDate.split('-');
