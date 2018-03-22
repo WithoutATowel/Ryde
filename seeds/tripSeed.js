@@ -7,7 +7,7 @@ mongoose.connect('mongodb://localhost/ryde');
 var trips = [
   {
     rydeName: 'Portland',
-    startAddress: {street:'1130 14th ave',city:'Tacoma',state:'WA',zip:'98021'},
+    startAddress: {street:'1130 14th ave',city:'tacoma',state:'WA',zip:'98021'},
     endAddress: {street:'wendys',city:'seattle',state:'WA',zip:'98021'},
     departDate: 1525170120000,
     reoccurring: false,
@@ -21,7 +21,7 @@ var trips = [
   },
   {
     rydeName: 'Seattle',
-    startAddress: {street:'1130 14th ave',city:'Everett',state:'WA',zip:'98021'},
+    startAddress: {street:'1130 14th ave',city:'everett',state:'WA',zip:'98021'},
     endAddress: {street:'taco time',city:'seattle',state:'WA',zip:'98021'},
     departDate: 1522209000000,
     reoccurring: true,
@@ -47,7 +47,7 @@ var trips = [
   },
   {
     rydeName: 'Olympia',
-    startAddress: {street:'1130 14th ave',city:'Port Townsend',state:'WA',zip:'98021'},
+    startAddress: {street:'1130 14th ave',city:'port townsend',state:'WA',zip:'98021'},
     endAddress: {street:'taco time',city:'seattle',state:'WA',zip:'98021'},
     departDate: 1527854400000,
     reoccurring: true,
@@ -60,7 +60,7 @@ var trips = [
   },
   {
     rydeName: 'Everett',
-    startAddress: {street:'1130 14th ave',city:'Edmonds',state:'WA',zip:'98021'},
+    startAddress: {street:'1130 14th ave',city:'edmonds',state:'WA',zip:'98021'},
     endAddress: {street:'kitty',city:'seattle',state:'WA',zip:'98021'},
     departDate: 1496318400000,
     reoccurring: true,
