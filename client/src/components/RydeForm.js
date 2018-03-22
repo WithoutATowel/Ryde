@@ -1,5 +1,5 @@
 import React from 'react';
-import {Input} from 'react-materialize'
+import {Input} from 'react-materialize';
 
 
 const RydeForm = props => {
