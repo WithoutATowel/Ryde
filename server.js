@@ -7,6 +7,7 @@ var User = require('./models/user');
 var Trip = require('./models/trips');
 var lowerCase = require('./middleware/toLowerCase');
 var ObjectId = require('mongoose').Types.ObjectId;
+var async = require('async');
 
 
 // Mongoose stuff
@@ -74,13 +75,29 @@ app.post('/bigsearch', (req, res, next) =>{
     searchOptions.deniedRiders = {$ne: body.userId}
   }
   console.log(searchOptions);
+  var users = []
   Trip.find(searchOptions, function(err, trips){
     if(err){
       console.log(err);
       res.send(err);
     } else {
-      // console.log(trips);
-      res.send(trips);
+      let users = [];
+      let count = 0;
+      function send(){
+        console.log('sending')
+        res.send({msg:"index of users ==== index of trips",trips,users});
+      }
+      trips.forEach(trip=>{
+        let id = {'_id': ObjectId(trip.driverId)}
+        User.find(id, function(err, user){
+          users.push(user);
+          console.log('finding users');
+          count++
+          if(count === trips.length){
+            send()
+          }
+        })
+      })
     }
   })
 })
