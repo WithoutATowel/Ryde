@@ -65,7 +65,6 @@ var userSchema = new mongoose.Schema({
   pendingTrips: Array,
   deniedTrips: Array,
   completedTrips: Array,
-  seedId: Number,
   trips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }]
 })
 
