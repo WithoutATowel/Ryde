@@ -66,7 +66,10 @@ var tripSchema = new mongoose.Schema({
   comments: Array,
   ridersId: Array,
   pendingRiders: Array,
-  deniedRiders: Array
+  deniedRiders: Array,
+  completed: {
+    type:Boolean,
+    default: false}
 })
 
 

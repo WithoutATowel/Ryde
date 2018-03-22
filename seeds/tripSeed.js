@@ -18,6 +18,7 @@ var trips = [
     comments:['professional', 'drives well', 'bad taste in music'],
     costBreakdown: "charity donation to my church",
     smoking: true,
+    completed: false
   },
   {
     rydeName: 'Seattle',
@@ -30,7 +31,8 @@ var trips = [
     pets: true,
     seats: 4,
     comments:['loves his self', 'talks in third person to much'],
-    costBreakdown: "charity donation to my church"
+    costBreakdown: "charity donation to my church",
+    completed: false
   },
   {
     rydeName: 'San Francisco',
@@ -43,7 +45,8 @@ var trips = [
     pets: true,
     seats: 4,
     comments:['professional', 'has money'],
-    costBreakdown: "my kids school money"
+    costBreakdown: "my kids school money",
+    completed: false
   },
   {
     rydeName: 'Olympia',
@@ -56,7 +59,8 @@ var trips = [
     pets: true,
     seats: 1,
     comments:['pretty girl', 'big brat'],
-    costBreakdown: "gas money and parking"
+    costBreakdown: "gas money and parking",
+    completed: false
   },
   {
     rydeName: 'Everett',
@@ -69,7 +73,8 @@ var trips = [
     pets: false,
     seats: 2,
     comments:['horrible ride', 'dipshit person'],
-    costBreakdown: "gas money"
+    costBreakdown: "gas money",
+    completed: false
   }
 
 ];

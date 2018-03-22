@@ -67,6 +67,7 @@ var userSchema = new mongoose.Schema({
   pendingTrips: Array,
   deniedTrips: Array,
   completedTrips: Array,
+  completedDryves: Array,
   trips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }]
 })
 

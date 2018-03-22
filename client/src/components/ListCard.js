@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-  return { 
+  return {
     user: state.user,
     rydesTabIsToggled: state.rydesTabIsToggled
   }
@@ -65,13 +65,15 @@ class ConnectedListCard extends Component {
       if(!this.props.dryvesTab && (this.props.ryde.ridersId.includes(this.props.user._id) || this.props.ryde.pendingRiders.includes(this.props.user._id))) {
         this.refs.addRemoveButton.style.transform = 'rotate(45deg)';
       }
-    } 
+    }
   }
 
   render() {
     let ryde = this.props.ryde;
     let reocurringDaysJSX, reocurringColon, actionButton, riders;
-
+    let current = Date.now();
+    let departDate = this.props.ryde.departDate
+    console.log(current, departDate);
     if (!this.props.user) {
       // If the user is not logged in, always show the plus sign, linking to login
       actionButton = (
@@ -88,10 +90,17 @@ class ConnectedListCard extends Component {
       if (this.refs.addRemoveButton) {
         this.refs.addRemoveButton.style.transform = 'rotate(0deg)';
       }
+
+      let completed = (current<=departDate ? (<button>Completed</button>
+      ):(
+        <button>Delete</button>))
       actionButton = (
         <div>
           <button>Edit</button>
-          <button>Delete</button>
+          {completed}
+
+
+
         </div>
       )
     } else {
@@ -104,7 +113,7 @@ class ConnectedListCard extends Component {
       )
     }
 
-    // 
+    //
 
     if (ryde.reoccurring) {
       reocurringColon = ': ';
