@@ -38,7 +38,7 @@ class ConnectedBigSearch extends Component {
       }
     })
     let sTime = this.departTime.value.split(':').map(time=>+time)
-    let pets = this.petInput.checked
+    let pets = this.petInput.state.value
     let cost = this.costInput.value
     let reoccur = this.reoccurInput.checked
     let seat = this.seatInput.value
@@ -49,6 +49,7 @@ class ConnectedBigSearch extends Component {
       dateTime = current
     }
     console.log('this timestamp: ',(new Date(dateTime)).toUTCString());
+    console.log(pets);
 
     axios.post('/bigsearch',
     {zip,dist,sCity,eCity,dateTime,pets,cost,reoccur,seat,userId,current}).then(result =>{
