@@ -51,7 +51,7 @@ class ConnectedProfileRyderDetails extends Component {
             {displayReviewUser}
             <p>~~~REMOVE LATER~~~Ratings goes here: {cUser.ryderRatings.length > 0 ? cUser.ryderRatings : 'no ratings yet'}</p>
             <p>{cUser.name}'s Ryder rating: {ratingAvg > 0 ? ratingAvg : 'no ratings yet'}</p>
-            <p>{cUser.name}'s total rydes: {cUser.trips.length > 0 ? cUser.trips : 'no trips yet'}</p>
+            <p>{cUser.name}'s total rydes: {cUser.completedTrips.length > 0 ? cUser.completedTrips : 'no trips yet'}</p>
             <p>~~~~~~~FIGURE OUT HOW TO LIST REVIEWS/COMMENTS HERE~~~~~~~~</p>
           </div>
         </div>
