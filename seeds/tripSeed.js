@@ -8,7 +8,7 @@ var trips = [
   {
     rydeName: 'Portland',
     startAddress: {street:'1130 14th ave',city:'seattle',state:'WA',zip:'98021'},
-    endAddress: {street:'wendys',city:'seattle',state:'WA',zip:'98021'},
+    endAddress: {street:'wendys',city:'seattle',state:'WA',zip:'98122'},
     departDate: 1525170120000,
     reoccurring: false,
     reoccurringDays: [],
@@ -21,8 +21,8 @@ var trips = [
   },
   {
     rydeName: 'Seattle',
-    startAddress: {street:'1130 14th ave',city:'seattle',state:'WA',zip:'98021'},
-    endAddress: {street:'taco time',city:'seattle',state:'WA',zip:'98021'},
+    startAddress: {street:'1130 14th ave',city:'seattle',state:'WA',zip:'98122'},
+    endAddress: {street:'taco time',city:'seattle',state:'WA',zip:'98028'},
     departDate: 1525170120000,
     reoccurring: true,
     reoccurringDays: ['friday', 'thursday'],
