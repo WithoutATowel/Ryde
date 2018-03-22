@@ -55,6 +55,7 @@ class ConnectedBigSearch extends Component {
 
       console.log(result.data.trips[1].driver);
       this.props.liftBigSearch(result.data);
+
     })
   }
 

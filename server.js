@@ -206,8 +206,8 @@ app.post('/profile/:id/reviewuser', (req, res, next) => {
       console.log('An error occurred in post /profile/:id/reviewuser : ', err);
     } else {
       User.findOneAndUpdate({_id: id}, {$set: {
-        [userType + 'RatingAvg']: (doc.ryderRatings
-          .reduce((acc, curVal) => acc + curVal) / doc.ryderRatings.length).toFixed(2)
+        [userType + 'RatingAvg']: (doc[userType + 'Ratings']
+          .reduce((acc, curVal) => acc + curVal) / doc[userType + 'Ratings'].length).toFixed(2)
       } }, {new: true}, function(err, doc) {
         if (err) {
           console.log('### An error occurred in post /profile/:id/reviewuser : ', err);
