@@ -12,9 +12,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 class ConnectedDiscover extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
 
   componentDidMount() {
     this.props.liftCurrentPageToState('/discover')
@@ -38,11 +35,12 @@ class ConnectedDiscover extends Component {
             <BigSearch />
           </div>
           <div className='list-box-div col s12 m12 l9'>
-            <h2>Search Results</h2>
-            <ListBox />
+            <h2 id='search-results-header'>Search Results</h2>
+              <div id='search-results-box'>
+                <ListBox />
+              </div>
           </div>
         </div>
-        <br />
       </div>
     )
   }

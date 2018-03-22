@@ -23,7 +23,9 @@ class ConnectedListCard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      expanded: false
+      expanded: false,
+      driver: '',
+      driverRating: 4.5
     }
   }
 
@@ -55,14 +57,12 @@ class ConnectedListCard extends Component {
               }
             });
         }
-        console.log(result.data);
       });
   }
 
   componentDidMount() {
     if(this.props.user) {
-      if(this.props.ryde.ridersId.includes(this.props.user._id) || this.props.ryde.pendingRiders.includes(this.props.user._id)) {
-        console.log('did mount', this.refs)
+      if(!this.props.dryvesTab && (this.props.ryde.ridersId.includes(this.props.user._id) || this.props.ryde.pendingRiders.includes(this.props.user._id))) {
         this.refs.addRemoveButton.style.transform = 'rotate(45deg)';
       }
     } 
@@ -136,6 +136,22 @@ class ConnectedListCard extends Component {
     let date = rawDate.getFullYear() + '-' + rawDate.getMonth() + '-' + rawDate.getDate();
     let time = rawDate.getHours() + ':' + rawDate.getMinutes();
 
+    let openSeats = ryde.seats - ryde.pendingRiders.length - ryde.ridersId.length;
+
+    let startCity = ryde.startAddress.city.charAt(0).toUpperCase() + ryde.startAddress.city.slice(1);
+    let endCity = ryde.endAddress.city.charAt(0).toUpperCase() + ryde.endAddress.city.slice(1);
+
+    function capitalizer(string) {
+      let splitString = string.split(' ');
+      splitString = splitString.map((word) => {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      return splitString.join(' ');
+    }
+
+    let startAddress = capitalizer(ryde.startAddress.street);
+    let endAddress = capitalizer(ryde.endAddress.street);
+
     //{ryde.driver.name}, {ryde.driver.averageDriverRating} not available yet
     return (
       <div className='list-card-div'>
@@ -156,8 +172,8 @@ class ConnectedListCard extends Component {
           <div className='col s5 list-card-summary'>
             <table>
               <tbody>
-                <tr><td className='right-align'><span className='bold'>From</span>:</td><td>{ryde.startAddress.street + ', ' + ryde.startAddress.city + ', ' + ryde.startAddress.state}</td></tr>
-                <tr><td className='right-align'><span className='bold'>To</span>:</td><td>{ryde.endAddress.street + ', ' + ryde.endAddress.city + ', ' + ryde.endAddress.state}</td></tr>
+                <tr><td className='right-align'><span className='bold'>From</span>:</td><td>{startAddress + ', ' + startCity + ', ' + ryde.startAddress.state}</td></tr>
+                <tr><td className='right-align'><span className='bold'>To</span>:</td><td>{endAddress + ', ' + endCity + ', ' + ryde.endAddress.state}</td></tr>
                 <tr><td className='right-align'><span className='bold'>Date</span>:</td><td>{date}</td></tr>
                 <tr><td className='right-align'><span className='bold'>Time</span>:</td><td>{time}</td></tr>
               </tbody>
@@ -168,7 +184,7 @@ class ConnectedListCard extends Component {
         <div className='list-card-details' ref='details'>
           <div className='row'>
             <div className='col s12'>
-              <p>Open Seats: 4</p>
+              <p>Open Seats: {openSeats}</p>
               <input type='checkbox' checked={ryde.pets ? 'checked' : null} disabled />
               <label>Pets</label>
               <br />

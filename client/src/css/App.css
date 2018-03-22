@@ -8,6 +8,11 @@
    Light Gray: #F7F7F7
 */
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 833.812;
+}
 
 .App {
   text-align: center;
@@ -151,6 +156,11 @@ a.main-menu-button-collapse {
 
 
 /*========= Discover ===========*/
+
+.discover-div > .row {
+  margin: 0;
+}
+
 #discover-slide-out {
   display: flex;
   align-items: center;
@@ -177,7 +187,6 @@ a.main-menu-button-collapse {
 .discover-side-column {
   background: #f7f7f7
 }
-
 
 /* ======== Post A Ryde ======== */
 #sun-sat {
@@ -211,7 +220,7 @@ footer p {
   color: #fff;
   background: #333;
   text-align: center;
-  margin: 20px 0 0 0;
+  margin: 0;
   padding: 5vh;
 }
 

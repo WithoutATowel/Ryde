@@ -8,6 +8,7 @@ const mapStateToProps = state => {
   return { 
     searchResults: state.searchResults,
     myRydesDryves: state.myRydesDryves,
+    rydesTabIsToggled: state.rydesTabIsToggled,
     user: state.user
   }
 }
@@ -20,7 +21,7 @@ class ConnectedListBox extends Component {
   render() {
     console.log(this.props.myRydesDryves);
     let rydes, confirmedRydesHeader, pendingRydesHeader, confirmedRydes, pendingRydes; 
-    if (this.props.myRydesPage) {
+    if (this.props.myRydesPage && this.props.rydesTabIsToggled) {
       confirmedRydes = this.props.myRydesDryves.map((trip, index) => {
         if (trip.ridersId.includes(this.props.user._id)) {
           confirmedRydesHeader = true;
@@ -43,9 +44,13 @@ class ConnectedListBox extends Component {
           {pendingRydes}
         </div>
       );
+    } else if (this.props.myRydesPage && !this.props.rydesTabIsToggled) {
+      rydes = this.props.myRydesDryves.map((trip, index) => {
+        return <ListCard ryde={trip} key={index} myRydesPage={this.props.myRydesPage} dryvesTab={true} />
+      });
     } else {
       rydes = this.props.searchResults.map((trip, index) => {
-        return <ListCard ryde={trip} key={index} myRydesPage={this.props.myRydesPage} />
+        return <ListCard ryde={trip} key={index} />
       });
     }
 
