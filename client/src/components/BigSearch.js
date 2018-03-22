@@ -52,8 +52,8 @@ class ConnectedBigSearch extends Component {
     axios.post('/bigsearch',
     {zip,dist,sCity,eCity,dateTime,pets,cost,reoccur,seat,userId,current}).then(result =>{
 
-      console.log(result.data);
-      this.props.liftBigSearch(result.data);
+      console.log('The search results are:', result.data);
+      this.props.liftBigSearch(result.data.trips);
     })
   }
 
