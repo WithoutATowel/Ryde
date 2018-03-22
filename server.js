@@ -190,36 +190,67 @@ app.get('/myrydes/:id', (req, res, next) => {
 })
 
 app.post('/profile/:id/reviewuser', (req, res, next) => {
-  let { id, rating, userType } = req.body;
-  let whichRatings = (userType === 'ryder' ? 'ryderRatings' : 'dryverRatings')
-
-  User.findOneAndUpdate({_id: id}, {$push: {[userType + 'Ratings']: rating} }, {new: true}, function(err, doc) {
-    if (err) {
-      console.log('An error occurred in post /profile/:id/reviewuser : ', err);
-    } else {
-      User.findOneAndUpdate({_id: id}, {$set: {
+  let { clickedId, rating, userType, theUser } = req.body;
+  let whichReviewed = (userType === 'ryder' ? 'Ryders' : 'Dryvers')
+  let updateRatingsArray = function(cb) {
+    User.findOneAndUpdate(
+      {_id: clickedId},
+      {$push: {[userType + 'Ratings']: rating} },
+      {new: true}
+    ).lean().exec( // .lean() returns a javascript object, not a mongo object; .exec() executes the callback
+      function(err, doc) {
+        // console.log(doc);
+        if (err) { console.log('An error occurred in the first async function', err) }
+        else {
+          console.log('finished first');
+          cb(null, doc);
+        }
+      }
+    )
+  };
+  let updateRatingAvg = function(doc, cb) {
+    User.findOneAndUpdate(
+      {_id: clickedId},
+      {$set: {
         [userType + 'RatingAvg']: (doc[userType + 'Ratings']
           .reduce((acc, curVal) => acc + curVal) / doc[userType + 'Ratings'].length).toFixed(2)
-      } }, {new: true}, function(err, doc) {
-        if (err) {
-          console.log('### An error occurred in post /profile/:id/reviewuser : ', err);
-        } else {
-          console.log('here is the doc: ', doc);
         }
-      })
+      }, {new: true}
+    ).lean().exec(
+      function(err, doc) {
+        if (err) { console.log('An error occurred in the second async function', err) }
+        else {
+          console.log('finished 2nd');
+          cb(null, doc);
+        }
+      }
+    )
+  };
+  let updateReviewedArray = function(doc, cb) {
+    User.findOneAndUpdate(
+        {_id: theUser._id},
+        {$push: {['reviewed' + whichReviewed]: clickedId} },
+        {new: true}
+    ).lean().exec(
+      function(err, doc2) {
+        if (err) { console.log('An error occurred in the third async function', err) }
+        else {
+          console.log('finished 3rd');
+          var users = {clickedUser: doc, theUser: doc2}
+          cb(null, users);
+        }
+      }
+    )
+  };
+
+  async.waterfall([updateRatingsArray, updateRatingAvg, updateReviewedArray], function(err, results) {
+    if (err) {
+      res.send('An error occurred updating the post /profile/:id/reviewuser route', err)
+    } else {
+      res.send(results);
     }
-  })
-
-  // let reducedArr = arr.reduce((accumulator, currentValue) => accumulator + currentValue) / arr.length;
-
-
-  User.findOneAndUpdate({_id: req.params.id}, function (err, user) {
-    console.log(user);
-    res.json('here is user', user);
-  })
-
-
-})
+  });
+});
 
 //TODO refactor this to be more like POST /mydryves
 app.post('/myrydes', (req, res, next) => {
