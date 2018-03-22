@@ -11,7 +11,9 @@ const mapDispatchToProps = dispatch => {
     liftMiniSearch: data => dispatch(liftMiniSearch(data))
   }
 }
-
+const mapStateToProps = state =>{
+  return {user: state.user}
+}
 class ConnectedMiniSearch extends Component {
   constructor(props) {
     super(props)
@@ -22,6 +24,9 @@ class ConnectedMiniSearch extends Component {
 
   handleMiniSearch = (e) =>{
     e.preventDefault()
+    if(this.props.user){
+      var userId = this.props.user._id
+    }
     let startZip = this.zipStartInput.value
     let endZip = this.zipEndInput.value
     let dateFormat = this.departDate.value.split('-').map((date,index)=>{
@@ -34,7 +39,7 @@ class ConnectedMiniSearch extends Component {
     let date = Date.UTC(...dateFormat)
     console.log(date);
     axios.post('/minisearch',
-    {startZip,endZip,date}).then(result =>{
+    {startZip,endZip,date,userId}).then(result =>{
       console.log(result.data)
       this.props.liftMiniSearch(result.data)
       this.setState({
@@ -67,5 +72,5 @@ class ConnectedMiniSearch extends Component {
   }
 }
 
-const MiniSearch = connect(null, mapDispatchToProps)(ConnectedMiniSearch);
+const MiniSearch = connect(mapStateToProps, mapDispatchToProps)(ConnectedMiniSearch);
 export default MiniSearch;

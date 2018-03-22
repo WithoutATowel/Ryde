@@ -7,7 +7,9 @@ import { connect } from 'react-redux';
 const mapStateToProps = state => {
   return { 
     searchResults: state.searchResults,
-    myRydesDryves: state.myRydesDryves
+    myRydesDryves: state.myRydesDryves,
+    rydesTabIsToggled: state.rydesTabIsToggled,
+    user: state.user
   }
 }
 
@@ -17,14 +19,38 @@ class ConnectedListBox extends Component {
   // }
 
   render() {
-    let rydes; 
-    if (this.props.myRydesPage) {
-      rydes = this.props.myRydesDryves.map((item, index) => {
-        return <ListCard ryde={item} key={index} myRydesPage={this.props.myRydesPage} />
+    console.log(this.props.myRydesDryves);
+    let rydes, confirmedRydesHeader, pendingRydesHeader, confirmedRydes, pendingRydes; 
+    if (this.props.myRydesPage && this.props.rydesTabIsToggled) {
+      confirmedRydes = this.props.myRydesDryves.map((trip, index) => {
+        if (trip.ridersId.includes(this.props.user._id)) {
+          confirmedRydesHeader = true;
+          return <ListCard ryde={trip} key={index} myRydesPage={this.props.myRydesPage} />
+        }
+      });
+      confirmedRydesHeader = confirmedRydesHeader ? (<h3>Confirmed Rydes</h3>) : '';
+      pendingRydes = this.props.myRydesDryves.map((trip, index) => {
+        if (trip.pendingRiders.includes(this.props.user._id)) {
+          pendingRydesHeader = true;
+          return <ListCard ryde={trip} key={index} myRydesPage={this.props.myRydesPage} />
+        }
+      });
+      pendingRydesHeader = pendingRydesHeader ? (<h3>Pending Rydes</h3>) : '';
+      rydes = (
+        <div>
+          {confirmedRydesHeader} 
+          {confirmedRydes} 
+          {pendingRydesHeader} 
+          {pendingRydes}
+        </div>
+      );
+    } else if (this.props.myRydesPage && !this.props.rydesTabIsToggled) {
+      rydes = this.props.myRydesDryves.map((trip, index) => {
+        return <ListCard ryde={trip} key={index} myRydesPage={this.props.myRydesPage} dryvesTab={true} />
       });
     } else {
-      rydes = this.props.searchResults.map((item, index) => {
-        return <ListCard ryde={item} key={index} myRydesPage={this.props.myRydesPage} />
+      rydes = this.props.searchResults.map((trip, index) => {
+        return <ListCard ryde={trip} key={index} />
       });
     }
 
