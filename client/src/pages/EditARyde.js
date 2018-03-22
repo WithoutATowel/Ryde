@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-import '../css/postaryde.css';
 import RydeForm from '../components/RydeForm';
 import { connect } from 'react-redux';
+import { liftTokenToState } from '../redux/actions/index';
 // import store from '../redux/store/index';
 import axios from 'axios';
+
+const mapDispatchToProps = dispatch => {
+  return {
+    liftTokenToState: data => dispatch(liftTokenToState(data))
+  }
+}
 
 const mapStateToProps = state => {
   return {
@@ -11,7 +17,7 @@ const mapStateToProps = state => {
   }
 }
 
-class ConnectedPostARyde extends Component {
+class ConnectedEditARyde extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -31,6 +37,7 @@ class ConnectedPostARyde extends Component {
       departTime: '',
       returnDepartDate: '',
       returnDepartTime: '',
+      reoccurringSun: false,
       reoccurringMon: false,
       reoccurringTues: false,
       reoccurringWed: false,
@@ -52,6 +59,83 @@ class ConnectedPostARyde extends Component {
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
+  handleInputChange(event) {
+    console.log('on Input Change')
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  componentDidMount() {
+    var getAndStorePost = () => {
+      axios.get('/editARyde/' + '5ab194b8d10bf8064db31947')
+      .then( result => {
+        if (result.data && result.data.length > 0) {
+          console.log('results: ',result.data[0])
+          let results = result.data[0]
+          this.setState({
+            reoccurring: false,
+            twoWay: false,
+            rydeName: results.rydeName,
+            startStreet: results.startAddress.street,
+            startCity: results.startAddress.city,
+            startState: results.startAddress.state,
+            startZip: results.startAddress.zip,
+            endStreet: results.endAddress.street,
+            endCity: results.endAddress.city,
+            endState: results.endAddress.state,
+            endZip: results.endAddress.zip,
+            departDate: '',
+            departTime: '',
+            returnDepartDate: '',
+            returnDepartTime: '',
+            reoccurringSun: results.reoccurringDays[0],
+            reoccurringMon: results.reoccurringDays[1],
+            reoccurringTues: results.reoccurringDays[2],
+            reoccurringWed: results.reoccurringDays[3],
+            reoccurringThurs: results.reoccurringDays[4],
+            reoccurringFri: results.reoccurringDays[5],
+            reoccurringSat: results.reoccurringDays[6],
+            cost: results.cost,
+            costBreakdown: results.costBreakdown,
+            smoking: results.smoking,
+            tripPets: results.pets,
+            carType:  results.carType,
+            seats: results.seats,
+          });
+
+
+        } else {
+          this.setState({results: []});
+          console.log('fails')
+        }
+      });
+
+    }
+    if (this.props.user) {
+      getAndStorePost()
+    } else {
+      console.log('hello else')
+      let token = localStorage.getItem('rydeAppToken')
+      if (token === 'undefined' || token === 'null' || token === '' || token === undefined || token === null) {
+        localStorage.removeItem('rydeAppToken')
+        this.props.logout()
+      } else {
+        axios.post('/auth/me/from/token', {
+          token
+        }).then( result => {
+          localStorage.setItem('rydeAppToken', result.data.token)
+          this.props.liftTokenToState(result.data);
+          getAndStorePost()
+        }).catch( err => console.log(err))
+      }
+    }
+  }
+
   handleReoccurringChange(e) {
     this.setState({
       reoccurring: e.target.checked,
@@ -62,17 +146,6 @@ class ConnectedPostARyde extends Component {
     this.setState({
       twoWay: e.target.checked,
     })
-  }
-
-  handleInputChange(event) {
-    console.log('on Input Change')
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    });
   }
 
   handlePostARydeSubmit(e) {
@@ -142,62 +215,9 @@ class ConnectedPostARyde extends Component {
     }
     console.log(trip)
 
-    if (this.state.twoWay) {
-      let newReturnDepartDate = this.state.returnDepartDate.split('-');
-      let newReturnDepartTime = this.state.returnDepartTime.split(':');
-
-      var numReturnDepartDate = []
-      var numReturnDepartTime = []
-
-      newReturnDepartDate.forEach(function(newDate) {
-        numReturnDepartDate.push(+newDate)
-      })
-      newReturnDepartTime.forEach(function(newDate) {
-        numReturnDepartTime.push(+newDate)
-      })
-
-      // year, month, day, hour, minute, second, and millisecond
-      var returnDepartDateTime =  Date.UTC(...numReturnDepartDate, ...numReturnDepartTime)
-      console.log('return departDateTime ', returnDepartDateTime)
-
-      var returnTrip = {
-        driverId: this.props.user._id,
-        rydeName: this.state.rydeName,
-        startAddress: {
-          street: this.state.endStreet,
-          city: this.state.endCity,
-          state: this.state.endState,
-          zip: this.state.endZip
-        },
-        endAddress: {
-          street: this.state.startStreet,
-          city: this.state.startCity,
-          state: this.state.startState,
-          zip: this.state.startZip
-        },
-        departDate: returnDepartDateTime,
-        reoccurring: this.state.reoccurring,
-        reoccurringDays: reoccurringArray,
-        cost: this.state.cost,
-        costBreakdown: this.state.costBreakdown,
-        smoking: this.state.smoking,
-        pets: this.state.TripPets,
-        carType: this.state.carType,
-        seats: this.state.seats,
-      }
-      console.log(returnTrip)
-    }
-
-    axios.post('/postARyde', trip).then(result => {
+    axios.post('/editARyde/' + '5ab194b8d10bf8064db31947', trip).then(result => {
       console.log('added one way ', result.data)
-      if (this.state.twoWay) {
-        axios.post('/postARyde', returnTrip).then(result => {
-          console.log('added two way ', result.data)
 
-        }).catch(err => {
-          console.log(err);
-        })
-      }
     }).catch(err => {
       console.log(err);
     })
@@ -207,12 +227,13 @@ class ConnectedPostARyde extends Component {
   render() {
     const reoccurringShowHide = this.state.reoccurring ? 'show' : 'hide';
     const twoWayShowHide = this.state.twoWay ? 'show' : 'hide';
-    console.log('new state: ', this.state)
+    console.log(this.props)
+
     return (
       <div id="post-a-ryde" className="container">
-        <h2>Post A Ryde</h2>
+        <h2>Edit A Ryde</h2>
         <RydeForm
-          isEditPage={false}
+          isEditPage={true}
           rydeName={this.state.rydeName}
           onInputChange={this.handleInputChange}
           startStreet={this.state.startStreet}
@@ -252,7 +273,7 @@ class ConnectedPostARyde extends Component {
   }
 }
 
-const PostARyde = connect(mapStateToProps)(ConnectedPostARyde);
+const EditARyde = connect(mapStateToProps, mapDispatchToProps)(ConnectedEditARyde);
 
 
-export default PostARyde;
+export default EditARyde;

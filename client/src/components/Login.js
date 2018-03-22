@@ -61,7 +61,7 @@ class ConnectedLogin extends Component {
           <br />
           Password: <input type='text' value={this.state.password} onChange={this.handlePasswordChange} />
           <br />
-          <input type='submit' className="rydeBlueBtn btn" value='Log In!' />
+          <input type='submit' className="rydeBlueBtn btn modal-action modal-close" value='Log In!' />
         </form>
       )
     }

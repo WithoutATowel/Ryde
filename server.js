@@ -283,6 +283,33 @@ app.post('/postARyde', (req, res, next) => {
   })
 })
 
+app.get('/editARyde/:id', (req, res, next) => {
+  console.log('Hit GET /myrydes route');
+  Trip.find({ _id: req.params.id}, function(err, trip) {
+    if(err){
+      console.log(err);
+      res.send(err);
+    } else {
+      res.send(trip);
+    }
+  })
+})
+
+app.post('/editARyde/:id', (req, res, next) => {
+  console.log('Hit GET /editARyde/:id route');
+  Trip.findById(req.params.id, function(err, trip) {
+    if(err){
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log(req.body)
+      // trip.set(req.body)
+      // trip.save(function (err, ))
+      res.send(trip);
+    }
+  })
+})
+
 app.use('/auth', auth);
 
 const PORT = process.env.PORT || 5000
