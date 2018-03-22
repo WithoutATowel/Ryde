@@ -4,6 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import store from '../redux/store/index';
 import { liftBigSearch } from '../redux/actions/index';
+import {Input,Row} from 'react-materialize';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -52,8 +53,9 @@ class ConnectedBigSearch extends Component {
     axios.post('/bigsearch',
     {zip,dist,sCity,eCity,dateTime,pets,cost,reoccur,seat,userId,current}).then(result =>{
 
-      console.log('The search results are:', result.data);
-      this.props.liftBigSearch(result.data.trips);
+      console.log(result.data.trips[1].driver);
+      this.props.liftBigSearch(result.data);
+
     })
   }
 
@@ -98,16 +100,14 @@ class ConnectedBigSearch extends Component {
           </div>
           <div className='row'>
             <div className="col s12 m6">
-              <p>
-                <input id='pets' type='checkbox' placeholder='Pets' ref={(input)=>{this.petInput = input;}}/>
-                <label htmlFor='pets'>Pets</label>
-              </p>
+              <Row>
+                <Input label='Pets' name='Pets' type='checkbox' placeholder='Pets' ref={(input)=>{this.petInput = input;}}/>
+              </Row>
             </div>
             <div className='col s12 m6'>
-              <p>
-                <input id='reoccur' type='checkbox' ref={(input)=>{this.reoccurInput = input;}}/>
-                <label htmlFor='reoccur'>Reoccuring</label>
-              </p>
+              <Row>
+                <Input name='reoccur' label='Reoccurring' type='checkbox' ref={(input)=>{this.reoccurInput = input;}}/>
+              </Row>
             </div>
             <br />
             <button type='submit' className='rydeBtn Green btn'>Submit</button>

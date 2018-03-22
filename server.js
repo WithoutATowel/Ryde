@@ -59,19 +59,16 @@ app.post('/bigsearch', (req, res, next) =>{
     'startAddress.zip': body.zip,
     'startAddress.city': body.sCity,
     'endAddress.city': body.eCity,
-    departDate: {$gte: body.dateTime || body.current},
+    departDate: {$gte: body.dateTime},
     pets: body.pets,
-    cost: {$gte: body.cost},
+    cost: {$lte: body.cost},
     reoccurring: body.reoccur,
     seats: body.seat
   }
-  console.log(searchOptions);
+  // console.log(searchOptions);
   for (let key in searchOptions) {
-    console.log('key:', key);
-    console.log('lte:', searchOptions[key]['$lte'] === '');
-    console.log('gte:',searchOptions[key]['$gte'] === '');
-    console.log('--------------');
-    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key]['$lte'] === '' || searchOptions[key]['$gte'] === ''){
+    // console.log('--------------');
+    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key] === undefined || searchOptions[key]['$lte'] === ''|| searchOptions[key]['$gte'] === ''){
       delete searchOptions[key]
     }
   }
@@ -81,26 +78,31 @@ app.post('/bigsearch', (req, res, next) =>{
     searchOptions.deniedRiders = {$ne: body.userId}
   }
   console.log(searchOptions);
-  var users = []
-  Trip.find(searchOptions, function(err, trips){
+
+  Trip.find(searchOptions).lean().exec( function(err, trips){
     if(err){
-      console.log(err);
+      // console.log(err);
       res.send(err);
     } else {
-      let users = [];
       let count = 0;
       function send(){
-        console.log('sending')
-        res.send({msg:"index of users ==== index of trips",trips,users});
+        // console.log('sending')
       }
-      trips.forEach(trip=>{
+      var users = []
+      trips.forEach((trip,index)=>{
         let id = {'_id': ObjectId(trip.driverId)}
-        User.find(id, function(err, user){
-          users.push(user);
-          console.log('finding users');
+        User.findOne(id, function(err, user){
+
+
+          // console.log('trip', trips)
+          trip.driver = user;
+          console.log('finding users', trip.driver);
+          console.log('finding users', trip);
           count++
           if(count === trips.length){
+
             send()
+            res.send({msg:'hello brett',trips, users});
           }
         })
       })
