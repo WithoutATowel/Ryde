@@ -42,14 +42,14 @@ class ConnectedSignup extends Component {
     axios.post('/auth/signup',
       {name, email, password, dob, homeStreet, homeCity, homeState, homeZip, workStreet, workCity, workState, workZip})
         .then( result => {
-        localStorage.setItem('rydeAppToken', result.data.token) // change 'mernToken' to your app name or something useful
+        localStorage.setItem('rydeAppToken', result.data.token)
         this.props.liftTokenToState(result.data)
     }).catch( err => console.log(err) )
   }
 
   render() {
     if ( this.props.user && Object.keys(this.props.user).length > 0 ) {
-      return (<Redirect to={{ pathname: this.props.currentPage }} />)  // ~~~~~~~~~~~NEED TO FIX REDIRECT TO CURRENT PAGE~~~~~~~~~~~~~
+      return (<Redirect to={{ pathname: this.props.currentPage }} />)
     } else {
         return (
           <form onSubmit={this.handleSubmit}>

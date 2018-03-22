@@ -9,10 +9,11 @@ class PrivateProfile extends Component {
   }
 
   render() {
-    if (this.props.user) {
+    let user = this.props.user
+    if (user) {
       return (
         <div>
-          <h1 className='user-profile-h1'>{this.props.user.name}'s Profile Page</h1>
+          <h1 className='user-profile-h1'>{user.name}'s Profile Page</h1>
           <div className='row'>
             <div className='col s12 center-align'>
               {/* <div className='profile-backing-off-white center-align'></div> */}
@@ -20,8 +21,18 @@ class PrivateProfile extends Component {
                 <img src='https://www.placecage.com/c/185/230' alt='profile' />
               </div>
               <br />
-              <h5>{this.props.user.name}</h5>
+              <h5>{user.name}</h5>
               <p>do we want gender here???</p>
+              <ul>
+                <li>IF NOT DRYVER, NEED LINK FOR DRYVER SIGNUP</li>
+                <li>Ryder Rating: {user.ryderRatings.length > 0 ? user.ryderRatings : 'no ratings yet'}</li>
+                <li># of Rydes</li>
+                <li>Dryver Rating: {user.dryverRatings.length > 0 ? user.dryverRatings : 'no ratings yet'}</li>
+                <li># of Dryves</li>
+                <li>Car type</li>
+                <li>change pic</li>
+                <li>update profile</li>
+              </ul>
               <p><Link to='/postaryde'>Post a Ryde</Link></p>
 
               <Link to='/myrydes'>My Rydes</Link>

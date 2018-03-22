@@ -41,7 +41,7 @@ class ConnectedLogin extends Component {
       email: this.state.email,
       password: this.state.password
     }).then( result => {
-      console.log(result.data)
+      console.log('@@@ Login result.data', result.data)
       if (result.data.user) {
         localStorage.setItem('rydeAppToken', result.data.token)
         this.props.liftTokenToState(result.data)
@@ -53,7 +53,7 @@ class ConnectedLogin extends Component {
 
   render() {
     if ( this.props.user && Object.keys(this.props.user).length > 0 ) {
-      return (<Redirect to={{ pathname: this.props.currentPage }} />)  // ~~~~~~~~~~~NEED TO FIX REDIRECT TO CURRENT PAGE~~~~~~~~~~~~~
+      return (<Redirect to={{ pathname: this.props.currentPage }} />)
     } else {
       return(
         <form onSubmit={this.handleSubmit}>

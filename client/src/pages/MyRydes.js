@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 // import store from '../redux/store/index';
-import { toggleRydesTab, liftMyRydesDryves, liftTokenToState } from '../redux/actions/index';
+import { toggleRydesTab, liftMyRydesDryves, liftTokenToState, logout } from '../redux/actions/index';
 import ListBox from '../components/ListBox';
 import axios from 'axios';
 
@@ -9,7 +10,8 @@ const mapDispatchToProps = dispatch => {
   return {
     toggleRydesTab: bool => dispatch(toggleRydesTab(bool)),
     liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data)),
-    liftTokenToState: data => dispatch(liftTokenToState(data))
+    liftTokenToState: data => dispatch(liftTokenToState(data)),
+    logout: () => dispatch(logout())
   }
 }
 
@@ -75,38 +77,41 @@ class ConnectedMyRydes extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <div className="flexCol-vCenter-hCenter">
-          <h1>My Rydes</h1>
-          <div className="switcher">
-            <input
-              type="radio"
-              name="balance"
-              value="MyRydes"
-              id="my-rydes-radio"
-              className="switcher__input switcher__input--myRydes"
-              onChange={this.handleTabToggle}
-              defaultChecked={this.props.rydesTabIsToggled ? 'checked' : null} />
-            <label htmlFor="my-rydes-radio" className="switcher__label">My Rydes</label>
+    if (!this.props.user) {
+      return (<Redirect to='/login' />)
+    } else {
+      return (
+        <div>
+          <div className="flexCol-vCenter-hCenter">
+            <h1>My Rydes</h1>
+            <div className="switcher">
+              <input
+                type="radio"
+                name="balance"
+                value="MyRydes"
+                id="my-rydes-radio"
+                className="switcher__input switcher__input--myRydes"
+                onChange={this.handleTabToggle}
+                defaultChecked={this.props.rydesTabIsToggled ? 'checked' : null} />
+              <label htmlFor="my-rydes-radio" className="switcher__label">My Rydes</label>
 
-            <input
-              type="radio"
-              name="balance"
-              value="MyDrives"
-              id="my-drives-radio"
-              className="switcher__input switcher__input--myDrives"
-              onChange={this.handleTabToggle}
-              defaultChecked={!this.props.rydesTabIsToggled ? 'checked' : null} />
-            <label htmlFor="my-drives-radio" className="switcher__label">My Drives</label>
+              <input
+                type="radio"
+                name="balance"
+                value="MyDrives"
+                id="my-drives-radio"
+                className="switcher__input switcher__input--myDrives"
+                onChange={this.handleTabToggle}
+                defaultChecked={!this.props.rydesTabIsToggled ? 'checked' : null} />
+              <label htmlFor="my-drives-radio" className="switcher__label">My Drives</label>
 
-            <span className="switcher__toggle"></span>
+              <span className="switcher__toggle"></span>
+            </div>
           </div>
+          <ListBox myRydesPage={true} />
         </div>
-        <ListBox myRydesPage={true} />
-      </div>
-
-    )
+      )
+    }
   }
 }
 

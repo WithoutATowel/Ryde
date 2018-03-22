@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
 
 
 app.get('/finduser/:id', (req, res, next) => {
-  User.findOne({_id: req.params.id}, function(err, user) {
+  User.findById({_id: req.params.id}, function(err, user) {
     if (user) {
       res.json(user.toObject())
     } else {
@@ -44,6 +44,12 @@ app.get('/finduser/:id', (req, res, next) => {
     }
   })
 })
+
+// app.post('/profile/:id/reviewuser', (req, res, next) => {
+//   User.findById(userId, function (err, user) {
+//     userId.
+//   })
+// })
 
 app.post('/bigsearch', (req, res, next) =>{
   let body = lowerCase(req.body)
@@ -156,6 +162,13 @@ app.get('/myrydes/:id', (req, res, next) => {
     } else {
       res.send(trips);
     }
+  })
+})
+
+app.post('/profile/:id/reviewuser', (req, res, next) => {
+  User.findById({_id: req.params.id}, function (err, user) {  ////// SHOULD I USE FindOneAndUpdate() ??????
+    console.log(user);
+    res.json('here is user', user);
   })
 })
 
