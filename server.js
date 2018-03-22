@@ -63,7 +63,7 @@ app.post('/bigsearch', (req, res, next) =>{
     pets: body.pets,
     cost: {$lte: body.cost},
     reoccurring: body.reoccur,
-    seats: {$lte:body.seat}
+    seats: {$gte:body.seat}
   }
   // console.log(searchOptions);
   for (let key in searchOptions) {
@@ -81,20 +81,31 @@ app.post('/bigsearch', (req, res, next) =>{
 
   Trip.find(searchOptions).lean().exec( function(err, trips){
     let count = 0;
+    let newTrips = []
+    console.log('tripslength',trips.length);
     trips.forEach((trip,index)=>{
       let id = {'_id': ObjectId(trip.driverId)}
-      let tripAvailable = (trip.seats - trip.ridersId.length)
-      console.log('tripavaible',tripAvailable);
-      tripAvailable === 0 ? (
-        delete trips[index]
-      //tertiary are sad either way you look at them lol
+      let tripAvailability = (trip.seats - trip.ridersId.length - req.body.seat)
+      //if no seats Available delete from index and count up
+      tripAvailability <= 0 ? (
+        delete trips[index],
+        count++,
+        count === trips.length?(
+          //resign the temp array holding Available trips
+          res.send({newTrips})
+        ) : (console.log('still looping'))
+      //terniary are sad either way you look at them lol
       ) : (
+        //async multi find users that is driver for trip
         User.findOne(id, function(err, user){
+          //add key value pair of driver to trip object
           trip.driver = user;
           count++
+          newTrips.push(trip)
+          // once all async functions are finished send data
           if(count === trips.length){
-            console.log('sending')
-            res.send({trips});
+            //resign the temp array holding Available trips
+            res.send({newTrips});
           }
         })
       )
