@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../css/postaryde.css';
 import RydeForm from '../components/RydeForm';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 // import store from '../redux/store/index';
 import axios from 'axios';
 
@@ -43,6 +44,7 @@ class ConnectedPostARyde extends Component {
       tripPets: false,
       carType: '',
       seats: '',
+      redirect:false
 
     }
     console.log('initial state: ', this.state)
@@ -184,11 +186,21 @@ class ConnectedPostARyde extends Component {
     }
 
     axios.post('/postARyde', trip).then(result => {
-      console.log('added one way ', result.data)
+
+      console.log(!this.state.twoWay);
+      console.log(this.state.twoWay);
+      if(!this.state.twoWay){
+        this.setState({
+          redirect:true
+        })
+      }
       if (this.state.twoWay) {
         axios.post('/postARyde', returnTrip).then(result => {
-          console.log('added two way ', result.data)
-
+          if(this.state.twoWay){
+            this.setState({
+              redirect:true
+            })
+          }
         }).catch(err => {
           console.log(err);
         })
@@ -196,10 +208,12 @@ class ConnectedPostARyde extends Component {
     }).catch(err => {
       console.log(err);
     })
-
   }
 
   render() {
+    if(this.state.redirect){
+      return <Redirect to='/myrydes' />
+    }
     const reoccurringShowHide = this.state.reoccurring ? 'show' : 'hide';
     const twoWayShowHide = this.state.twoWay ? 'show' : 'hide';
     console.log('new state: ', this.state)
