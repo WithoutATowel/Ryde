@@ -8,10 +8,10 @@ import { LIFT_MINI_SEARCH } from '../constants/action-types';
 import { LIFT_MY_RYDES_DRYVES } from '../constants/action-types';
 import { LIFT_CURRENT_RYDE } from '../constants/action-types';
 
-export const toggleRydesTab = (rydesTabIsToggled) => (
+export const toggleRydesTab = (data) => (
   {
     type: TOGGLE_RYDES_TAB,
-    payload: rydesTabIsToggled
+    payload: data
   }
 )
 

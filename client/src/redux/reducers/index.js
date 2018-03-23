@@ -24,8 +24,11 @@ const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         case TOGGLE_RYDES_TAB:
             console.log('Toggled Rydes/Dryves tab');
-            // Object with old state + updated articles value
-            return {...state, rydesTabIsToggled: action.payload};
+            return {
+                ...state, 
+                rydesTabIsToggled: action.payload.rydesTabIsToggled,
+                myRydesDryves: action.payload.myRydesDryves
+            };
         case LIFT_CURRENT_PAGE_TO_STATE:
             console.log('The current page is...', action.payload);
             return {...state, currentPage: action.payload};
