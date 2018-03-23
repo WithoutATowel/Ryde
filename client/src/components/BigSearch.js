@@ -49,12 +49,11 @@ class ConnectedBigSearch extends Component {
       dateTime = current
     }
     console.log('this timestamp: ',(new Date(dateTime)).toUTCString());
-    console.log(pets);
 
     axios.post('/bigsearch',
     {zip,dist,sCity,eCity,dateTime,pets,cost,reoccur,seat,userId,current}).then(result =>{
 
-      console.log(result.data);
+      console.log('result:',result.data);
       this.props.liftBigSearch(result.data.newTrips);
 
     })
