@@ -71,11 +71,10 @@ class ConnectedListCard extends Component {
 
   render() {
     let ryde = this.props.ryde;
-    console.log('HERES THE RYDE', ryde);
     let reocurringDaysJSX, reocurringColon, actionButton, riders;
     let current = Date.now();
     let departDate = this.props.ryde.departDate
-    console.log(current, departDate);
+    // console.log(current, departDate);
     if (!this.props.user) {
       // If the user is not logged in, always show the plus sign, linking to login
       actionButton = (
@@ -102,8 +101,7 @@ class ConnectedListCard extends Component {
       )
 
     } else {
-      // The user is logged in, but isn't on the Dryves tab of the MyRydes page
-      console.log('Youre on the MyRydes page Rydes tab');
+      // The user is logged in, but isn't on the Dryves tab of the MyRydes page. Could be discover or My Rydes -> Rydes.
       actionButton = (
         <div className='col s2 list-card-add right-align' ref='addRemoveButton' onClick={ (e) => this.handleRydeAdd(e) }>
           <i className='material-icons large'>add</i>

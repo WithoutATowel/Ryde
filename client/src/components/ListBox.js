@@ -21,20 +21,26 @@ class ConnectedListBox extends Component {
     let searchResultsLength = this.props.searchResults ? this.props.searchResults.length : 0;
     if (myRydesDryvesLength > 0 || searchResultsLength > 0) {
       if (this.props.myRydesPage && this.props.rydesTabIsToggled) {
+        // MyRydes component has passed in 'myRydesPage', and state shows that we're in the Rydes tab
+        // First prepare the list of confirmed rydes
         confirmedRydes = this.props.myRydesDryves.map((trip, index) => {
           if (trip.ridersId.includes(this.props.user._id)) {
             confirmedRydesHeader = true;
             return <ListCard ryde={trip} key={index} myRydesPage={this.props.myRydesPage} />
           }
         });
+        // If we have confirmed rydes, prep the confirmed rydes header
         confirmedRydesHeader = confirmedRydesHeader ? (<h3>Confirmed Rydes</h3>) : '';
+        // Next, prepare the list of pending rydes
         pendingRydes = this.props.myRydesDryves.map((trip, index) => {
           if (trip.pendingRiders.includes(this.props.user._id)) {
             pendingRydesHeader = true;
             return <ListCard ryde={trip} key={index} myRydesPage={this.props.myRydesPage} />
           }
         });
+        // If we have pending rydes, prep the pending rydes header
         pendingRydesHeader = pendingRydesHeader ? (<h3>Pending Rydes</h3>) : '';
+        // Compile the headers and lists into the 'rydes' variable
         rydes = (
           <div>
             {confirmedRydesHeader}
