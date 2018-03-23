@@ -12,16 +12,13 @@ var jwt = require('jsonwebtoken');
 router.post('/login', (req, res, next) => {
   let hashedPass = ''
   let passwordMatch = false
-  // Look up the User
-  User.findOne({email: req.body.email}, function(err, user) {
+  User.findOne({email: req.body.email.toLowerCase()}, function(err, user) {
     if (!user) {
       res.json({user: null, token: ''});
     } else {
       hashedPass = user.password
-      // Compare hashedPass to submitted password
       passwordMatch = bcrypt.compareSync(req.body.password, hashedPass)
       if (passwordMatch) {
-        // The passwords match...
         console.log("Password is correct")
         var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
           expiresIn: 60 * 60 * 24 // expires in 24 hours
@@ -39,14 +36,13 @@ router.post('/login', (req, res, next) => {
 })
 
 router.post('/signup', (req, res, next) => {
-  console.log(req.body);
-  User.findOne({ email: req.body.email }, function(err, user) {
+  User.findOne({ email: req.body.email.toLowerCase() }, function(err, user) {
     if (user) {
       res.redirect('/auth/signup')
     } else {
       User.create({
         name: req.body.name,
-        email: req.body.email,
+        email: req.body.email.toLowerCase(),
         password: req.body.password,
         dob: req.body.dob,
         'homeAddress.street': req.body.homeStreet,
@@ -74,7 +70,6 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.post('/me/from/token', (req, res, next) => {
-  // Check for presence of a token
   var token = req.body.token
   if (!token) {
     res.status(401).json({message: "Must pass the token"})
@@ -83,7 +78,6 @@ router.post('/me/from/token', (req, res, next) => {
       if (err) {
         res.status(401).send(err)
       } else {
-        // TODO: Why does the "_id" need to be in quotes?
         User.findById({
           '_id': user._id
         }, function(err, user) {

@@ -12,7 +12,7 @@ class ConnectedProfileDryverDetails extends Component {
     this.state = {
       clickedUser: this.props.clickedUser,
       theUser: this.props.user,
-      showReviewUser: !this.props.theUser.reviewedDryvers.includes(this.props.clickedUser._id) ? true : false
+      showReviewUser: this.props.theUser ? (!this.props.theUser.reviewedDryvers.includes(this.props.clickedUser._id) ? true : false) : false
     }
     this.handleUpdateProfileDryverDetails = this.handleUpdateProfileDryverDetails.bind(this)
   }
