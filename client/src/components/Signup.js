@@ -67,7 +67,7 @@ class ConnectedSignup extends Component {
                 Password - required: <input type='password' ref={ input => {this.password = input}} placeholder='P@$$w0rD! - must be a minimum of 8 characters' required />
               </div>
               <div className="col s12 m3">
-                Date of birth (any string for now) - required: <input type='text' ref={ input => {this.dob = input}} placeholder='March 15 1990' required />
+                Date of birth - required: <input type='text' ref={ input => {this.dob = input}} placeholder='March 15 1990' required />
               </div>
             </div>
 
@@ -79,7 +79,7 @@ class ConnectedSignup extends Component {
                 Home City - required: <input type='text' ref={input => {this.homeCity = input}} placeholder='Seattle' required />
               </div>
               <div className="col s12 m2">
-                Home State - required (WA): <select defaultValue='' ref={input => {this.homeState = input}} required>
+                Home State - required: <select defaultValue='' ref={input => {this.homeState = input}} required>
                                               <option value="" disabled>Select one--</option>
                                               <option value="AL">Alabama</option>
                                               <option value="AK">Alaska</option>
@@ -135,19 +135,19 @@ class ConnectedSignup extends Component {
                                             </select>
               </div>
               <div className="col s12 m3">
-                Home Zip: <input type='number' ref={input => {this.homeZip = input}} placeholder='Zip code: 98101' />
+                Home Zip: <input type='number' ref={input => {this.homeZip = input}} placeholder='98102' />
               </div>
             </div>
 
             <div className="row">
               <div className="col s12 m4">
-                Work Street Address: <input type='text' ref={input => {this.workStreet = input}} placeholder='' />
+                Work Street Address: <input type='text' ref={input => {this.workStreet = input}} placeholder='456 Thunder Road' />
               </div>
               <div className="col s12 m3">
-                Work City: <input type='text' ref={input => {this.workCity = input}} placeholder='' />
+                Work City: <input type='text' ref={input => {this.workCity = input}} placeholder='Seattle' />
               </div>
               <div className="col s12 m2">
-                Work State(WA): <select defaultValue='' ref={input => {this.workState = input}}>
+                Work State: <select defaultValue='' ref={input => {this.workState = input}}>
                                   <option value="" disabled>Select one--</option>
                                   <option value="AL">Alabama</option>
                                   <option value="AK">Alaska</option>
@@ -203,7 +203,7 @@ class ConnectedSignup extends Component {
                                 </select>
               </div>
               <div className="col s12 m3">
-                Work Zip: <input type='number' ref={input => {this.workZip = input}} placeholder='Zip code: 98101' />
+                Work Zip: <input type='number' ref={input => {this.workZip = input}} placeholder='98101' />
               </div>
             </div>
 

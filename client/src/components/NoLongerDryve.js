@@ -16,7 +16,8 @@ class ConnectedNoLongerDryve extends Component {
   removeDryverStatus(e) {
     e.preventDefault()
     let userId = this.props.userId
-    axios.post('/profile/' + this.props.userId + '/removedryverstatus', { userId })
+    console.log(userId)
+    axios.post('/profile/' + userId + '/removedryverstatus', { userId })
       .then( result => {
         this.props.liftUpdatedUser(result.data)
     }).catch( err => console.log(err) )
