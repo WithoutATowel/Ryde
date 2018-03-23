@@ -58,7 +58,7 @@ class ConnectedLogin extends Component {
         <form onSubmit={this.handleSubmit}>
           Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} />
           <br />
-          Password: <input type='text' value={this.state.password} onChange={this.handlePasswordChange} />
+          Password: <input type='password' value={this.state.password} onChange={this.handlePasswordChange} />
           <br />
           <div className="col s12 modal-buttons">
             <input type='submit' className="rydeBlueBtn btn modal-action modal-close" value='Log In' />
