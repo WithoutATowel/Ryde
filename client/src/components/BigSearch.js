@@ -16,9 +16,6 @@ const mapStateToProps = state =>{
 }
 
 class ConnectedBigSearch extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
 
   handleBigSearch = (e)=>{
     e.preventDefault()
@@ -110,7 +107,7 @@ class ConnectedBigSearch extends Component {
               </Row>
             </div>
             <br />
-            <button type='submit' className='rydeBtn Green btn'>Submit</button>
+            <button type='submit' className='rydeGreenBtn btn'>Submit</button>
           </div>
 
         </form>

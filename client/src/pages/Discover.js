@@ -16,7 +16,13 @@ class ConnectedDiscover extends Component {
   componentDidMount() {
     this.props.liftCurrentPageToState('/discover')
 
+    var oldJs = document.getElementById('discover-js');
+    if (oldJs) {
+      oldJs.parentElement.removeChild(oldJs);
+    }
+
     const script = document.createElement("script");
+    script.id = 'discover-js';
     script.src = "/js/discover.js";
     script.async = true;
     document.body.appendChild(script);
