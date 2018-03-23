@@ -118,6 +118,29 @@ app.post('/bigsearch', (req, res, next) => {
   })
 })
 
+app.post('/complete', (req,res,next) =>{
+
+  User.findOneAndUpdate(
+    {_id: req.body.userId},
+    {$push:{completedDryves: req.body.rydeId}},
+    {new:true}
+  ).exec( function(err, doc) {
+
+    res.send(doc)
+  })
+})
+app.post('/delete', (req,res,next) =>{
+
+  User.findOneAndUpdate(
+    {_id: req.body.userId},
+    {$push:{deletedDryves: req.body.rydeId}},
+    {new:true}
+  ).exec( function(err, doc) {
+
+    res.send(doc)
+  })
+})
+
 app.post('/minisearch', (req,res,next) =>{
   let bodh = req.body
   var miniSearchObj ={
