@@ -14,9 +14,6 @@ const mapStateToProps = state => {
 }
 
 class ConnectedNavLoggedIn extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
 
   handleClick() {
     this.props.logout()
@@ -24,6 +21,7 @@ class ConnectedNavLoggedIn extends Component {
   }
 
   render() {
+    // if (this.props.user.)
     return (
       <div className='nav-link-div'>
         <li><Link to='/'>Home</Link></li>
@@ -31,7 +29,7 @@ class ConnectedNavLoggedIn extends Component {
         <li><Link to='/postaryde'>Post a Ryde</Link></li>
         <li><Link to='/myrydes'>My Rydes</Link></li>
         <li><Link to={'/profile/' + this.props.user._id}>{this.props.user.name.match(/\S+/)}'s Profile</Link></li>
-        <li><Link to='/ourteam'>OurTeam</Link></li>
+        <li><Link to='/ourteam'>About</Link></li>
         <li><Link to='/' onClick={() => this.handleClick()}>Logout</Link></li>
       </div>
     )
