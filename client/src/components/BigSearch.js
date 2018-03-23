@@ -91,10 +91,10 @@ class ConnectedBigSearch extends Component {
           </div>
           <div className="row">
             <div className="col s12 m6">
-              <Input type="date" className="datepicker" placeholder="Date To Depart" ref={(input)=>{this.departDate = input;}} />
+              <Input type="date" className="datepicker" options={{format: 'yyyy-mm-dd'}} placeholder="Date To Depart" ref={(input)=>{this.departDate = input;}} />
             </div>
             <div className='col s12 m6'>
-              <Input type="time" className="timepicker" placeholder="Time To Depart" ref={(input)=>{this.departTime = input;}} />
+              <Input type="time" className="timepicker" options={{twelvehour: false}} placeholder="Time To Depart" ref={(input)=>{this.departTime = input;}} />
             </div>
           </div>
           <div className='row'>

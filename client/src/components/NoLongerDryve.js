@@ -8,7 +8,7 @@ const mapDispatchToProps = dispatch => {
   return { liftUpdatedUser: user => dispatch(liftUpdatedUser(user)) };
 }
 
-class ConnectedBecomeADryver extends Component {
+class ConnectedNoLongerDryve extends Component {
   constructor(props) {
     super(props)
   }
@@ -26,15 +26,11 @@ class ConnectedBecomeADryver extends Component {
 
   render() {
     return(
-      <form onSubmit={(e) => this.becomeDryverSubmit(e)}>
-        <input type='text' placeholder='Car type: i.e. Toyota 4Runner' ref={ input => {this.carType = input}} />
-        <input type='text' placeholder="Driver's license number" ref={ input => {this.driversLicense = input}} />
-        <input type='submit' className='rydeBlueBtn btn' value='Submit Dryver info' />
-      </form>
+      <button>Remove Dryver status</button>
     )
   }
 }
 
-const BecomeADryver = connect(null, mapDispatchToProps)(ConnectedBecomeADryver);
+const NoLongerDryve = connect(null, mapDispatchToProps)(ConnectedNoLongerDryve);
 
-export default BecomeADryver;
+export default NoLongerDryve;

@@ -41,7 +41,6 @@ class ConnectedLogin extends Component {
       email: this.state.email,
       password: this.state.password
     }).then( result => {
-      console.log('@@@ Login result.data', result.data)
       if (result.data.user) {
         localStorage.setItem('rydeAppToken', result.data.token)
         this.props.liftTokenToState(result.data)

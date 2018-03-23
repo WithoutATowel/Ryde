@@ -45,9 +45,7 @@ class ConnectedPostARyde extends Component {
       carType: '',
       seats: '',
       redirect:false
-
     }
-    console.log('initial state: ', this.state)
     this.handlePostARydeSubmit = this.handlePostARydeSubmit.bind(this)
     this.handleReoccurringChange = this.handleReoccurringChange.bind(this)
     this.handleTwoWayChange = this.handleTwoWayChange.bind(this)
@@ -67,7 +65,6 @@ class ConnectedPostARyde extends Component {
   }
 
   handleInputChange(event) {
-    console.log('on Input Change')
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -79,21 +76,15 @@ class ConnectedPostARyde extends Component {
 
   handlePostARydeSubmit(e) {
     e.preventDefault()
-    let Sun = this.state.reoccurringSun
-    let Mon = this.state.reoccurringMon
-    let Tues = this.state.reoccurringTues
-    let Wed = this.state.reoccurringWed
-    let Thurs = this.state.reoccurringThurs
-    let Fri = this.state.reoccurringFri
-    let Sat = this.state.reoccurringSat
-    let reoccurringArray = []
-    reoccurringArray.push(Sun)
-    reoccurringArray.push(Mon)
-    reoccurringArray.push(Tues)
-    reoccurringArray.push(Wed)
-    reoccurringArray.push(Thurs)
-    reoccurringArray.push(Fri)
-    reoccurringArray.push(Sat)
+    let reoccurringArray = [
+      this.state.reoccurringSun,
+      this.state.reoccurringMon,
+      this.state.reoccurringTues,
+      this.state.reoccurringWed,
+      this.state.reoccurringThurs,
+      this.state.reoccurringFri,
+      this.state.reoccurringSat
+    ];
 
     let newDepartDate = this.state.departDate.split('-');
     let newDepartTime = this.state.departTime.split(':');
@@ -101,9 +92,15 @@ class ConnectedPostARyde extends Component {
     var numDepartDate = []
     var numDepartTime = []
 
-    newDepartDate.forEach(function(newDate) {
-      numDepartDate.push(+newDate)
+    newDepartDate.forEach(function(newDate, index) {
+      if (index !== 1) {
+        numDepartDate.push(+newDate)
+      } else {
+        // Have to subtract 1 from the month value because this argument is 0 index'd in Date.UTC
+        numDepartDate.push(newDate - 1)
+      }
     })
+
     newDepartTime.forEach(function(newDate) {
       numDepartTime.push(+newDate)
     })
@@ -111,7 +108,6 @@ class ConnectedPostARyde extends Component {
 
     // year, month, day, hour, minute, second, and millisecond
     var departDateTime =  Date.UTC(...numDepartDate, ...numDepartTime)
-
 
     var trip = {
       driverId: this.props.user._id,
@@ -155,7 +151,6 @@ class ConnectedPostARyde extends Component {
 
       // year, month, day, hour, minute, second, and millisecond
       var returnDepartDateTime =  Date.UTC(...numReturnDepartDate, ...numReturnDepartTime)
-      console.log('return departDateTime ', returnDepartDateTime)
 
       var returnTrip = {
         driverId: this.props.user._id,
@@ -182,7 +177,6 @@ class ConnectedPostARyde extends Component {
         carType: this.state.carType,
         seats: this.state.seats,
       }
-      console.log(returnTrip)
     }
 
     axios.post('/postARyde', trip).then(result => {

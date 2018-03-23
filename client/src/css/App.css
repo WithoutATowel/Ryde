@@ -266,10 +266,10 @@ footer p {
     transform: scaleY(0);
     display: none;
   }
+}
   /* 100% {
     max-height: 0;
   } */
-}
 
 .list-card-header {
   background-color: #306FB5;
