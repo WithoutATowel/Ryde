@@ -27,14 +27,16 @@ class ConnectedBigSearch extends Component {
     let sCity = this.sCityInput.value
     let eCity= this.eCityInput.value
     //split returns an array without special characters which I parseint with +
-    let sDate= this.departDate.value.split('-').map((date,index)=>{
+    let sDate= this.departDate.value
+    sDate ? (sDate = sDate.split('-').map((date,index)=>{
       if(index === 1){
         return +date-1
       } else {
         return +date
       }
-    })
-    let sTime = this.departTime.value.split(':').map(time=>+time)
+    })) : (sDate = '')
+    let sTime = this.departTime.value
+    sTime ? (sTime = sTime.split(':').map(time=>+time)): (sTime = '')
     let pets = this.petInput.state.value
     let cost = this.costInput.value
     let reoccur = this.reoccurInput.checked

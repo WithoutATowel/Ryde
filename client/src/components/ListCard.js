@@ -79,6 +79,7 @@ class ConnectedListCard extends Component {
       this.setState({
         disappear: 'disappear'
       })
+      console.log('does this happen');
     })
   }
   handleDeleted = () =>{
@@ -87,7 +88,7 @@ class ConnectedListCard extends Component {
     axios.post('/delete', {rydeId,userId}).then(result =>{
       console.log(result.data);
       this.setState({
-        disappear: 'disappear'
+        disappear: 'disappear shrink',
       })
     })
   }
@@ -183,12 +184,12 @@ class ConnectedListCard extends Component {
     let driverRating = ryde.driver.dryverRatingAvg ? ryde.driver.dryverRatingAvg : 'Unrated';
     let disappear = '';
     return (
-      <div className={'list-card-div' + this.state.disappear}>
-        <div className='row list-card-header'>
+      <div className={'list-card-div ' + this.state.disappear}>
+        <div className={'row list-card-header '+ this.state.disppear}>
           <h4 className='list-card-h3 col s6'>{ryde.rydeName}</h4>
           <h4 className='col s6 right-align'>${ryde.cost}</h4>
         </div>
-        <div className='row list-card-main'>
+        <div className={'row list-card-main '+this.state.disappear}>
           <div className='col s5 list-card-driver'>
             <div className='list-card-driver-pic'>
               <Link to={'/profile/' + ryde.driverId}><img src='https://www.placecage.com/c/185/230' alt='dryver' /></Link>
@@ -198,7 +199,7 @@ class ConnectedListCard extends Component {
               <li>{driverRating}</li>
             </div>
           </div>
-          <div className='col s5 list-card-summary'>
+          <div className={'col s5 list-card-summary '+this.state.disappear}>
             <table>
               <tbody>
                 <tr><td className='right-align'><span className='bold'>From</span>:</td><td>{startAddress + ', ' + startCity + ', ' + ryde.startAddress.state}</td></tr>
@@ -210,7 +211,7 @@ class ConnectedListCard extends Component {
           </div>
           {actionButton}
         </div>
-        <div className='list-card-details' ref='details'>
+        <div className={'list-card-details '+this.state.disappear} ref='details'>
           <div className='row'>
             <div className='col s12'>
               <p>Open Seats: {openSeats}</p>
