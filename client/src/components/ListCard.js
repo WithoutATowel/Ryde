@@ -27,7 +27,8 @@ class ConnectedListCard extends Component {
     this.state = {
       expanded: false,
       driver: '',
-      driverRating: 4.5
+      driverRating: 4.5,
+      disappear: '',
     }
   }
 
@@ -70,6 +71,27 @@ class ConnectedListCard extends Component {
     }
   }
 
+  handleCompleted = () =>{
+    let rydeId = this.props.ryde._id
+    let userId = this.props.user._id
+    axios.post('/complete', {rydeId,userId}).then(result =>{
+      console.log(result.data);
+      this.setState({
+        disappear: 'disappear'
+      })
+    })
+  }
+  handleDeleted = () =>{
+    let rydeId = this.props.ryde._id
+    let userId = this.props.user._id
+    axios.post('/delete', {rydeId,userId}).then(result =>{
+      console.log(result.data);
+      this.setState({
+        disappear: 'disappear'
+      })
+    })
+  }
+
   render() {
     let ryde = this.props.ryde;
     let reocurringDaysJSX, reocurringColon, actionButton, riders;
@@ -92,8 +114,8 @@ class ConnectedListCard extends Component {
       if (this.refs.addRemoveButton) {
         this.refs.addRemoveButton.style.transform = 'rotate(0deg)';
       }
-
-      let completed = (current <= departDate ? (<button>Completed</button>):(<button>Delete</button>))
+      console.log('completed: ', (current>=departDate),(new Date(current)).toUTCString(),(new Date(departDate)).toUTCString(), this.props.ryde.rydeName);
+      let completed = (current >= departDate ? (<button onClick={this.handleCompleted}>Completed</button>):(<button onClick={this.handleDeleted}>Delete</button>))
       actionButton = (
         <div>
           <Link to='/editaryde' onClick={ () => this.props.liftCurrentRyde(ryde._id) }><button>Edit</button></Link>
@@ -159,9 +181,9 @@ class ConnectedListCard extends Component {
     let endAddress = capitalizer(ryde.endAddress.street);
 
     let driverRating = ryde.driver.dryverRatingAvg ? ryde.driver.dryverRatingAvg : 'Unrated';
-
+    let disappear = '';
     return (
-      <div className='list-card-div'>
+      <div className='`list-card-div ${this.state.disappear}`'>
         <div className='row list-card-header'>
           <h4 className='list-card-h3 col s6'>{ryde.rydeName}</h4>
           <h4 className='col s6 right-align'>${ryde.cost}</h4>
