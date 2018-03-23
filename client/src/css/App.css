@@ -86,8 +86,6 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
   background: #306FB5;
   padding: 1px 40px;
   color: #ffffff;
-  margin: 0 auto;
-  display: table;
 }
 
 .rydeBlueBtn:hover {
@@ -104,6 +102,29 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 [type="checkbox"]:checked+label:before {
   border-right: 2px solid #306FB5;
   border-bottom: 2px solid #306FB5;
+}
+
+::-webkit-input-placeholder {
+  font-weight: bold;
+}
+
+.input-field {
+  margin-top: 0;
+}
+
+/* ======== Sign-up + login ========= */
+
+.modal-buttons {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.modal-footer {
+  display: none;
+}
+
+.cancel-button {
+  margin-left: 3%
 }
 
 /* ======== Navbar ========= */
@@ -158,6 +179,7 @@ a.main-menu-button-collapse {
 
 #list-box-outer-div {
   position: absolute;
+  width: 100%;
 }
 
 #list-box-outer-div.position-relative {
