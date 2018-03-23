@@ -45,9 +45,9 @@ class ConnectedDeleteUser extends Component {
     if(email === this.props.user.email){
       axios.delete('deleteuser', {params:{email,password}}).then(result =>{
         if(result.data === false){
-          this.setState{
+          this.setState({
             wrongPassword: true
-          }
+          })
         } else {
           console.log(result.data);
           <Redirect to='/' />
@@ -61,6 +61,7 @@ class ConnectedDeleteUser extends Component {
   }
 
   render(){
+
     if(this.state.wrongEmail){
       var check = <div>You have entered a wrong email</div>
     } else if (this.state.wrongPassword){
@@ -69,15 +70,17 @@ class ConnectedDeleteUser extends Component {
       var check = <br />
     }
     return(
-      <h2>Confirm your details!</h2>
-      {check}
-      <form onSubmit={this.handleUserDeletionSubmit}>
-        Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} />
-        <br />
-        Password: <input type='text' value={this.state.password} onChange={this.handlePasswordChange} />
-        <br />
-        <button type='submit'>Confirm Deletion</button>
-      </form>
+      <div>
+        <h2>Confirm your details!</h2>
+        {check}
+        <form onSubmit={this.handleUserDeletionSubmit}>
+          Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} />
+          <br />
+          Password: <input type='text' value={this.state.password} onChange={this.handlePasswordChange} />
+          <br />
+          <button type='submit'>Confirm Deletion</button>
+        </form>
+      </div>
     )
   }
 }
