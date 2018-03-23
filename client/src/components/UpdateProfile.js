@@ -45,6 +45,7 @@ class ConnectedUpdateProfile extends Component {
         .then( result => {
           console.log('heres result data', result.data)
         // this.props.liftUpdatedUser(result.data)
+        // yo
     }).catch( err => console.log(err) )
   }
 
