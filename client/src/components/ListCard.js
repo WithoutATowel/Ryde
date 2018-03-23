@@ -4,12 +4,13 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Ryders from './Ryders';
-import { liftMyRydesDryves, liftCurrentRyde } from '../redux/actions/index';
+import { liftMyRydesDryves, liftCurrentRyde, liftClickedUser } from '../redux/actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
     liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data)),
-    liftCurrentRyde: data => dispatch(liftCurrentRyde(data))
+    liftCurrentRyde: data => dispatch(liftCurrentRyde(data)),
+    liftClickedUser: data => dispatch(liftClickedUser(data))
   }
 }
 
@@ -171,7 +172,7 @@ class ConnectedListCard extends Component {
               <img src='https://www.placecage.com/c/185/230' alt='dryver' />
             </div>
             <div className='list-card-driver-details'>
-              <li>{ryde.driver.name}</li>
+              <li><Link to={'/profile/' + ryde.driver._id} onClick={() => liftClickedUser(ryde.driver._id)} >{ryde.driver.name}</Link></li>
               <li>{driverRating}</li>
             </div>
           </div>
