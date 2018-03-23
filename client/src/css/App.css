@@ -194,6 +194,10 @@ a.main-menu-button-collapse {
   margin-top: 80px;
 }
 
+.action-button {
+  cursor: pointer;
+}
+
 .discover-side-column {
   background: #f7f7f7
 }
