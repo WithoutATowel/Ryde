@@ -71,6 +71,7 @@ class ConnectedListCard extends Component {
 
   render() {
     let ryde = this.props.ryde;
+    console.log('HERES THE RYDE', ryde);
     let reocurringDaysJSX, reocurringColon, actionButton, riders;
     let current = Date.now();
     let departDate = this.props.ryde.departDate
@@ -157,7 +158,8 @@ class ConnectedListCard extends Component {
     let startAddress = capitalizer(ryde.startAddress.street);
     let endAddress = capitalizer(ryde.endAddress.street);
 
-    //{ryde.driver.name}, {ryde.driver.averageDriverRating} not available yet
+    let driverRating = ryde.driver.dryverRatingAvg ? ryde.driver.dryverRatingAvg : 'Unrated';
+
     return (
       <div className='list-card-div'>
         <div className='row list-card-header'>
@@ -171,7 +173,7 @@ class ConnectedListCard extends Component {
             </div>
             <div className='list-card-driver-details'>
               <li>{ryde.driver.name}</li>
-              <li>4.8 / 5</li>
+              <li>{driverRating}</li>
             </div>
           </div>
           <div className='col s5 list-card-summary'>

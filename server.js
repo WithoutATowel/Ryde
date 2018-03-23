@@ -52,7 +52,7 @@ app.get('/finduser/:id', (req, res, next) => {
 //   })
 // })
 
-app.post('/bigsearch', (req, res, next) =>{
+app.post('/bigsearch', (req, res, next) => {
   let body = lowerCase(req.body)
 
   var searchOptions = {
@@ -63,53 +63,51 @@ app.post('/bigsearch', (req, res, next) =>{
     pets: body.pets,
     cost: {$lte: body.cost},
     reoccurring: body.reoccur,
-    seats: {$gte:body.seat}
+    seats: {$gte: body.seat}
   }
   // console.log(searchOptions);
   for (let key in searchOptions) {
     // console.log('--------------');
-    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key] === undefined || searchOptions[key]['$lte'] === ''|| searchOptions[key]['$gte'] === ''){
+    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key] === undefined || searchOptions[key]['$lte'] === ''|| searchOptions[key]['$gte'] === '') {
       delete searchOptions[key]
     }
   }
   //for some reason this key value pair was always being deleted I assume it had to do with a hidden js having to do with $ne
-  if(body.userId){
+  if(body.userId) {
     searchOptions.driverId = {$ne:ObjectId(body.userId)}
     searchOptions.deniedRiders = {$ne: body.userId}
   }
-  console.log(searchOptions);
+  // console.log(searchOptions);
 
   Trip.find(searchOptions).lean().exec( function(err, trips) {
     let count = 0;
     let newTrips = []
 
-    if(trips.length === 0){
+    if(trips.length === 0) {
       return res.send(trips)
     } else {
       trips.forEach((trip,index)=>{
 
-        console.log('trip date: ',(new Date(trip.departDate)).toUTCString());
-        console.log('search date: ',(new Date(req.body.dateTime)).toUTCString());
+        // console.log('trip date: ',(new Date(trip.departDate)).toUTCString());
+        // console.log('search date: ',(new Date(req.body.dateTime)).toUTCString());
+
         let id = {'_id': ObjectId(trip.driverId)}
         let tripAvailability = (trip.seats - trip.ridersId.length - req.body.seat)
         //if no seats Available delete from index and count up
         tripAvailability <= 0 ? (
           delete trips[index],
           count++,
-          count === trips.length?(
+          count === trips.length ? (
             //resign the temp array holding Available trips
             res.send({newTrips})
           ) : (console.log('still looping'))
-        //terniary are sad either way you look at them lol
         ) : (
-          //async multi find users that is driver for trip
-          User.findOne(id, function(err, user){
+          User.findOne(id, function(err, user) {
             //add key value pair of driver to trip object
-            trip.driver = user;
-            count++
-            newTrips.push(trip)
-            // once all async functions are finished send data
-            if(count === trips.length){
+            trip.driver = user.toObject();
+            count++;
+            newTrips.push(trip);
+            if(count === trips.length) {
               //resign the temp array holding Available trips
               res.send({newTrips});
             }
@@ -159,7 +157,7 @@ app.get('/mydryves/:id', (req, res, next) => {
     } else {
       async.map(trips, (trip, callback) => {
         User.findOne({ '_id': ObjectId(trip.driverId) }, function(err, user) {
-          trip.driver = user;
+          trip.driver = user.toObject();
           callback(false, trip);
         });
       }, (err, trips) => res.send(trips));
@@ -209,7 +207,8 @@ app.get('/myrydes/:id', (req, res, next) => {
     } else {
       async.map(trips, (trip, callback) => {
         User.findOne({ '_id': ObjectId(trip.driverId) }, function(err, user) {
-          trip.driver = user;
+          console.log(user);
+          trip.driver = user.toObject();
           callback(false, trip);
         });
       }, (err, trips) => res.send(trips));
