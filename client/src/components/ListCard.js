@@ -29,6 +29,7 @@ class ConnectedListCard extends Component {
       driver: '',
       driverRating: 4.5,
       profilePic: ''
+      disappear: '',
     }
   }
 
@@ -93,6 +94,28 @@ class ConnectedListCard extends Component {
 
   }
 
+  handleCompleted = () =>{
+    let rydeId = this.props.ryde._id
+    let userId = this.props.user._id
+    axios.post('/complete', {rydeId,userId}).then(result =>{
+      console.log(result.data);
+      this.setState({
+        disappear: 'disappear'
+      })
+      console.log('does this happen');
+    })
+  }
+  handleDeleted = () =>{
+    let rydeId = this.props.ryde._id
+    let userId = this.props.user._id
+    axios.post('/delete', {rydeId,userId}).then(result =>{
+      console.log(result.data);
+      this.setState({
+        disappear: 'disappear shrink',
+      })
+    })
+  }
+
   render() {
     let ryde = this.props.ryde;
     let reocurringDaysJSX, reocurringColon, actionButton, riders;
@@ -115,8 +138,8 @@ class ConnectedListCard extends Component {
       if (this.refs.addRemoveButton) {
         this.refs.addRemoveButton.style.transform = 'rotate(0deg)';
       }
-
-      let completed = (current <= departDate ? (<button className="rydeGreenBtn btn colBtn">Completed</button>):( <button className="red lighten-1 btn colBtn">Delete</button>))
+      console.log('completed: ', (current>=departDate),(new Date(current)).toUTCString(),(new Date(departDate)).toUTCString(), this.props.ryde.rydeName);
+      let completed = (current >= departDate ? (<button className="rydeGreenBtn btn colBtn" onClick={this.handleCompleted}>Completed</button>):(<button onClick={this.handleDeleted} className="red lighten-1 btn colBtn">Delete</button>))
       actionButton = (
         <div className='col s12 m12 l2'>
           <Link to='/editaryde' onClick={ () => this.props.liftCurrentRyde(ryde._id) }><button className="rydeBlueBtn btn colBtn">Edit</button></Link>
@@ -162,7 +185,7 @@ class ConnectedListCard extends Component {
     }
 
     let rawDate = new Date(ryde.departDate);
-    let date = rawDate.getFullYear() + '-' + rawDate.getMonth() + '-' + rawDate.getDate();
+    let date = rawDate.getFullYear() + '-' + (rawDate.getMonth() + 1) + '-' + rawDate.getDate();
     let time = rawDate.getHours() + ':' + rawDate.getMinutes();
 
     let openSeats = ryde.seats - ryde.pendingRiders.length - ryde.ridersId.length;
@@ -178,14 +201,15 @@ class ConnectedListCard extends Component {
       return splitString.join(' ');
     }
 
+    let rydeName = capitalizer(ryde.rydeName);
     let startAddress = capitalizer(ryde.startAddress.street);
     let endAddress = capitalizer(ryde.endAddress.street);
 
     let driverRating = ryde.driver.dryverRatingAvg ? ryde.driver.dryverRatingAvg : 'Unrated';
-
+    let disappear = '';
     return (
-      <div className='list-card-div'>
-        <div className='row list-card-header'>
+      <div className='list-card-div ' + this.state.disappear>
+        <div className='row list-card-header '+ this.state.disppear>
           <div className="col s6 list-card-trip-name">
               <h4 className='list-card-h3'>{ryde.rydeName}</h4>
           </div>
@@ -196,7 +220,7 @@ class ConnectedListCard extends Component {
             </div>
           </div>
         </div>
-        <div className='row list-card-main'>
+        <div className='row list-card-main '+this.state.disappear>
           <div className='col s12 m5 list-card-driver'>
             <div className="col s4">
               <div className='list-card-driver-pic'>
@@ -218,7 +242,7 @@ class ConnectedListCard extends Component {
               </div>
             </div>
           </div>
-          <div className='col s12 m5 list-card-summary'>
+          <div className={'col s12 m5 list-card-summary '+this.state.disappear}>
             <table>
               <tbody>
                 <tr><td className='right-align'><span className='bold'>From</span>:</td><td>{startAddress + ', ' + startCity + ', ' + ryde.startAddress.state}</td></tr>
@@ -230,7 +254,7 @@ class ConnectedListCard extends Component {
           </div>
           {actionButton}
         </div>
-        <div className='list-card-details' ref='details'>
+        <div className={'list-card-details '+this.state.disappear} ref='details'>
           <div className='row'>
             <div className='col s12'>
               <div className="row">

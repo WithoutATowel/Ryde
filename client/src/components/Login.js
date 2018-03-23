@@ -41,7 +41,6 @@ class ConnectedLogin extends Component {
       email: this.state.email,
       password: this.state.password
     }).then( result => {
-      console.log('@@@ Login result.data', result.data)
       if (result.data.user) {
         localStorage.setItem('rydeAppToken', result.data.token)
         this.props.liftTokenToState(result.data)
@@ -59,9 +58,12 @@ class ConnectedLogin extends Component {
         <form onSubmit={this.handleSubmit}>
           Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} />
           <br />
-          Password: <input type='text' value={this.state.password} onChange={this.handlePasswordChange} />
+          Password: <input type='password' value={this.state.password} onChange={this.handlePasswordChange} />
           <br />
-          <input type='submit' className="rydeBlueBtn btn modal-action modal-close" value='Log In!' />
+          <div className="col s12 modal-buttons">
+            <input type='submit' className="rydeBlueBtn btn modal-action modal-close" value='Log In' />
+            <button className="rydeBlueBtn btn modal-action modal-close cancel-button">Cancel</button>
+          </div>
         </form>
       )
     }

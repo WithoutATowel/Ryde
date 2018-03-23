@@ -11,9 +11,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 class ConnectedHome extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
 
   componentDidMount() {
     this.props.liftCurrentPageToState('/')
