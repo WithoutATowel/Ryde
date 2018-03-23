@@ -30,7 +30,7 @@ class ConnectedNavLoggedIn extends Component {
         <li><Link to='/discover'>Discover</Link></li>
         <li><Link to='/postaryde'>Post a Ryde</Link></li>
         <li><Link to='/myrydes'>My Rydes</Link></li>
-        <li><Link to={'/profile/' + this.props.user._id}>{this.props.user.name}'s Profile</Link></li>
+        <li><Link to={'/profile/' + this.props.user._id}>{this.props.user.name.match(/\S+/)}'s Profile</Link></li>
         <li><Link to='/ourteam'>OurTeam</Link></li>
         <li><Link to='/' onClick={() => this.handleClick()}>Logout</Link></li>
       </div>
