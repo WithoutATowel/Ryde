@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../css/userprofile.css';
 import MyRydes from './MyRydes.js'
 import BecomeADryver from '../components/BecomeADryver';
+import NoLongerDryve from '../components/NoLongerDryve';
 
 class PrivateProfile extends Component {
   constructor(props) {
@@ -13,8 +14,8 @@ class PrivateProfile extends Component {
     let user = this.props.user
     let ryderRating = user.ryderRatingAvg
     let dryverRating = user.dryverRatingAvg
-    let showBecomeDryver = user.dryver ? <BecomeADryver becomeDryverSubmit={this.handleBecomeDryverSubmit} /> : false;
-
+    let dryverOptions = user.dryver ? <NoLongerDryve userId={user._id} /> : <BecomeADryver userId={user._id} />;
+    let dryverSignupText = user.dryver ? 'No longer want to dryve?' : 'Become a Dryver';
     if (user) {
       return (
         <div>
@@ -35,12 +36,10 @@ class PrivateProfile extends Component {
                 <li>Dryver Rating: {dryverRating > 0 ? dryverRating : 'no ratings yet'}</li>
                 <li>Total Dryves: {user.completedDryves.length > 0 ? user.completedDryves : 'no trips yet'}</li>
                 <li>Car type: {user.car}</li>
-                <li>change pic</li>
                 <li>update profile</li>
-                <li>become a dryver</li>
               </ul>
-              <p>placeholder below</p>
-              {showBecomeDryver}
+              <h5>{dryverSignupText}</h5>
+              {dryverOptions}
             </div>
           </div>
         </div>

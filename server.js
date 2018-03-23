@@ -32,7 +32,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-
+// Find a user
 app.get('/finduser/:id', (req, res, next) => {
   User.findById({_id: req.params.id}, function(err, user) {
     if (user) {
@@ -45,12 +45,6 @@ app.get('/finduser/:id', (req, res, next) => {
     }
   })
 })
-
-// app.post('/profile/:id/reviewuser', (req, res, next) => {
-//   User.findById(userId, function (err, user) {
-//     userId.
-//   })
-// })
 
 app.post('/bigsearch', (req, res, next) => {
   let body = lowerCase(req.body)
@@ -258,8 +252,33 @@ app.post('/myrydes', (req, res, next) => {
       }
     });
   });
-})
+});
 
+// Become Dryver
+app.post('/profile/:id/becomedryver', (req, res, next) => {
+  console.log('from front end', req.body)
+
+  let {car, driversLicense, userId} = req.body;
+  User.findOneAndUpdate(
+    {_id: userId},
+    {$set: {
+      dryver: true,
+      license: driversLicense,
+      car
+    } },
+    {new: true}
+  ).lean().exec(
+    function(err, doc) {
+      if (err) {
+        res.send('An error occurred', err);
+      } else {
+        res.send(doc)
+      }
+    }
+  )
+});
+
+// Review User
 app.post('/profile/:id/reviewuser', (req, res, next) => {
   let { clickedId, rating, userType, theUser } = req.body;
   let whichReviewed = (userType === 'ryder' ? 'Ryders' : 'Dryvers')
