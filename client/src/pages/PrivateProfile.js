@@ -45,7 +45,7 @@ class PrivateProfile extends Component {
               <br />
 
               <div>
-                <Modal>
+                <Modal
                 	header='Delete Yourself!'
                   trigger={<Button>Delete</Button>}>
                 	<DeleteUser />

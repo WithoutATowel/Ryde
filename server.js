@@ -33,7 +33,10 @@ app.use(function(req, res, next) {
 });
 
 app.delete('/deleteuser', (req,res,next)=>{
-  console.log(req.body,req.params);
+  console.log(req.body);
+  // User.findOneAndRemove({req.body}, function(err, doc){
+  //   Trip.find
+  // })
 
 })
 

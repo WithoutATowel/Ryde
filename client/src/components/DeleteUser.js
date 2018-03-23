@@ -36,27 +36,33 @@ class ConnectedDeleteUser extends Component {
   handlePasswordChange = (e) =>{
     e.preventDefault()
     this.setState({
-      email: e.target.value
+      password: e.target.value
     })
   }
-  handleUserDeletionSubmit = () =>{
+  handleUserDeletionSubmit = (e) =>{
+    e.preventDefault()
     let email = this.state.email
-    let password = this.state.Password
+    let password = this.state.password
     if(email === this.props.user.email){
-      axios.delete('deleteuser', {params:{email,password}}).then(result =>{
+      axios({
+        url: '/deleteuser',
+        method: 'delete',
+        data: {email, password}
+      }).then(result =>{
         if(result.data === false){
-          this.setState({
-            wrongPassword: true
-          })
+          // this.setState({
+          //   wrongPassword: true
+          // })
         } else {
           console.log(result.data);
-          <Redirect to='/' />
+          // <Redirect to='/' />
         }
       })
     } else {
-      this.setState({
-        wrongEmail:true
-      })
+      // this.setState({
+      //   wrongEmail:true
+      // })
+      console.log('something');
     }
   }
 
@@ -71,7 +77,7 @@ class ConnectedDeleteUser extends Component {
     }
     return(
       <div>
-        <h2>Confirm your details!</h2>
+        <h4>Confirm your details!</h4>
         {check}
         <form onSubmit={this.handleUserDeletionSubmit}>
           Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} />
