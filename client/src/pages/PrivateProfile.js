@@ -2,26 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/userprofile.css';
 import MyRydes from './MyRydes.js'
-import { BecomeADryver } from '../components/BecomeADryver';
+import BecomeADryver from '../components/BecomeADryver';
 
 class PrivateProfile extends Component {
   constructor(props) {
     super(props)
-    this.handleBecomeDryverSubmit = this.handleBecomeDryverSubmit.bind(this)
-  }
-
-  handleBecomeDryverSubmit(e) {
-    e.preventDefault()
-    let carType = this.carTypeInput.value
-    console.log(this.carType.value)
-    // axios.post('/profile/' + this.props.clickedUserId + '/reviewuser', {
-    //   clickedId: this.props.clickedUserId,
-    //   rating: parseInt(this.state.selectedRating),
-    //   userType: this.props.userType,
-    //   theUser: this.props.theUser
-    // }).then( result => {
-    //   this.props.userType === 'ryder' ? this.props.updateProfileRyderDetails(result.data) : this.props.updateProfileDryverDetails(result.data)
-    // }).catch( err => console.log(err) )
   }
 
   render() {
