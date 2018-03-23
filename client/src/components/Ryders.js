@@ -13,10 +13,12 @@ class Ryders extends Component {
   }
 
   componentDidMount() {
+    console.log('pending Riders: ',this.props.ryde._id, this.props.ryde.pendingRiders)
     axios.post('/ryders/pending',  {
           pending: this.props.ryde.pendingRiders
       }).then( result => {
       if (result.data && result.data.length > 0) {
+        console.log('returned pending: ', result.data)
         this.setState({
           pendingUsers: result.data
         })
