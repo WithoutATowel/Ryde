@@ -21,6 +21,7 @@ class Ryders extends Component {
           pendingUsers: result.data
         })
       } else {
+        this.setState({pendingUsers: 'none'})
         console.log('failed ', result)
       }
     });
@@ -40,26 +41,31 @@ class Ryders extends Component {
 
   render() {
     let ryde = this.props.ryde;
-    let pendingRiders = this.state.pendingUsers.map( (rider, index) => {
+    let pendingRiders
+    if (this.state.pendingUsers === 'none') {
+      pendingRiders = 'No Pending Ryders Found'
+    } else {
+      pendingRiders = this.state.pendingUsers.map( (rider, index) => {
       return <Ryder status='pending' ryde={this.props.ryde} ryder={rider} key={index} />
-    });
+    })};
+
     let confirmedRiders = this.state.confirmedUsers.map( (rider, index) => {
+      console.log('confirmed', this.state.confirmedUsers)
       return <Ryder status='confirmed' ryde={this.props.ryde} ryder={rider} key={index} />
     });
 
     return (
       <div className='ryder-div'>
-        <h4 className='ryders-h4'>Ryders</h4>
         <div className="row">
           <div className="col s12 m6">
             <div className="pending-users">
-              <p>Pending</p>
+              <h4>Pending Ryders</h4>
               {pendingRiders}
             </div>
           </div>
           <div className="col s12 m6">
             <div className="confirmed-users">
-              <p>Confirmed</p>
+              <h4>Confirmed Ryders</h4>
               {confirmedRiders}
             </div>
           </div>

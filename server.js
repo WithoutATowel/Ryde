@@ -173,6 +173,7 @@ app.post('/mydryves', (req, res, next) => {
     User.findById(userId, function (err, user) {
       let message = '';
       if(action === 'approve') {
+        console.log(userId)
         trip.ridersId.push(userId);
         trip.pendingRiders.splice(trip.pendingRiders.indexOf(userId),1);
         user.setTrips.push(tripId);
@@ -368,9 +369,8 @@ app.post('/ryders/pending', (req, res, next) => {
   User.find({ _id: req.body.pending },
   ).lean().exec( function(err, user) {
     if (err) {
-      console.log('ehllo')
+      console.log(err)
     } else {
-      console.log('user', user)
       res.send(user)
     }
   })
@@ -381,9 +381,8 @@ app.post('/ryders/confirmed', (req, res, next) => {
   User.find({ _id: req.body.confirmed }
   ).lean().exec(function(err, user) {
       if (err) {
-        console.log('ehllo')
+        console.log(err)
       } else {
-        console.log('user', user)
         res.send(user)
       }
     }
