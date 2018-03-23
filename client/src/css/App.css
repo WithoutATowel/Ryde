@@ -38,7 +38,12 @@ html, body {
 .switch {
   display: flex;
   justify-content: center;
+  margin: 30px 0px 10px;
 }
+
+.container [
+  margin-bottom: 30px;
+]
 
 .gray-card {
   padding: 2vw 2vw 1vw;
@@ -69,6 +74,19 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
     margin: 0 0 11px 0;
 }
 
+.datepicker, .timepicker {
+  width: 100%;
+}
+
+.col.input-field {
+  padding: 0;
+  width: 100%;
+}
+
+.seat-selector-cont {
+  margin-top: 4px;
+}
+
 
 .rydeGreenBtn {
   background: #18ED6E;
@@ -90,6 +108,12 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 
 .rydeBlueBtn:hover {
   background: #4784c8;
+}
+
+.colBtn {
+  padding:0px;
+  width: 100%;
+  margin: 7px 0px;
 }
 
 .switch label input[type=checkbox]:checked+.lever {
@@ -242,9 +266,12 @@ a.main-menu-button-collapse {
 #sun-sat p {
   display: inline-block;
 }
-.extra-options {
-  padding: 20px;
-  margin: 28px 0px;
+.extra-option {
+  padding: 10px;
+  margin: 10px 0px 0px;
+}
+.extra-option .switch {
+  margin-bottom: 5px;
 }
 #post-a-ryde input[type="submit"] {
   margin-top: 40px;
@@ -255,6 +282,16 @@ a.main-menu-button-collapse {
   margin-bottom: 7px !important;
 }
 
+.smoking-pets {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50px;
+  margin: 10px 0px;
+}
+.smoking-pets p {
+  margin-bottom: 0px;
+}
 
 
 /* ======= Footer =========== */
@@ -301,6 +338,31 @@ footer p {
   border-radius: 5px 5px 0px 0px;
 }
 
+.list-card-price span {
+  font-size: 1rem;
+  color: #18ED6E;
+  padding-right: 10px;
+}
+
+.list-card-trip-name h4, .list-card-price h4 {
+  margin: 1rem 0px;
+}
+
+.list-card-price > div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.list-card-price > div > div {
+  display: flex;
+  align-items: center;
+  background: #333;
+  padding: 5px 10px 3px;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+
 .list-card-main, .list-card-details {
   padding: 1%;
   font-size: 1.2em;
@@ -315,8 +377,18 @@ footer p {
   list-style: none;
 }
 
+.list-card-driver {
+  display: flex;
+}
+
+.list-card-driver {
+  display: flex;
+  align-items: center;
+}
+
 .list-card-driver-pic {
   display: inline-block;
+  max-width: 110px;
 }
 
 .list-card-driver-pic img {
@@ -328,6 +400,11 @@ footer p {
   display: inline-block;
   vertical-align: top;
   margin-left: 10px;
+}
+
+.list-card-summary {
+  display: flex;
+  align-items: center;
 }
 
 .list-card-add i {
@@ -358,6 +435,10 @@ footer p {
   max-height: 0;
   overflow: hidden;
   transition: all 0.5s linear;
+}
+
+.list-card-details > row {
+  margin-top: 7px;
 }
 
 .list-card-recurring-days {
@@ -468,4 +549,13 @@ body .switcher__label {
 }
 .switcher__input--myDrives:checked ~ .switcher__toggle {
   left: 97px;
+}
+
+
+@media screen and (min-width: 601px) {
+  .list-card-main {
+    display: flex;
+  }
+
+
 }
