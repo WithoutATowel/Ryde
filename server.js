@@ -68,7 +68,7 @@ app.post('/bigsearch', (req, res, next) => {
   // console.log(searchOptions);
   for (let key in searchOptions) {
     // console.log('--------------');
-    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key] === undefined || searchOptions[key]['$lte'] === ''|| searchOptions[key]['$gte'] === '') {
+    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key] === undefined || !(searchOptions[key]['$lte'])|| !(searchOptions[key]['$gte'])) {
       delete searchOptions[key]
     }
   }
@@ -77,7 +77,7 @@ app.post('/bigsearch', (req, res, next) => {
     searchOptions.driverId = {$ne:ObjectId(body.userId)}
     searchOptions.deniedRiders = {$ne: body.userId}
   }
-  // console.log(searchOptions);
+  console.log(searchOptions);
 
   Trip.find(searchOptions).lean().exec( function(err, trips) {
     let count = 0;
