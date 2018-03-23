@@ -71,7 +71,6 @@ class ConnectedListCard extends Component {
 
   render() {
     let ryde = this.props.ryde;
-    console.log('HERES THE RYDE', ryde);
     let reocurringDaysJSX, reocurringColon, actionButton, riders;
     let current = Date.now();
     let departDate = this.props.ryde.departDate

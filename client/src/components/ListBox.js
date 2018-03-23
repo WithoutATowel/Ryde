@@ -50,10 +50,12 @@ class ConnectedListBox extends Component {
           </div>
         );
       } else if (this.props.myRydesPage && !this.props.rydesTabIsToggled) {
+        // In the Dryves tab of MyRydes
         rydes = this.props.myRydesDryves.map((trip, index) => {
           return <ListCard ryde={trip} key={index} myRydesPage={this.props.myRydesPage} dryvesTab={true} />
         });
-      } else {
+      } else if (typeof this.props.searchResults !== 'undefined') {
+        // In Discover
         rydes = this.props.searchResults.map((trip, index) => {
           return <ListCard ryde={trip} key={index} />
         });

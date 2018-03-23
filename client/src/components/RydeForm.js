@@ -8,7 +8,7 @@ const RydeForm = props => {
   const showReoccurringOnEdit = props.isEditPage || props.reoccurringShowHide === 'show' ? 'show' : 'hide'
   
   let seats = props.seats.toString();
-
+  console.log(props.smoking);
   return (
     <div className="gray-container">
       <form onSubmit={props.onPostARydeSubmit}>
@@ -102,11 +102,11 @@ const RydeForm = props => {
           </div>
           <div className="col s12 m4">
             <p>
-              <input type="checkbox" value={props.smoking} onChange={props.onInputChange} name="smoking" id="smoking" />
+              <input type="checkbox" checked={props.smoking ? 'checked' : null} onChange={props.onInputChange} name="smoking" id="smoking" />
               <label htmlFor="smoking">Smoking</label>
             </p>
             <p>
-              <input type="checkbox" value={props.pets} onChange={props.onInputChange} name="tripPets" id="tripPets" />
+              <input type="checkbox" checked={props.pets ? 'checked' : null} onChange={props.onInputChange} name="tripPets" id="tripPets" />
               <label htmlFor="tripPets">Pets</label>
             </p>
           </div>
