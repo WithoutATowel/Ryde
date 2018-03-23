@@ -55,7 +55,7 @@ var userSchema = new mongoose.Schema({
   dryver: {
     type:Boolean,
     default: false,
-  }
+  },
   car: String,
   license: String,
   dryverRatings: Array,
