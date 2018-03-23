@@ -13,12 +13,10 @@ class ConnectedNoLongerDryve extends Component {
     super(props)
   }
 
-  becomeDryverSubmit(e) {
+  removeDryverStatus(e) {
     e.preventDefault()
-    let car = this.carType.value
-    let driversLicense = this.driversLicense.value
     let userId = this.props.userId
-    axios.post('/profile/' + this.props.userId + '/becomedryver', {car, driversLicense, userId})
+    axios.post('/profile/' + this.props.userId + '/removedryverstatus', { userId })
       .then( result => {
         this.props.liftUpdatedUser(result.data)
     }).catch( err => console.log(err) )
@@ -26,7 +24,7 @@ class ConnectedNoLongerDryve extends Component {
 
   render() {
     return(
-      <button>Remove Dryver status</button>
+      <button onClick={(e) => this.removeDryverStatus(e)}>Remove Dryver status</button>
     )
   }
 }

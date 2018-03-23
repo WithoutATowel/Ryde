@@ -301,6 +301,28 @@ app.post('/profile/:id/becomedryver', (req, res, next) => {
   )
 });
 
+// Remove Dryver status
+app.post('/profile/:id/becomedryver', (req, res, next) => {
+  let { userId } = req.body;
+  User.findOneAndUpdate(
+    {_id: userId},
+    {$set: {
+      dryver: false,
+      license: '',
+      car: ''
+    } },
+    {new: true}
+  ).lean().exec(
+    function(err, doc) {
+      if (err) {
+        res.send('An error occurred', err);
+      } else {
+        res.send(doc)
+      }
+    }
+  )
+});
+
 // Review User
 app.post('/profile/:id/reviewuser', (req, res, next) => {
   let { clickedId, rating, userType, theUser } = req.body;
