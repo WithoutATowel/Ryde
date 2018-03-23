@@ -69,7 +69,11 @@ var tripSchema = new mongoose.Schema({
   deniedRiders: Array,
   completed: {
     type:Boolean,
-    default: false}
+    default: false},
+  deleted: {
+    type:Boolean,
+    default: false
+  }
 })
 
 

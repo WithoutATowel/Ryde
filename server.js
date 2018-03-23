@@ -33,7 +33,10 @@ app.use(function(req, res, next) {
 });
 
 app.delete('/deleteuser', (req,res,next)=>{
-  console.log(req.body,req.params);
+  console.log(req.body);
+  // User.findOneAndRemove({req.body}, function(err, doc){
+  //   Trip.find
+  // })
 
 })
 
@@ -61,7 +64,9 @@ app.post('/bigsearch', (req, res, next) => {
     pets: body.pets,
     cost: {$lte: body.cost},
     reoccurring: body.reoccur,
-    seats: {$gte: body.seat}
+    seats: {$gte: body.seat},
+    completed: false,
+    deleted:false
   }
   // console.log(searchOptions);
   for (let key in searchOptions) {
@@ -123,8 +128,13 @@ app.post('/complete', (req,res,next) =>{
     {$push:{completedDryves: req.body.rydeId}},
     {new:true}
   ).exec( function(err, doc) {
-
-    res.send(doc)
+    Trip.findByIdAndUpdate(
+      {_id:req.body.rydeId},
+      {$set:{completed:true}},
+      {new:true}
+    ).exec(function(err, doc){
+      res.send(doc)
+    })
   })
 })
 app.post('/delete', (req,res,next) =>{
@@ -134,10 +144,16 @@ app.post('/delete', (req,res,next) =>{
     {$push:{deletedDryves: req.body.rydeId}},
     {new:true}
   ).exec( function(err, doc) {
-
-    res.send(doc)
+      Trip.findByIdAndUpdate(
+        {_id:req.body.rydeId},
+        {$set:{completed:true}},
+        {new:true}
+    ).exec(function(err, doc){
+      res.send(doc)
+    })
   })
 })
+
 
 app.post('/minisearch', (req,res,next) =>{
   let bodh = req.body
@@ -161,7 +177,6 @@ app.post('/minisearch', (req,res,next) =>{
       console.log(err);
       res.send(err);
     } else {
-      console.log(trips);
       res.send(trips);
     }
   })
@@ -169,7 +184,8 @@ app.post('/minisearch', (req,res,next) =>{
 
 app.get('/mydryves/:id', (req, res, next) => {
   var searchOptions = {
-    driverId: ObjectId(req.params.id)
+    driverId: ObjectId(req.params.id),
+    deleted:false
   }
   Trip.find(searchOptions).lean().exec( function(err, trips) {
     if(err){
@@ -342,6 +358,7 @@ app.post('/profile/:id/becomedryver', (req, res, next) => {
 // Remove Dryver status
 app.post('/profile/:id/removedryverstatus', (req, res, next) => {
   let { userId } = req.body;
+  console.log('hello');
   User.findOneAndUpdate(
     {_id: userId},
     {$set: {
@@ -428,7 +445,7 @@ app.post('/profile/:id/reviewuser', (req, res, next) => {
 app.post('/postARyde', (req, res, next) => {
   let reqBody = lowerCase(req.body)
   console.log('Hit POST /postARyde route');
-  console.log(reqBody)
+
   Trip.create(reqBody, function(err, ryde) {
     if (err) {
       console.log("GOT AN ERROR CREATING THE RYDE", err)
@@ -455,7 +472,7 @@ app.post('/editARyde/:id', (req, res, next) => {
   console.log('Hit GET /editARyde/:id route');
   Trip.findById(req.params.id, function(err, trip) {
     if(err){
-      console.log(err);
+
       res.send(err);
     } else {
       Object.assign(trip, req.body);

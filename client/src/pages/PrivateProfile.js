@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/userprofile.css';
-import {Modal} from 'react-materialize';
+import { Modal, Button} from 'react-materialize';
 import MyRydes from './MyRydes.js'
 import UpdateProfile from '../components/UpdateProfile';
 import BecomeADryver from '../components/BecomeADryver';
 import NoLongerDryve from '../components/NoLongerDryve';
+import DeleteUser from '../components/DeleteUser';
 
 class PrivateProfile extends Component {
   constructor(props) {
@@ -46,6 +47,17 @@ class PrivateProfile extends Component {
               </ul>
               <h5>{dryverSignupText}</h5>
               {dryverOptions}
+             {/* 
+              <br />
+
+              <div>
+                <Modal
+                	header='Delete Yourself!'
+                  trigger={<Button>Delete</Button>}>
+                	<DeleteUser />
+                </Modal>
+              </div>
+              */}
             </div>
           </div>
         </div>

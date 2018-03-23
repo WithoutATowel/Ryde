@@ -36,31 +36,38 @@ class ConnectedDeleteUser extends Component {
   handlePasswordChange = (e) =>{
     e.preventDefault()
     this.setState({
-      email: e.target.value
+      password: e.target.value
     })
   }
-  handleUserDeletionSubmit = () =>{
+  handleUserDeletionSubmit = (e) =>{
+    e.preventDefault()
     let email = this.state.email
-    let password = this.state.Password
+    let password = this.state.password
     if(email === this.props.user.email){
-      axios.delete('deleteuser', {params:{email,password}}).then(result =>{
+      axios({
+        url: '/deleteuser',
+        method: 'delete',
+        data: {email, password}
+      }).then(result =>{
         if(result.data === false){
-          this.setState{
-            wrongPassword: true
-          }
+          // this.setState({
+          //   wrongPassword: true
+          // })
         } else {
           console.log(result.data);
-          <Redirect to='/' />
+          // <Redirect to='/' />
         }
       })
     } else {
-      this.setState({
-        wrongEmail:true
-      })
+      // this.setState({
+      //   wrongEmail:true
+      // })
+      console.log('something');
     }
   }
 
   render(){
+
     if(this.state.wrongEmail){
       var check = <div>You have entered a wrong email</div>
     } else if (this.state.wrongPassword){
@@ -69,15 +76,17 @@ class ConnectedDeleteUser extends Component {
       var check = <br />
     }
     return(
-      <h2>Confirm your details!</h2>
-      {check}
-      <form onSubmit={this.handleUserDeletionSubmit}>
-        Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} />
-        <br />
-        Password: <input type='text' value={this.state.password} onChange={this.handlePasswordChange} />
-        <br />
-        <button type='submit'>Confirm Deletion</button>
-      </form>
+      <div>
+        <h4>Confirm your details!</h4>
+        {check}
+        <form onSubmit={this.handleUserDeletionSubmit}>
+          Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} />
+          <br />
+          Password: <input type='text' value={this.state.password} onChange={this.handlePasswordChange} />
+          <br />
+          <button type='submit'>Confirm Deletion</button>
+        </form>
+      </div>
     )
   }
 }
