@@ -6,7 +6,7 @@ const RydeForm = props => {
   const hideSwitchOnEdit = props.isEditPage ? 'switch hide' : 'switch show'
   const submitPostEdit = props.isEditPage ? 'Edit Your Ryde' : 'Post Your Ryde'
   const showReoccurringOnEdit = props.isEditPage || props.reoccurringShowHide === 'show' ? 'show' : 'hide'
-  
+
   let seats = props.seats.toString();
   console.log(props.smoking);
   return (
@@ -60,30 +60,16 @@ const RydeForm = props => {
 
         <div className="row">
 
-          <div className="col s12 m4">
-            <div className={hideSwitchOnEdit}>
-              <label>
-                One Way
-                <input type="checkbox" onChange={props.onTwoWayChange} />
-                <span className="lever"></span>
-                Two Way
-              </label>
-            </div>
-
+          <div className="col s12 m6 l4">
             <Input type="date" className="datepicker" options={{format: 'yyyy-mm-dd'}} placeholder="Date To Depart" onChange={props.onInputChange} name="departDate" value={props.departDate} required />
             <Input type="time" className="timepicker" options={{twelvehour: false}} placeholder="Time To Depart" onChange={props.onInputChange} name="departTime" value={props.departTime} required />
-
-            <div className={props.twoWayShowHide}>
-              <Input type="date" className="datepicker" options={{format: 'yyyy-mm-dd'}} placeholder="Return Date To Depart" onChange={props.onInputChange} name="returnDepartDate" value={props.returnDate} />
-              <Input type="time" className="timepicker" options={{twelvehour: false}} placeholder="Return Time To Depart" onChange={props.onInputChange} name="returnDepartTime" value={props.returnTime} />
-            </div>
           </div>
 
-          <div className="col s12 m4">
+          <div className="col s12 m6 l4">
             <input type="text" placeholder="Car Type" className="car-type-input" name="carType" onChange={props.onInputChange} value={props.carType} required />
-            <div className="input-field col s12">
-              <Input type='select' label="How Many Seats Available?" name='seats' onChange={props.onInputChange} defaultValue={seats} required>
-                <option value="" disabled >Choose your option</option>
+            <div className="input-field col s12 seat-selector-cont">
+              <Input type='select' label="" name='seats' onChange={props.onInputChange} defaultValue={seats} required>
+                <option value="" disabled >How Many Seats Available?</option>
                 <option value="1">1 Seat</option>
                 <option value="2">2 Seats</option>
                 <option value="3">3 Seats</option>
@@ -100,15 +86,29 @@ const RydeForm = props => {
             </div>
 
           </div>
-          <div className="col s12 m4">
-            <p>
-              <input type="checkbox" checked={props.smoking ? 'checked' : null} onChange={props.onInputChange} name="smoking" id="smoking" />
-              <label htmlFor="smoking">Smoking</label>
-            </p>
-            <p>
-              <input type="checkbox" checked={props.pets ? 'checked' : null} onChange={props.onInputChange} name="tripPets" id="tripPets" />
-              <label htmlFor="tripPets">Pets</label>
-            </p>
+          <div className="col s12 m12 l4">
+            <div className="smoking-pets">
+              <p>
+                <input type="checkbox" checked={props.smoking ? 'checked' : null} onChange={props.onInputChange} name="smoking" id="smoking" />
+                <label htmlFor="smoking">Smoking Allowed</label>
+              </p>
+              <p>
+                <input type="checkbox" checked={props.pets ? 'checked' : null} onChange={props.onInputChange} name="tripPets" id="tripPets" />
+                <label htmlFor="tripPets">Pets Allowed</label>
+              </p>
+            </div>
+            <div className={hideSwitchOnEdit}>
+              <label>
+                One Way
+                <input type="checkbox" onChange={props.onTwoWayChange} />
+                <span className="lever"></span>
+                Two Way
+              </label>
+            </div>
+            <div className={props.twoWayShowHide}>
+              <Input type="date" className="datepicker" options={{format: 'yyyy-mm-dd'}} placeholder="Return Date To Depart" onChange={props.onInputChange} name="returnDepartDate" value={props.returnDate} />
+              <Input type="time" className="timepicker" options={{twelvehour: false}} placeholder="Return Time To Depart" onChange={props.onInputChange} name="returnDepartTime" value={props.returnTime} />
+            </div>
           </div>
         </div>
 

@@ -27,7 +27,8 @@ class ConnectedListCard extends Component {
     this.state = {
       expanded: false,
       driver: '',
-      driverRating: 4.5
+      driverRating: 4.5,
+      profilePic: ''
     }
   }
 
@@ -62,12 +63,34 @@ class ConnectedListCard extends Component {
       });
   }
 
-  componentDidMount() {
+  componentDidMount()  {
     if(this.props.user) {
       if(!this.props.dryvesTab && (this.props.ryde.ridersId.includes(this.props.user._id) || this.props.ryde.pendingRiders.includes(this.props.user._id))) {
         this.refs.addRemoveButton.style.transform = 'rotate(45deg)';
       }
     }
+
+    let profilePicUrl = 'https://www.avatarapi.com/js.aspx?email=' + this.props.ryde.driver.email + '&size=150'
+    var profilePic = ''
+    this.setState({
+      profilePic: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="150" height="150" />'
+    })
+    // axios.get(profilePicUrl).then(results => {
+    //   var all = results.data
+    //   profilePic = all.split('>')
+    //   profilePic = profilePic[1] + ' />'
+    //   if (profilePic === 'undefined />') {
+    //     this.setState({
+    //       profilePic: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="150" height="150" />'
+    //     })
+    //   } else {
+    //     this.setState({
+    //       profilePic
+    //     })
+    //   }
+    //   console.log(all)
+    // })
+
   }
 
   render() {
@@ -93,10 +116,10 @@ class ConnectedListCard extends Component {
         this.refs.addRemoveButton.style.transform = 'rotate(0deg)';
       }
 
-      let completed = (current <= departDate ? (<button>Completed</button>):(<button>Delete</button>))
+      let completed = (current <= departDate ? (<button className="rydeGreenBtn btn colBtn">Completed</button>):( <button className="red lighten-1 btn colBtn">Delete</button>))
       actionButton = (
-        <div>
-          <Link to='/editaryde' onClick={ () => this.props.liftCurrentRyde(ryde._id) }><button>Edit</button></Link>
+        <div className='col s12 m12 l2'>
+          <Link to='/editaryde' onClick={ () => this.props.liftCurrentRyde(ryde._id) }><button className="rydeBlueBtn btn colBtn">Edit</button></Link>
           {completed}
         </div>
       )
@@ -111,24 +134,24 @@ class ConnectedListCard extends Component {
     }
 
     //
-
+    console.log(ryde.reoccurringDays )
     if (ryde.reoccurring) {
       reocurringColon = ': ';
       reocurringDaysJSX = (
         <span className='list-card-recurring-days'>
-          <input type='checkbox' checked={ryde.reoccurringDays.includes('sunday') ? 'checked' : null} disabled />
+          <input type='checkbox' checked={ryde.reoccurringDays[0] ? 'checked' : null} disabled />
           <label>Sunday</label>
-          <input type='checkbox' checked={ryde.reoccurringDays.includes('monday') ? 'checked' : null} disabled />
+          <input type='checkbox' checked={ryde.reoccurringDays[1] ? 'checked' : null} disabled />
           <label>Monday</label>
-          <input type='checkbox' checked={ryde.reoccurringDays.includes('tuesday') ? 'checked' : null} disabled />
+          <input type='checkbox' checked={ryde.reoccurringDays[2] ? 'checked' : null} disabled />
           <label>Tuesday</label>
-          <input type='checkbox' checked={ryde.reoccurringDays.includes('wednesday') ? 'checked' : null} disabled />
+          <input type='checkbox' checked={ryde.reoccurringDays[3] ? 'checked' : null} disabled />
           <label>Wednesday</label>
-          <input type='checkbox' checked={ryde.reoccurringDays.includes('thursday') ? 'checked' : null} disabled />
+          <input type='checkbox' checked={ryde.reoccurringDays[4] ? 'checked' : null} disabled />
           <label>Thursday</label>
-          <input type='checkbox' checked={ryde.reoccurringDays.includes('friday') ? 'checked' : null} disabled />
+          <input type='checkbox' checked={ryde.reoccurringDays[5] ? 'checked' : null} disabled />
           <label>Friday</label>
-          <input type='checkbox' checked={ryde.reoccurringDays.includes('saturday') ? 'checked' : null} disabled />
+          <input type='checkbox' checked={ryde.reoccurringDays[6] ? 'checked' : null} disabled />
           <label>Saturday</label>
         </span>
       )
@@ -163,20 +186,39 @@ class ConnectedListCard extends Component {
     return (
       <div className='list-card-div'>
         <div className='row list-card-header'>
-          <h4 className='list-card-h3 col s6'>{ryde.rydeName}</h4>
-          <h4 className='col s6 right-align'>${ryde.cost}</h4>
-        </div>
-        <div className='row list-card-main'>
-          <div className='col s5 list-card-driver'>
-            <div className='list-card-driver-pic'>
-              <Link to={'/profile/' + ryde.driverId}><img src='https://www.placecage.com/c/185/230' alt='dryver' /></Link>
-            </div>
-            <div className='list-card-driver-details'>
-              <li><Link to={'/profile/' + ryde.driver._id} onClick={() => liftClickedUser(ryde.driver._id)} >{ryde.driver.name}</Link></li>
-              <li>{driverRating}</li>
+          <div className="col s6 list-card-trip-name">
+              <h4 className='list-card-h3'>{ryde.rydeName}</h4>
+          </div>
+          <div className="col s6 list-card-price">
+            <div>
+              <div><span>{openSeats}</span> Open Seats</div>
+              <h4>${ryde.cost}</h4>
             </div>
           </div>
-          <div className='col s5 list-card-summary'>
+        </div>
+        <div className='row list-card-main'>
+          <div className='col s12 m5 list-card-driver'>
+            <div className="col s4">
+              <div className='list-card-driver-pic'>
+                <Link to={'/profile/' + ryde.driverId}>
+                  <div className="ryder-profile-pic">
+                    <div dangerouslySetInnerHTML={{__html: this.state.profilePic}} />
+                  </div>
+                </Link>
+              </div>
+            </div>
+            <div className="col s8">
+              <div className='list-card-driver-details'>
+                <h5>
+                  <Link to={'/profile/' + ryde.driver._id} onClick={() => liftClickedUser(ryde.driver._id)} >
+                    {ryde.driver.name}
+                  </Link>
+                </h5>
+                <li><i className="material-icons">star</i> {driverRating} / 5</li>
+              </div>
+            </div>
+          </div>
+          <div className='col s12 m5 list-card-summary'>
             <table>
               <tbody>
                 <tr><td className='right-align'><span className='bold'>From</span>:</td><td>{startAddress + ', ' + startCity + ', ' + ryde.startAddress.state}</td></tr>
@@ -191,16 +233,20 @@ class ConnectedListCard extends Component {
         <div className='list-card-details' ref='details'>
           <div className='row'>
             <div className='col s12'>
-              <p>Open Seats: {openSeats}</p>
-              <input type='checkbox' checked={ryde.pets ? 'checked' : null} disabled />
-              <label>Pets</label>
-              <br />
-              <input type='checkbox' checked={ryde.smoking ? 'checked' : null} disabled />
-              <label>Smoking</label>
-              <br />
-              <input type='checkbox' checked={ryde.reoccurring ? 'checked' : null} disabled />
-              <label>Reocurring{reocurringColon}</label>
-              {reocurringDaysJSX}
+              <div className="row">
+                <div className="col s12 m2">
+                  <p>{ryde.pets ? 'Pets Allowed' : 'No Pets'}</p>
+                  <p>{ryde.smoking ? 'Smoking Allowed' : 'No Smoking'}</p>
+                  <br />
+                </div>
+                <div className="col s12 m10">
+                  <input type='checkbox' checked={ryde.reoccurring ? 'checked' : null} disabled />
+                  <label>Reocurring{reocurringColon}</label>
+                  <br />
+                  {reocurringDaysJSX}
+                </div>
+              </div>
+
             </div>
           </div>
           {riders}
