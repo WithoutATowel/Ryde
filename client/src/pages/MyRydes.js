@@ -82,9 +82,9 @@ class ConnectedMyRydes extends Component {
   }
 
   render() {
-    // if (!this.props.user) {
-    //   return (<Redirect to='/login' />)
-    // } else {
+    if (!this.props.user) {
+      return (<Redirect to='/login' />)
+    } else if (this.props.user.dryver) {
       return (
         <div>
           <div className="flexCol-vCenter-hCenter">
@@ -116,7 +116,16 @@ class ConnectedMyRydes extends Component {
           <ListBox myRydesPage={true} />
         </div>
       )
-    // }
+    } else {
+      return (
+        <div>
+          <div className="flexCol-vCenter-hCenter">
+            <h1>My Rydes</h1>
+          </div>
+          <ListBox myRydesPage={true} />
+        </div>
+      )
+    }
   }
 }
 
