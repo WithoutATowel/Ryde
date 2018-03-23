@@ -183,7 +183,7 @@ class ConnectedListCard extends Component {
     let driverRating = ryde.driver.dryverRatingAvg ? ryde.driver.dryverRatingAvg : 'Unrated';
     let disappear = '';
     return (
-      <div className='`list-card-div ${this.state.disappear}`'>
+      <div className={'list-card-div' + this.state.disappear}>
         <div className='row list-card-header'>
           <h4 className='list-card-h3 col s6'>{ryde.rydeName}</h4>
           <h4 className='col s6 right-align'>${ryde.cost}</h4>
