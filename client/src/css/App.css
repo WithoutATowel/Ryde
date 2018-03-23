@@ -108,6 +108,10 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
   font-weight: bold;
 }
 
+.input-field {
+  margin-top: 0;
+}
+
 /* ======== Sign-up + login ========= */
 
 .modal-buttons {
@@ -121,10 +125,6 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 
 .cancel-button {
   margin-left: 3%
-}
-
-#sign-up-form .input-field {
-  margin-top: 0;
 }
 
 /* ======== Navbar ========= */
