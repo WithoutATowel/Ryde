@@ -32,7 +32,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-// Find a user
+app.delete('/deleteuser', (req,res,next)=>{
+  console.log(req.body,req.params);
+
+})
+
 app.get('/finduser/:id', (req, res, next) => {
   User.findById({_id: req.params.id}, function(err, user) {
     if (user) {

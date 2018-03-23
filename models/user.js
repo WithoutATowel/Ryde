@@ -52,7 +52,10 @@ var userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  dryver: Boolean,
+  dryver: {
+    type:Boolean,
+    default: false,
+  }
   car: String,
   license: String,
   dryverRatings: Array,
