@@ -15,7 +15,6 @@ export const PublicProfile = props => {
             </div>
             <br />
             <h5>{props.clickedUser.name}</h5>
-            <p>do we want gender here???</p>
           </div>
         </div>
         <div className='row center-align'>
