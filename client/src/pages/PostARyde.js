@@ -187,8 +187,6 @@ class ConnectedPostARyde extends Component {
 
     axios.post('/postARyde', trip).then(result => {
 
-      console.log(!this.state.twoWay);
-      console.log(this.state.twoWay);
       if(!this.state.twoWay){
         this.setState({
           redirect:true
@@ -216,7 +214,6 @@ class ConnectedPostARyde extends Component {
     }
     const reoccurringShowHide = this.state.reoccurring ? 'show' : 'hide';
     const twoWayShowHide = this.state.twoWay ? 'show' : 'hide';
-    console.log('new state: ', this.state)
     return (
       <div id="post-a-ryde" className="container">
         <h2>Post A Ryde</h2>
