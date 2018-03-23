@@ -25,7 +25,9 @@ mongoose.connect('mongodb://localhost/ryde');
         car: 'triumph',
         dryverReviews:['pretty girl', 'big brat'],
         dryverRatings: [2,5],
+        dryverRatingAvg: 3.5,
         ryderRatings: [2,5],
+        ryderRatingAvg: 3.5,
         ryderReviews:['crapper', 'shit brains'],
         pendingTrips:[],
         setTrips:[],
@@ -53,7 +55,9 @@ mongoose.connect('mongodb://localhost/ryde');
         car: 'beetle',
         dryverReviews:['professional', 'drives well', 'bad taste in music'],
         dryverRatings: [5,4],
+        dryverRatingAvg: 4.5,
         ryderRatings: [3,5],
+        ryderRatingAvg: 4,
         ryderReviews:['bad person','why in life am I doing this to myself'],
       },
       {
@@ -77,7 +81,9 @@ mongoose.connect('mongodb://localhost/ryde');
         car: 'actual horse',
         dryverReviews:['loves his self', 'talks in third person too much'],
         dryverRatings: [1,2],
+        dryverRatingAvg: 1.5,
         ryderRatings: [2,4],
+        ryderRatingAvg: 3,
         ryderReviews:['die bitch', 'killing it bro'],
       },
       {
@@ -101,7 +107,9 @@ mongoose.connect('mongodb://localhost/ryde');
         car: 'my back',
         dryverReviews:['professional', 'has money'],
         dryverRatings: [3,4],
+        dryverRatingAvg: 3.5,
         ryderRatings: [2,1],
+        ryderRatingAvg: 1.5,
         ryderReviews:['dope', 'I have cancer'],
       },
       {
@@ -125,7 +133,9 @@ mongoose.connect('mongodb://localhost/ryde');
         car: 'bmw',
         dryverReviews: ['horrible ride', 'dipshit person'],
         dryverRatings: [3,1],
+        dryverRatingAvg: 2,
         ryderRatings: [5,5],
+        ryderRatingAvg: 5,
         ryderReviews:['my life is awesome', 'read king killer chronicles'],
       }
 

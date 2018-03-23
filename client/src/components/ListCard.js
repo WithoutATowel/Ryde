@@ -4,11 +4,12 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Ryders from './Ryders';
-import { liftMyRydesDryves } from '../redux/actions/index';
+import { liftMyRydesDryves, liftCurrentRyde } from '../redux/actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
-    liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data))
+    liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data)),
+    liftCurrentRyde: data => dispatch(liftCurrentRyde(data))
   }
 }
 
@@ -70,10 +71,11 @@ class ConnectedListCard extends Component {
 
   render() {
     let ryde = this.props.ryde;
+    console.log('HERES THE RYDE', ryde);
     let reocurringDaysJSX, reocurringColon, actionButton, riders;
     let current = Date.now();
     let departDate = this.props.ryde.departDate
-    console.log(current, departDate);
+    // console.log(current, departDate);
     if (!this.props.user) {
       // If the user is not logged in, always show the plus sign, linking to login
       actionButton = (
@@ -91,21 +93,16 @@ class ConnectedListCard extends Component {
         this.refs.addRemoveButton.style.transform = 'rotate(0deg)';
       }
 
-      let completed = (current<=departDate ? (<button>Completed</button>
-      ):(
-        <button>Delete</button>))
+      let completed = (current <= departDate ? (<button>Completed</button>):(<button>Delete</button>))
       actionButton = (
         <div>
-          <button>Edit</button>
+          <Link to='/editaryde' onClick={ () => this.props.liftCurrentRyde(ryde._id) }><button>Edit</button></Link>
           {completed}
-
-
-
         </div>
       )
+
     } else {
-      // The user is logged in, but isn't on the Dryves tab of the MyRydes page
-      console.log('Youre on the MyRydes page Rydes tab');
+      // The user is logged in, but isn't on the Dryves tab of the MyRydes page. Could be discover or My Rydes -> Rydes.
       actionButton = (
         <div className='col s2 list-card-add right-align' ref='addRemoveButton' onClick={ (e) => this.handleRydeAdd(e) }>
           <i className='material-icons large'>add</i>
@@ -161,7 +158,8 @@ class ConnectedListCard extends Component {
     let startAddress = capitalizer(ryde.startAddress.street);
     let endAddress = capitalizer(ryde.endAddress.street);
 
-    //{ryde.driver.name}, {ryde.driver.averageDriverRating} not available yet
+    let driverRating = ryde.driver.dryverRatingAvg ? ryde.driver.dryverRatingAvg : 'Unrated';
+
     return (
       <div className='list-card-div'>
         <div className='row list-card-header'>
@@ -174,8 +172,8 @@ class ConnectedListCard extends Component {
               <img src='https://www.placecage.com/c/185/230' alt='dryver' />
             </div>
             <div className='list-card-driver-details'>
-              <li>Bernie Sanders</li>
-              <li>4.8 / 5</li>
+              <li>{ryde.driver.name}</li>
+              <li>{driverRating}</li>
             </div>
           </div>
           <div className='col s5 list-card-summary'>

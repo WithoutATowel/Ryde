@@ -52,7 +52,7 @@ app.get('/finduser/:id', (req, res, next) => {
 //   })
 // })
 
-app.post('/bigsearch', (req, res, next) =>{
+app.post('/bigsearch', (req, res, next) => {
   let body = lowerCase(req.body)
 
   var searchOptions = {
@@ -63,53 +63,51 @@ app.post('/bigsearch', (req, res, next) =>{
     pets: body.pets,
     cost: {$lte: body.cost},
     reoccurring: body.reoccur,
-    seats: {$gte:body.seat}
+    seats: {$gte: body.seat}
   }
   // console.log(searchOptions);
   for (let key in searchOptions) {
     // console.log('--------------');
-    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key] === undefined || searchOptions[key]['$lte'] === ''|| searchOptions[key]['$gte'] === ''){
+    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key] === undefined || searchOptions[key]['$lte'] === ''|| searchOptions[key]['$gte'] === '') {
       delete searchOptions[key]
     }
   }
   //for some reason this key value pair was always being deleted I assume it had to do with a hidden js having to do with $ne
-  if(body.userId){
+  if(body.userId) {
     searchOptions.driverId = {$ne:ObjectId(body.userId)}
     searchOptions.deniedRiders = {$ne: body.userId}
   }
-  console.log(searchOptions);
+  // console.log(searchOptions);
 
-  Trip.find(searchOptions).lean().exec( function(err, trips){
+  Trip.find(searchOptions).lean().exec( function(err, trips) {
     let count = 0;
     let newTrips = []
 
-    if(trips.length === 0){
+    if(trips.length === 0) {
       return res.send(trips)
     } else {
       trips.forEach((trip,index)=>{
 
-        console.log('trip date: ',(new Date(trip.departDate)).toUTCString());
-        console.log('search date: ',(new Date(req.body.dateTime)).toUTCString());
+        // console.log('trip date: ',(new Date(trip.departDate)).toUTCString());
+        // console.log('search date: ',(new Date(req.body.dateTime)).toUTCString());
+
         let id = {'_id': ObjectId(trip.driverId)}
         let tripAvailability = (trip.seats - trip.ridersId.length - req.body.seat)
         //if no seats Available delete from index and count up
         tripAvailability <= 0 ? (
           delete trips[index],
           count++,
-          count === trips.length?(
+          count === trips.length ? (
             //resign the temp array holding Available trips
             res.send({newTrips})
           ) : (console.log('still looping'))
-        //terniary are sad either way you look at them lol
         ) : (
-          //async multi find users that is driver for trip
-          User.findOne(id, function(err, user){
+          User.findOne(id, function(err, user) {
             //add key value pair of driver to trip object
-            trip.driver = user;
-            count++
-            newTrips.push(trip)
-            // once all async functions are finished send data
-            if(count === trips.length){
+            trip.driver = user.toObject();
+            count++;
+            newTrips.push(trip);
+            if(count === trips.length) {
               //resign the temp array holding Available trips
               res.send({newTrips});
             }
@@ -152,17 +150,22 @@ app.get('/mydryves/:id', (req, res, next) => {
   var searchOptions = {
     driverId: ObjectId(req.params.id)
   }
-
-  Trip.find(searchOptions, function(err, trips) {
+  Trip.find(searchOptions).lean().exec( function(err, trips) {
     if(err){
       console.log(err);
       res.send(err);
     } else {
-      res.send(trips);
+      async.map(trips, (trip, callback) => {
+        User.findOne({ '_id': ObjectId(trip.driverId) }, function(err, user) {
+          trip.driver = user.toObject();
+          callback(false, trip);
+        });
+      }, (err, trips) => res.send(trips));
     }
-  })
-})
+  });
+});
 
+// This isn't fully RESTful. If we're editing a specific trip, the route should be POST /mydryves/:id
 app.post('/mydryves', (req, res, next) => {
   console.log('Hit POST /mydryves route');
   let { userId, tripId, action } = req.body;
@@ -197,14 +200,63 @@ app.get('/myrydes/:id', (req, res, next) => {
     { pendingRiders: req.params.id },
     { ridersId: req.params.id }
   ];
-  Trip.find({ $or: searchOptions }, function(err, trips) {
+  Trip.find({ $or: searchOptions }).lean().exec( function(err, trips) {
     if(err){
       console.log(err);
       res.send(err);
     } else {
-      res.send(trips);
+      async.map(trips, (trip, callback) => {
+        User.findOne({ '_id': ObjectId(trip.driverId) }, function(err, user) {
+          console.log(user);
+          trip.driver = user.toObject();
+          callback(false, trip);
+        });
+      }, (err, trips) => res.send(trips));
     }
   })
+})
+
+//TODO refactor this to be more like POST /mydryves
+app.post('/myrydes', (req, res, next) => {
+  console.log('Hit POST /myrydes route');
+  let { userId, tripId } = req.body;
+  Trip.findById(tripId, function (err, trip) {
+    User.findById(userId, function (err, user) {
+      if(trip.driverId === ObjectId(userId)) {
+        // THIS DOESN'T WORK YET
+        res.send("You're the driver for this trip!");
+      } else if(trip.deniedRiders.includes(userId)) {
+        // User has already been denied for ride.
+        res.send('Sorry! The driver has rejected your request.');
+      } else if (trip.ridersId.includes(userId)) {
+        // User has already been approved for ride, so they must want to remove it.
+        trip.ridersId.splice(trip.ridersId.indexOf(userId),1);
+        user.setTrips.splice(user.setTrips.indexOf(tripId),1);
+        trip.save(function (err, updatedTrip) {
+          user.save(function (err, updatedUser) {
+            res.send('Removed user from approved riders');
+          });
+        });
+      } else if(trip.pendingRiders.includes(userId)) {
+        // User is already pending for ride, so they must want to remove it.
+        trip.pendingRiders.splice(trip.pendingRiders.indexOf(userId),1);
+        user.pendingTrips.splice(user.pendingTrips.indexOf(tripId),1);
+        trip.save(function (err, updatedTrip) {
+          user.save(function (err, updatedUser) {
+            res.send('Removed user from pending riders');
+          });
+        });
+      } else {
+        trip.pendingRiders.push(userId);
+        user.pendingTrips.push(tripId);
+        trip.save(function (err, updatedTrip) {
+          user.save(function (err, updatedUser) {
+            res.send('Added user to pending riders');
+          });
+        });
+      }
+    });
+  });
 })
 
 app.post('/profile/:id/reviewuser', (req, res, next) => {
@@ -269,49 +321,6 @@ app.post('/profile/:id/reviewuser', (req, res, next) => {
     }
   });
 });
-
-//TODO refactor this to be more like POST /mydryves
-app.post('/myrydes', (req, res, next) => {
-  console.log('Hit POST /myrydes route');
-  let { userId, tripId } = req.body;
-  Trip.findById(tripId, function (err, trip) {
-    User.findById(userId, function (err, user) {
-      if(trip.driverId === ObjectId(userId)) {
-        // THIS DOESN'T WORK YET
-        res.send("You're the driver for this trip!");
-      } else if(trip.deniedRiders.includes(userId)) {
-        // User has already been denied for ride.
-        res.send('Sorry! The driver has rejected your request.');
-      } else if (trip.ridersId.includes(userId)) {
-        // User has already been approved for ride, so they must want to remove it.
-        trip.ridersId.splice(trip.ridersId.indexOf(userId),1);
-        user.setTrips.splice(user.setTrips.indexOf(tripId),1);
-        trip.save(function (err, updatedTrip) {
-          user.save(function (err, updatedUser) {
-            res.send('Removed user from approved riders');
-          });
-        });
-      } else if(trip.pendingRiders.includes(userId)) {
-        // User is already pending for ride, so they must want to remove it.
-        trip.pendingRiders.splice(trip.pendingRiders.indexOf(userId),1);
-        user.pendingTrips.splice(user.pendingTrips.indexOf(tripId),1);
-        trip.save(function (err, updatedTrip) {
-          user.save(function (err, updatedUser) {
-            res.send('Removed user from pending riders');
-          });
-        });
-      } else {
-        trip.pendingRiders.push(userId);
-        user.pendingTrips.push(tripId);
-        trip.save(function (err, updatedTrip) {
-          user.save(function (err, updatedUser) {
-            res.send('Added user to pending riders');
-          });
-        });
-      }
-    });
-  });
-})
 
 app.post('/postARyde', (req, res, next) => {
   let reqBody = lowerCase(req.body)

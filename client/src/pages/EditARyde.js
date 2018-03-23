@@ -13,7 +13,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    currentRyde: state.currentRyde
   }
 }
 
@@ -72,7 +73,7 @@ class ConnectedEditARyde extends Component {
 
   componentDidMount() {
     var getAndStorePost = () => {
-      axios.get('/editARyde/' + '5ab3fc64ff09fb4194b3ef68')
+      axios.get('/editARyde/' + this.props.currentRyde)
       .then( result => {
         if (result.data && result.data.length > 0) {
           // console.log('results: ', result.data[0]);
@@ -223,7 +224,7 @@ class ConnectedEditARyde extends Component {
     }
     console.log(trip)
 
-    axios.post('/editARyde/' + '5ab3fc64ff09fb4194b3ef68', trip).then(result => {
+    axios.post('/editARyde/' + this.props.currentRyde, trip).then(result => {
       // console.log('added one way ', result.data)
       console.log('Updated ryde!');
     }).catch(err => {

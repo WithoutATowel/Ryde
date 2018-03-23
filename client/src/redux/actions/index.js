@@ -6,6 +6,7 @@ import { LIFT_CLICKED_USER } from '../constants/action-types';
 import { LIFT_BIG_SEARCH } from '../constants/action-types';
 import { LIFT_MINI_SEARCH } from '../constants/action-types';
 import { LIFT_MY_RYDES_DRYVES } from '../constants/action-types';
+import { LIFT_CURRENT_RYDE } from '../constants/action-types';
 
 export const toggleRydesTab = (rydesTabIsToggled) => (
   {
@@ -62,6 +63,15 @@ export const liftMyRydesDryves = data => (
     type: LIFT_MY_RYDES_DRYVES,
     payload: {
       myRydesDryves: data
+    }
+  }
+)
+
+export const liftCurrentRyde = data => (
+  {
+    type: LIFT_CURRENT_RYDE,
+    payload: {
+      currentRyde: data
     }
   }
 )
