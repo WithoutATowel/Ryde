@@ -21,7 +21,7 @@ mongoose.connect('mongodb://localhost/ryde');
           zip: 98021
         },
         dob: 09081989,
-        driver:true,
+        dryver:true,
         car: 'triumph',
         dryverReviews:['pretty girl', 'big brat'],
         dryverRatings: [2,5],
@@ -51,7 +51,7 @@ mongoose.connect('mongodb://localhost/ryde');
           zip: 98021
         },
         dob: 09081989,
-        driver:true,
+        dryver:false,
         car: 'beetle',
         dryverReviews:['professional', 'drives well', 'bad taste in music'],
         dryverRatings: [5,4],
@@ -77,7 +77,7 @@ mongoose.connect('mongodb://localhost/ryde');
           zip: 98021
         },
         dob: 09081989,
-        driver:true,
+        dryver:false,
         car: 'actual horse',
         dryverReviews:['loves his self', 'talks in third person too much'],
         dryverRatings: [1,2],
@@ -103,7 +103,7 @@ mongoose.connect('mongodb://localhost/ryde');
           zip: 98021
         },
         dob: 09081989,
-        driver:true,
+        dryver:true,
         car: 'my back',
         dryverReviews:['professional', 'has money'],
         dryverRatings: [3,4],
@@ -129,7 +129,7 @@ mongoose.connect('mongodb://localhost/ryde');
           zip: 98021
         },
         dob: 09081989,
-        driver:true,
+        dryver:true,
         car: 'bmw',
         dryverReviews: ['horrible ride', 'dipshit person'],
         dryverRatings: [3,1],

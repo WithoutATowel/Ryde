@@ -52,7 +52,7 @@ var userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  driver: Boolean,
+  dryver: Boolean,
   car: String,
   license: String,
   dryverRatings: Array,

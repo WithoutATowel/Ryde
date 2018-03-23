@@ -2,14 +2,34 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/userprofile.css';
 import MyRydes from './MyRydes.js'
+import { BecomeADryver } from '../components/BecomeADryver';
 
 class PrivateProfile extends Component {
   constructor(props) {
     super(props)
+    this.handleBecomeDryverSubmit = this.handleBecomeDryverSubmit.bind(this)
+  }
+
+  handleBecomeDryverSubmit(e) {
+    e.preventDefault()
+    let carType = this.carTypeInput.value
+    console.log(carType)
+    // axios.post('/profile/' + this.props.clickedUserId + '/reviewuser', {
+    //   clickedId: this.props.clickedUserId,
+    //   rating: parseInt(this.state.selectedRating),
+    //   userType: this.props.userType,
+    //   theUser: this.props.theUser
+    // }).then( result => {
+    //   this.props.userType === 'ryder' ? this.props.updateProfileRyderDetails(result.data) : this.props.updateProfileDryverDetails(result.data)
+    // }).catch( err => console.log(err) )
   }
 
   render() {
     let user = this.props.user
+    let ryderRating = user.ryderRatingAvg
+    let dryverRating = user.dryverRatingAvg
+    let showBecomeDryver = user.dryver ? <BecomeADryver becomeDryverSubmit={this.handleBecomeDryverSubmit} /> : false;
+
     if (user) {
       return (
         <div>
@@ -25,17 +45,17 @@ class PrivateProfile extends Component {
               <p>do we want gender here???</p>
               <ul>
                 <li>IF NOT DRYVER, NEED LINK FOR DRYVER SIGNUP</li>
-                <li>Ryder Rating: {user.ryderRatings.length > 0 ? user.ryderRatings : 'no ratings yet'}</li>
-                <li># of Rydes</li>
-                <li>Dryver Rating: {user.dryverRatings.length > 0 ? user.dryverRatings : 'no ratings yet'}</li>
-                <li># of Dryves</li>
-                <li>Car type</li>
+                <li>Ryder Rating: {ryderRating > 0 ? ryderRating : 'no ratings yet'}</li>
+                <li>Total Rydes: {user.completedTrips.length > 0 ? user.completedTrips : 'no trips yet'}</li>
+                <li>Dryver Rating: {dryverRating > 0 ? dryverRating : 'no ratings yet'}</li>
+                <li>Total Dryves: {user.completedDryves.length > 0 ? user.completedDryves : 'no trips yet'}</li>
+                <li>Car type: {user.car}</li>
                 <li>change pic</li>
                 <li>update profile</li>
+                <li>become a dryver</li>
               </ul>
-              <p><Link to='/postaryde'>Post a Ryde</Link></p>
-
-              <Link to='/myrydes'>My Rydes</Link>
+              <p>placeholder below</p>
+              {showBecomeDryver}
             </div>
           </div>
         </div>
