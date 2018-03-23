@@ -203,6 +203,8 @@ a.main-menu-button-collapse {
 
 #list-box-outer-div {
   position: absolute;
+}
+#list-box-outer-div.not-container {
   width: 100%;
 }
 
@@ -437,7 +439,7 @@ footer p {
   transition: all 0.5s linear;
 }
 
-.list-card-details > row {
+.list-card-details > .row {
   margin-top: 7px;
 }
 

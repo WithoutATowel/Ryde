@@ -28,7 +28,7 @@ class ConnectedListCard extends Component {
       expanded: false,
       driver: '',
       driverRating: 4.5,
-      profilePic: ''
+      profilePic: '',
       disappear: '',
     }
   }
@@ -208,8 +208,8 @@ class ConnectedListCard extends Component {
     let driverRating = ryde.driver.dryverRatingAvg ? ryde.driver.dryverRatingAvg : 'Unrated';
     let disappear = '';
     return (
-      <div className='list-card-div ' + this.state.disappear>
-        <div className='row list-card-header '+ this.state.disppear>
+      <div className={'list-card-div ' + this.state.disappear}>
+        <div className={'row list-card-header '+ this.state.disppear}>
           <div className="col s6 list-card-trip-name">
               <h4 className='list-card-h3'>{ryde.rydeName}</h4>
           </div>
@@ -220,7 +220,7 @@ class ConnectedListCard extends Component {
             </div>
           </div>
         </div>
-        <div className='row list-card-main '+this.state.disappear>
+        <div className={'row list-card-main '+this.state.disappear}>
           <div className='col s12 m5 list-card-driver'>
             <div className="col s4">
               <div className='list-card-driver-pic'>
