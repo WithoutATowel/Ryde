@@ -83,35 +83,40 @@ app.post('/bigsearch', (req, res, next) =>{
     let count = 0;
     let newTrips = []
 
-    trips.forEach((trip,index)=>{
-      console.log('trip date: ',(new Date(trip.departDate)).toUTCString());
-      console.log('search date: ',(new Date(req.body.dateTime)).toUTCString());
-      let id = {'_id': ObjectId(trip.driverId)}
-      let tripAvailability = (trip.seats - trip.ridersId.length - req.body.seat)
-      //if no seats Available delete from index and count up
-      tripAvailability <= 0 ? (
-        delete trips[index],
-        count++,
-        count === trips.length?(
-          //resign the temp array holding Available trips
-          res.send({newTrips})
-        ) : (console.log('still looping'))
-      //terniary are sad either way you look at them lol
-      ) : (
-        //async multi find users that is driver for trip
-        User.findOne(id, function(err, user){
-          //add key value pair of driver to trip object
-          trip.driver = user;
-          count++
-          newTrips.push(trip)
-          // once all async functions are finished send data
-          if(count === trips.length){
+    if(trips.length === 0){
+      return res.send(trips)
+    } else {
+      trips.forEach((trip,index)=>{
+
+        console.log('trip date: ',(new Date(trip.departDate)).toUTCString());
+        console.log('search date: ',(new Date(req.body.dateTime)).toUTCString());
+        let id = {'_id': ObjectId(trip.driverId)}
+        let tripAvailability = (trip.seats - trip.ridersId.length - req.body.seat)
+        //if no seats Available delete from index and count up
+        tripAvailability <= 0 ? (
+          delete trips[index],
+          count++,
+          count === trips.length?(
             //resign the temp array holding Available trips
-            res.send({newTrips});
-          }
-        })
-      )
-    })
+            res.send({newTrips})
+          ) : (console.log('still looping'))
+        //terniary are sad either way you look at them lol
+        ) : (
+          //async multi find users that is driver for trip
+          User.findOne(id, function(err, user){
+            //add key value pair of driver to trip object
+            trip.driver = user;
+            count++
+            newTrips.push(trip)
+            // once all async functions are finished send data
+            if(count === trips.length){
+              //resign the temp array holding Available trips
+              res.send({newTrips});
+            }
+          })
+        )
+      })
+    }
   })
 })
 
