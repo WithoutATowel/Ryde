@@ -27,10 +27,10 @@ class ConnectedNavLoggedIn extends Component {
     return (
       <div className='nav-link-div'>
 
-        <li><Link to='/profile/5ab050cb20b8b12fdff5b67d'>ScottPT</Link></li>
-        <li><Link to='/profile/5ab050cb20b8b12fdff5b679'>SeanPT</Link></li>
-        <li><Link to='/profile/5ab050cb20b8b12fdff5b67c'>BrantPT</Link></li>
-        <li><Link to='/profile/5ab050cb20b8b12fdff5b67b'>BrettPT</Link></li>
+        <li><Link to='/profile/5ab36ae451987a5ee95bfe64'>ScottPT</Link></li>
+        <li><Link to='/profile/5ab36ae451987a5ee95bfe60'>SeanPT</Link></li>
+        <li><Link to='/profile/5ab36ae451987a5ee95bfe63'>BrantPT</Link></li>
+        <li><Link to='/profile/5ab36ae451987a5ee95bfe62'>BrettPT</Link></li>
 
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/discover'>Discover</Link></li>

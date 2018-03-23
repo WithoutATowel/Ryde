@@ -18,6 +18,7 @@ var trips = [
     comments:['professional', 'drives well', 'bad taste in music'],
     costBreakdown: "charity donation to my church",
     smoking: true,
+    completed: false
   },
   {
     rydeName: 'Seattle',
@@ -25,12 +26,13 @@ var trips = [
     endAddress: {street:'taco time',city:'seattle',state:'WA',zip:'98021'},
     departDate: 1522209000000,
     reoccurring: true,
-    reoccurringDays: ['friday', 'thursday'],
+    reoccurringDays: [false,false,false,false,true,true,false],
     cost: 12,
     pets: true,
     seats: 4,
     comments:['loves his self', 'talks in third person to much'],
-    costBreakdown: "charity donation to my church"
+    costBreakdown: "charity donation to my church",
+    completed: false
   },
   {
     rydeName: 'San Francisco',
@@ -38,12 +40,13 @@ var trips = [
     endAddress: {street:'mcdonalds',city:'seattle',state:'WA',zip:'98021'},
     departDate: 1527479400000,
     reoccurring: true,
-    reoccurringDays: ['friday', 'monday'],
+    reoccurringDays: [false,true,true,true,false,false,false],
     cost: 10,
     pets: true,
     seats: 4,
     comments:['professional', 'has money'],
-    costBreakdown: "my kids school money"
+    costBreakdown: "my kids school money",
+    completed: false
   },
   {
     rydeName: 'Olympia',
@@ -51,12 +54,13 @@ var trips = [
     endAddress: {street:'taco time',city:'seattle',state:'WA',zip:'98021'},
     departDate: 1527854400000,
     reoccurring: true,
-    reoccurringDays: ['sunday', 'saturday'],
+    reoccurringDays: [true,false,false,false,false,false,true],
     cost: 5,
     pets: true,
     seats: 1,
     comments:['pretty girl', 'big brat'],
-    costBreakdown: "gas money and parking"
+    costBreakdown: "gas money and parking",
+    completed: false
   },
   {
     rydeName: 'Everett',
@@ -64,12 +68,13 @@ var trips = [
     endAddress: {street:'kitty',city:'seattle',state:'WA',zip:'98021'},
     departDate: 1496318400000,
     reoccurring: true,
-    reoccurringDays: ['friday'],
+    reoccurringDays: [false,false,false,false,false,true,false],
     cost: 25,
     pets: false,
     seats: 2,
     comments:['horrible ride', 'dipshit person'],
-    costBreakdown: "gas money"
+    costBreakdown: "gas money",
+    completed: false
   }
 
 ];

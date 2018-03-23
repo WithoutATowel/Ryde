@@ -14,15 +14,15 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-  return { user: state.user, clickedUser: state.clickedUser };
+  return {
+    user: state.user,
+    clickedUser: state.clickedUser
+  };
 }
 
 class ConnectedUserProfile extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      user: null,
-    }
   }
 
   componentDidMount() {
@@ -34,7 +34,6 @@ class ConnectedUserProfile extends Component {
   }
 
   render() {
-    console.log('@@@ USER PROFILE, this.props.clikedUser:', this.props.clickedUser)
     if (this.props.user) {
       if (this.props.user._id === this.props.match.params.id) {
         return <PrivateProfile user={this.props.user} />

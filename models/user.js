@@ -55,14 +55,19 @@ var userSchema = new mongoose.Schema({
   driver: Boolean,
   car: String,
   license: String,
-  driverReviews: Array,
-  driverRating: Array,
-  riderReviews: Array,
-  riderRating: Array,
+  dryverRatings: Array,
+  dryverRatingAvg: Number,
+  dryverReviews: Array,
+  ryderRatings: Array,
+  ryderRatingAvg: Number,
+  ryderReviews: Array,
+  reviewedDryvers: Array,
+  reviewedRyders: Array,
   setTrips: Array,
   pendingTrips: Array,
   deniedTrips: Array,
   completedTrips: Array,
+  completedDryves: Array,
   trips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }]
 })
 

@@ -52,7 +52,7 @@ class ConnectedMiniSearch extends Component {
     if(this.state.redirect){
       return(<Redirect to="/discover" startZip={()=>{this.zipStartInput}}endZip={()=>{this.zipEndInput}}date={()=>{this.startDateInput}}/>)
     }
-    console.log(this.state.redirect);
+
     return (
 
         <form className="row center" onSubmit={(e)=>this.handleMiniSearch(e)}>

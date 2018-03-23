@@ -13,6 +13,7 @@ import PublicProfile from './pages/PublicProfile';
 import OurTeam from './pages/OurTeam';
 import { Footer } from './components/Footer';
 import PostARyde from './pages/PostARyde';
+import EditARyde from './pages/EditARyde';
 import MyRydes from './pages/MyRydes.js'
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -90,6 +91,7 @@ class ConnectedApp extends Component {
               <Route path='/signup' component={Signup} />  {/* placeholder so we can easily get to page */}
               <Route path='/ourteam' component={OurTeam} />
               <Route path='/postaryde' component={PostARyde} />
+              <Route path='/editaryde' component={EditARyde} />
               <Route path='/myrydes' component={MyRydes} />
             </div>
             {/* ROUTES ABOVE HERE */}

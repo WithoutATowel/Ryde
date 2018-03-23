@@ -42,45 +42,45 @@ class ConnectedSignup extends Component {
     axios.post('/auth/signup',
       {name, email, password, dob, homeStreet, homeCity, homeState, homeZip, workStreet, workCity, workState, workZip})
         .then( result => {
-        localStorage.setItem('rydeAppToken', result.data.token) // change 'mernToken' to your app name or something useful
+        localStorage.setItem('rydeAppToken', result.data.token)
         this.props.liftTokenToState(result.data)
     }).catch( err => console.log(err) )
   }
 
   render() {
     if ( this.props.user && Object.keys(this.props.user).length > 0 ) {
-      return (<Redirect to={{ pathname: this.props.currentPage }} />)  // ~~~~~~~~~~~NEED TO FIX REDIRECT TO CURRENT PAGE~~~~~~~~~~~~~
+      return (<Redirect to={{ pathname: this.props.currentPage }} />)
     } else {
         return (
           <form onSubmit={this.handleSubmit}>
             <div className="row">
               <div className="col s12 m6">
-                Name - required: <input type='text' value={this.state.name} onChange={this.handleNameChange} placeholder='Full name' required />
+                Name - required: <input type='text' ref={ input => {this.name = input}} placeholder='Full name' required />
               </div>
               <div className="col s12 m6">
-                Email - required: <input type='email' value={this.state.email} onChange={this.handleEmailChange} placeholder='email@email.com' required />
+                Email - required: <input type='email' ref={ input => {this.email = input}} placeholder='email@email.com' required />
               </div>
             </div>
 
             <div className="row">
               <div className="col s12 m9">
-                Password - required: <input type='password' value={this.state.password} onChange={this.handlePasswordChange} placeholder='P@$$w0rD! - must be a minimum of 8 characters' required />
+                Password - required: <input type='password' ref={ input => {this.password = input}} placeholder='P@$$w0rD! - must be a minimum of 8 characters' required />
               </div>
               <div className="col s12 m3">
-                Date of birth (any string for now) - required: <input type='text' ref={ (input) => {this.dobInput = input}} placeholder='March 15 1990' required />
+                Date of birth (any string for now) - required: <input type='text' ref={ input => {this.dob = input}} placeholder='March 15 1990' required />
               </div>
             </div>
 
             <div className="row">
               <div className="col s12 m4">
-                Home Street Address: <input type='text' placeholder='123 Main St' />
+                Home Street Address: <input type='text' ref={input => {this.homeStreet = input}} placeholder='123 Main St' />
               </div>
               <div className="col s12 m3">
-                Home City - required: <input type='text' ref={input => {this.cityInput = input}} placeholder='Seattle' required />
+                Home City - required: <input type='text' ref={input => {this.homeCity = input}} placeholder='Seattle' required />
               </div>
               <div className="col s12 m2">
-                Home State - required (WA): <select ref={(input) => {this.selectUSState = input}} required>
-                                              <option value="" disabled selected>Select one--</option>
+                Home State - required (WA): <select defaultValue='' ref={input => {this.homeState = input}} required>
+                                              <option value="" disabled>Select one--</option>
                                               <option value="AL">Alabama</option>
                                               <option value="AK">Alaska</option>
                                               <option value="AZ">Arizona</option>
@@ -135,20 +135,20 @@ class ConnectedSignup extends Component {
                                             </select>
               </div>
               <div className="col s12 m3">
-                Home Zip: <input type='number' placeholder='Zip code: 98101' />
+                Home Zip: <input type='number' ref={input => {this.homeZip = input}} placeholder='Zip code: 98101' />
               </div>
             </div>
 
             <div className="row">
               <div className="col s12 m4">
-                Work Street Address: <input type='text' placeholder='' />
+                Work Street Address: <input type='text' ref={input => {this.workStreet = input}} placeholder='' />
               </div>
               <div className="col s12 m3">
-                Work City: <input type='text' placeholder='' />
+                Work City: <input type='text' ref={input => {this.workCity = input}} placeholder='' />
               </div>
               <div className="col s12 m2">
-                Work State(WA): <select>
-                                  <option value="" disabled selected>Select one--</option>
+                Work State(WA): <select defaultValue='' ref={input => {this.workState = input}}>
+                                  <option value="" disabled>Select one--</option>
                                   <option value="AL">Alabama</option>
                                   <option value="AK">Alaska</option>
                                   <option value="AZ">Arizona</option>
@@ -203,13 +203,13 @@ class ConnectedSignup extends Component {
                                 </select>
               </div>
               <div className="col s12 m3">
-                Work Zip: <input type='number' placeholder='Zip code: 98101' />
+                Work Zip: <input type='number' ref={input => {this.workZip = input}} placeholder='Zip code: 98101' />
               </div>
             </div>
 
             <div className="row">
               <div className="col s12">
-                <input type='submit' className="rydeBlueBtn btn" value='Sign Up!' />
+                <input type='submit' className="rydeBlueBtn btn modal-action modal-close" value='Sign Up!' />
               </div>
             </div>
           </form>

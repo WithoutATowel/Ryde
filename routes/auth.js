@@ -81,7 +81,7 @@ router.post('/me/from/token', (req, res, next) => {
   } else {
     jwt.verify(token, process.env.JWT_SECRET, function(err, user) {
       if (err) {
-        res.status(401).send('GLALALGLALAL ' + err)
+        res.status(401).send(err)
       } else {
         // TODO: Why does the "_id" need to be in quotes?
         User.findById({
@@ -90,7 +90,7 @@ router.post('/me/from/token', (req, res, next) => {
           if (err) {
             res.status(401).send(err)
           } else {
-            res.json({user, token})
+            res.json({user: user.toObject(), token})
           }
         })
       }

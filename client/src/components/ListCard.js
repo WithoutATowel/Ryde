@@ -4,16 +4,18 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Ryders from './Ryders';
-import { liftMyRydesDryves } from '../redux/actions/index';
+import { liftMyRydesDryves, liftCurrentRyde, liftClickedUser } from '../redux/actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
-    liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data))
+    liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data)),
+    liftCurrentRyde: data => dispatch(liftCurrentRyde(data)),
+    liftClickedUser: data => dispatch(liftClickedUser(data))
   }
 }
 
 const mapStateToProps = state => {
-  return { 
+  return {
     user: state.user,
     rydesTabIsToggled: state.rydesTabIsToggled
   }
@@ -65,13 +67,15 @@ class ConnectedListCard extends Component {
       if(!this.props.dryvesTab && (this.props.ryde.ridersId.includes(this.props.user._id) || this.props.ryde.pendingRiders.includes(this.props.user._id))) {
         this.refs.addRemoveButton.style.transform = 'rotate(45deg)';
       }
-    } 
+    }
   }
 
   render() {
     let ryde = this.props.ryde;
     let reocurringDaysJSX, reocurringColon, actionButton, riders;
-
+    let current = Date.now();
+    let departDate = this.props.ryde.departDate
+    // console.log(current, departDate);
     if (!this.props.user) {
       // If the user is not logged in, always show the plus sign, linking to login
       actionButton = (
@@ -88,15 +92,17 @@ class ConnectedListCard extends Component {
       if (this.refs.addRemoveButton) {
         this.refs.addRemoveButton.style.transform = 'rotate(0deg)';
       }
+
+      let completed = (current <= departDate ? (<button>Completed</button>):(<button>Delete</button>))
       actionButton = (
         <div>
-          <button>Edit</button>
-          <button>Delete</button>
+          <Link to='/editaryde' onClick={ () => this.props.liftCurrentRyde(ryde._id) }><button>Edit</button></Link>
+          {completed}
         </div>
       )
+
     } else {
-      // The user is logged in, but isn't on the Dryves tab of the MyRydes page
-      console.log('Youre on the MyRydes page Rydes tab');
+      // The user is logged in, but isn't on the Dryves tab of the MyRydes page. Could be discover or My Rydes -> Rydes.
       actionButton = (
         <div className='col s2 list-card-add right-align' ref='addRemoveButton' onClick={ (e) => this.handleRydeAdd(e) }>
           <i className='material-icons large'>add</i>
@@ -104,7 +110,7 @@ class ConnectedListCard extends Component {
       )
     }
 
-    // 
+    //
 
     if (ryde.reoccurring) {
       reocurringColon = ': ';
@@ -152,7 +158,8 @@ class ConnectedListCard extends Component {
     let startAddress = capitalizer(ryde.startAddress.street);
     let endAddress = capitalizer(ryde.endAddress.street);
 
-    //{ryde.driver.name}, {ryde.driver.averageDriverRating} not available yet
+    let driverRating = ryde.driver.dryverRatingAvg ? ryde.driver.dryverRatingAvg : 'Unrated';
+
     return (
       <div className='list-card-div'>
         <div className='row list-card-header'>
@@ -165,8 +172,8 @@ class ConnectedListCard extends Component {
               <img src='https://www.placecage.com/c/185/230' alt='dryver' />
             </div>
             <div className='list-card-driver-details'>
-              <li>Bernie Sanders</li>
-              <li>4.8 / 5</li>
+              <li><Link to={'/profile/' + ryde.driver._id} onClick={() => liftClickedUser(ryde.driver._id)} >{ryde.driver.name}</Link></li>
+              <li>{driverRating}</li>
             </div>
           </div>
           <div className='col s5 list-card-summary'>

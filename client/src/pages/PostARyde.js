@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../css/postaryde.css';
 import RydeForm from '../components/RydeForm';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 // import store from '../redux/store/index';
 import axios from 'axios';
 
@@ -17,11 +18,40 @@ class ConnectedPostARyde extends Component {
     this.state = {
       reoccurring: false,
       twoWay: false,
+      rydeName: '',
+      rydeName: '',
+      startStreet: '',
+      startCity: '',
+      startState: '',
+      startZip: '',
+      endStreet: '',
+      endCity: '',
+      endState: '',
+      endZip: '',
+      departDate: '',
+      departTime: '',
+      returnDepartDate: '',
+      returnDepartTime: '',
+      reoccurringMon: false,
+      reoccurringTues: false,
+      reoccurringWed: false,
+      reoccurringThurs: false,
+      reoccurringFri: false,
+      reoccurringSat: false,
+      cost: '',
+      costBreakdown: '',
+      smoking: false,
+      tripPets: false,
+      carType: '',
+      seats: '',
+      redirect:false
+
     }
     console.log('initial state: ', this.state)
     this.handlePostARydeSubmit = this.handlePostARydeSubmit.bind(this)
     this.handleReoccurringChange = this.handleReoccurringChange.bind(this)
     this.handleTwoWayChange = this.handleTwoWayChange.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   handleReoccurringChange(e) {
@@ -36,15 +66,26 @@ class ConnectedPostARyde extends Component {
     })
   }
 
+  handleInputChange(event) {
+    console.log('on Input Change')
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
   handlePostARydeSubmit(e) {
     e.preventDefault()
-    let Sun = this.reoccurringSun.checked
-    let Mon = this.reoccurringMon.checked
-    let Tues = this.reoccurringTues.checked
-    let Wed = this.reoccurringWed.checked
-    let Thurs = this.reoccurringThurs.checked
-    let Fri = this.reoccurringFri.checked
-    let Sat = this.reoccurringSat.checked
+    let Sun = this.state.reoccurringSun
+    let Mon = this.state.reoccurringMon
+    let Tues = this.state.reoccurringTues
+    let Wed = this.state.reoccurringWed
+    let Thurs = this.state.reoccurringThurs
+    let Fri = this.state.reoccurringFri
+    let Sat = this.state.reoccurringSat
     let reoccurringArray = []
     reoccurringArray.push(Sun)
     reoccurringArray.push(Mon)
@@ -54,9 +95,8 @@ class ConnectedPostARyde extends Component {
     reoccurringArray.push(Fri)
     reoccurringArray.push(Sat)
 
-    console.log(this.departDate.value,this.departTime.value,this.departDate.value.split('-'),this.departTime.value.split(':'));
-    let newDepartDate = this.departDate.value.split('-');
-    let newDepartTime = this.departTime.value.split(':');
+    let newDepartDate = this.state.departDate.split('-');
+    let newDepartTime = this.state.departTime.split(':');
 
     var numDepartDate = []
     var numDepartTime = []
@@ -68,44 +108,40 @@ class ConnectedPostARyde extends Component {
       numDepartTime.push(+newDate)
     })
 
-    console.log('numDepartDate ', numDepartDate)
-    console.log('numDepartTime ', numDepartTime)
-    console.log('dateTime ', ...numDepartDate, ...numDepartTime)
+
     // year, month, day, hour, minute, second, and millisecond
     var departDateTime =  Date.UTC(...numDepartDate, ...numDepartTime)
-    console.log('departDateTime ', departDateTime)
 
 
     var trip = {
       driverId: this.props.user._id,
-      rydeName: this.rydeName.value,
+      rydeName: this.state.rydeName,
       startAddress: {
-        street: this.startStreet.value,
-        city: this.startCity.value,
-        state: this.startState.value,
-        zip: this.startZip.value,
+        street: this.state.startStreet,
+        city: this.state.startCity,
+        state: this.state.startState,
+        zip: this.state.startZip,
       },
       endAddress: {
-        street: this.endStreet.value,
-        city: this.endCity.value,
-        state: this.endState.value,
-        zip: this.endZip.value,
+        street: this.state.endStreet,
+        city: this.state.endCity,
+        state: this.state.endState,
+        zip: this.state.endZip,
       },
       departDate: departDateTime,
-      reoccurring: this.reoccurring.checked,
+      reoccurring: this.state.reoccurring,
       reoccurringDays: reoccurringArray,
-      cost: this.cost.value,
-      costBreakdown: this.costBreakdown.value,
-      smoking: this.smoking.checked,
-      pets: this.pets.checked,
-      carType: this.carType.value,
-      seats: this.seats.value,
+      cost: this.state.cost,
+      costBreakdown: this.state.costBreakdown,
+      smoking: this.state.smoking,
+      pets: this.state.tripPets,
+      carType: this.state.carType,
+      seats: this.state.seats,
     }
-    console.log(trip)
 
-    if (this.twoWay.checked) {
-      let newReturnDepartDate = this.returnDepartDate.value.split('-');
-      let newReturnDepartTime = this.returnDepartTime.value.split(':');
+    if (this.state.twoWay) {
+      let newReturnDepartDate = this.state.returnDepartDate.split('-');
+      let newReturnDepartTime = this.state.returnDepartTime.split(':');
 
       var numReturnDepartDate = []
       var numReturnDepartTime = []
@@ -123,38 +159,48 @@ class ConnectedPostARyde extends Component {
 
       var returnTrip = {
         driverId: this.props.user._id,
-        rydeName: this.rydeName.value,
+        rydeName: this.state.rydeName,
         startAddress: {
-          street: this.endStreet.value,
-          city: this.endCity.value,
-          state: this.endState.value,
-          zip: this.endZip.value
+          street: this.state.endStreet,
+          city: this.state.endCity,
+          state: this.state.endState,
+          zip: this.state.endZip
         },
         endAddress: {
-          street: this.startStreet.value,
-          city: this.startCity.value,
-          state: this.startState.value,
-          zip: this.startZip.value
+          street: this.state.startStreet,
+          city: this.state.startCity,
+          state: this.state.startState,
+          zip: this.state.startZip
         },
         departDate: returnDepartDateTime,
-        reoccurring: this.reoccurring.checked,
+        reoccurring: this.state.reoccurring,
         reoccurringDays: reoccurringArray,
-        cost: this.cost.value,
-        costBreakdown: this.costBreakdown.value,
-        smoking: this.smoking.checked,
-        pets: this.pets.checked,
-        carType: this.carType.value,
-        seats: this.seats.value,
+        cost: this.state.cost,
+        costBreakdown: this.state.costBreakdown,
+        smoking: this.state.smoking,
+        pets: this.state.TripPets,
+        carType: this.state.carType,
+        seats: this.state.seats,
       }
       console.log(returnTrip)
     }
 
     axios.post('/postARyde', trip).then(result => {
-      console.log('added one way ', result.data)
-      if (this.twoWay.checked) {
-        axios.post('/postARyde', returnTrip).then(result => {
-          console.log('added two way ', result.data)
 
+      console.log(!this.state.twoWay);
+      console.log(this.state.twoWay);
+      if(!this.state.twoWay){
+        this.setState({
+          redirect:true
+        })
+      }
+      if (this.state.twoWay) {
+        axios.post('/postARyde', returnTrip).then(result => {
+          if(this.state.twoWay){
+            this.setState({
+              redirect:true
+            })
+          }
         }).catch(err => {
           console.log(err);
         })
@@ -162,48 +208,53 @@ class ConnectedPostARyde extends Component {
     }).catch(err => {
       console.log(err);
     })
-
   }
 
   render() {
+    if(this.state.redirect){
+      return <Redirect to='/myrydes' />
+    }
     const reoccurringShowHide = this.state.reoccurring ? 'show' : 'hide';
     const twoWayShowHide = this.state.twoWay ? 'show' : 'hide';
+    console.log('new state: ', this.state)
     return (
       <div id="post-a-ryde" className="container">
         <h2>Post A Ryde</h2>
         <RydeForm
-          rydeName={(input) => this.rydeName = input}
-          startStreet={(input) => this.startStreet = input}
-          startCity={(input) => this.startCity = input}
-          startState={(input) => this.startState = input}
-          startZip={(input) => this.startZip = input}
-          endStreet={(input) => this.endStreet = input}
-          endCity={(input) => this.endCity = input}
-          endState={(input) => this.endState = input}
-          endZip={(input) => this.endZip = input}
-          departDate={(input) => this.departDate = input}
-          departTime={(input) => this.departTime = input}
-          twoWay={(input) => this.twoWay = input}
+          isEditPage={false}
+          rydeName={this.state.rydeName}
+          onInputChange={this.handleInputChange}
+          startStreet={this.state.startStreet}
+          startCity={this.state.startCity}
+          startState={this.state.startState}
+          startZip={this.state.startZip}
+          endStreet={this.state.endStreet}
+          endCity={this.state.endCity}
+          endState={this.state.endState}
+          endZip={this.state.endZip}
+          departDate={this.state.departDate}
+          departTime={this.state.departTime}
+          twoWay={this.state.twoWay}
           onTwoWayChange={this.handleTwoWayChange}
           twoWayShowHide={twoWayShowHide}
-          returnDepartDate={(input) => this.returnDepartDate = input}
-          returnDepartTime={(input) => this.returnDepartTime = input}
-          reoccurring={(input) => this.reoccurring = input}
+          returnDepartDate={this.state.returnDepartDate}
+          returnDepartTime={this.state.returnDepartTime}
+          reoccurring={this.state.reoccurring}
           reoccurringShowHide={reoccurringShowHide}
           onReoccurringChange={this.handleReoccurringChange}
-          reoccurringSun={(input) => this.reoccurringSun = input}
-          reoccurringMon={(input) => this.reoccurringMon = input}
-          reoccurringTues={(input) => this.reoccurringTues = input}
-          reoccurringWed={(input) => this.reoccurringWed = input}
-          reoccurringThurs={(input) => this.reoccurringThurs = input}
-          reoccurringFri={(input) => this.reoccurringFri = input}
-          reoccurringSat={(input) => this.reoccurringSat = input}
-          cost={(input) => this.cost = input}
-          costBreakdown={(input) => this.costBreakdown = input}
-          smoking={(input) => this.smoking = input}
-          pets={(input) => this.pets = input}
-          carType={(input) => this.carType = input}
-          seats={(input) => this.seats = input}
+          reoccurringSun={this.state.reoccurringSun}
+          reoccurringMon={this.state.reoccurringMon}
+          reoccurringTues={this.state.reoccurringTues}
+          reoccurringWed={this.state.reoccurringWed}
+          reoccurringThurs={this.state.reoccurringThurs}
+          reoccurringFri={this.state.reoccurringFri}
+          reoccurringSat={this.state.reoccurringSat}
+          cost={this.state.cost}
+          costBreakdown={this.state.costBreakdown}
+          smoking={this.state.smoking}
+          pets={this.state.tripPets}
+          carType={this.state.carType}
+          seats={this.state.seats}
           onPostARydeSubmit={this.handlePostARydeSubmit} />
       </div>
     )
