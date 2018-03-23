@@ -12,7 +12,7 @@ class ConnectedProfileRyderDetails extends Component {
     this.state = {
       clickedUser: this.props.clickedUser,
       theUser: this.props.user,
-      showReviewUser: !this.props.theUser.reviewedRyders.includes(this.props.clickedUser._id) ? true : false
+      showReviewUser: this.props.theUser ? (!this.props.theUser.reviewedRyders.includes(this.props.clickedUser._id) ? true : false) : false
     }
     this.handleUpdateProfileRyderDetails = this.handleUpdateProfileRyderDetails.bind(this)
   }

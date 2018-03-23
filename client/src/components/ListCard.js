@@ -104,7 +104,7 @@ class ConnectedListCard extends Component {
     } else {
       // The user is logged in, but isn't on the Dryves tab of the MyRydes page. Could be discover or My Rydes -> Rydes.
       actionButton = (
-        <div className='col s2 list-card-add right-align' ref='addRemoveButton' onClick={ (e) => this.handleRydeAdd(e) }>
+        <div className='col s2 list-card-add right-align action-button' ref='addRemoveButton' onClick={ (e) => this.handleRydeAdd(e) }>
           <i className='material-icons large'>add</i>
         </div>
       )
@@ -169,10 +169,11 @@ class ConnectedListCard extends Component {
         <div className='row list-card-main'>
           <div className='col s5 list-card-driver'>
             <div className='list-card-driver-pic'>
-              <img src='https://www.placecage.com/c/185/230' alt='dryver' />
+              <Link to={'/profile/' + ryde.driverId}><img src='https://www.placecage.com/c/185/230' alt='dryver' /></Link>
             </div>
             <div className='list-card-driver-details'>
-              <li>{ryde.driver.name}</li>
+              <li><Link to={'/profile/' + ryde.driverId}>{ryde.driver.name}</Link></li>
+              <li>{console.log('ryde.driver._id', ryde)}'s Profile</li>
               <li>{driverRating}</li>
             </div>
           </div>

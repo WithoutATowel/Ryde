@@ -19,5 +19,6 @@
 }
 
 .team-member-col > a:hover {
+  color: #333333;
   border-bottom: 3px solid #18ED6E;
 }
