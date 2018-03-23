@@ -178,6 +178,7 @@ class ConnectedListCard extends Component {
       return splitString.join(' ');
     }
 
+    let rydeName = capitalizer(ryde.rydeName);
     let startAddress = capitalizer(ryde.startAddress.street);
     let endAddress = capitalizer(ryde.endAddress.street);
 
@@ -186,7 +187,7 @@ class ConnectedListCard extends Component {
     return (
       <div className={'list-card-div ' + this.state.disappear}>
         <div className={'row list-card-header '+ this.state.disppear}>
-          <h4 className='list-card-h3 col s6'>{ryde.rydeName}</h4>
+          <h4 className='list-card-h3 col s6'>{rydeName}</h4>
           <h4 className='col s6 right-align'>${ryde.cost}</h4>
         </div>
         <div className={'row list-card-main '+this.state.disappear}>

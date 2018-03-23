@@ -46,7 +46,6 @@ class ConnectedPostARyde extends Component {
       seats: '',
       redirect:false
     }
-    console.log('initial state: ', this.state)
     this.handlePostARydeSubmit = this.handlePostARydeSubmit.bind(this)
     this.handleReoccurringChange = this.handleReoccurringChange.bind(this)
     this.handleTwoWayChange = this.handleTwoWayChange.bind(this)
@@ -66,7 +65,6 @@ class ConnectedPostARyde extends Component {
   }
 
   handleInputChange(event) {
-    console.log('on Input Change')
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -153,7 +151,6 @@ class ConnectedPostARyde extends Component {
 
       // year, month, day, hour, minute, second, and millisecond
       var returnDepartDateTime =  Date.UTC(...numReturnDepartDate, ...numReturnDepartTime)
-      console.log('return departDateTime ', returnDepartDateTime)
 
       var returnTrip = {
         driverId: this.props.user._id,
@@ -180,7 +177,6 @@ class ConnectedPostARyde extends Component {
         carType: this.state.carType,
         seats: this.state.seats,
       }
-      console.log(returnTrip)
     }
 
     axios.post('/postARyde', trip).then(result => {
