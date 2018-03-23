@@ -120,7 +120,7 @@ class ConnectedEditARyde extends Component {
             costBreakdown: results.costBreakdown,
             smoking: results.smoking,
             tripPets: results.pets,
-            carType:  results.carType,
+            carType: results.carType,
             seats: results.seats,
             rydeLoaded: true
           });

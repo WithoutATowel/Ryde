@@ -4,12 +4,13 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Ryders from './Ryders';
-import { liftMyRydesDryves, liftCurrentRyde } from '../redux/actions/index';
+import { liftMyRydesDryves, liftCurrentRyde, liftClickedUser } from '../redux/actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
     liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data)),
-    liftCurrentRyde: data => dispatch(liftCurrentRyde(data))
+    liftCurrentRyde: data => dispatch(liftCurrentRyde(data)),
+    liftClickedUser: data => dispatch(liftClickedUser(data))
   }
 }
 
@@ -71,7 +72,6 @@ class ConnectedListCard extends Component {
 
   render() {
     let ryde = this.props.ryde;
-    console.log('HERES THE RYDE', ryde);
     let reocurringDaysJSX, reocurringColon, actionButton, riders;
     let current = Date.now();
     let departDate = this.props.ryde.departDate
@@ -172,8 +172,7 @@ class ConnectedListCard extends Component {
               <Link to={'/profile/' + ryde.driverId}><img src='https://www.placecage.com/c/185/230' alt='dryver' /></Link>
             </div>
             <div className='list-card-driver-details'>
-              <li><Link to={'/profile/' + ryde.driverId}>{ryde.driver.name}</Link></li>
-              <li>{console.log('ryde.driver._id', ryde)}'s Profile</li>
+              <li><Link to={'/profile/' + ryde.driver._id} onClick={() => liftClickedUser(ryde.driver._id)} >{ryde.driver.name}</Link></li>
               <li>{driverRating}</li>
             </div>
           </div>
