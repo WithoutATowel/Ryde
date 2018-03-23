@@ -62,7 +62,7 @@ class Ryder extends Component {
       );
     } else if (this.props.status === 'confirmed') {
       buttons = (
-        <button onClick={this.handleReject} className="rydeBlueBtn btn">Reject</button>
+        <button onClick={() => this.handleReject()} className="rydeBlueBtn btn">Reject</button>
       );
     }
     let profileLink = '/profile/' + this.props.ryder._id
@@ -85,7 +85,7 @@ class Ryder extends Component {
               <Link to={profileLink}>
                 <h5>{this.props.ryder.name}</h5>
               </Link>
-              <span>Rating<i class="material-icons">star</i> {starRating}</span>
+              <span>Rating<i className="material-icons">star</i> {starRating}</span>
             </div>
 
           </div>
