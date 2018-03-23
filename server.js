@@ -32,7 +32,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-// Find a user
+app.delete('/deleteuser', (req,res,next)=>{
+  console.log(req.body,req.params);
+
+})
+
 app.get('/finduser/:id', (req, res, next) => {
   User.findById({_id: req.params.id}, function(err, user) {
     if (user) {
@@ -288,6 +292,28 @@ app.post('/profile/:id/becomedryver', (req, res, next) => {
       dryver: true,
       license: driversLicense,
       car
+    } },
+    {new: true}
+  ).lean().exec(
+    function(err, doc) {
+      if (err) {
+        res.send('An error occurred', err);
+      } else {
+        res.send(doc)
+      }
+    }
+  )
+});
+
+// Remove Dryver status
+app.post('/profile/:id/becomedryver', (req, res, next) => {
+  let { userId } = req.body;
+  User.findOneAndUpdate(
+    {_id: userId},
+    {$set: {
+      dryver: false,
+      license: '',
+      car: ''
     } },
     {new: true}
   ).lean().exec(
