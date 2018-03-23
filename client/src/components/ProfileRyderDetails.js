@@ -29,6 +29,7 @@ class ConnectedProfileRyderDetails extends Component {
     let displayReviewUser = null;
     let ratingAvg = this.state.clickedUser.ryderRatingAvg
     let cUser = this.props.clickedUser
+    let cUserName = cUser.name.match(/\S+/)
     if (this.props.theUser && this.state.showReviewUser) {
       displayReviewUser = (
         <ReviewUser
@@ -50,8 +51,8 @@ class ConnectedProfileRyderDetails extends Component {
             <h4>Ryder</h4>
             {displayReviewUser}
             <p>~~~REMOVE LATER~~~Ratings goes here: {cUser.ryderRatings.length > 0 ? cUser.ryderRatings : 'no ratings yet'}</p>
-            <p>{cUser.name}'s Ryder rating: {ratingAvg > 0 ? ratingAvg : 'no ratings yet'}</p>
-            <p>{cUser.name}'s total rydes: {cUser.completedTrips.length > 0 ? cUser.completedTrips : 'no trips yet'}</p>
+            <p>{cUserName}'s Ryder rating: {ratingAvg > 0 ? ratingAvg : 'no ratings yet'}</p>
+            <p>{cUserName}'s total rydes: {cUser.completedTrips.length > 0 ? cUser.completedTrips : 'no trips yet'}</p>
             <p>~~~~~~~FIGURE OUT HOW TO LIST REVIEWS/COMMENTS HERE~~~~~~~~</p>
           </div>
         </div>

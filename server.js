@@ -281,6 +281,40 @@ app.post('/myrydes', (req, res, next) => {
   });
 });
 
+// Update User Info
+app.post('/profile/:id/edit', (req, res, next) => {
+  let {userId, name, email, dob, homeStreet, homeCity, homeState, homeZip, workStreet, workCity, workState, workZip} = req.body;
+  User.findOneAndUpdate(
+    {_id: userId},
+    {$set: {
+      name: name,
+      email: email,
+      dob: dob,
+      homeAddress: {
+        street: homeStreet,
+        city: homeCity,
+        state: homeState,
+        zip: homeZip
+      },
+      workAddress: {
+        street: workStreet,
+        city: workCity,
+        state: workState,
+        zip: workZip
+      }
+    } },
+    {new: true}
+  ).lean().exec(
+    function(err, doc) {
+      if (err) {
+        res.send('An error occurred', err);
+      } else {
+        res.send(doc)
+      }
+    }
+  )
+});
+
 // Become Dryver
 app.post('/profile/:id/becomedryver', (req, res, next) => {
   console.log('from front end', req.body)
@@ -306,14 +340,14 @@ app.post('/profile/:id/becomedryver', (req, res, next) => {
 });
 
 // Remove Dryver status
-app.post('/profile/:id/becomedryver', (req, res, next) => {
+app.post('/profile/:id/removedryverstatus', (req, res, next) => {
   let { userId } = req.body;
   User.findOneAndUpdate(
     {_id: userId},
     {$set: {
       dryver: false,
       license: '',
-      car: ''
+      car: 'Not a Dryver'
     } },
     {new: true}
   ).lean().exec(

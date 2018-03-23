@@ -63,7 +63,6 @@ class ConnectedSignup extends Component {
                   Email<input type='email' ref={ input => {this.email = input}} placeholder='email@email.com' required />
                 </div>
               </div>
-
               <div className="row">
                 <div className="col s12 m9">
                   Password <input type='password' ref={ input => {this.password = input}} placeholder='P@$$w0rD! - must be a minimum of 8 characters' required />
@@ -72,7 +71,6 @@ class ConnectedSignup extends Component {
                   Date of birth <Input type='date' className="datepicker" options={{format: 'yyyy-mm-dd'}} ref={ input => {this.dob = input}} placeholder='YYYY-MM-DD' required />
                 </div>
               </div>
-
               <div className="row">
                 <h5>Home Address</h5>
                 <div className="col s12 m4">
@@ -141,7 +139,6 @@ class ConnectedSignup extends Component {
                   Zipcode<input type='number' ref={input => {this.homeZip = input}} placeholder='Zip code' />
                 </div>
               </div>
-
               <div className="row">
                 <h5>Work Address</h5>
                 <div className="col s12 m4">
