@@ -37,7 +37,7 @@ const rootReducer = (state = initialState, action) => {
             // console.log('Lifted token to Redux state');
             return {...state, token: action.payload.token, user: action.payload.user};
         case LIFT_UPDATED_USER:
-            console.log('Updating the user...', action.payload);
+            // console.log('Updating the user...', action.payload);
             return {...state, user: action.payload};
         case LOGOUT_USER:
             console.log('Logging out user');
