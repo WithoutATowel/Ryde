@@ -6,6 +6,7 @@ import { LIFT_CLICKED_USER } from '../constants/action-types';
 import { LIFT_BIG_SEARCH } from '../constants/action-types';
 import { LIFT_MINI_SEARCH } from '../constants/action-types';
 import { LIFT_MY_RYDES_DRYVES } from '../constants/action-types';
+import { LIFT_CURRENT_RYDE } from '../constants/action-types';
 
 
 const initialState = {
@@ -15,7 +16,8 @@ const initialState = {
     user: null,
     clickedUser: null,
     searchResults: [],
-    myRydesDryves: []
+    myRydesDryves: [],
+    currentRyde: null
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -35,7 +37,7 @@ const rootReducer = (state = initialState, action) => {
             return {...state, token: '', user: null };
         case LIFT_CLICKED_USER:
             console.log('Lifting clickedUser to Redux');
-            return {...state, clickedUser: action.payload}
+            return {...state, clickedUser: action.payload};
         case LIFT_BIG_SEARCH:
             console.log('Lifted big search results');
             return {...state, searchResults: action.payload.searchResults};
@@ -45,7 +47,10 @@ const rootReducer = (state = initialState, action) => {
             return {...state, searchResults: action.payload.searchResults};
         case LIFT_MY_RYDES_DRYVES:
             console.log('Lifted my rydes/dryves');
-            return {...state, myRydesDryves: action.payload.myRydesDryves}
+            return {...state, myRydesDryves: action.payload.myRydesDryves};
+        case LIFT_CURRENT_RYDE:
+            console.log('Lifted current ryde');
+            return {...state, currentRyde: action.payload.currentRyde};
         default:
             return state;
     }

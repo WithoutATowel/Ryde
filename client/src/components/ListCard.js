@@ -4,11 +4,12 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Ryders from './Ryders';
-import { liftMyRydesDryves } from '../redux/actions/index';
+import { liftMyRydesDryves, liftCurrentRyde } from '../redux/actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
-    liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data))
+    liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data)),
+    liftCurrentRyde: data => dispatch(liftCurrentRyde(data))
   }
 }
 
@@ -70,6 +71,7 @@ class ConnectedListCard extends Component {
 
   render() {
     let ryde = this.props.ryde;
+    console.log('HERES THE RYDE', ryde);
     let reocurringDaysJSX, reocurringColon, actionButton, riders;
     let current = Date.now();
     let departDate = this.props.ryde.departDate
@@ -91,18 +93,14 @@ class ConnectedListCard extends Component {
         this.refs.addRemoveButton.style.transform = 'rotate(0deg)';
       }
 
-      let completed = (current<=departDate ? (<button>Completed</button>
-      ):(
-        <button>Delete</button>))
+      let completed = (current <= departDate ? (<button>Completed</button>):(<button>Delete</button>))
       actionButton = (
         <div>
-          <button>Edit</button>
+          <Link to='/editaryde' onClick={ () => this.props.liftCurrentRyde(ryde._id) }><button>Edit</button></Link>
           {completed}
-
-
-
         </div>
       )
+
     } else {
       // The user is logged in, but isn't on the Dryves tab of the MyRydes page
       console.log('Youre on the MyRydes page Rydes tab');
@@ -174,7 +172,7 @@ class ConnectedListCard extends Component {
               <img src='https://www.placecage.com/c/185/230' alt='dryver' />
             </div>
             <div className='list-card-driver-details'>
-              <li>Bernie Sanders</li>
+              <li>{ryde.driver.name}</li>
               <li>4.8 / 5</li>
             </div>
           </div>
