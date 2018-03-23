@@ -21,6 +21,7 @@ class ConnectedNavLoggedIn extends Component {
   }
 
   render() {
+    // Instead of doing this, have "Post a Ryde" link to the "sign up to be a driver" form?
     if (this.props.user.dryver) {
       return (
         <div className='nav-link-div'>

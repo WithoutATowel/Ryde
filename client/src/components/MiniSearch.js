@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import store from '../redux/store/index';
 import { liftMiniSearch } from '../redux/actions/index';
 import { Link,Redirect } from 'react-router-dom';
+import { Input } from 'react-materialize';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -63,9 +64,9 @@ class ConnectedMiniSearch extends Component {
             <input className='minisearchinput' type='number' maxLength='5' placeholder='Going to... Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipEndInput = input;}} />
           </div>
           <div className='col m4'>
-            <input type="date" className="datepicker minisearchinput" placeholder="Date To Depart" autoComplete='departure-time' ref={(input)=>{this.departDate = input;}} />
+            <Input type="date" className="datepicker minisearchinput" options={{format: 'yyyy-mm-dd'}} placeholder="Date To Depart" autoComplete='departure-time' ref={(input)=>{this.departDate = input;}} />
           </div>
-          <button className='center' type='submit'>Submit</button>
+          <button className='center rydeGreenBtn btn' type='submit'>Submit</button>
         </form>
 
     )

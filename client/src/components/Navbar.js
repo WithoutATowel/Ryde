@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {Modal} from 'react-materialize';
+import { Modal } from 'react-materialize';
 // import store from '../redux/store/index';
 import '../css/navbar.css';
 import Login from './Login';
@@ -46,12 +46,10 @@ class ConnectedNav extends Component {
     } else {
       return (
         <div>
-          <Modal
-            header='Login' id="login-modal" >
+          <Modal header='Login' id="login-modal" actions='' >
             <Login />
           </Modal>
-          <Modal
-            header='Sign Up' id="signup-modal" >
+          <Modal header='Sign Up' id="signup-modal" actions='' >
               <Signup />
           </Modal>
           <div className="navbar-fixed">

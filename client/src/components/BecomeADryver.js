@@ -9,9 +9,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 class ConnectedBecomeADryver extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   becomeDryverSubmit(e) {
     e.preventDefault()
