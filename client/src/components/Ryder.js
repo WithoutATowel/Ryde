@@ -85,7 +85,7 @@ class Ryder extends Component {
               <Link to={profileLink}>
                 <h5>{this.props.ryder.name}</h5>
               </Link>
-              <span>Rating<i className="material-icons">star</i> {starRating}</span>
+              <span><i className="material-icons">star</i> {starRating}/5</span>
             </div>
 
           </div>
