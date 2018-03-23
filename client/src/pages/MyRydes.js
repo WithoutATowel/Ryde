@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggleRydesTab: bool => dispatch(toggleRydesTab(bool)),
+    toggleRydesTab: data => dispatch(toggleRydesTab(data)),
     liftMyRydesDryves: data => dispatch(liftMyRydesDryves(data)),
     liftTokenToState: data => dispatch(liftTokenToState(data)),
     logout: () => dispatch(logout())
@@ -30,13 +30,17 @@ class ConnectedMyRydes extends Component {
     // Query for user's rydes or dryves as needed, where results are stored by server in Redux under 'myRydesDryves'
     axios.get(route + '/' + this.props.user._id)
       .then( result => {
-        // Flip the rydesTabIsToggled state value in Redux
-        this.props.toggleRydesTab(!this.props.rydesTabIsToggled);
-        // Lift the results to myRydesDryves in Redux
+        // Flip the rydesTabIsToggled state value in Redux AND lift the results to myRydesDryves in Redux
         if (result.data && result.data.length > 0) {
-          this.props.liftMyRydesDryves(result.data);
+          this.props.toggleRydesTab({
+            rydesTabIsToggled: !this.props.rydesTabIsToggled,
+            myRydesDryves: result.data
+          });
         } else {
-          this.props.liftMyRydesDryves([]);
+          this.props.toggleRydesTab({
+            rydesTabIsToggled: !this.props.rydesTabIsToggled,
+            myRydesDryves: []
+          });
         }
       });
   }
