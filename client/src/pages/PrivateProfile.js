@@ -13,7 +13,7 @@ class PrivateProfile extends Component {
   handleBecomeDryverSubmit(e) {
     e.preventDefault()
     let carType = this.carTypeInput.value
-    console.log(carType)
+    console.log(this.carType.value)
     // axios.post('/profile/' + this.props.clickedUserId + '/reviewuser', {
     //   clickedId: this.props.clickedUserId,
     //   rating: parseInt(this.state.selectedRating),
