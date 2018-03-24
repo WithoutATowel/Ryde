@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { liftUpdatedUser } from '../redux/actions/index';
+import { Input } from 'react-materialize';
 // import store from '../redux/store/index';
 import axios from 'axios';
 
 const mapDispatchToProps = dispatch => {
   return { liftUpdatedUser: user => dispatch(liftUpdatedUser(user)) };
+}
+
+const mapStateToProps = state => {
+  return { user: state.user }
 }
 
 class ConnectedUpdateProfile extends Component {
@@ -45,39 +50,41 @@ class ConnectedUpdateProfile extends Component {
         .then( result => {
           console.log('heres result data', result.data)
         // this.props.liftUpdatedUser(result.data)
+        // yo
     }).catch( err => console.log(err) )
   }
 
   render() {
+    let user = this.props.user
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="row">
           <div className="col s12 m6">
-            Name: <input type='text' ref={ input => {this.name = input}} placeholder='Full name' required />
+            Name: <input value={user.name} type='text' ref={ input => {this.name = input}} placeholder='Full name' required />
           </div>
           <div className="col s12 m6">
-            Email: <input type='email' ref={ input => {this.email = input}} placeholder='email@email.com' required />
+            Email: <input value={user.email} type='email' ref={ input => {this.email = input}} placeholder='email@email.com' required />
           </div>
         </div>
 
         <div className="row">
           {/* <div className="col s12 m9">
-            Password - required: <input type='password' ref={ input => {this.password = input}} placeholder='P@$$w0rD! - must be a minimum of 8 characters' required />
+            Password - required: <input value={user.password} type='password' ref={ input => {this.password = input}} placeholder='P@$$w0rD! - must be a minimum of 8 characters' required />
           </div> */}
           <div className="col s12 m3">
-            Date of birth: <input type='text' ref={ input => {this.dob = input}} placeholder='March 15 1990' required />
+            Date of birth: <input value={user.dob} type='text' ref={ input => {this.dob = input}} placeholder='March 15 1990' required />
           </div>
         </div>
 
         <div className="row">
           <div className="col s12 m4">
-            Home Street Address: <input type='text' ref={input => {this.homeStreet = input}} placeholder='123 Main St' />
+            Home Street Address: <input value={user.homeAddress.street} type='text' ref={input => {this.homeStreet = input}} placeholder='123 Main St' />
           </div>
           <div className="col s12 m3">
-            Home City: <input type='text' ref={input => {this.homeCity = input}} placeholder='Seattle' required />
+            Home City: <input value={user.homeAddress.city} type='text' ref={input => {this.homeCity = input}} placeholder='Seattle' required />
           </div>
           <div className="col s12 m2">
-            Home State: <select defaultValue='' ref={input => {this.homeState = input}} required>
+            Home State: <Input type='select' defaultValue={user.homeAddress.state} ref={input => {this.homeState = input}} required>
                                           <option value="" disabled>Select one--</option>
                                           <option value="AL">Alabama</option>
                                           <option value="AK">Alaska</option>
@@ -130,22 +137,22 @@ class ConnectedUpdateProfile extends Component {
                                           <option value="WV">West Virginia</option>
                                           <option value="WI">Wisconsin</option>
                                           <option value="WY">Wyoming</option>
-                                        </select>
+                                        </Input>
           </div>
           <div className="col s12 m3">
-            Home Zip: <input type='number' ref={input => {this.homeZip = input}} placeholder='98102' />
+            Home Zip: <input value={user.homeAddress.zip} type='number' ref={input => {this.homeZip = input}} placeholder='98102' />
           </div>
         </div>
 
         <div className="row">
           <div className="col s12 m4">
-            Work Street Address: <input type='text' ref={input => {this.workStreet = input}} placeholder='456 Thunder Road' />
+            Work Street Address: <input value={user.workAddress.street} type='text' ref={input => {this.workStreet = input}} placeholder='456 Thunder Road' />
           </div>
           <div className="col s12 m3">
-            Work City: <input type='text' ref={input => {this.workCity = input}} placeholder='Seattle' />
+            Work City: <input value={user.workAddress.city} type='text' ref={input => {this.workCity = input}} placeholder='Seattle' />
           </div>
           <div className="col s12 m2">
-            Work State: <select defaultValue='' ref={input => {this.workState = input}}>
+            Work State: <Input type='select' defaultValue={user.workAddress.state} ref={input => {this.workState = input}}>
                               <option value="" disabled>Select one--</option>
                               <option value="AL">Alabama</option>
                               <option value="AK">Alaska</option>
@@ -198,16 +205,16 @@ class ConnectedUpdateProfile extends Component {
                               <option value="WV">West Virginia</option>
                               <option value="WI">Wisconsin</option>
                               <option value="WY">Wyoming</option>
-                            </select>
+                            </Input>
           </div>
           <div className="col s12 m3">
-            Work Zip: <input type='number' ref={input => {this.workZip = input}} placeholder='98101' />
+            Work Zip: <input value={user.workAddress.zip} type='number' ref={input => {this.workZip = input}} placeholder='98101' />
           </div>
         </div>
 
         <div className="row">
           <div className="col s12">
-            <input type='submit' className="rydeBlueBtn btn modal-action modal-close" value='Sign Up!' />
+            <input type='submit' className="rydeBlueBtn btn modal-action modal-close" value='Update' />
           </div>
         </div>
       </form>
@@ -215,6 +222,6 @@ class ConnectedUpdateProfile extends Component {
   }
 }
 
-const UpdateProfile = connect(null, mapDispatchToProps)(ConnectedUpdateProfile);
+const UpdateProfile = connect(mapStateToProps, mapDispatchToProps)(ConnectedUpdateProfile);
 
 export default UpdateProfile;

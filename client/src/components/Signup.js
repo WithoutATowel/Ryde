@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 // import store from '../redux/store/index';
 import { liftTokenToState } from '../redux/actions/index';
 import { Redirect } from 'react-router-dom';
-import {Input} from 'react-materialize';
+import { Input } from 'react-materialize';
 import axios from 'axios';
 
 const mapDispatchToProps = dispatch => {
@@ -80,7 +80,7 @@ class ConnectedSignup extends Component {
                   City <input type='text' ref={input => {this.homeCity = input}} placeholder='Seattle' required />
                 </div>
                 <div className="col s12 m2">
-                  State <select defaultValue='' ref={input => {this.homeState = input}} required>
+                  State <Input type='select' defaultValue='' ref={input => {this.homeState = input}} required>
                     <option value="" disabled>Select</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -133,7 +133,7 @@ class ConnectedSignup extends Component {
                     <option value="WV">West Virginia</option>
                     <option value="WI">Wisconsin</option>
                     <option value="WY">Wyoming</option>
-                  </select>
+                  </Input>
                 </div>
                 <div className="col s12 m3">
                   Zipcode<input type='number' ref={input => {this.homeZip = input}} placeholder='Zip code' />
@@ -148,7 +148,7 @@ class ConnectedSignup extends Component {
                   City <input type='text' ref={input => {this.workCity = input}} placeholder='Seattle' />
                 </div>
                 <div className="col s12 m2">
-                  State <select defaultValue='' ref={input => {this.workState = input}}>
+                  State <Input type='select' defaultValue='' ref={input => {this.workState = input}}>
                     <option value="" disabled>Select</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -201,7 +201,7 @@ class ConnectedSignup extends Component {
                     <option value="WV">West Virginia</option>
                     <option value="WI">Wisconsin</option>
                     <option value="WY">Wyoming</option>
-                  </select>
+                  </Input>
                 </div>
                 <div className="col s12 m3">
                   Zipcode <input type='number' ref={input => {this.workZip = input}} placeholder='Zip code' />

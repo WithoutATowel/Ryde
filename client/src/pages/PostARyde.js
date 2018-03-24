@@ -3,8 +3,14 @@ import '../css/postaryde.css';
 import RydeForm from '../components/RydeForm';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-// import store from '../redux/store/index';
+import { toggleRydesTab } from '../redux/actions/index';
 import axios from 'axios';
+
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleRydesTab: data => dispatch(toggleRydesTab(data)),
+  }
+}
 
 const mapStateToProps = state => {
   return {
@@ -105,7 +111,6 @@ class ConnectedPostARyde extends Component {
       numDepartTime.push(+newDate)
     })
 
-
     // year, month, day, hour, minute, second, and millisecond
     var departDateTime =  Date.UTC(...numDepartDate, ...numDepartTime)
 
@@ -180,23 +185,24 @@ class ConnectedPostARyde extends Component {
     }
 
     axios.post('/postARyde', trip).then(result => {
-
-      if(!this.state.twoWay){
+      this.props.toggleRydesTab({ rydesTabIsToggled: false });
+      if(!this.state.twoWay) {
         this.setState({
-          redirect:true
+          redirect: true
         })
       }
       if (this.state.twoWay) {
         axios.post('/postARyde', returnTrip).then(result => {
           if(this.state.twoWay){
             this.setState({
-              redirect:true
+              redirect: true
             })
           }
         }).catch(err => {
           console.log(err);
         })
       }
+
     }).catch(err => {
       console.log(err);
     })
@@ -252,7 +258,7 @@ class ConnectedPostARyde extends Component {
   }
 }
 
-const PostARyde = connect(mapStateToProps)(ConnectedPostARyde);
+const PostARyde = connect(mapStateToProps, mapDispatchToProps)(ConnectedPostARyde);
 
 
 export default PostARyde;

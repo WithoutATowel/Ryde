@@ -268,10 +268,17 @@ app.post('/mydryves', (req, res, next) => {
         user.pendingTrips.splice(user.pendingTrips.indexOf(tripId),1);
         message = 'Approved the user!';
       } else if (action === 'reject') {
-        trip.deniedRiders.push(userId);
+        console.log('Reject User from Trip Before:', trip.deniedRiders)
+        if (!trip.deniedRiders.includes(userId)) {
+          trip.deniedRiders.push(userId);
+        }
         trip.pendingRiders.splice(trip.pendingRiders.indexOf(userId),1);
+        trip.ridersId.splice(trip.ridersId.indexOf(userId),1);
+
         user.deniedTrips.push(tripId);
         user.pendingTrips.splice(user.pendingTrips.indexOf(tripId),1);
+        user.completedTrips.splice(user.completedTrips.indexOf(tripId),1)
+        console.log('reject user after: ', user.pendingTrips)
         message = 'Denied the user!';
       }
       trip.save(function (err, updatedTrip) {
