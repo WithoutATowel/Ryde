@@ -1,3 +1,16 @@
-.user-profile-h1 {
-  color: blue;
+#private-profile .pic-circle {
+    margin: 0 auto;
+}
+
+/*#private-profile ul, li {
+    display: inline-block;
+}*/
+
+.profile-ratings-summary {
+    padding: 15px;
+    border: 1px solid black;
+}
+
+.profile-stats-column {
+    width: 100%;
 }

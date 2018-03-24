@@ -21,30 +21,36 @@ class PrivateProfile extends Component {
     let dryverSignupText = user.dryver ? 'No longer want to dryve?' : 'Become a Dryver';
     if (user) {
       return (
-        <div>
+        <div id="private-profile" className="container">
           <Modal header='Update Profile' id="update-profile-modal" >
             <UpdateProfile userId={user._id} />
           </Modal>
           {/* <Modal header='Delete Yourself!' id='deleteuser-modal'>
             <DeleteUser />
           </Modal> */}
-          <h1 className='user-profile-h1'>{user.name}'s Profile Page</h1>
-          <div className='row'>
-            <div className='col s12 center-align'>
-              {/* <div className='profile-backing-off-white center-align'></div> */}
-              <div className='pic-circle'>
+          <h2 className='user-profile-h1'>{user.name}'s Profile Page</h2>
+          <div className='row profile-ratings-summary'>
+            <div className='col m4'>
+              <div className='pic-circle center-align'>
                 <img src='https://www.placecage.com/c/185/230' alt='profile' />
               </div>
-              <br />
-              <h5>{user.name}</h5>
-              <a href='#update-profile-modal' className="modal-trigger ">Update profile</a>
-              <ul>
-                <li>Ryder Rating: {ryderRating > 0 ? ryderRating : 'no ratings yet'}</li>
-                <li>Total Rydes: {user.completedTrips.length > 0 ? user.completedTrips : 'no trips yet'}</li>
-                <li>Dryver Rating: {dryverRating > 0 ? dryverRating : 'no ratings yet'}</li>
-                <li>Total Dryves: {user.completedDryves.length > 0 ? user.completedDryves : 'no trips yet'}</li>
-                <li>Car type: {user.car}</li>
-              </ul>
+            </div>
+            {/*<a href='#update-profile-modal' className="modal-trigger ">Update profile</a> */}
+              <div className='profile-stats-column col m4'>
+                <h5>Ryder Stats</h5>
+                <ul>
+                  <li>Rating: {ryderRating > 0 ? ryderRating : 'no ratings yet'}</li>
+                  <li>Total Trips: {user.completedTrips.length > 0 ? user.completedTrips : 'no trips yet'}</li>
+                </ul>
+              </div>
+              <div className='profile-stats-column col m4'>
+                <h5>Dryver Stats</h5>
+                <ul>
+                  <li>Dryver Rating: {dryverRating > 0 ? dryverRating : 'no ratings yet'}</li>
+                  <li>Total Dryves: {user.completedDryves.length > 0 ? user.completedDryves : 'no trips yet'}</li>
+                </ul>
+              </div>
+          </div>
               <h5>{dryverSignupText}</h5>
               {dryverOptions}
              {/* 
@@ -58,8 +64,7 @@ class PrivateProfile extends Component {
                 </Modal>
               </div>
               */}
-            </div>
-          </div>
+          
         </div>
       )
     } else {
