@@ -559,6 +559,9 @@ body .switcher__label {
   .list-card-main {
     display: flex;
   }
-
+  
+  .profile-card  {
+    display: flex;
+  }
 
 }
