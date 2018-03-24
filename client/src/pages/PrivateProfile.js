@@ -47,7 +47,7 @@ class PrivateProfile extends Component {
               </ul>
               <h5>{dryverSignupText}</h5>
               {dryverOptions}
-             {/* 
+             
               <br />
 
               <div>
@@ -57,7 +57,7 @@ class PrivateProfile extends Component {
                 	<DeleteUser />
                 </Modal>
               </div>
-              */}
+
             </div>
           </div>
         </div>

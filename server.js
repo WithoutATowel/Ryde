@@ -33,12 +33,63 @@ app.use(function(req, res, next) {
 });
 
 app.delete('/deleteuser', (req,res,next)=>{
-  console.log(req.body);
-  // User.findOneAndRemove({req.body}, function(err, doc){
-  //   Trip.find
-  // })
+  let {email, password, userId} = req.body
+  let toDelete = {
+    email
+  }
+  console.log(userId);
+  let current = Date.now()
+  let userTrips = {
+    departDate: {$gte: current},
+    driverId:ObjectId(userId)
+  }
+  let tripRider = {
+    departDate: {$gte: current},
+    ridersId: {$in:[userId]}
+  }
+  let tripPend = {
+    departDate: {$gte: current},
+    pendingRiders: {$in:[userId]}
+  }
+  let tripDenied = {
+    departDate: {$gte: current},
+    deniedRiders: {$in:[userId]}
+  }
+  console.log(toDelete);
+  // remove the user from User table
+  User.findOneAndRemove(toDelete, function(err, doc1){
+    // remove the user's trips if he is a driver
+    console.log('removeuser: ',doc1);
+    Trip.remove(userTrips).exec(function(err, doc2){
+      //update trips where user is a denied,pending, and rider
+      console.log('removetrips :',doc2);
+      Trip.update(
+        tripRider,
+        {$pull:{ridersId: userId}},
+        {multi:true}
+      ).exec(function(err, doc3){
+        console.log('removerider: ',doc3);
+        Trip.update(
+          tripPend,
+          {$pull:{ridersId: userId}},
+          {multi:true}
+        ).exec(function(err, doc4){
+          console.log('removepend: ',doc4);
+          Trip.update(
+            tripDenied,
+            {$pull:{ridersId: userId}},
+            {multi:true}
+          ).exec(function(err, doc5){
+            console.log('removedenied: ',doc5);
 
+            res.send({msg:'working?'})
+          })
+        })
+      })
+    })
+  })
 })
+
 
 app.get('/finduser/:id', (req, res, next) => {
   User.findById({_id: req.params.id}, function(err, user) {
