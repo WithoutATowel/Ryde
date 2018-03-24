@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { liftUpdatedUser } from '../redux/actions/index';
+import { Input } from 'react-materialize';
 // import store from '../redux/store/index';
 import axios from 'axios';
 
@@ -83,7 +84,7 @@ class ConnectedUpdateProfile extends Component {
             Home City: <input value={user.homeAddress.city} type='text' ref={input => {this.homeCity = input}} placeholder='Seattle' required />
           </div>
           <div className="col s12 m2">
-            Home State: <select defaultValue={user.homeAddress.state} ref={input => {this.homeState = input}} required>
+            Home State: <Input type='select' defaultValue={user.homeAddress.state} ref={input => {this.homeState = input}} required>
                                           <option value="" disabled>Select one--</option>
                                           <option value="AL">Alabama</option>
                                           <option value="AK">Alaska</option>
@@ -136,7 +137,7 @@ class ConnectedUpdateProfile extends Component {
                                           <option value="WV">West Virginia</option>
                                           <option value="WI">Wisconsin</option>
                                           <option value="WY">Wyoming</option>
-                                        </select>
+                                        </Input>
           </div>
           <div className="col s12 m3">
             Home Zip: <input value={user.homeAddress.zip} type='number' ref={input => {this.homeZip = input}} placeholder='98102' />
@@ -151,7 +152,7 @@ class ConnectedUpdateProfile extends Component {
             Work City: <input value={user.workAddress.city} type='text' ref={input => {this.workCity = input}} placeholder='Seattle' />
           </div>
           <div className="col s12 m2">
-            Work State: <select defaultValue={user.workAddress.state} ref={input => {this.workState = input}}>
+            Work State: <Input type='select' defaultValue={user.workAddress.state} ref={input => {this.workState = input}}>
                               <option value="" disabled>Select one--</option>
                               <option value="AL">Alabama</option>
                               <option value="AK">Alaska</option>
@@ -204,7 +205,7 @@ class ConnectedUpdateProfile extends Component {
                               <option value="WV">West Virginia</option>
                               <option value="WI">Wisconsin</option>
                               <option value="WY">Wyoming</option>
-                            </select>
+                            </Input>
           </div>
           <div className="col s12 m3">
             Work Zip: <input value={user.workAddress.zip} type='number' ref={input => {this.workZip = input}} placeholder='98101' />
@@ -213,7 +214,7 @@ class ConnectedUpdateProfile extends Component {
 
         <div className="row">
           <div className="col s12">
-            <input type='submit' className="rydeBlueBtn btn modal-action modal-close" value='Sign Up!' />
+            <input type='submit' className="rydeBlueBtn btn modal-action modal-close" value='Update' />
           </div>
         </div>
       </form>

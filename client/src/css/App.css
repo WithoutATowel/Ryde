@@ -258,6 +258,7 @@ a.main-menu-button-collapse {
 }
 
 /* ======== Post A Ryde ======== */
+
 #sun-sat {
   display: flex;
   justify-content: space-between;
@@ -454,6 +455,7 @@ footer p {
 
 
 /* ======= My Rides/Dryves ======= */
+
 .pending-users {
 
 }
@@ -489,7 +491,6 @@ footer p {
   justify-content: center;
   align-items: center;
 }
-
 
 /* ======= Switcher ======= */
 
@@ -558,6 +559,9 @@ body .switcher__label {
   .list-card-main {
     display: flex;
   }
-
+  
+  .profile-card  {
+    display: flex;
+  }
 
 }
