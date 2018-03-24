@@ -50,10 +50,17 @@ html, body {
   background: #f7f7f7;
 }
 
+.gray-card h5 {
+  margin-left: 0;
+}
+
 .gray-container {
   padding: 20px;
   background: #f7f7f7;
   border-radius: 5px;
+  margin-bottom: 25px;
+  -webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
 }
 
 input[type="text"] {
@@ -281,8 +288,8 @@ a.main-menu-button-collapse {
 }
 
 .car-type-input {
-  margin-top: 16px !important;
-  margin-bottom: 7px !important;
+  /*margin-top: 16px !important;*/
+  /*margin-bottom: 7px !important;*/
 }
 
 .smoking-pets {
