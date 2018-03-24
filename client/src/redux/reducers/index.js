@@ -28,7 +28,7 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 rydesTabIsToggled: action.payload.rydesTabIsToggled,
-                myRydesDryves: action.payload.myRydesDryves
+                myRydesDryves: action.payload.myRydesDryves ? action.payload.myRydesDryves : state.myRydesDryves
             };
         case LIFT_CURRENT_PAGE_TO_STATE:
             console.log('The current page is...', action.payload);
