@@ -59,9 +59,9 @@ class ConnectedDeleteUser extends Component {
         }
       })
     } else {
-      // this.setState({
-      //   wrongEmail:true
-      // })
+      this.setState({
+        wrongEmail:true
+      })
       console.log('something');
     }
   }

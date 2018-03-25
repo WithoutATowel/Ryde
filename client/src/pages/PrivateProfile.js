@@ -25,9 +25,6 @@ class PrivateProfile extends Component {
           <Modal header='Update Profile' id="update-profile-modal" >
             <UpdateProfile userId={user._id} />
           </Modal>
-          {/* <Modal header='Delete Yourself!' id='deleteuser-modal'>
-            <DeleteUser />
-          </Modal> */}
           <h1 className='user-profile-h1'>{user.name}'s Profile Page</h1>
           <div className='row'>
             <div className='col s12 center-align'>
@@ -47,17 +44,12 @@ class PrivateProfile extends Component {
               </ul>
               <h5>{dryverSignupText}</h5>
               {dryverOptions}
-             {/* 
               <br />
-
               <div>
-                <Modal
-                	header='Delete Yourself!'
-                  trigger={<Button>Delete</Button>}>
+                <Modal header='Delete Yourself!' trigger={<Button>Delete</Button>}>
                 	<DeleteUser />
                 </Modal>
               </div>
-              */}
             </div>
           </div>
         </div>
