@@ -47,6 +47,7 @@ class ConnectedSignup extends Component {
         .then( result => {
         localStorage.setItem('rydeAppToken', result.data.token)
         this.props.liftTokenToState(result.data)
+        this.props.notifySuccess('signed up!')
     }).catch( err => console.log(err) )
   }
 

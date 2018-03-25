@@ -17,16 +17,21 @@ const mapStateToProps = state => {
 class ConnectedNav extends Component {
   constructor(props) {
     super(props)
-    this.notify = this.notify.bind(this)
+    this.notifyError = this.notifyError.bind(this)
+    this.notifySuccess = this.notifySuccess.bind(this)
   }
 
-  notify = () => toast.error("Incorrect email or password", {position: toast.POSITION.TOP_CENTER});
+  notifyError = () => toast.error("Incorrect email or password", {position: toast.POSITION.TOP_CENTER});
+
+  notifySuccess = (msg) => toast.success("You have successfully " + msg, {position: toast.POSITION.TOP_CENTER});
+
 
   render() {
     let theUser = this.props.user //|| this.state.googleUser
     if (theUser) {
       return (
         <div>
+          <ToastContainer />
           <div className="navbar-fixed">
             <nav>
               <div className="nav-wrapper">
@@ -51,11 +56,11 @@ class ConnectedNav extends Component {
       return (
         <div>
           <Modal header='Login' id="login-modal" actions='' >
-            <Login notify={this.notify} />
+            <Login notifyError={this.notifyError} notifySuccess={this.notifySuccess} />
           </Modal>
           <ToastContainer />
           <Modal header='Sign Up' id="signup-modal" actions='' >
-              <Signup />
+              <Signup notifySuccess={this.notifySuccess} />
           </Modal>
           <div className="navbar-fixed">
             <nav>
