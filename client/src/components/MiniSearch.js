@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import '../css/minisearch.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import store from '../redux/store/index';
 import { liftMiniSearch } from '../redux/actions/index';
-import { Link,Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { Input } from 'react-materialize';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -50,22 +50,22 @@ class ConnectedMiniSearch extends Component {
 
   render() {
     if(this.state.redirect){
-      return(<Redirect to="/discover" startZip={()=>{this.zipStartInput}}endZip={()=>{this.zipEndInput}}date={()=>{this.startDateInput}}/>)
+      return(<Redirect to="/discover" startZip={()=>{this.zipStartInput}} endZip={()=>{this.zipEndInput}} date={()=>{this.startDateInput}} />)
     }
 
     return (
 
         <form className="row center" onSubmit={(e)=>this.handleMiniSearch(e)}>
           <div className='col m4'>
-            <input className='minisearchinput' type='number' maxLength='5' placeholder='Starting... Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipStartInput = input;}} />
+            <input className='minisearchinput' type='number' maxLength='5' placeholder='Departing zipcode' autoComplete='postal-code' ref={(input)=>{this.zipStartInput = input;}} />
           </div>
           <div className='col m4'>
-            <input className='minisearchinput' type='number' maxLength='5' placeholder='Going to... Zipcode' autoComplete='postal-code' ref={(input)=>{this.zipEndInput = input;}} />
+            <input className='minisearchinput' type='number' maxLength='5' placeholder='Destination zipcode' autoComplete='postal-code' ref={(input)=>{this.zipEndInput = input;}} />
           </div>
           <div className='col m4'>
-            <input type="date" className="datepicker minisearchinput" placeholder="Date To Depart" autoComplete='departure-time' ref={(input)=>{this.departDate = input;}} />
+            <Input type="date" className="datepicker minisearchinput" options={{format: 'yyyy-mm-dd'}} placeholder="Date" autoComplete='departure-time' ref={(input)=>{this.departDate = input;}} />
           </div>
-          <button className='center' type='submit'>Submit</button>
+          <button className='center rydeGreenBtn btn' type='submit'>Submit</button>
         </form>
 
     )

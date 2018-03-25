@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {Modal} from 'react-materialize';
+import { Modal } from 'react-materialize';
+import { ToastContainer, toast } from 'react-toastify';
 // import store from '../redux/store/index';
 import '../css/navbar.css';
 import Login from './Login';
@@ -14,9 +15,12 @@ const mapStateToProps = state => {
 }
 
 class ConnectedNav extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
+  constructor(props) {
+    super(props)
+    this.notify = this.notify.bind(this)
+  }
+
+  notify = () => toast.error("Incorrect email or password", {position: toast.POSITION.TOP_CENTER});
 
   render() {
     let theUser = this.props.user //|| this.state.googleUser
@@ -30,7 +34,7 @@ class ConnectedNav extends Component {
                 <ul className="right hide-on-med-and-down">
                   <NavLoggedIn />
                 </ul>
-                <a href="#" data-activates="slide-out" className="main-menu-button-collapse hide-on-large-only">
+                <a href="#slide-out" data-activates="slide-out" className="main-menu-button-collapse hide-on-large-only">
                   <i className="material-icons">menu</i>
                 </a>
               </div>
@@ -46,12 +50,11 @@ class ConnectedNav extends Component {
     } else {
       return (
         <div>
-          <Modal
-            header='Login' id="login-modal" >
-            <Login />
+          <Modal header='Login' id="login-modal" actions='' >
+            <Login notify={this.notify} />
           </Modal>
-          <Modal
-            header='Sign Up' id="signup-modal" >
+          <ToastContainer />
+          <Modal header='Sign Up' id="signup-modal" actions='' >
               <Signup />
           </Modal>
           <div className="navbar-fixed">
@@ -61,7 +64,7 @@ class ConnectedNav extends Component {
                 <ul className="right hide-on-med-and-down">
                   <NavLoggedOut />
                 </ul>
-                <a href="#" data-activates="slide-out" className="main-menu-button-collapse hide-on-large-only">
+                <a href="#slide-out" data-activates="slide-out" className="main-menu-button-collapse hide-on-large-only">
                   <i className="material-icons">menu</i>
                 </a>
               </div>

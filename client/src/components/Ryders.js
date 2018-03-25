@@ -13,10 +13,12 @@ class Ryders extends Component {
   }
 
   componentDidMount() {
+    console.log('pending Riders: ',this.props.ryde._id, this.props.ryde.pendingRiders)
     axios.post('/ryders/pending',  {
           pending: this.props.ryde.pendingRiders
       }).then( result => {
       if (result.data && result.data.length > 0) {
+        console.log('returned pending: ', result.data)
         this.setState({
           pendingUsers: result.data
         })
@@ -34,6 +36,7 @@ class Ryders extends Component {
           confirmedUsers: result.data
         })
       } else {
+        this.setState({confirmedUsers: 'none'})
         console.log('failed ', result)
       }
     });
@@ -46,13 +49,17 @@ class Ryders extends Component {
       pendingRiders = 'No Pending Ryders Found'
     } else {
       pendingRiders = this.state.pendingUsers.map( (rider, index) => {
-      return <Ryder status='pending' ryde={this.props.ryde} ryder={rider} key={index} />
-    })};
-
-    let confirmedRiders = this.state.confirmedUsers.map( (rider, index) => {
-      console.log('confirmed', this.state.confirmedUsers)
-      return <Ryder status='confirmed' ryde={this.props.ryde} ryder={rider} key={index} />
-    });
+        return <Ryder status='pending' ryde={ryde} ryder={rider} key={index} />
+      })
+    };
+    let confirmedRiders
+    if (this.state.confirmedUsers === 'none') {
+      confirmedRiders = 'No Confirmed Ryders Found'
+    } else {
+      confirmedRiders = this.state.confirmedUsers.map( (rider, index) => {
+        return <Ryder status='confirmed' ryde={ryde} ryder={rider} key={index} />
+      })
+    };
 
     return (
       <div className='ryder-div'>

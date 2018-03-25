@@ -32,6 +32,64 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.delete('/deleteuser', (req,res,next)=>{
+  let {email, password, userId} = req.body
+  let toDelete = {
+    email
+  }
+  console.log(userId);
+  let current = Date.now()
+  let userTrips = {
+    departDate: {$gte: current},
+    driverId:ObjectId(userId)
+  }
+  let tripRider = {
+    departDate: {$gte: current},
+    ridersId: {$in:[userId]}
+  }
+  let tripPend = {
+    departDate: {$gte: current},
+    pendingRiders: {$in:[userId]}
+  }
+  let tripDenied = {
+    departDate: {$gte: current},
+    deniedRiders: {$in:[userId]}
+  }
+  console.log(toDelete);
+  // remove the user from User table
+  User.findOneAndRemove(toDelete, function(err, doc1){
+    // remove the user's trips if he is a driver
+    console.log('removeuser: ',doc1);
+    Trip.remove(userTrips).exec(function(err, doc2){
+      //update trips where user is a denied,pending, and rider
+      console.log('removetrips :',doc2);
+      Trip.update(
+        tripRider,
+        {$pull:{ridersId: userId}},
+        {multi:true}
+      ).exec(function(err, doc3){
+        console.log('removerider: ',doc3);
+        Trip.update(
+          tripPend,
+          {$pull:{ridersId: userId}},
+          {multi:true}
+        ).exec(function(err, doc4){
+          console.log('removepend: ',doc4);
+          Trip.update(
+            tripDenied,
+            {$pull:{ridersId: userId}},
+            {multi:true}
+          ).exec(function(err, doc5){
+            console.log('removedenied: ',doc5);
+
+            res.send({msg:'working?'})
+          })
+        })
+      })
+    })
+  })
+})
+
 
 app.get('/finduser/:id', (req, res, next) => {
   User.findById({_id: req.params.id}, function(err, user) {
@@ -46,12 +104,6 @@ app.get('/finduser/:id', (req, res, next) => {
   })
 })
 
-// app.post('/profile/:id/reviewuser', (req, res, next) => {
-//   User.findById(userId, function (err, user) {
-//     userId.
-//   })
-// })
-
 app.post('/bigsearch', (req, res, next) => {
   let body = lowerCase(req.body)
 
@@ -63,12 +115,14 @@ app.post('/bigsearch', (req, res, next) => {
     pets: body.pets,
     cost: {$lte: body.cost},
     reoccurring: body.reoccur,
-    seats: {$gte: body.seat}
+    seats: {$gte: body.seat},
+    completed: false,
+    deleted:false
   }
   // console.log(searchOptions);
   for (let key in searchOptions) {
     // console.log('--------------');
-    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key] === undefined || searchOptions[key]['$lte'] === ''|| searchOptions[key]['$gte'] === '') {
+    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key] === undefined || !(searchOptions[key]['$lte'])|| !(searchOptions[key]['$gte'])) {
       delete searchOptions[key]
     }
   }
@@ -77,7 +131,7 @@ app.post('/bigsearch', (req, res, next) => {
     searchOptions.driverId = {$ne:ObjectId(body.userId)}
     searchOptions.deniedRiders = {$ne: body.userId}
   }
-  // console.log(searchOptions);
+  console.log(searchOptions);
 
   Trip.find(searchOptions).lean().exec( function(err, trips) {
     let count = 0;
@@ -118,6 +172,40 @@ app.post('/bigsearch', (req, res, next) => {
   })
 })
 
+app.post('/complete', (req,res,next) =>{
+
+  User.findOneAndUpdate(
+    {_id: req.body.userId},
+    {$push:{completedDryves: req.body.rydeId}},
+    {new:true}
+  ).exec( function(err, doc) {
+    Trip.findByIdAndUpdate(
+      {_id:req.body.rydeId},
+      {$set:{completed:true}},
+      {new:true}
+    ).exec(function(err, doc){
+      res.send(doc)
+    })
+  })
+})
+app.post('/delete', (req,res,next) =>{
+
+  User.findOneAndUpdate(
+    {_id: req.body.userId},
+    {$push:{deletedDryves: req.body.rydeId}},
+    {new:true}
+  ).exec( function(err, doc) {
+      Trip.findByIdAndUpdate(
+        {_id:req.body.rydeId},
+        {$set:{completed:true}},
+        {new:true}
+    ).exec(function(err, doc){
+      res.send(doc)
+    })
+  })
+})
+
+
 app.post('/minisearch', (req,res,next) =>{
   let bodh = req.body
   var miniSearchObj ={
@@ -140,7 +228,6 @@ app.post('/minisearch', (req,res,next) =>{
       console.log(err);
       res.send(err);
     } else {
-      console.log(trips);
       res.send(trips);
     }
   })
@@ -148,7 +235,8 @@ app.post('/minisearch', (req,res,next) =>{
 
 app.get('/mydryves/:id', (req, res, next) => {
   var searchOptions = {
-    driverId: ObjectId(req.params.id)
+    driverId: ObjectId(req.params.id),
+    deleted:false
   }
   Trip.find(searchOptions).lean().exec( function(err, trips) {
     if(err){
@@ -180,10 +268,17 @@ app.post('/mydryves', (req, res, next) => {
         user.pendingTrips.splice(user.pendingTrips.indexOf(tripId),1);
         message = 'Approved the user!';
       } else if (action === 'reject') {
-        trip.deniedRiders.push(userId);
+        console.log('Reject User from Trip Before:', trip.deniedRiders)
+        if (!trip.deniedRiders.includes(userId)) {
+          trip.deniedRiders.push(userId);
+        }
         trip.pendingRiders.splice(trip.pendingRiders.indexOf(userId),1);
+        trip.ridersId.splice(trip.ridersId.indexOf(userId),1);
+
         user.deniedTrips.push(tripId);
         user.pendingTrips.splice(user.pendingTrips.indexOf(tripId),1);
+        user.completedTrips.splice(user.completedTrips.indexOf(tripId),1)
+        console.log('reject user after: ', user.pendingTrips)
         message = 'Denied the user!';
       }
       trip.save(function (err, updatedTrip) {
@@ -258,8 +353,90 @@ app.post('/myrydes', (req, res, next) => {
       }
     });
   });
-})
+});
 
+// Update User Info
+app.post('/profile/:id/edit', (req, res, next) => {
+  let {userId, name, email, dob, homeStreet, homeCity, homeState, homeZip, workStreet, workCity, workState, workZip} = req.body;
+  User.findOneAndUpdate(
+    {_id: userId},
+    {$set: {
+      name: name,
+      email: email,
+      dob: dob,
+      homeAddress: {
+        street: homeStreet,
+        city: homeCity,
+        state: homeState,
+        zip: homeZip
+      },
+      workAddress: {
+        street: workStreet,
+        city: workCity,
+        state: workState,
+        zip: workZip
+      }
+    } },
+    {new: true}
+  ).lean().exec(
+    function(err, doc) {
+      if (err) {
+        res.send('An error occurred', err);
+      } else {
+        res.send(doc)
+      }
+    }
+  )
+});
+
+// Become Dryver
+app.post('/profile/:id/becomedryver', (req, res, next) => {
+  console.log('from front end', req.body)
+
+  let {car, driversLicense, userId} = req.body;
+  User.findOneAndUpdate(
+    {_id: userId},
+    {$set: {
+      dryver: true,
+      license: driversLicense,
+      car
+    } },
+    {new: true}
+  ).lean().exec(
+    function(err, doc) {
+      if (err) {
+        res.send('An error occurred', err);
+      } else {
+        res.send(doc)
+      }
+    }
+  )
+});
+
+// Remove Dryver status
+app.post('/profile/:id/removedryverstatus', (req, res, next) => {
+  let { userId } = req.body;
+  console.log('hello');
+  User.findOneAndUpdate(
+    {_id: userId},
+    {$set: {
+      dryver: false,
+      license: '',
+      car: 'Not a Dryver'
+    } },
+    {new: true}
+  ).lean().exec(
+    function(err, doc) {
+      if (err) {
+        res.send('An error occurred', err);
+      } else {
+        res.send(doc)
+      }
+    }
+  )
+});
+
+// Review User
 app.post('/profile/:id/reviewuser', (req, res, next) => {
   let { clickedId, rating, userType, theUser } = req.body;
   let whichReviewed = (userType === 'ryder' ? 'Ryders' : 'Dryvers')
@@ -326,7 +503,7 @@ app.post('/profile/:id/reviewuser', (req, res, next) => {
 app.post('/postARyde', (req, res, next) => {
   let reqBody = lowerCase(req.body)
   console.log('Hit POST /postARyde route');
-  console.log(reqBody)
+
   Trip.create(reqBody, function(err, ryde) {
     if (err) {
       console.log("GOT AN ERROR CREATING THE RYDE", err)
@@ -353,7 +530,7 @@ app.post('/editARyde/:id', (req, res, next) => {
   console.log('Hit GET /editARyde/:id route');
   Trip.findById(req.params.id, function(err, trip) {
     if(err){
-      console.log(err);
+
       res.send(err);
     } else {
       Object.assign(trip, req.body);

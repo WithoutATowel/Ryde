@@ -16,7 +16,13 @@ class ConnectedDiscover extends Component {
   componentDidMount() {
     this.props.liftCurrentPageToState('/discover')
 
+    var oldJs = document.getElementById('discover-js');
+    if (oldJs) {
+      oldJs.parentElement.removeChild(oldJs);
+    }
+
     const script = document.createElement("script");
+    script.id = 'discover-js';
     script.src = "/js/discover.js";
     script.async = true;
     document.body.appendChild(script);
@@ -30,7 +36,7 @@ class ConnectedDiscover extends Component {
             <BigSearch />
           </ul>
           <div className="discover-nav-btn-cont">
-            <a href="#" data-activates="discover-slide-out" className="discover-sidnav hide-on-large-only">
+            <a href="#d-slide-out" data-activates="discover-slide-out" className="discover-sidnav hide-on-large-only">
               <i className="material-icons">filter_list</i>
               Filter Results
             </a>

@@ -56,13 +56,13 @@ class Ryder extends Component {
     if (this.props.status === 'pending') {
       buttons = (
         <span>
-          <button onClick={() => this.handleApprove()} className="rydeGreenBtn btn">Approve</button>
-          <button onClick={() => this.handleReject()} className="rydeBlueBtn btn">Reject</button>
+          <button onClick={() => this.handleApprove()} className="rydeGreenBtn btn colBtn">Approve</button>
+          <button onClick={() => this.handleReject()} className="rydeBlueBtn btn colBtn">Reject</button>
         </span>
       );
     } else if (this.props.status === 'confirmed') {
       buttons = (
-        <button onClick={this.handleReject} className="rydeBlueBtn btn">Reject</button>
+        <button onClick={() => this.handleReject()} className="rydeBlueBtn btn colBtn">Reject</button>
       );
     }
     let profileLink = '/profile/' + this.props.ryder._id
@@ -85,7 +85,7 @@ class Ryder extends Component {
               <Link to={profileLink}>
                 <h5>{this.props.ryder.name}</h5>
               </Link>
-              <span>Rating<i class="material-icons">star</i> {starRating}</span>
+              <span><i className="material-icons">star</i> {starRating}/5</span>
             </div>
 
           </div>

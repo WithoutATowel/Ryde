@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-// import store from '../redux/store/index';
-import { liftTokenToState } from '../redux/actions/index';
-import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 class ReviewUser extends Component {
@@ -22,7 +19,7 @@ class ReviewUser extends Component {
     e.preventDefault()
     axios.post('/profile/' + this.props.clickedUserId + '/reviewuser', {
       clickedId: this.props.clickedUserId,
-      rating: parseInt(this.state.selectedRating),
+      rating: parseInt(this.state.selectedRating, 2),
       userType: this.props.userType,
       theUser: this.props.theUser
     }).then( result => {

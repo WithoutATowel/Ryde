@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../css/bigsearch.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import store from '../redux/store/index';
 import { liftBigSearch } from '../redux/actions/index';
 import {Input,Row} from 'react-materialize';
 
@@ -16,9 +15,6 @@ const mapStateToProps = state =>{
 }
 
 class ConnectedBigSearch extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
 
   handleBigSearch = (e)=>{
     e.preventDefault()
@@ -30,14 +26,16 @@ class ConnectedBigSearch extends Component {
     let sCity = this.sCityInput.value
     let eCity= this.eCityInput.value
     //split returns an array without special characters which I parseint with +
-    let sDate= this.departDate.value.split('-').map((date,index)=>{
+    let sDate= this.departDate.value
+    sDate ? (sDate = sDate.split('-').map((date,index)=>{
       if(index === 1){
         return +date-1
       } else {
         return +date
       }
-    })
-    let sTime = this.departTime.value.split(':').map(time=>+time)
+    })) : (sDate = '')
+    let sTime = this.departTime.value
+    sTime ? (sTime = sTime.split(':').map(time=>+time)): (sTime = '')
     let pets = this.petInput.state.value
     let cost = this.costInput.value
     let reoccur = this.reoccurInput.checked
@@ -92,10 +90,10 @@ class ConnectedBigSearch extends Component {
           </div>
           <div className="row">
             <div className="col s12 m6">
-              <input type="date" className="datepicker" placeholder="Date To Depart" ref={(input)=>{this.departDate = input;}} />
+              <Input type="date" className="datepicker" options={{format: 'yyyy-mm-dd'}} placeholder="Date To Depart" ref={(input)=>{this.departDate = input;}} />
             </div>
             <div className='col s12 m6'>
-              <input type="text" className="timepicker" placeholder="Time To Depart" ref={(input)=>{this.departTime = input;}} />
+              <Input type="time" className="timepicker" options={{twelvehour: false}} placeholder="Time To Depart" ref={(input)=>{this.departTime = input;}} />
             </div>
           </div>
           <div className='row'>
@@ -110,7 +108,7 @@ class ConnectedBigSearch extends Component {
               </Row>
             </div>
             <br />
-            <button type='submit' className='rydeBtn Green btn'>Submit</button>
+            <button type='submit' className='rydeGreenBtn btn'>Submit</button>
           </div>
 
         </form>

@@ -1,6 +1,7 @@
 import { TOGGLE_RYDES_TAB } from '../constants/action-types';
 import { LIFT_CURRENT_PAGE_TO_STATE } from '../constants/action-types';
 import { LIFT_TOKEN_TO_STATE } from '../constants/action-types';
+import { LIFT_UPDATED_USER } from '../constants/action-types';
 import { LOGOUT_USER } from '../constants/action-types';
 import { LIFT_CLICKED_USER } from '../constants/action-types';
 import { LIFT_BIG_SEARCH } from '../constants/action-types';
@@ -8,10 +9,10 @@ import { LIFT_MINI_SEARCH } from '../constants/action-types';
 import { LIFT_MY_RYDES_DRYVES } from '../constants/action-types';
 import { LIFT_CURRENT_RYDE } from '../constants/action-types';
 
-export const toggleRydesTab = (rydesTabIsToggled) => (
+export const toggleRydesTab = (data) => (
   {
     type: TOGGLE_RYDES_TAB,
-    payload: rydesTabIsToggled
+    payload: data
   }
 )
 
@@ -26,6 +27,13 @@ export const liftTokenToState = data => (
       token: data.token,
       user: data.user
     }
+  }
+)
+
+export const liftUpdatedUser = user => (
+  {
+    type: LIFT_UPDATED_USER,
+    payload: user
   }
 )
 

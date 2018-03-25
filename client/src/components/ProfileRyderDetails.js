@@ -12,7 +12,7 @@ class ConnectedProfileRyderDetails extends Component {
     this.state = {
       clickedUser: this.props.clickedUser,
       theUser: this.props.user,
-      showReviewUser: !this.props.theUser.reviewedRyders.includes(this.props.clickedUser._id) ? true : false
+      showReviewUser: this.props.theUser ? (!this.props.theUser.reviewedRyders.includes(this.props.clickedUser._id) ? true : false) : false
     }
     this.handleUpdateProfileRyderDetails = this.handleUpdateProfileRyderDetails.bind(this)
   }
@@ -29,6 +29,7 @@ class ConnectedProfileRyderDetails extends Component {
     let displayReviewUser = null;
     let ratingAvg = this.state.clickedUser.ryderRatingAvg
     let cUser = this.props.clickedUser
+    let cUserName = cUser.name.match(/\S+/)
     if (this.props.theUser && this.state.showReviewUser) {
       displayReviewUser = (
         <ReviewUser
@@ -49,9 +50,8 @@ class ConnectedProfileRyderDetails extends Component {
           <div className='ryder-dryver-details-wrapper'>
             <h4>Ryder</h4>
             {displayReviewUser}
-            <p>~~~REMOVE LATER~~~Ratings goes here: {cUser.ryderRatings.length > 0 ? cUser.ryderRatings : 'no ratings yet'}</p>
-            <p>{cUser.name}'s Ryder rating: {ratingAvg > 0 ? ratingAvg : 'no ratings yet'}</p>
-            <p>{cUser.name}'s total rydes: {cUser.completedTrips.length > 0 ? cUser.completedTrips : 'no trips yet'}</p>
+            <p>{cUserName}'s Ryder rating: {ratingAvg > 0 ? ratingAvg : 'no ratings yet'}</p>
+            <p>{cUserName}'s total rydes: {cUser.completedTrips.length > 0 ? cUser.completedTrips : 'no trips yet'}</p>
             <p>~~~~~~~FIGURE OUT HOW TO LIST REVIEWS/COMMENTS HERE~~~~~~~~</p>
           </div>
         </div>

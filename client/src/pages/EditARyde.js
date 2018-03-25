@@ -25,7 +25,6 @@ class ConnectedEditARyde extends Component {
       reoccurring: false,
       twoWay: false,
       rydeName: '',
-      rydeName: '',
       startStreet: '',
       startCity: '',
       startState: '',
@@ -86,12 +85,7 @@ class ConnectedEditARyde extends Component {
           let fullDepartDate = rawDepartDate.getFullYear() + '-' + departMonth + '-' + departDate;
           let departTime = rawDepartDate.getHours() + ':' + rawDepartDate.getMinutes();
 
-          // Convert return timestamp into YYYY-MM-DD format and extract returnTime
-          let rawReturnDate = new Date(results.departDate);
-          let returnMonth = rawReturnDate.getMonth() < 10 ? ('0' + rawReturnDate.getMonth()) : rawReturnDate.getMonth();
-          let returnDate = rawReturnDate.getDate() < 10 ? ('0' + rawReturnDate.getDate()) : rawReturnDate.getDate();
-          let fullReturnDate = rawReturnDate.getFullYear() + '-' + returnMonth + '-' + rawReturnDate.getDate();
-          let returnTime = rawReturnDate.getHours() + ':' + rawReturnDate.getMinutes();
+
 
           this.setState({
             reoccurring: false,
@@ -107,8 +101,6 @@ class ConnectedEditARyde extends Component {
             endZip: results.endAddress.zip,
             departDate: fullDepartDate,
             departTime: departTime,
-            returnDepartDate: fullReturnDate,
-            returnDepartTime: returnTime,
             reoccurringSun: results.reoccurringDays[0],
             reoccurringMon: results.reoccurringDays[1],
             reoccurringTues: results.reoccurringDays[2],

@@ -20,7 +20,7 @@ class ConnectedLogin extends Component {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
     }
     this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
@@ -41,12 +41,11 @@ class ConnectedLogin extends Component {
       email: this.state.email,
       password: this.state.password
     }).then( result => {
-      console.log('@@@ Login result.data', result.data)
       if (result.data.user) {
         localStorage.setItem('rydeAppToken', result.data.token)
         this.props.liftTokenToState(result.data)
       } else {
-        console.log("Handle the lack of user here...")
+        this.props.notify()
       }
     }).catch( err => console.log(err) )
   }
@@ -59,9 +58,12 @@ class ConnectedLogin extends Component {
         <form onSubmit={this.handleSubmit}>
           Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} />
           <br />
-          Password: <input type='text' value={this.state.password} onChange={this.handlePasswordChange} />
+          Password: <input type='password' value={this.state.password} onChange={this.handlePasswordChange} />
           <br />
-          <input type='submit' className="rydeBlueBtn btn modal-action modal-close" value='Log In!' />
+          <div className="col s12 modal-buttons">
+            <input type='submit' className="rydeBlueBtn btn modal-action modal-close" value='Log In' />
+            <button className="rydeBlueBtn btn modal-action modal-close cancel-button">Cancel</button>
+          </div>
         </form>
       )
     }

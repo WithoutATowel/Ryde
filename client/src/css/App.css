@@ -8,9 +8,14 @@
    Light Gray: #F7F7F7
 */
 
+input:focus, textarea:focus, select:focus {
+    outline-offset: 0px;
+}
+
 html, body {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
 .App {
@@ -34,17 +39,29 @@ html, body {
 .switch {
   display: flex;
   justify-content: center;
+  margin: 30px 0px 10px;
 }
+
+.container [
+  margin-bottom: 30px;
+]
 
 .gray-card {
   padding: 2vw 2vw 1vw;
   background: #f7f7f7;
 }
 
+.gray-card h5 {
+  margin-left: 0;
+}
+
 .gray-container {
   padding: 20px;
   background: #f7f7f7;
   border-radius: 5px;
+  margin-bottom: 25px;
+  -webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
 }
 
 input[type="text"] {
@@ -54,14 +71,30 @@ input[type="text"] {
 
 input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
   border-bottom: 2px solid #9e9e9e;
+  margin: 0 0 11px 0;
 }
 
+
 input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
-    border-bottom: 1px solid #306FB5;
+    border-bottom: 2px solid #306FB5;
     -webkit-box-shadow: 0 1px 0 0 #306FB5;
     box-shadow: 0 1px 0 0 #306FB5;
     margin: 0 0 11px 0;
 }
+
+.datepicker, .timepicker {
+  width: 100%;
+}
+
+.col.input-field {
+  padding: 0;
+  width: 100%;
+}
+
+.seat-selector-cont {
+  margin-top: 4px;
+}
+
 
 .rydeGreenBtn {
   background: #18ED6E;
@@ -79,12 +112,16 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
   background: #306FB5;
   padding: 1px 40px;
   color: #ffffff;
-  margin: 0 auto;
-  display: table;
 }
 
 .rydeBlueBtn:hover {
   background: #4784c8;
+}
+
+.colBtn {
+  padding:0px;
+  width: 100%;
+  margin: 7px 0px;
 }
 
 .switch label input[type=checkbox]:checked+.lever {
@@ -97,6 +134,60 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 [type="checkbox"]:checked+label:before {
   border-right: 2px solid #306FB5;
   border-bottom: 2px solid #306FB5;
+}
+
+::-webkit-input-placeholder {
+  font-weight: bold;
+}
+
+.input-field {
+  margin-top: 0;
+}
+
+/* ======== Home ========= */
+
+#home {
+  background-image: url(/img/home-hero.jpg);
+  background-size: cover;
+  background-position: right center;
+  padding-top: 1px;
+}
+
+#home-blurb {
+  background-color: white;
+  /*margin: 5%;
+  border-radius: 5px;*/
+  padding: 3% 8% 5% 8%;
+ /* -webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);*/
+}
+
+.miniSearch {
+  background-color: white;
+  padding: 1%;
+  width: 70vw;
+  margin: 20vh auto 0;
+  border-radius: 5px;
+}
+
+.minisearchinput {
+  border-left: 1px solid grey;
+  margin-left: 2px;
+}
+
+/* ======== Sign-up + login ========= */
+
+.modal-buttons {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.modal-footer {
+  display: none;
+}
+
+.cancel-button {
+  margin-left: 3%
 }
 
 /* ======== Navbar ========= */
@@ -137,6 +228,11 @@ a.main-menu-button-collapse {
   color: #18ED6E;
 }
 
+.active {
+  background-color: #333333;
+  color: #18ED6E;
+}
+
 #login-modal {
   max-width: 100%;
   width: 500px;
@@ -151,6 +247,9 @@ a.main-menu-button-collapse {
 
 #list-box-outer-div {
   position: absolute;
+}
+#list-box-outer-div.not-container {
+  width: 100%;
 }
 
 #list-box-outer-div.position-relative {
@@ -194,11 +293,16 @@ a.main-menu-button-collapse {
   margin-top: 80px;
 }
 
+.action-button {
+  cursor: pointer;
+}
+
 .discover-side-column {
   background: #f7f7f7
 }
 
 /* ======== Post A Ryde ======== */
+
 #sun-sat {
   display: flex;
   justify-content: space-between;
@@ -209,19 +313,32 @@ a.main-menu-button-collapse {
 #sun-sat p {
   display: inline-block;
 }
-.extra-options {
-  padding: 20px;
-  margin: 28px 0px;
+.extra-option {
+  padding: 10px;
+  margin: 10px 0px 0px;
+}
+.extra-option .switch {
+  margin-bottom: 5px;
 }
 #post-a-ryde input[type="submit"] {
   margin-top: 40px;
 }
 
 .car-type-input {
-  margin-top: 16px !important;
-  margin-bottom: 7px !important;
+  /*margin-top: 16px !important;*/
+  /*margin-bottom: 7px !important;*/
 }
 
+.smoking-pets {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50px;
+  margin: 10px 0px;
+}
+.smoking-pets p {
+  margin-bottom: 0px;
+}
 
 
 /* ======= Footer =========== */
@@ -246,12 +363,51 @@ footer p {
   box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
 }
 
+.disappear, .disappear > * {
+  animation: bai .5s forwards !important;
+}
+
+@keyframes bai {
+  100% {
+    transform: scaleY(0);
+    display: none;
+  }
+}
+  /* 100% {
+    max-height: 0;
+  } */
+
 .list-card-header {
   background-color: #306FB5;
   color: white;
   margin-left: 0px !important;
   margin-right: 0px !important;
   border-radius: 5px 5px 0px 0px;
+}
+
+.list-card-price span {
+  font-size: 1rem;
+  color: #18ED6E;
+  padding-right: 10px;
+}
+
+.list-card-trip-name h4, .list-card-price h4 {
+  margin: 1rem 0px;
+}
+
+.list-card-price > div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.list-card-price > div > div {
+  display: flex;
+  align-items: center;
+  background: #333;
+  padding: 5px 10px 3px;
+  border-radius: 3px;
+  margin-right: 10px;
 }
 
 .list-card-main, .list-card-details {
@@ -268,8 +424,18 @@ footer p {
   list-style: none;
 }
 
+.list-card-driver {
+  display: flex;
+}
+
+.list-card-driver {
+  display: flex;
+  align-items: center;
+}
+
 .list-card-driver-pic {
   display: inline-block;
+  max-width: 110px;
 }
 
 .list-card-driver-pic img {
@@ -281,6 +447,11 @@ footer p {
   display: inline-block;
   vertical-align: top;
   margin-left: 10px;
+}
+
+.list-card-summary {
+  display: flex;
+  align-items: center;
 }
 
 .list-card-add i {
@@ -313,6 +484,10 @@ footer p {
   transition: all 0.5s linear;
 }
 
+.list-card-details > .row {
+  margin-top: 7px;
+}
+
 .list-card-recurring-days {
   margin-left: 50px;
 }
@@ -324,6 +499,7 @@ footer p {
 
 
 /* ======= My Rides/Dryves ======= */
+
 .pending-users {
 
 }
@@ -359,7 +535,6 @@ footer p {
   justify-content: center;
   align-items: center;
 }
-
 
 /* ======= Switcher ======= */
 
@@ -421,4 +596,16 @@ body .switcher__label {
 }
 .switcher__input--myDrives:checked ~ .switcher__toggle {
   left: 97px;
+}
+
+
+@media screen and (min-width: 601px) {
+  .list-card-main {
+    display: flex;
+  }
+  
+  .profile-card  {
+    display: flex;
+  }
+
 }

@@ -1,6 +1,7 @@
 import { TOGGLE_RYDES_TAB } from '../constants/action-types';
 import { LIFT_CURRENT_PAGE_TO_STATE } from '../constants/action-types';
 import { LIFT_TOKEN_TO_STATE } from '../constants/action-types';
+import { LIFT_UPDATED_USER } from '../constants/action-types';
 import { LOGOUT_USER } from '../constants/action-types';
 import { LIFT_CLICKED_USER } from '../constants/action-types';
 import { LIFT_BIG_SEARCH } from '../constants/action-types';
@@ -24,19 +25,25 @@ const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         case TOGGLE_RYDES_TAB:
             console.log('Toggled Rydes/Dryves tab');
-            // Object with old state + updated articles value
-            return {...state, rydesTabIsToggled: action.payload};
+            return {
+                ...state,
+                rydesTabIsToggled: action.payload.rydesTabIsToggled,
+                myRydesDryves: action.payload.myRydesDryves ? action.payload.myRydesDryves : state.myRydesDryves
+            };
         case LIFT_CURRENT_PAGE_TO_STATE:
-            console.log('The current page is...', action.payload);
+            // console.log('The current page is...', action.payload);
             return {...state, currentPage: action.payload};
         case LIFT_TOKEN_TO_STATE:
             // console.log('Lifted token to Redux state');
             return {...state, token: action.payload.token, user: action.payload.user};
+        case LIFT_UPDATED_USER:
+            // console.log('Updating the user...', action.payload);
+            return {...state, user: action.payload};
         case LOGOUT_USER:
             console.log('Logging out user');
             return {...state, token: '', user: null };
         case LIFT_CLICKED_USER:
-            console.log('Lifting clickedUser to Redux');
+            // console.log('Lifting clickedUser to Redux');
             return {...state, clickedUser: action.payload};
         case LIFT_BIG_SEARCH:
             console.log('Lifted big search results');

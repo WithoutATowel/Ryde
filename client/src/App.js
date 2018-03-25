@@ -89,7 +89,7 @@ class ConnectedApp extends Component {
               <Route path='/publicprofile' component={PublicProfile} />  {/* placeholder so we can easily get to page */}
               <Route path='/login' component={Login} />  {/* placeholder so we can easily get to page */}
               <Route path='/signup' component={Signup} />  {/* placeholder so we can easily get to page */}
-              <Route path='/ourteam' component={OurTeam} />
+              <Route path='/about' component={OurTeam} />
               <Route path='/postaryde' component={PostARyde} />
               <Route path='/editaryde' component={EditARyde} />
               <Route path='/myrydes' component={MyRydes} />
