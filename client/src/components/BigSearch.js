@@ -15,6 +15,14 @@ const mapStateToProps = state =>{
 }
 
 class ConnectedBigSearch extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      cost: 20,
+      date: '',
+      time: ''
+    }
+  }
 
   handleBigSearch = (e)=>{
     e.preventDefault()
@@ -26,7 +34,7 @@ class ConnectedBigSearch extends Component {
     let sCity = this.sCityInput.value
     let eCity= this.eCityInput.value
     //split returns an array without special characters which I parseint with +
-    let sDate= this.departDate.value
+    let sDate= this.state.date
     console.log('~~~ Depart date', sDate);
     sDate ? (sDate = sDate.split('-').map((date,index)=>{
       if(index === 1){
@@ -35,16 +43,18 @@ class ConnectedBigSearch extends Component {
         return +date
       }
     })) : (sDate = '')
-    let sTime = this.departTime.value
+    let sTime = this.state.time
     sTime ? (sTime = sTime.split(':').map(time=>+time)): (sTime = '')
     let pets = this.petInput.state.value
-    let cost = this.costInput.value
+    let cost = this.state.cost
     let reoccur = this.reoccurInput.checked
     let seat = this.seatInput.value
     //Date.UTC turns the unpacked date and time into a time stamp
     let dateTime = Date.UTC(...sDate,...sTime)
     let current = Date.now();
-    if(dateTime<=current){
+    if(seat==='')seat = 1
+    if(cost==='')cost = 20
+    if(dateTime<=current || !(dateTime)){
       dateTime = current
     }
     console.log('this timestamp: ',(new Date(dateTime)).toUTCString());
@@ -52,9 +62,16 @@ class ConnectedBigSearch extends Component {
     axios.post('/bigsearch',
     {zip,dist,sCity,eCity,dateTime,pets,cost,reoccur,seat,userId,current}).then(result =>{
 
-      console.log('result:',result.data);
+      console.log('result:',result.data.newTrips);
       this.props.liftBigSearch(result.data.newTrips);
 
+    })
+  }
+
+  handleStateInputChange = (e) =>{
+    e.preventDefault(e)
+    this.setState({
+      [e.target.name]: e.target.value
     })
   }
 
@@ -83,7 +100,7 @@ class ConnectedBigSearch extends Component {
 
           <div className="row">
             <div className="col s12 m6">
-              <input type='number' placeholder='Max Cost' ref={(input)=>{this.costInput = input;}}/>
+              <input type='number' placeholder='Max Cost - $20' onChange={(e)=>this.handleStateInputChange(e)} name='cost'/>
             </div>
             <div className="col s12 m6">
               <input type='number' placeholder='Seats Available' ref={(input)=>{this.seatInput = input;}}/>
@@ -91,10 +108,10 @@ class ConnectedBigSearch extends Component {
           </div>
           <div className="row">
             <div className="col s12 m6">
-              <Input type="date" className="datepicker" options={{format: 'yyyy-mm-dd'}} placeholder="Date To Depart" ref={(input)=>{this.departDate = input;}} />
+              <Input type="date" className="datepicker" options={{format: 'yyyy-mm-dd'}} name='date' placeholder="Date To Depart" onChange={(e)=>this.handleStateInputChange(e)} />
             </div>
             <div className='col s12 m6'>
-              <Input type="time" className="timepicker" options={{twelvehour: false}} placeholder="Time To Depart" ref={(input)=>{this.departTime = input;}} />
+              <Input type="time" className="timepicker" options={{twelvehour: false}} name='time' placeholder="Time To Depart" onChange={(e)=>this.handleStateInputChange(e)} />
             </div>
           </div>
           <div className='row'>
