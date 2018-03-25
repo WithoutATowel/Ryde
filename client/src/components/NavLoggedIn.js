@@ -16,8 +16,8 @@ const mapStateToProps = state => {
 class ConnectedNavLoggedIn extends Component {
 
   handleClick() {
-    this.props.logout()
     localStorage.removeItem('rydeAppToken');
+    this.props.logout()
   }
 
   render() {

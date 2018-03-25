@@ -56,7 +56,6 @@ app.delete('/deleteuser', (req,res,next)=>{
     departDate: {$gte: current},
     deniedRiders: {$in:[userId]}
   }
-  console.log(toDelete, current);
   // remove the user from User table
   User.findOne({email}, function(err, user){
     if(!(bcrypt.compareSync(password, user.password))){
@@ -86,7 +85,7 @@ app.delete('/deleteuser', (req,res,next)=>{
                 {$pull:{deniedRiders: userId}},
                 {multi:true}
               ).exec(function(err, doc5){
-                console.log('removedenied: ',doc5,current);
+                console.log('removedenied: ','hopefully user deleted totally');
 
                 res.send({msg:true})
               })
