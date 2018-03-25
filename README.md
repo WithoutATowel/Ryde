@@ -41,25 +41,45 @@ Ryde Homepage
 [to the top](https://github.com/ScoRoc/Ryde#Ryde)
 
 | CRUD   | ROUTE              | FUNCTIONALITY
-|--------|--------------------|--------------
-| GET    | /                  | Renders the home page for yo! favo
-| GET    | /signup            | Renders the signup page
-| POST   | /signup            | Adds a new user and redirects to the home page if successful. If an error occurred, redirects back to the signup page.
-| GET    | /login             | Renders the login page
-| POST   | /login             | Logs user in and redirects to home page upon success or back to the login page upon error.
-| GET    | /logout            | Logs user out and redirects to the home page.
-| GET    | /:name             | Renders the page for an individual favo after searching for it. This is where the API is queried.
-| POST   | /favos             | Adds a favo to the user's favos list and redirects to the same page with the same info without re-querying the API.
-| PUT    | /favos/order       | This is where the ranking of the favos are tracked after a users sorts them. Every time the user sorts their lists this route is called and updates the new order to the database.
-| GET    | /:id/profile       | Renders the user's profile page and queries database to find the top ranked favo for each category. The database portion is handled using raw SQL. The user needs to be logged in to view this page. If not logged in, they are redirected to the login page.
-| GET    | /:id/games         | Renders the user's top games page and queries the data base to gather a list of all the favos with category 'game' that they've favorited. The database portion is handled using raw SQL. The user needs to be logged in to view this page. If not logged in, they are redirected to the login page.
-| GET    | /:id/movies        | Renders the user's top movies page and queries the data base to gather a list of all the favos with category 'movie' that they've favorited. The database portion is handled using raw SQL. The user needs to be logged in to view this page. If not logged in, they are redirected to the login page.
-| GET    | /:id/music         | Renders the user's top music page and queries the data base to gather a list of all the favos with category 'music' that they've favorited. The database portion is handled using raw SQL. The user needs to be logged in to view this page. If not logged in, they are redirected to the login page.
-| GET    | /:id/tv            | Renders the user's top tv page and queries the data base to gather a list of all the favos with category 'tv' that they've favorited. The database portion is handled using raw SQL. The user needs to be logged in to view this page. If not logged in, they are redirected to the login page.
-| GET    | /:id/update        | Renders the profile update page where the user can edit their user info. The user needs to be logged in to view this page. If not logged in, they are redirected to the login page.
-| PUT    | /:id/update        | Edits the user info on the database. The user needs to be logged in to view this page. If not logged in, they are redirected to the login page.
-| GET    | /:id/public        | Renders the user's share page that doesn't require being logged in to view.
-| DELETE | /:id/favos/:favoId | Deletes a favo from the user's favorite list. This actually deletes the entry from the join table, as the favo itself still remains in the database.
+|--------|---------------------------------|--------------
+| GET    | /                               | Home page.
+| POST   | /auth/signup                    | Sign up.
+| POST   | /auth/login                     | Log in.
+| POST   | /me/from/token                  | Lift login from token.
+
+<!-- Dryve stuff -->
+| POST   | /postARyde                      | Post a dryve.
+| GET    | /editARyde/:id                  | Load a dryve into edit form.
+| POST   | /editARyde/:id                  | Submit dryve edits.
+| POST   | /delete                         | Delete a dryve.
+| POST   | /complete                       | Complete a dryve.
+
+| POST   | /mydryves                       | Approve/deny ryders for a dryve.
+| GET    | /mydryves/:id                   | Get logged in user's dryves.
+
+| POST   | /ryders/confirmed               | Load confirmed ryders for a dryve.
+| POST   | /ryders/pending                 | Load pending ryders for a dryve.
+
+<!-- Rydes stuff -->
+| POST   | /myrydes                        | Request to join ryde.
+| GET    | /myrydes/:id                    | Get logged in user's rydes.
+
+
+<!-- Public profile stuff -->
+| GET    | /finduser/:id                   | Load public profile.
+| POST   | /profile/:id/reviewuser         | Submit review for other user.
+
+<!-- Private profile stuff -->
+| POST   | /profile/:id/removedryverstatus | Delete dryver details.
+| POST   | /profile/:id/becomedryver       | Submit dryver details.
+| POST   | /profile/:id/edit               | 
+| DELETE | /deleteuser                     | Delete proile
+
+<!-- Search stuff -->
+| POST   | /bigsearch                      | Full ryde search.
+| POST   | /minisearch                     | Limited ryde search.
+
+
 
 ## Models
 [to the top](https://github.com/ScoRoc/Ryde#Ryde)
