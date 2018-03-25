@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 import { liftUpdatedUser } from '../redux/actions/index';
 import { Input } from 'react-materialize';
 // import store from '../redux/store/index';
@@ -17,7 +18,11 @@ class ConnectedUpdateProfile extends Component {
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.notifyUpdate = this.notifyUpdate.bind(this)
   }
+
+  notifyUpdate = () => toast.info("Updated user profile!", {position: toast.POSITION.TOP_CENTER});
+
   becomeDryverSubmit(e) {
     e.preventDefault()
     let car = this.carType.value
@@ -31,7 +36,7 @@ class ConnectedUpdateProfile extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    let userId = this.props.userId
+    let userId = this.props.user._id
     let name = this.name.value
     let email = this.email.value
     // let password = this.password.value
@@ -48,9 +53,8 @@ class ConnectedUpdateProfile extends Component {
       // {name, email, password, dob, homeStreet, homeCity, homeState, homeZip, workStreet, workCity, workState, workZip})
       {userId, name, email, dob, homeStreet, homeCity, homeState, homeZip, workStreet, workCity, workState, workZip})
         .then( result => {
-          console.log('heres result data', result.data)
-        // this.props.liftUpdatedUser(result.data)
-        // yo
+        this.props.liftUpdatedUser(result.data)
+        this.notifyUpdate()
     }).catch( err => console.log(err) )
   }
 
@@ -60,28 +64,28 @@ class ConnectedUpdateProfile extends Component {
       <form onSubmit={this.handleSubmit}>
         <div className="row">
           <div className="col s12 m6">
-            Name: <input value={user.name} type='text' ref={ input => {this.name = input}} placeholder='Full name' required />
+            Name: <input defaultValue={user.name} type='text' ref={ input => {this.name = input}} placeholder='Full name' required />
           </div>
           <div className="col s12 m6">
-            Email: <input value={user.email} type='email' ref={ input => {this.email = input}} placeholder='email@email.com' required />
+            Email: <input defaultValue={user.email} type='email' ref={ input => {this.email = input}} placeholder='email@email.com' required />
           </div>
         </div>
 
         <div className="row">
           {/* <div className="col s12 m9">
-            Password - required: <input value={user.password} type='password' ref={ input => {this.password = input}} placeholder='P@$$w0rD! - must be a minimum of 8 characters' required />
+            Password - required: <input defaultValue={user.password} type='password' ref={ input => {this.password = input}} placeholder='P@$$w0rD! - must be a minimum of 8 characters' required />
           </div> */}
           <div className="col s12 m3">
-            Date of birth: <input value={user.dob} type='text' ref={ input => {this.dob = input}} placeholder='March 15 1990' required />
+            Date of birth: <input defaultValue={user.dob} type='date' ref={ input => {this.dob = input}} placeholder='March 15 1990' required />
           </div>
         </div>
 
         <div className="row">
           <div className="col s12 m4">
-            Home Street Address: <input value={user.homeAddress.street} type='text' ref={input => {this.homeStreet = input}} placeholder='123 Main St' />
+            Home Street Address: <input defaultValue={user.homeAddress.street} type='text' ref={input => {this.homeStreet = input}} placeholder='123 Main St' />
           </div>
           <div className="col s12 m3">
-            Home City: <input value={user.homeAddress.city} type='text' ref={input => {this.homeCity = input}} placeholder='Seattle' required />
+            Home City: <input defaultValue={user.homeAddress.city} type='text' ref={input => {this.homeCity = input}} placeholder='Seattle' required />
           </div>
           <div className="col s12 m2">
             Home State: <Input type='select' defaultValue={user.homeAddress.state} ref={input => {this.homeState = input}} required>
@@ -140,16 +144,16 @@ class ConnectedUpdateProfile extends Component {
             </Input>
           </div>
           <div className="col s12 m3">
-            Home Zip: <input value={user.homeAddress.zip} type='number' ref={input => {this.homeZip = input}} placeholder='98102' />
+            Home Zip: <input defaultValue={user.homeAddress.zip} type='number' ref={input => {this.homeZip = input}} placeholder='98102' />
           </div>
         </div>
 
         <div className="row">
           <div className="col s12 m4">
-            Work Street Address: <input value={user.workAddress.street} type='text' ref={input => {this.workStreet = input}} placeholder='456 Thunder Road' />
+            Work Street Address: <input defaultValue={user.workAddress.street} type='text' ref={input => {this.workStreet = input}} placeholder='456 Thunder Road' />
           </div>
           <div className="col s12 m3">
-            Work City: <input value={user.workAddress.city} type='text' ref={input => {this.workCity = input}} placeholder='Seattle' />
+            Work City: <input defaultValue={user.workAddress.city} type='text' ref={input => {this.workCity = input}} placeholder='Seattle' />
           </div>
           <div className="col s12 m2">
             Work State: <Input type='select' defaultValue={user.workAddress.state} ref={input => {this.workState = input}}>
@@ -208,7 +212,7 @@ class ConnectedUpdateProfile extends Component {
             </Input>
           </div>
           <div className="col s12 m3">
-            Work Zip: <input value={user.workAddress.zip} type='number' ref={input => {this.workZip = input}} placeholder='98101' />
+            Work Zip: <input defaultValue={user.workAddress.zip} type='number' ref={input => {this.workZip = input}} placeholder='98101' />
           </div>
         </div>
 

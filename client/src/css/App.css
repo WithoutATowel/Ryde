@@ -228,11 +228,6 @@ a.main-menu-button-collapse {
   color: #18ED6E;
 }
 
-.active {
-  background-color: #333333;
-  color: #18ED6E;
-}
-
 #login-modal {
   max-width: 100%;
   width: 500px;
@@ -620,8 +615,6 @@ body .switcher__label {
 }
 
 @media screen and (min-width: 601px) {
-
-
   .profile-card, .list-card-extradetails  {
     display: flex;
   }
@@ -632,4 +625,12 @@ body .switcher__label {
   .list-card-main {
     display: flex;
   }
+}
+
+.border-background-red {
+  border: 2px solid firebrick;
+  border-radius: 10px;
+  background-color: #ed3838;
+  text-align: center;
+  color: black;
 }

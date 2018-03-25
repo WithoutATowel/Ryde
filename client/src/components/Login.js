@@ -44,8 +44,9 @@ class ConnectedLogin extends Component {
       if (result.data.user) {
         localStorage.setItem('rydeAppToken', result.data.token)
         this.props.liftTokenToState(result.data)
+        this.props.notifySuccess('logged in!')
       } else {
-        this.props.notify()
+        this.props.notifyError()
       }
     }).catch( err => console.log(err) )
   }
@@ -62,7 +63,7 @@ class ConnectedLogin extends Component {
           <br />
           <div className="col s12 modal-buttons">
             <input type='submit' className="rydeBlueBtn btn modal-action modal-close" value='Log In' />
-            <button className="rydeBlueBtn btn modal-action modal-close cancel-button">Cancel</button>
+            <button type='button' className="rydeBlueBtn btn modal-action modal-close cancel-button">Cancel</button>
           </div>
         </form>
       )

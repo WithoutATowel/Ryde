@@ -56,7 +56,6 @@ app.delete('/deleteuser', (req,res,next)=>{
     departDate: {$gte: current},
     deniedRiders: {$in:[userId]}
   }
-  console.log(toDelete, current);
   // remove the user from User table
   User.findOne({email}, function(err, user){
     if(!(bcrypt.compareSync(password, user.password))){
@@ -86,7 +85,7 @@ app.delete('/deleteuser', (req,res,next)=>{
                 {$pull:{deniedRiders: userId}},
                 {multi:true}
               ).exec(function(err, doc5){
-                console.log('removedenied: ',doc5,current);
+                console.log('removedenied: ','hopefully user deleted totally');
 
                 res.send({msg:true})
               })
@@ -127,10 +126,11 @@ app.post('/bigsearch', (req, res, next) => {
     completed: false,
     deleted:false
   }
-  // console.log(searchOptions);
+
   for (let key in searchOptions) {
-    // console.log('--------------');
-    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key] === undefined || !(searchOptions[key]['$lte'])|| !(searchOptions[key]['$gte'])) {
+
+    console.log('--------------');
+    if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key] === undefined) {
       delete searchOptions[key]
     }
   }
@@ -139,16 +139,16 @@ app.post('/bigsearch', (req, res, next) => {
     searchOptions.driverId = {$ne:ObjectId(body.userId)}
     searchOptions.deniedRiders = {$ne: body.userId}
   }
-  console.log(searchOptions);
+  console.log('searchoptions: ',searchOptions);
 
   Trip.find(searchOptions).lean().exec( function(err, trips) {
     let count = 0;
     let newTrips = []
-
     if(trips.length === 0) {
-      return res.send(trips)
+      return res.send({newTrips})
     } else {
       trips.forEach((trip,index)=>{
+        console.log('each trip cost: ',trip.cost);
 
         // console.log('trip date: ',(new Date(trip.departDate)).toUTCString());
         // console.log('search date: ',(new Date(req.body.dateTime)).toUTCString());
@@ -156,21 +156,19 @@ app.post('/bigsearch', (req, res, next) => {
         let id = {'_id': ObjectId(trip.driverId)}
         let tripAvailability = (trip.seats - trip.ridersId.length - req.body.seat)
         //if no seats Available delete from index and count up
+        console.log('tripAvailability: ',tripAvailability);
         tripAvailability <= 0 ? (
           delete trips[index],
           count++,
           count === trips.length ? (
-            //resign the temp array holding Available trips
             res.send({newTrips})
-          ) : (false)
+          ) : (console.log('looping'))
         ) : (
           User.findOne(id, function(err, user) {
-            //add key value pair of driver to trip object
             trip.driver = user.toObject();
             count++;
             newTrips.push(trip);
             if(count === trips.length) {
-              //resign the temp array holding Available trips
               res.send({newTrips});
             }
           })
@@ -226,17 +224,45 @@ app.post('/minisearch', (req,res,next) =>{
       delete miniSearchObj[key]
     }
   }
-  if(body.userId){
+  if(bodh.userId){
     searchOptions.driverId = {$ne:ObjectId(body.userId)}
     searchOptions.deniedRiders = {$ne: body.userId}
   }
   console.log(miniSearchObj);
-  Trip.find(miniSearchObj, function(err, trips){
-    if(err){
-      console.log(err);
-      res.send(err);
+  Trip.find(miniSearchObj).lean().exec( function(err, trips){
+    let count = 0;
+    let newTrips = []
+
+    if(trips.length === 0) {
+      return res.send([{newTrips}])
     } else {
-      res.send(trips);
+      trips.forEach((trip,index)=>{
+
+        // console.log('trip date: ',(new Date(trip.departDate)).toUTCString());
+        // console.log('search date: ',(new Date(req.body.dateTime)).toUTCString());
+
+        let id = {'_id': ObjectId(trip.driverId)}
+        let tripAvailability = (trip.seats - trip.ridersId.length - req.body.seat)
+        //if no seats Available delete from index and count up
+        tripAvailability <= 0 ? (
+          delete trips[index],
+          count++,
+          //if end of of foreach loop send trips otherwise next trip
+          count === trips.length ? (
+            res.send({newTrips})
+          ) : (console.log('next trip loop'))
+        ) : (
+          User.findOne(id, function(err, user) {
+            //add key value pair of driver to trip object
+            trip.driver = user.toObject();
+            count++;
+            newTrips.push(trip);
+            if(count === trips.length) {
+              res.send({newTrips});
+            }
+          })
+        )
+      })
     }
   })
 })
@@ -391,6 +417,7 @@ app.post('/profile/:id/edit', (req, res, next) => {
       if (err) {
         res.send('An error occurred', err);
       } else {
+        // console.log('##########################', doc)
         res.send(doc)
       }
     }

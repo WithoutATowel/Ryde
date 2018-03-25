@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 
 class ReviewUser extends Component {
@@ -9,7 +10,10 @@ class ReviewUser extends Component {
     }
     this.handleRatingChange = this.handleRatingChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.notifyUpdate = this.notifyUpdate.bind(this)
   }
+
+  notifyUpdate = () => toast.info("You have reviewed this user.", {position: toast.POSITION.TOP_CENTER});
 
   handleRatingChange(e) {
     this.setState({ selectedRating: e.target.value })
@@ -17,20 +21,23 @@ class ReviewUser extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    console.log(this.state.selectedRating)
     axios.post('/profile/' + this.props.clickedUserId + '/reviewuser', {
       clickedId: this.props.clickedUserId,
-      rating: parseInt(this.state.selectedRating, 2),
+      rating: parseInt(this.state.selectedRating),
       userType: this.props.userType,
       theUser: this.props.theUser
     }).then( result => {
+      console.log(result.data)
       this.props.userType === 'ryder' ? this.props.updateProfileRyderDetails(result.data) : this.props.updateProfileDryverDetails(result.data)
+      this.notifyUpdate()
     }).catch( err => console.log(err) )
   }
 
   render() {
     return(
       <form onSubmit={(e) => this.handleSubmit(e)}>
-        <input name='this.props.inputName' value='1' checked={this.state.selectedRating === '1'} onChange={this.handleRatingChange} type='radio' id={this.props.userType + 'one-star'}/>
+        <input required name='this.props.inputName' value='1' checked={this.state.selectedRating === '1'} onChange={this.handleRatingChange} type='radio' id={this.props.userType + 'one-star'}/>
         <label htmlFor={this.props.userType + 'one-star'}>1</label>
         <input name='this.props.inputName' value='2' checked={this.state.selectedRating === '2'} onChange={this.handleRatingChange} type='radio' id={this.props.userType + 'two-star'} />
         <label htmlFor={this.props.userType + 'two-star'}>2</label>
