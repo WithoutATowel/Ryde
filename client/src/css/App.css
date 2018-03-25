@@ -485,16 +485,33 @@ footer p {
 }
 
 .list-card-details > .row {
-  margin-top: 7px;
+  margin-top: 11px;
 }
 
 .list-card-recurring-days {
-  margin-left: 50px;
+  /* margin-left: 50px; */
+  width: 100%;
+  text-align: center;
 }
 
 .list-card-recurring-days label {
   padding-left: 25px;
   margin-right: 2%;
+}
+
+.list-card-extradetails .col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-card-extradetails .col h5 {
+  margin: 0px 0px 5px 0px;
+}
+
+.list-card-extradetails .col div p {
+  margin: 0 auto;
 }
 
 
@@ -598,14 +615,21 @@ body .switcher__label {
   left: 97px;
 }
 
+.list-card-main {
+  display: block;
+}
 
 @media screen and (min-width: 601px) {
+
+
+  .profile-card, .list-card-extradetails  {
+    display: flex;
+  }
+
+}
+
+@media screen only and (min-width: 894px) {
   .list-card-main {
     display: flex;
   }
-  
-  .profile-card  {
-    display: flex;
-  }
-
 }
