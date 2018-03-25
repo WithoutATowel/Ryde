@@ -11,7 +11,7 @@ export const PublicProfile = props => {
           <div className='col s12 center-align'>
             <div className='profile-backing-off-white center-align'></div>
             <div className='pic-circle'>
-              <img src='https://www.placecage.com/c/185/230' alt='profile' />
+              <div dangerouslySetInnerHTML={{__html: props.clickedUser.image}} />
             </div>
             <br />
             <h4>{props.clickedUser.name}</h4>

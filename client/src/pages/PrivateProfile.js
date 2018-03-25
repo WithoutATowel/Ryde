@@ -24,7 +24,7 @@ class PrivateProfile extends Component {
           <div className='row profile-card'>
             <div className='col m4'>
               <div className='pic-circle center-align'>
-                <img src='https://www.placecage.com/c/185/230' alt='profile' />
+                <div dangerouslySetInnerHTML={{__html: user.image}} />
               </div>
             </div>
               <div className='profile-stats-column col m4'>

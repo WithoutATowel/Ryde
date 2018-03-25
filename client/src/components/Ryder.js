@@ -3,35 +3,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 class Ryder extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      profilePic: ''
-    }
-  }
-
-  componentWillMount() {
-    let profilePicUrl = 'https://www.avatarapi.com/js.aspx?email=' + this.props.ryder.email + '&size=150'
-    var profilePic = ''
-    this.setState({
-      profilePic: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="150" height="150" />'
-    })
-    // axios.get(profilePicUrl).then(results => {
-    //   var all = results.data
-    //   profilePic = all.split('>')
-    //   profilePic = profilePic[1] + ' />'
-    //   if (profilePic === 'undefined />') {
-    //     this.setState({
-    //       profilePic: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="150" height="150" />'
-    //     })
-    //   } else {
-    //     this.setState({
-    //       profilePic
-    //     })
-    //   }
-    //   console.log(all)
-    // })
-  }
 
   handleApprove() {
     console.log('User approved!');
