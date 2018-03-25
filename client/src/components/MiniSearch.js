@@ -3,7 +3,7 @@ import '../css/minisearch.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { liftMiniSearch } from '../redux/actions/index';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Input } from 'react-materialize';
 
 const mapDispatchToProps = dispatch => {
@@ -50,7 +50,7 @@ class ConnectedMiniSearch extends Component {
 
   render() {
     if(this.state.redirect){
-      return(<Redirect to="/discover" startZip={()=>{this.zipStartInput}}endZip={()=>{this.zipEndInput}}date={()=>{this.startDateInput}}/>)
+      return(<Redirect to="/discover" startZip={()=>{this.zipStartInput}} endZip={()=>{this.zipEndInput}} date={()=>{this.startDateInput}} />)
     }
 
     return (

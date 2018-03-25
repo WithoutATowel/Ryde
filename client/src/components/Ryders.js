@@ -49,7 +49,7 @@ class Ryders extends Component {
       pendingRiders = 'No Pending Ryders Found'
     } else {
       pendingRiders = this.state.pendingUsers.map( (rider, index) => {
-        return <Ryder status='pending' ryde={this.props.ryde} ryder={rider} key={index} />
+        return <Ryder status='pending' ryde={ryde} ryder={rider} key={index} />
       })
     };
     let confirmedRiders
@@ -57,7 +57,7 @@ class Ryders extends Component {
       confirmedRiders = 'No Confirmed Ryders Found'
     } else {
       confirmedRiders = this.state.confirmedUsers.map( (rider, index) => {
-        return <Ryder status='confirmed' ryde={this.props.ryde} ryder={rider} key={index} />
+        return <Ryder status='confirmed' ryde={ryde} ryder={rider} key={index} />
       })
     };
 

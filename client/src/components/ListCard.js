@@ -197,7 +197,7 @@ class ConnectedListCard extends Component {
       return splitString.join(' ');
     }
 
-    let rydeName = capitalizer(ryde.rydeName);
+    //let rydeName = capitalizer(ryde.rydeName);
     let startAddress = capitalizer(ryde.startAddress.street);
     let endAddress = capitalizer(ryde.endAddress.street);
     let driverRating = ryde.driver.dryverRatingAvg ? ryde.driver.dryverRatingAvg : 'Unrated';

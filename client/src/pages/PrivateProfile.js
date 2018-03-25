@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import '../css/userprofile.css';
 import { Modal, Button} from 'react-materialize';
-import MyRydes from './MyRydes.js'
 import UpdateProfile from '../components/UpdateProfile';
 import BecomeADryver from '../components/BecomeADryver';
 import NoLongerDryve from '../components/NoLongerDryve';
 import DeleteUser from '../components/DeleteUser';
 
 class PrivateProfile extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   render() {
     let user = this.props.user
@@ -25,9 +20,6 @@ class PrivateProfile extends Component {
           <Modal header='Update Profile' id="update-profile-modal" >
             <UpdateProfile userId={user._id} />
           </Modal>
-          {/* <Modal header='Delete Yourself!' id='deleteuser-modal'>
-            <DeleteUser />
-          </Modal> */}
           <h2 className='user-profile-h1'>{user.name}'s Profile</h2>
           <div className='row profile-card'>
             <div className='col m4'>
@@ -59,17 +51,13 @@ class PrivateProfile extends Component {
             <div>
               <h5>{dryverSignupText}</h5>
               {dryverOptions}
-             
-              <br />
 
+              <br />
               <div>
-                <Modal
-                	header='Delete Yourself!'
-                  trigger={<Button>Delete</Button>}>
+                <Modal header='Delete Yourself!' trigger={<Button>Delete</Button>}>
                 	<DeleteUser />
                 </Modal>
               </div>
-
             </div>
           </div>
         </div>
