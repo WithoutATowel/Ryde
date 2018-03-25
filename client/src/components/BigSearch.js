@@ -27,6 +27,7 @@ class ConnectedBigSearch extends Component {
     let eCity= this.eCityInput.value
     //split returns an array without special characters which I parseint with +
     let sDate= this.departDate.value
+    console.log('~~~ Depart date', sDate);
     sDate ? (sDate = sDate.split('-').map((date,index)=>{
       if(index === 1){
         return +date-1
