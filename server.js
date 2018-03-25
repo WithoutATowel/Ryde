@@ -128,12 +128,13 @@ app.post('/bigsearch', (req, res, next) => {
   }
 
   for (let key in searchOptions) {
-
     console.log('--------------');
     if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key] === undefined) {
       delete searchOptions[key]
     }
   }
+  if(searchOptions.cost['$lte']==='') delete searchOptions.cost
+  if(searchOptions.seats['$gte']==='') delete searchOptions.seats
   //for some reason this key value pair was always being deleted I assume it had to do with a hidden js having to do with $ne
   if(body.userId) {
     searchOptions.driverId = {$ne:ObjectId(body.userId)}

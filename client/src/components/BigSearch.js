@@ -18,7 +18,7 @@ class ConnectedBigSearch extends Component {
   constructor(props){
     super(props)
     this.state = {
-      cost: 20,
+      cost: '',
       date: '',
       time: ''
     }
@@ -35,7 +35,6 @@ class ConnectedBigSearch extends Component {
     let eCity= this.eCityInput.value
     //split returns an array without special characters which I parseint with +
     let sDate= this.state.date
-    console.log('~~~ Depart date', sDate);
     sDate ? (sDate = sDate.split('-').map((date,index)=>{
       if(index === 1){
         return +date-1
@@ -52,8 +51,6 @@ class ConnectedBigSearch extends Component {
     //Date.UTC turns the unpacked date and time into a time stamp
     let dateTime = Date.UTC(...sDate,...sTime)
     let current = Date.now();
-    if(seat==='')seat = 1
-    if(cost==='')cost = 20
     if(dateTime<=current || !(dateTime)){
       dateTime = current
     }
@@ -100,7 +97,7 @@ class ConnectedBigSearch extends Component {
 
           <div className="row">
             <div className="col s12 m6">
-              <input type='number' placeholder='Max Cost - $20' onChange={(e)=>this.handleStateInputChange(e)} name='cost'/>
+              <input type='number' placeholder='Max Cost' onChange={(e)=>this.handleStateInputChange(e)} name='cost'/>
             </div>
             <div className="col s12 m6">
               <input type='number' placeholder='Seats Available' ref={(input)=>{this.seatInput = input;}}/>
