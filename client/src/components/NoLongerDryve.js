@@ -9,9 +9,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 class ConnectedNoLongerDryve extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   removeDryverStatus(e) {
     e.preventDefault()

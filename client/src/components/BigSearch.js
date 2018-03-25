@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../css/bigsearch.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import store from '../redux/store/index';
 import { liftBigSearch } from '../redux/actions/index';
 import {Input,Row} from 'react-materialize';
 

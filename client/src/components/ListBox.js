@@ -27,6 +27,8 @@ class ConnectedListBox extends Component {
           if (trip.ridersId.includes(this.props.user._id)) {
             confirmedRydesHeader = true;
             return <ListCard ryde={trip} key={index} myRydesPage={this.props.myRydesPage} />
+          } else {
+            return ''
           }
         });
         // If we have confirmed rydes, prep the confirmed rydes header
@@ -36,6 +38,8 @@ class ConnectedListBox extends Component {
           if (trip.pendingRiders.includes(this.props.user._id)) {
             pendingRydesHeader = true;
             return <ListCard ryde={trip} key={index} myRydesPage={this.props.myRydesPage} />
+          } else {
+            return ''
           }
         });
         // If we have pending rydes, prep the pending rydes header

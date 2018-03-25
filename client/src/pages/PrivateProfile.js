@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import '../css/userprofile.css';
 import { Modal, Button} from 'react-materialize';
-import MyRydes from './MyRydes.js'
 import UpdateProfile from '../components/UpdateProfile';
 import BecomeADryver from '../components/BecomeADryver';
 import NoLongerDryve from '../components/NoLongerDryve';
 import DeleteUser from '../components/DeleteUser';
 
 class PrivateProfile extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   render() {
     let user = this.props.user
@@ -59,7 +54,7 @@ class PrivateProfile extends Component {
             <div>
               <h5>{dryverSignupText}</h5>
               {dryverOptions}
-             
+
               <br />
 
               <div>

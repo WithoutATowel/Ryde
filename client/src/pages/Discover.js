@@ -36,7 +36,7 @@ class ConnectedDiscover extends Component {
             <BigSearch />
           </ul>
           <div className="discover-nav-btn-cont">
-            <a href="#" data-activates="discover-slide-out" className="discover-sidnav hide-on-large-only">
+            <a href="#d-slide-out" data-activates="discover-slide-out" className="discover-sidnav hide-on-large-only">
               <i className="material-icons">filter_list</i>
               Filter Results
             </a>

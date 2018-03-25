@@ -25,7 +25,6 @@ class ConnectedPostARyde extends Component {
       reoccurring: false,
       twoWay: false,
       rydeName: '',
-      rydeName: '',
       startStreet: '',
       startCity: '',
       startState: '',

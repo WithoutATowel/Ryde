@@ -30,7 +30,7 @@ class ConnectedNav extends Component {
                 <ul className="right hide-on-med-and-down">
                   <NavLoggedIn />
                 </ul>
-                <a href="#" data-activates="slide-out" className="main-menu-button-collapse hide-on-large-only">
+                <a href="#slide-out" data-activates="slide-out" className="main-menu-button-collapse hide-on-large-only">
                   <i className="material-icons">menu</i>
                 </a>
               </div>
@@ -59,7 +59,7 @@ class ConnectedNav extends Component {
                 <ul className="right hide-on-med-and-down">
                   <NavLoggedOut />
                 </ul>
-                <a href="#" data-activates="slide-out" className="main-menu-button-collapse hide-on-large-only">
+                <a href="#slide-out" data-activates="slide-out" className="main-menu-button-collapse hide-on-large-only">
                   <i className="material-icons">menu</i>
                 </a>
               </div>

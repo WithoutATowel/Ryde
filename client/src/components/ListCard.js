@@ -201,12 +201,12 @@ class ConnectedListCard extends Component {
       return splitString.join(' ');
     }
 
-    let rydeName = capitalizer(ryde.rydeName);
+    //let rydeName = capitalizer(ryde.rydeName);
     let startAddress = capitalizer(ryde.startAddress.street);
     let endAddress = capitalizer(ryde.endAddress.street);
 
     let driverRating = ryde.driver.dryverRatingAvg ? ryde.driver.dryverRatingAvg : 'Unrated';
-    let disappear = '';
+    //let disappear = '';
     return (
       <div className={'list-card-div ' + this.state.disappear}>
         <div className={'row list-card-header '+ this.state.disppear}>
