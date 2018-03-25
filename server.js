@@ -8,6 +8,7 @@ var Trip = require('./models/trips');
 var lowerCase = require('./middleware/toLowerCase');
 var ObjectId = require('mongoose').Types.ObjectId;
 var async = require('async');
+var bcrypt = require('bcrypt');
 
 
 // Mongoose stuff
@@ -57,36 +58,43 @@ app.delete('/deleteuser', (req,res,next)=>{
   }
   console.log(toDelete, current);
   // remove the user from User table
-  User.findOneAndRemove(toDelete, function(err, doc1){
-    // remove the user's trips if he is a driver
-    console.log('removeuser: ',doc1);
-    Trip.remove(userTrips).exec(function(err, doc2){
-      //update trips where user is a denied,pending, and rider
-      console.log('removetrips :',doc2,current);
-      Trip.update(
-        tripRider,
-        {$pull:{ridersId: userId}},
-        {multi:true}
-      ).exec(function(err, doc3){
-        console.log('removerider: ',doc3,current);
-        Trip.update(
-          tripPend,
-          {$pull:{pendingRiders: userId}},
-          {multi:true}
-        ).exec(function(err, doc4){
-          console.log('removepend: ',doc4, current);
+  User.findOne({email}, function(err, user){
+    if(!(bcrypt.compareSync(password, user.password))){
+      res.send({msg:false})
+    }
+    if(bcrypt.compareSync(password, user.password)){
+      User.findOneAndRemove(toDelete, function(err, doc1){
+        // remove the user's trips if he is a driver
+        console.log('removeuser: ',doc1);
+        Trip.remove(userTrips).exec(function(err, doc2){
+          //update trips where user is a denied,pending, and rider
+          console.log('removetrips :',doc2,current);
           Trip.update(
-            tripDenied,
-            {$pull:{deniedRiders: userId}},
+            tripRider,
+            {$pull:{ridersId: userId}},
             {multi:true}
-          ).exec(function(err, doc5){
-            console.log('removedenied: ',doc5,current);
+          ).exec(function(err, doc3){
+            console.log('removerider: ',doc3,current);
+            Trip.update(
+              tripPend,
+              {$pull:{pendingRiders: userId}},
+              {multi:true}
+            ).exec(function(err, doc4){
+              console.log('removepend: ',doc4, current);
+              Trip.update(
+                tripDenied,
+                {$pull:{deniedRiders: userId}},
+                {multi:true}
+              ).exec(function(err, doc5){
+                console.log('removedenied: ',doc5,current);
 
-            res.send({msg:'working?'})
+                res.send({msg:true})
+              })
+            })
           })
         })
-      })
-    })
+      })//end of if statement if bycrypt compare is true
+    }
   })
 })
 
