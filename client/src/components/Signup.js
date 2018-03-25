@@ -68,7 +68,7 @@ class ConnectedSignup extends Component {
                   Password <input type='password' ref={ input => {this.password = input}} placeholder='P@$$w0rD! - must be a minimum of 8 characters' required />
                 </div>
                 <div className="col s12 m3">
-                  Date of birth <Input type='date' className="datepicker" options={{format: 'yyyy-mm-dd'}} ref={ input => {this.dob = input}} placeholder='YYYY-MM-DD' required />
+                  Date of birth <input type='date' ref={ input => {this.dob = input}} placeholder='YYYY-MM-DD' required />
                 </div>
               </div>
               <div className="row">
