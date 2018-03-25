@@ -59,19 +59,19 @@ class PrivateProfile extends Component {
             <div>
               <h5>{dryverSignupText}</h5>
               {dryverOptions}
+             
+              <br />
+
+              <div>
+                <Modal
+                	header='Delete Yourself!'
+                  trigger={<Button>Delete</Button>}>
+                	<DeleteUser />
+                </Modal>
+              </div>
+
             </div>
           </div>
-           {/* 
-            <br />
-
-            <div>
-              <Modal
-              	header='Delete Yourself!'
-                trigger={<Button>Delete</Button>}>
-              	<DeleteUser />
-              </Modal>
-            </div>
-            */}
         </div>
       )
     } else {
