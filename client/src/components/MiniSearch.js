@@ -18,7 +18,8 @@ class ConnectedMiniSearch extends Component {
   constructor(props) {
     super(props)
     this.state ={
-      redirect:false
+      redirect:false,
+      date: ''
     }
   }
 
@@ -29,23 +30,35 @@ class ConnectedMiniSearch extends Component {
     }
     let startZip = this.zipStartInput.value
     let endZip = this.zipEndInput.value
-    let dateFormat = this.departDate.value.split('-').map((date,index)=>{
+    let dateFormat = this.state.date
+
+    dateFormat ? (dateFormat = dateFormat.split('-').map((date,index)=>{
       if(index === 1){
         return +date-1
       } else {
         return +date
       }
-    })
+    })) : (dateFormat = '')
     let date = Date.UTC(...dateFormat)
-    console.log(date);
+    let current = Date.now();
+    if(!(date)){
+      console.log(date, current);
+      date = current
+    }
     axios.post('/minisearch',
     {startZip,endZip,date,userId}).then(result =>{
       console.log(result.data)
-      this.props.liftMiniSearch(result.data)
+      this.props.liftMiniSearch(result.data.newTrips)
       this.setState({
         redirect:true
       })
     })
+  }
+
+  handleStateInputChange(event) {
+    this.setState({
+      date: event.target.value
+    });
   }
 
   render() {
@@ -57,13 +70,13 @@ class ConnectedMiniSearch extends Component {
 
         <form className="row center" onSubmit={(e)=>this.handleMiniSearch(e)}>
           <div className='col m4'>
-            <input className='minisearchinput' type='number' maxLength='5' placeholder='Departing zipcode' autoComplete='postal-code' ref={(input)=>{this.zipStartInput = input;}} />
+            <input className='minisearchinput' type='number' maxLength='5' placeholder='Departing zipcode' autoComplete='postal-code' ref={(input)=>{this.zipStartInput = input}} />
           </div>
           <div className='col m4'>
-            <input className='minisearchinput' type='number' maxLength='5' placeholder='Destination zipcode' autoComplete='postal-code' ref={(input)=>{this.zipEndInput = input;}} />
+            <input className='minisearchinput' type='number' maxLength='5' placeholder='Destination zipcode' autoComplete='postal-code' ref={(input)=>{this.zipEndInput = input}} />
           </div>
           <div className='col m4'>
-            <Input type="date" className="datepicker minisearchinput" options={{format: 'yyyy-mm-dd'}} placeholder="Date" autoComplete='departure-time' ref={(input)=>{this.departDate = input;}} />
+            <Input type="date" className="datepicker" options={{format: 'yyyy-mm-dd'}} placeholder="Date" autoComplete='departure-date' onChange={(e)=>this.handleStateInputChange(e)} />
           </div>
           <button className='center rydeGreenBtn btn' type='submit'>Submit</button>
         </form>
