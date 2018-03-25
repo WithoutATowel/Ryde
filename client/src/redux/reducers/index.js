@@ -31,7 +31,7 @@ const rootReducer = (state = initialState, action) => {
                 myRydesDryves: action.payload.myRydesDryves ? action.payload.myRydesDryves : state.myRydesDryves
             };
         case LIFT_CURRENT_PAGE_TO_STATE:
-            console.log('The current page is...', action.payload);
+            // console.log('The current page is...', action.payload);
             return {...state, currentPage: action.payload};
         case LIFT_TOKEN_TO_STATE:
             // console.log('Lifted token to Redux state');
@@ -43,7 +43,7 @@ const rootReducer = (state = initialState, action) => {
             console.log('Logging out user');
             return {...state, token: '', user: null };
         case LIFT_CLICKED_USER:
-            console.log('Lifting clickedUser to Redux');
+            // console.log('Lifting clickedUser to Redux');
             return {...state, clickedUser: action.payload};
         case LIFT_BIG_SEARCH:
             console.log('Lifted big search results');
