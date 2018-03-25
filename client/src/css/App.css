@@ -597,9 +597,17 @@ body .switcher__label {
   .list-card-main {
     display: flex;
   }
-  
+
   .profile-card  {
     display: flex;
   }
 
+}
+
+.border-background-red {
+  border: 2px solid firebrick;
+  border-radius: 10px;
+  background-color: #ed3838;
+  text-align: center;
+  color: black;
 }
