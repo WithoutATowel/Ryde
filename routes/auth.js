@@ -26,10 +26,10 @@ router.post('/login', (req, res, next) => {
         res.json({user: user.toObject(), token})
       } else {
         console.log("Passwords don't match")
-        res.status(401).json({
+        res.send.json({
           error: true,
           message: 'Email or password is incorrect'
-        })
+        }).toObject()
       }
     }
   })

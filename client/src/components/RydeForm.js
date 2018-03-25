@@ -241,7 +241,7 @@ const RydeForm = props => {
         <div className="row">
           <div className="col s12 m8 push-m2">
             <div className="extra-option">
-              <div className={hideSwitchOnEdit}>
+              <div className='switch show'>
                 <label>
                   One Time Trip
                   <input type="checkbox" value={props.reoccurring} onChange={props.onReoccurringChange} />

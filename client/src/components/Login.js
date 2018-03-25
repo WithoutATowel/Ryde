@@ -20,7 +20,7 @@ class ConnectedLogin extends Component {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
     }
     this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
@@ -45,7 +45,7 @@ class ConnectedLogin extends Component {
         localStorage.setItem('rydeAppToken', result.data.token)
         this.props.liftTokenToState(result.data)
       } else {
-        console.log("Handle the lack of user here...")
+        this.props.notify()
       }
     }).catch( err => console.log(err) )
   }
