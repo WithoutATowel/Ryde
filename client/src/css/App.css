@@ -15,6 +15,7 @@ input:focus, textarea:focus, select:focus {
 html, body {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
 .App {
@@ -141,6 +142,31 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 
 .input-field {
   margin-top: 0;
+}
+
+/* ======== Home ========= */
+
+#home {
+  background-image: url(/img/home-hero.jpg);
+  background-size: cover;
+  background-position: right center;
+  padding-top: 1px;
+}
+
+#home-blurb {
+  background-color: white;
+  /*margin: 5%;
+  border-radius: 5px;*/
+  padding: 3% 5% 5% 5%;
+ /* -webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);*/
+}
+
+.miniSearch {
+  background-color: white;
+  margin-top: 20vh;
+  width: 100%;
+  padding: 1%;
 }
 
 /* ======== Sign-up + login ========= */
