@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import '../css/userprofile.css';
 import { Modal, Button} from 'react-materialize';
 import UpdateProfile from '../components/UpdateProfile';
@@ -6,7 +7,13 @@ import BecomeADryver from '../components/BecomeADryver';
 import NoLongerDryve from '../components/NoLongerDryve';
 import DeleteUser from '../components/DeleteUser';
 
-class PrivateProfile extends Component {
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+class ConnectedPrivateProfile extends Component {
 
   render() {
     let user = this.props.user
@@ -24,7 +31,7 @@ class PrivateProfile extends Component {
           <div className='row profile-card'>
             <div className='col m4'>
               <div className='pic-circle center-align'>
-                <img src='https://www.placecage.com/c/185/230' alt='profile' />
+                <img src={this.props.user.image} alt='profile' />
               </div>
             </div>
               <div className='profile-stats-column col m4'>
@@ -69,5 +76,7 @@ class PrivateProfile extends Component {
     }
   }
 }
+
+const PrivateProfile = connect(mapStateToProps)(ConnectedPrivateProfile);
 
 export default PrivateProfile;
