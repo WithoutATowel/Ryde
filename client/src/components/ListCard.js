@@ -163,7 +163,7 @@ class ConnectedListCard extends Component {
     let rawDate = new Date(ryde.departDate);
     let date = rawDate.getFullYear() + '-' + (rawDate.getMonth() + 1) + '-' + rawDate.getDate();
     let time = rawDate.getHours() + ':' + rawDate.getMinutes();
-    let openSeats = ryde.seats - ryde.pendingRiders.length - ryde.ridersId.length;
+    let openSeats = ryde.seats - ryde.ridersId.length;
     let startCity = ryde.startAddress.city.charAt(0).toUpperCase() + ryde.startAddress.city.slice(1);
     let endCity = ryde.endAddress.city.charAt(0).toUpperCase() + ryde.endAddress.city.slice(1);
 
