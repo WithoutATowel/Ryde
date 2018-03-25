@@ -55,32 +55,32 @@ app.delete('/deleteuser', (req,res,next)=>{
     departDate: {$gte: current},
     deniedRiders: {$in:[userId]}
   }
-  console.log(toDelete);
+  console.log(toDelete, current);
   // remove the user from User table
   User.findOneAndRemove(toDelete, function(err, doc1){
     // remove the user's trips if he is a driver
     console.log('removeuser: ',doc1);
     Trip.remove(userTrips).exec(function(err, doc2){
       //update trips where user is a denied,pending, and rider
-      console.log('removetrips :',doc2);
+      console.log('removetrips :',doc2,current);
       Trip.update(
         tripRider,
         {$pull:{ridersId: userId}},
         {multi:true}
       ).exec(function(err, doc3){
-        console.log('removerider: ',doc3);
+        console.log('removerider: ',doc3,current);
         Trip.update(
           tripPend,
-          {$pull:{ridersId: userId}},
+          {$pull:{pendingRiders: userId}},
           {multi:true}
         ).exec(function(err, doc4){
-          console.log('removepend: ',doc4);
+          console.log('removepend: ',doc4, current);
           Trip.update(
             tripDenied,
-            {$pull:{ridersId: userId}},
+            {$pull:{deniedRiders: userId}},
             {multi:true}
           ).exec(function(err, doc5){
-            console.log('removedenied: ',doc5);
+            console.log('removedenied: ',doc5,current);
 
             res.send({msg:'working?'})
           })
@@ -154,7 +154,7 @@ app.post('/bigsearch', (req, res, next) => {
           count === trips.length ? (
             //resign the temp array holding Available trips
             res.send({newTrips})
-          ) : (console.log('still looping'))
+          ) : (false)
         ) : (
           User.findOne(id, function(err, user) {
             //add key value pair of driver to trip object
