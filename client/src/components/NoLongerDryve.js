@@ -9,9 +9,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 class ConnectedNoLongerDryve extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   removeDryverStatus(e) {
     e.preventDefault()
@@ -25,7 +22,7 @@ class ConnectedNoLongerDryve extends Component {
 
   render() {
     return(
-      <button onClick={(e) => this.removeDryverStatus(e)}>Remove Dryver status</button>
+      <button className='rydeBlueBtn btn' onClick={(e) => this.removeDryverStatus(e)}>Remove Dryver status</button>
     )
   }
 }

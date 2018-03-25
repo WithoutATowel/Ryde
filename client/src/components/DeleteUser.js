@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { liftTokenToState } from '../redux/actions/index';
+//import { liftTokenToState } from '../redux/actions/index';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
@@ -68,13 +68,13 @@ class ConnectedDeleteUser extends Component {
   }
 
   render(){
-
+    var check
     if(this.state.wrongEmail){
-      var check = <div>You have entered a wrong email</div>
+      check = <div>You have entered a wrong email</div>
     } else if (this.state.wrongPassword){
-      var check = <div>You have entered a wrong Password</div>
+      check = <div>You have entered a wrong Password</div>
     } else {
-      var check = <br />
+      check = <br />
     }
     return(
       <div>
