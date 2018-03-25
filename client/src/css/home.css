@@ -1,11 +1,3 @@
 .home-h1 {
   color: red;
 }
-.miniSearch {
-  width: 70vw;
-  margin: 20vh auto 0;
-}
-.minisearchinput {
-  border-left: 1px solid grey;
-  margin-left: 2px;
-}

@@ -36,6 +36,7 @@ router.post('/login', (req, res, next) => {
 })
 
 router.post('/signup', (req, res, next) => {
+  console.log(req.body);
   User.findOne({ email: req.body.email.toLowerCase() }, function(err, user) {
     if (user) {
       res.redirect('/auth/signup')
