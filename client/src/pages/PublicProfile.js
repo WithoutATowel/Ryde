@@ -14,7 +14,7 @@ export const PublicProfile = props => {
               <img src='https://www.placecage.com/c/185/230' alt='profile' />
             </div>
             <br />
-            <h5>{props.clickedUser.name}</h5>
+            <h4>{props.clickedUser.name}</h4>
           </div>
         </div>
         <div className='row center-align'>
