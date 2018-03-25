@@ -164,9 +164,14 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
 
 .miniSearch {
   background-color: white;
-  margin-top: 20vh;
-  width: 100%;
   padding: 1%;
+  width: 70vw;
+  margin: 20vh auto 0;
+}
+
+.minisearchinput {
+  border-left: 1px solid grey;
+  margin-left: 2px;
 }
 
 /* ======== Sign-up + login ========= */
