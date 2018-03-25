@@ -4,7 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import store from '../redux/store/index';
 import { liftMiniSearch } from '../redux/actions/index';
-import { Link,Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Input } from 'react-materialize';
 
 const mapDispatchToProps = dispatch => {
