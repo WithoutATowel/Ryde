@@ -228,11 +228,6 @@ a.main-menu-button-collapse {
   color: #18ED6E;
 }
 
-.active {
-  background-color: #333333;
-  color: #18ED6E;
-}
-
 #login-modal {
   max-width: 100%;
   width: 500px;
@@ -603,7 +598,7 @@ body .switcher__label {
   .list-card-main {
     display: flex;
   }
-  
+
   .profile-card  {
     display: flex;
   }

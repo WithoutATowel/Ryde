@@ -98,7 +98,6 @@ class ConnectedListCard extends Component {
     let rydeId = this.props.ryde._id
     let userId = this.props.user._id
     axios.post('/complete', {rydeId,userId}).then(result =>{
-      console.log(result.data);
       this.setState({
         disappear: 'disappear'
       })
@@ -109,7 +108,6 @@ class ConnectedListCard extends Component {
     let rydeId = this.props.ryde._id
     let userId = this.props.user._id
     axios.post('/delete', {rydeId,userId}).then(result =>{
-      console.log(result.data);
       this.setState({
         disappear: 'disappear shrink',
       })
@@ -136,7 +134,7 @@ class ConnectedListCard extends Component {
       if (this.refs.addRemoveButton) {
         this.refs.addRemoveButton.style.transform = 'rotate(0deg)';
       }
-      console.log('completed: ', (current>=departDate),(new Date(current)).toUTCString(),(new Date(departDate)).toUTCString(), this.props.ryde.rydeName);
+      // console.log('completed: ', (current>=departDate),(new Date(current)).toUTCString(),(new Date(departDate)).toUTCString(), this.props.ryde.rydeName);
       let completed = (current >= departDate ? (<button className="rydeGreenBtn btn colBtn" onClick={this.handleCompleted}>Completed</button>):(<button onClick={this.handleDeleted} className="red lighten-1 btn colBtn">Delete</button>))
       actionButton = (
         <div className='col s12 m12 l2'>

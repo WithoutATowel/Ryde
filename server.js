@@ -383,6 +383,7 @@ app.post('/profile/:id/edit', (req, res, next) => {
       if (err) {
         res.send('An error occurred', err);
       } else {
+        // console.log('##########################', doc)
         res.send(doc)
       }
     }
