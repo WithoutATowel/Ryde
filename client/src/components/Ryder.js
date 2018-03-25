@@ -1,24 +1,77 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { toggleRydesTab } from '../redux/actions/index';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-class Ryder extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleRydesTab: data => dispatch(toggleRydesTab(data)),
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    rydesTabIsToggled: state.rydesTabIsToggled,
+    user: state.user
+  }
+}
+
+class ConnectedRyder extends Component {
 
   handleApprove() {
-    console.log('User approved!');
+    //console.log('User approved!');
     axios.post('/mydryves', {
       userId: this.props.ryder._id,
       tripId: this.props.ryde._id,
       action: 'approve'
+    }).then(() => {
+      // Query for user's rydes or dryves as needed, where results are stored by server in Redux under 'myRydesDryves'
+      axios.get('/mydryves/' + this.props.user._id)
+        .then( result => {
+          //console.log('This result: ', result.data)
+          // Flip the rydesTabIsToggled state value in Redux AND lift the results to myRydesDryves in Redux
+          if (result.data && result.data.length > 0) {
+            this.props.toggleRydesTab({
+              rydesTabIsToggled: false,
+              myRydesDryves: result.data
+            });
+          } else {
+            this.props.toggleRydesTab({
+              rydesTabIsToggled: false,
+              myRydesDryves: []
+            });
+          }
+          this.props.onRejectApprove()
+        });
     });
+
   }
 
   handleReject() {
-    console.log('User has been rejected. Harsh.');
+    //console.log('User has been rejected. Harsh.');
     axios.post('/mydryves', {
       userId: this.props.ryder._id,
       tripId: this.props.ryde._id,
       action: 'reject'
+    }).then(() => {
+      // Query for user's rydes or dryves as needed, where results are stored by server in Redux under 'myRydesDryves'
+      axios.get('/mydryves/' + this.props.user._id)
+        .then( result => {
+          // Flip the rydesTabIsToggled state value in Redux AND lift the results to myRydesDryves in Redux
+          if (result.data && result.data.length > 0) {
+            this.props.toggleRydesTab({
+              rydesTabIsToggled: false,
+              myRydesDryves: result.data
+            });
+          } else {
+            this.props.toggleRydesTab({
+              rydesTabIsToggled: false,
+              myRydesDryves: []
+            });
+          }
+          this.props.onRejectApprove()
+        });
     });
   }
 
@@ -47,7 +100,7 @@ class Ryder extends Component {
           <div className="col s12 m3">
             <Link to={profileLink}>
               <div className="ryder-profile-pic">
-                <div dangerouslySetInnerHTML={{__html: this.state.profilePic}} />
+                <div dangerouslySetInnerHTML={{__html: this.props.ryder.image}} />
               </div>
             </Link>
           </div>
@@ -69,5 +122,5 @@ class Ryder extends Component {
     )
   }
 }
-
+const Ryder = connect(mapStateToProps, mapDispatchToProps)(ConnectedRyder)
 export default Ryder;

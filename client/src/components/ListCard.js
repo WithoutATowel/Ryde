@@ -94,7 +94,7 @@ class ConnectedListCard extends Component {
 
   render() {
     let ryde = this.props.ryde;
-    let reocurringDaysJSX, reocurringColon, actionButton, riders;
+    let reocurringDaysJSX, actionButton, riders;
     let current = Date.now();
     let departDate = this.props.ryde.departDate
     // console.log(current, departDate);
@@ -133,23 +133,22 @@ class ConnectedListCard extends Component {
     //
     console.log(ryde.reoccurringDays )
     if (ryde.reoccurring) {
-      reocurringColon = ': ';
       reocurringDaysJSX = (
         <span className='list-card-recurring-days'>
           <input type='checkbox' checked={ryde.reoccurringDays[0] ? 'checked' : null} disabled />
-          <label>Sunday</label>
+          <label>Sun</label>
           <input type='checkbox' checked={ryde.reoccurringDays[1] ? 'checked' : null} disabled />
-          <label>Monday</label>
+          <label>Mon</label>
           <input type='checkbox' checked={ryde.reoccurringDays[2] ? 'checked' : null} disabled />
-          <label>Tuesday</label>
+          <label>Tues</label>
           <input type='checkbox' checked={ryde.reoccurringDays[3] ? 'checked' : null} disabled />
-          <label>Wednesday</label>
+          <label>Wed</label>
           <input type='checkbox' checked={ryde.reoccurringDays[4] ? 'checked' : null} disabled />
-          <label>Thursday</label>
+          <label>Thurs</label>
           <input type='checkbox' checked={ryde.reoccurringDays[5] ? 'checked' : null} disabled />
-          <label>Friday</label>
+          <label>Fri</label>
           <input type='checkbox' checked={ryde.reoccurringDays[6] ? 'checked' : null} disabled />
-          <label>Saturday</label>
+          <label>Sat</label>
         </span>
       )
     }
@@ -161,7 +160,7 @@ class ConnectedListCard extends Component {
     let rawDate = new Date(ryde.departDate);
     let date = rawDate.getFullYear() + '-' + (rawDate.getMonth() + 1) + '-' + rawDate.getDate();
     let time = rawDate.getHours() + ':' + rawDate.getMinutes();
-    let openSeats = ryde.seats - ryde.pendingRiders.length - ryde.ridersId.length;
+    let openSeats = ryde.seats - ryde.ridersId.length;
     let startCity = ryde.startAddress.city.charAt(0).toUpperCase() + ryde.startAddress.city.slice(1);
     let endCity = ryde.endAddress.city.charAt(0).toUpperCase() + ryde.endAddress.city.slice(1);
 
@@ -177,7 +176,7 @@ class ConnectedListCard extends Component {
     let startAddress = capitalizer(ryde.startAddress.street);
     let endAddress = capitalizer(ryde.endAddress.street);
     let driverRating = ryde.driver.dryverRatingAvg ? ryde.driver.dryverRatingAvg : 'Unrated';
-    let disappear = '';
+
 
     return (
       <div className={'list-card-div ' + this.state.disappear}>
@@ -229,16 +228,16 @@ class ConnectedListCard extends Component {
         <div className={'list-card-details '+this.state.disappear} ref='details'>
           <div className='row'>
             <div className='col s12'>
-              <div className="row">
-                <div className="col s12 m2">
-                  <p>{ryde.pets ? 'Pets Allowed' : 'No Pets'}</p>
-                  <p>{ryde.smoking ? 'Smoking Allowed' : 'No Smoking'}</p>
-                  <br />
+              <div className="row list-card-extradetails">
+                <div className="col s12 m3">
+                  <div>
+                    <h5>Preferences:</h5>
+                    <p>{ryde.pets ? 'Pets Allowed' : 'No Pets'}</p>
+                    <p>{ryde.smoking ? 'Smoking Allowed' : 'No Smoking'}</p>
+                  </div>
                 </div>
-                <div className="col s12 m10">
-                  <input type='checkbox' checked={ryde.reoccurring ? 'checked' : null} disabled />
-                  <label>Reocurring{reocurringColon}</label>
-                  <br />
+                <div className="col s12 m9">
+                  {ryde.reoccurring ? <h5>Reocurring Days:</h5> : <h5>Not A Reocurring Ryde</h5>}
                   {reocurringDaysJSX}
                 </div>
               </div>
