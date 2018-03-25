@@ -1,3 +1,22 @@
-.user-profile-h1 {
-  color: blue;
+#private-profile .pic-circle {
+    margin: 0 auto;
+}
+
+/*#private-profile ul, li {
+    display: inline-block;
+}*/
+
+.profile-card {
+    padding: 15px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+}
+
+.profile-stats-column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

@@ -25,7 +25,7 @@ class ConnectedNoLongerDryve extends Component {
 
   render() {
     return(
-      <button onClick={(e) => this.removeDryverStatus(e)}>Remove Dryver status</button>
+      <button className='rydeBlueBtn btn' onClick={(e) => this.removeDryverStatus(e)}>Remove Dryver status</button>
     )
   }
 }

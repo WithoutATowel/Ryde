@@ -43,19 +43,20 @@ class ConnectedDeleteUser extends Component {
     e.preventDefault()
     let email = this.state.email
     let password = this.state.password
+    let userId = this.props.user._id
     if(email === this.props.user.email){
       axios({
         url: '/deleteuser',
         method: 'delete',
-        data: {email, password}
+        data: {email, password, userId}
       }).then(result =>{
         if(result.data === false){
-          // this.setState({
-          //   wrongPassword: true
-          // })
+          this.setState({
+            wrongPassword: true
+          })
         } else {
           console.log(result.data);
-          // <Redirect to='/' />
+          <Redirect to='/' />
         }
       })
     } else {
