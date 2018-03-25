@@ -28,7 +28,6 @@ class ConnectedListCard extends Component {
       expanded: false,
       driver: '',
       driverRating: 4.5,
-      profilePic: '',
       disappear: '',
     }
   }
@@ -71,27 +70,6 @@ class ConnectedListCard extends Component {
       }
     }
 
-    let profilePicUrl = 'https://www.avatarapi.com/js.aspx?email=' + this.props.ryde.driver.email + '&size=150'
-    var profilePic = ''
-    this.setState({
-      profilePic: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="150" height="150" />'
-    })
-    // axios.get(profilePicUrl).then(results => {
-    //   var all = results.data
-    //   profilePic = all.split('>')
-    //   profilePic = profilePic[1] + ' />'
-    //   if (profilePic === 'undefined />') {
-    //     this.setState({
-    //       profilePic: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="150" height="150" />'
-    //     })
-    //   } else {
-    //     this.setState({
-    //       profilePic
-    //     })
-    //   }
-    //   console.log(all)
-    // })
-
   }
 
   handleCompleted = () =>{
@@ -126,9 +104,7 @@ class ConnectedListCard extends Component {
       // If the user is not logged in, always show the plus sign, linking to login
       actionButton = (
         <div className='col s2 list-card-add right-align'>
-          <Link to='/login'>
-            <i className='material-icons large'>add</i>
-          </Link>
+          <a href='#login-modal' className="modal-trigger "><i className='material-icons large'>add</i></a>
         </div>
       )
     } else if (this.props.myRydesPage && !this.props.rydesTabIsToggled) {
@@ -187,9 +163,7 @@ class ConnectedListCard extends Component {
     let rawDate = new Date(ryde.departDate);
     let date = rawDate.getFullYear() + '-' + (rawDate.getMonth() + 1) + '-' + rawDate.getDate();
     let time = rawDate.getHours() + ':' + rawDate.getMinutes();
-
     let openSeats = ryde.seats - ryde.pendingRiders.length - ryde.ridersId.length;
-
     let startCity = ryde.startAddress.city.charAt(0).toUpperCase() + ryde.startAddress.city.slice(1);
     let endCity = ryde.endAddress.city.charAt(0).toUpperCase() + ryde.endAddress.city.slice(1);
 
@@ -204,9 +178,9 @@ class ConnectedListCard extends Component {
     //let rydeName = capitalizer(ryde.rydeName);
     let startAddress = capitalizer(ryde.startAddress.street);
     let endAddress = capitalizer(ryde.endAddress.street);
-
     let driverRating = ryde.driver.dryverRatingAvg ? ryde.driver.dryverRatingAvg : 'Unrated';
-    //let disappear = '';
+    let disappear = '';
+
     return (
       <div className={'list-card-div ' + this.state.disappear}>
         <div className={'row list-card-header '+ this.state.disppear}>
@@ -226,7 +200,7 @@ class ConnectedListCard extends Component {
               <div className='list-card-driver-pic'>
                 <Link to={'/profile/' + ryde.driverId}>
                   <div className="ryder-profile-pic">
-                    <div dangerouslySetInnerHTML={{__html: this.state.profilePic}} />
+                    <div dangerouslySetInnerHTML={{__html: ryde.driver.image}} />
                   </div>
                 </Link>
               </div>

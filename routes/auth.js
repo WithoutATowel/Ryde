@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var User = require('../models/user');
 var Trips = require('../models/trips');
 var bcrypt = require('bcrypt');
+var request = require('request');
 
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
@@ -19,11 +20,37 @@ router.post('/login', (req, res, next) => {
       hashedPass = user.password
       passwordMatch = bcrypt.compareSync(req.body.password, hashedPass)
       if (passwordMatch) {
-        console.log("Password is correct")
+        console.log("Password is correct!")
+
+        console.log("hi sean")
         var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
           expiresIn: 60 * 60 * 24 // expires in 24 hours
         })
-        res.json({user: user.toObject(), token})
+        let profilePicUrl = 'https://www.avatarapi.com/js.aspx?email=' + user.email + '&size=200'
+        request(profilePicUrl, function (error, response, body) {
+          var profilePic = ''
+          profilePic = body.split('>')
+          profilePic = profilePic[1] + ' />'
+          if (profilePic === 'undefined />') {
+            User.findOneAndUpdate(
+              {_id: user._id},
+              {$set: {image: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="200" height="200" />' }}
+            ).then(function(data) {
+              res.json({user: user.toObject(), token})
+            })
+          } else {
+            console.log('pp in', profilePic)
+            User.findOneAndUpdate(
+              {_id: user._id},
+              {$set: {image: profilePic }}
+            ).then(function(data) {
+              res.json({user: user.toObject(), token})
+            })
+          }
+          // console.log('error:', error); // Print the error if one occurred
+          // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+          // console.log('body:', body); // Print the HTML for the Google homepage.
+        });
       } else {
         console.log("Passwords don't match")
         res.send.json({
@@ -36,6 +63,7 @@ router.post('/login', (req, res, next) => {
 })
 
 router.post('/signup', (req, res, next) => {
+  console.log(req.body);
   User.findOne({ email: req.body.email.toLowerCase() }, function(err, user) {
     if (user) {
       res.redirect('/auth/signup')
@@ -62,7 +90,32 @@ router.post('/signup', (req, res, next) => {
           var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
             expiresIn: 60 * 60 * 24
           })
-          res.json({user: user.toObject(), token})
+          let profilePicUrl = 'https://www.avatarapi.com/js.aspx?email=' + user.email + '&size=200'
+          request(profilePicUrl, function (error, response, body) {
+            var profilePic = ''
+            profilePic = body.split('>')
+            console.log('pp split', profilePic)
+            profilePic = profilePic[1] + ' />'
+            if (profilePic === 'undefined />') {
+              User.findOneAndUpdate(
+                {_id: user._id},
+                {$set: {image: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="200" height="200" />' }}
+              ).then(function(data) {
+                res.json({user: user.toObject(), token})
+              })
+            } else {
+              console.log('pp in', profilePic)
+              User.findOneAndUpdate(
+                {_id: user._id},
+                {$set: {image: profilePic }}
+              ).then(function(data) {
+                res.json({user: user.toObject(), token})
+              })
+            }
+            //console.log('error:', error); // Print the error if one occurred
+            // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+            // console.log('body:', body); // Print the HTML for the Google homepage.
+          });
         }
       })
     }
