@@ -21,9 +21,6 @@ const mapStateToProps = state => {
 }
 
 class ConnectedUserProfile extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   componentDidMount() {
     this.props.liftCurrentPageToState('/profile/' + this.props.match.params.id)
