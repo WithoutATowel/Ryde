@@ -21,7 +21,9 @@ class ConnectedSignup extends Component {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      homeState: '',
+      workState: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -34,11 +36,11 @@ class ConnectedSignup extends Component {
     let dob = this.dob.value
     let homeStreet = this.homeStreet.value
     let homeCity = this.homeCity.value
-    let homeState = this.homeState.value
+    let homeState = this.state.homeState
     let homeZip = this.homeZip.value
     let workStreet = this.workStreet.value
     let workCity = this.workCity.value
-    let workState = this.workState.value
+    let workState = this.state.workState
     let workZip = this.workZip.value
     axios.post('/auth/signup',
       {name, email, password, dob, homeStreet, homeCity, homeState, homeZip, workStreet, workCity, workState, workZip})
@@ -46,6 +48,12 @@ class ConnectedSignup extends Component {
         localStorage.setItem('rydeAppToken', result.data.token)
         this.props.liftTokenToState(result.data)
     }).catch( err => console.log(err) )
+  }
+
+  handleStateInputChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   }
 
   render() {
@@ -80,7 +88,7 @@ class ConnectedSignup extends Component {
                   City <input type='text' ref={input => {this.homeCity = input}} placeholder='Seattle' required />
                 </div>
                 <div className="col s12 m2">
-                  State <Input type='select' defaultValue='' ref={input => {this.homeState = input}} required>
+                  State <Input type='select' defaultValue='' ref={input => {this.homeState = input}} onChange={(e) => this.handleStateInputChange(e)} name='homeState' required>
                     <option value="" disabled>Select</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -148,7 +156,7 @@ class ConnectedSignup extends Component {
                   City <input type='text' ref={input => {this.workCity = input}} placeholder='Seattle' />
                 </div>
                 <div className="col s12 m2">
-                  State <Input type='select' defaultValue='' ref={input => {this.workState = input}}>
+                  State <Input type='select' defaultValue='' ref={input => {this.workState = input}} onChange={(e) => this.handleStateInputChange(e)} name='workState'>
                     <option value="" disabled>Select</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
