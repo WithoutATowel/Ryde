@@ -18,7 +18,10 @@ router.post('/login', (req, res, next) => {
       res.json({user: null, token: ''});
     } else {
       hashedPass = user.password
+      console.log(req.body.password)
+      console.log(hashedPass)
       passwordMatch = bcrypt.compareSync(req.body.password, hashedPass)
+      console.log(bcrypt.compareSync(req.body.password, hashedPass))
       if (passwordMatch) {
         console.log("Password is correct!")
 
@@ -34,17 +37,21 @@ router.post('/login', (req, res, next) => {
           if (profilePic === 'undefined />') {
             User.findOneAndUpdate(
               {_id: user._id},
-              {$set: {image: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="200" height="200" />' }}
+              {$set: {image: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="200" height="200" />' }},
+              {new: true}
             ).then(function(data) {
-              res.json({user: user.toObject(), token})
+              console.log('data', data)
+              res.json({user: data.toObject(), token})
             })
           } else {
             console.log('pp in', profilePic)
             User.findOneAndUpdate(
               {_id: user._id},
-              {$set: {image: profilePic }}
+              {$set: {image: profilePic }},
+              {new: true}
             ).then(function(data) {
-              res.json({user: user.toObject(), token})
+              console.log('data', data)
+              res.json({user: data.toObject(), token})
             })
           }
           // console.log('error:', error); // Print the error if one occurred
@@ -99,17 +106,19 @@ router.post('/signup', (req, res, next) => {
             if (profilePic === 'undefined />') {
               User.findOneAndUpdate(
                 {_id: user._id},
-                {$set: {image: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="200" height="200" />' }}
+                {$set: {image: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="200" height="200" />' }},
+                {new: true}
               ).then(function(data) {
-                res.json({user: user.toObject(), token})
+                res.json({user: data.toObject(), token})
               })
             } else {
               console.log('pp in', profilePic)
               User.findOneAndUpdate(
                 {_id: user._id},
-                {$set: {image: profilePic }}
+                {$set: {image: profilePic }},
+                {new: true}
               ).then(function(data) {
-                res.json({user: user.toObject(), token})
+                res.json({user: data.toObject(), token})
               })
             }
             //console.log('error:', error); // Print the error if one occurred

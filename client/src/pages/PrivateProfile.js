@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../css/userprofile.css';
 import { Modal, Button} from 'react-materialize';
+import { ToastContainer, toast } from 'react-toastify';
 import UpdateProfile from '../components/UpdateProfile';
 import BecomeADryver from '../components/BecomeADryver';
 import NoLongerDryve from '../components/NoLongerDryve';
@@ -12,15 +13,20 @@ const mapStateToProps = state => {
   return {
     user: state.user
   }
-}
 
 class ConnectedPrivateProfile extends Component {
+  constructor(props) {
+    super(props);
+    this.notifyUpdate = this.notifyUpdate.bind(this);
+  }
+
+  notifyUpdate = (msg) => toast.info(msg, {position: toast.POSITION.TOP_CENTER});
 
   render() {
     let user = this.props.user
     let ryderRating = user.ryderRatingAvg
     let dryverRating = user.dryverRatingAvg
-    let dryverOptions = user.dryver ? <NoLongerDryve userId={user._id} /> : <BecomeADryver userId={user._id} />;
+    let dryverOptions = user.dryver ? <NoLongerDryve userId={user._id} notifyUpdate={this.notifyUpdate} /> : <BecomeADryver userId={user._id} notifyUpdate={this.notifyUpdate} />;
     let dryverSignupText = user.dryver ? 'Currently enrolled to dryve:' : 'Become a Dryver:';
     if (user) {
       return (

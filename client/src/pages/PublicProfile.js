@@ -19,7 +19,7 @@ export const PublicProfile = props => {
         </div>
         <div className='row center-align'>
           <div className='col s10 offset-s1'>
-            <ProfileDetails />
+            <ProfileDetails clickedUser={props.clickedUser} />
           </div>
         </div>
       </div>

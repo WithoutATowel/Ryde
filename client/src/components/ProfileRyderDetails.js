@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 import ReviewUser from './ReviewUser';
 
 const mapStateToProps = state => {
-  return { theUser: state.user, clickedUser: state.clickedUser };
+  // return { theUser: state.user, clickedUser: state.clickedUser };
+  return { theUser: state.user };
 }
 
 class ConnectedProfileRyderDetails extends Component {
@@ -11,16 +13,17 @@ class ConnectedProfileRyderDetails extends Component {
     super(props)
     this.state = {
       clickedUser: this.props.clickedUser,
-      theUser: this.props.user,
       showReviewUser: this.props.theUser ? (!this.props.theUser.reviewedRyders.includes(this.props.clickedUser._id) ? true : false) : false
     }
     this.handleUpdateProfileRyderDetails = this.handleUpdateProfileRyderDetails.bind(this)
+    this.notifyUpdate = this.notifyUpdate.bind(this)
   }
+
+  notifyUpdate = (msg) => toast.info(msg, {position: toast.POSITION.TOP_CENTER});
 
   handleUpdateProfileRyderDetails(users) {
     this.setState({
       clickedUser: users.clickedUser,
-      theUser: users.theUser,
       showReviewUser: false
     })
   }
@@ -29,9 +32,9 @@ class ConnectedProfileRyderDetails extends Component {
     console.log('from profileRyderDetails',this.props.theUser)
     let displayReviewUser = null;
     let ratingAvg = this.state.clickedUser.ryderRatingAvg
-    let cUser = this.props.clickedUser
+    let cUser = this.state.clickedUser
     let cUserName = cUser.name.match(/\S+/)
-    if (this.props.theUser && this.state.showReviewUser) {
+    if (this.props.theUser && (this.state.showReviewUser || (!this.props.theUser.reviewedRyders.includes(this.state.clickedUser._id) ? true : false))) {
       displayReviewUser = (
         <ReviewUser
           key='1'
@@ -39,6 +42,7 @@ class ConnectedProfileRyderDetails extends Component {
           userType='ryder'
           inputName='ryder-review'
           theUser={this.props.theUser}
+          notifyUpdate={this.notifyUpdate}
           updateProfileRyderDetails={this.handleUpdateProfileRyderDetails}
         />
       )
@@ -53,7 +57,6 @@ class ConnectedProfileRyderDetails extends Component {
             {displayReviewUser}
             <p>{cUserName}'s Ryder rating: {ratingAvg > 0 ? ratingAvg : 'no ratings yet'}</p>
             <p>{cUserName}'s total rydes: {cUser.completedTrips.length > 0 ? cUser.completedTrips : 'no trips yet'}</p>
-            <p>~~~~~~~FIGURE OUT HOW TO LIST REVIEWS/COMMENTS HERE~~~~~~~~</p>
           </div>
         </div>
       </div>

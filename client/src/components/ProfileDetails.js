@@ -9,10 +9,10 @@ export const ProfileDetails = props => {
   return (
     <div className='row profile-details-box'>
       <div className='col s10 l5 offset-l1'>
-        <ProfileRyderDetails />
+        <ProfileRyderDetails clickedUser={props.clickedUser} />
       </div>
       <div className='col s10 l5'>
-        <ProfileDryverDetails />
+        <ProfileDryverDetails clickedUser={props.clickedUser} />
       </div>
     </div>
   )
