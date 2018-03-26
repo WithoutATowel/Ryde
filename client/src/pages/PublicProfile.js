@@ -1,7 +1,6 @@
 import React from 'react';
 import '../css/publicprofile.css';
 import { ProfileDetails } from '../components/ProfileDetails';
-// import axios from 'axios';
 
 export const PublicProfile = props => {
   if (props.clickedUser) {
