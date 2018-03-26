@@ -1,24 +1,69 @@
 import React, { Component } from 'react';
 import '../css/ryders.css';
 import Ryder from './Ryder';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
-class Ryders extends Component {
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    rydesTabIsToggled: state.rydesTabIsToggled,
+    myRydesDryves: state.myRydesDryves
+  }
+}
+
+class ConnectedRyders extends Component {
   constructor(props) {
     super(props)
     this.state = {
       pendingUsers: [],
       confirmedUsers: []
     }
+    this.handleRejectApprove = this.handleRejectApprove.bind(this)
+  }
+
+  handleRejectApprove() {
+    let newTrip
+    for (let trip of this.props.myRydesDryves) {
+      if (this.props.ryde.id === trip.id) {
+        newTrip = trip;
+      }
+    }
+
+    axios.post('/ryders/pending',  {
+          pending: newTrip.pendingRiders
+      }).then( result => {
+      if (result.data && result.data.length > 0) {
+        // console.log('returned pending: ', result.data)
+        this.setState({
+          pendingUsers: result.data
+        })
+      } else {
+        this.setState({pendingUsers: 'none'})
+        console.log('failed Pending ', result)
+      }
+    });
+
+    axios.post('/ryders/confirmed',  {
+          confirmed: newTrip.ridersId
+      }).then( result => {
+      if (result.data && result.data.length > 0) {
+        this.setState({
+          confirmedUsers: result.data
+        })
+      } else {
+        this.setState({confirmedUsers: 'none'})
+        console.log('failed confirmed', result)
+      }
+    });
   }
 
   componentDidMount() {
-    console.log('pending Riders: ',this.props.ryde._id, this.props.ryde.pendingRiders)
+    //console.log('pending Riders: ',this.props.ryde._id, this.props.ryde.pendingRiders)
     axios.post('/ryders/pending',  {
           pending: this.props.ryde.pendingRiders
       }).then( result => {
       if (result.data && result.data.length > 0) {
-        console.log('returned pending: ', result.data)
         this.setState({
           pendingUsers: result.data
         })
@@ -49,7 +94,7 @@ class Ryders extends Component {
       pendingRiders = 'No Pending Ryders Found'
     } else {
       pendingRiders = this.state.pendingUsers.map( (rider, index) => {
-        return <Ryder status='pending' ryde={ryde} ryder={rider} key={index} />
+        return <Ryder status='pending' ryde={ryde} ryder={rider} onRejectApprove={this.handleRejectApprove} key={index} />
       })
     };
     let confirmedRiders
@@ -57,7 +102,7 @@ class Ryders extends Component {
       confirmedRiders = 'No Confirmed Ryders Found'
     } else {
       confirmedRiders = this.state.confirmedUsers.map( (rider, index) => {
-        return <Ryder status='confirmed' ryde={ryde} ryder={rider} key={index} />
+        return <Ryder status='confirmed' ryde={ryde} ryder={rider} onRejectApprove={this.handleRejectApprove} key={index} />
       })
     };
 
@@ -82,5 +127,7 @@ class Ryders extends Component {
     )
   }
 }
+
+const Ryders = connect(mapStateToProps)(ConnectedRyders);
 
 export default Ryders;

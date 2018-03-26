@@ -8,7 +8,6 @@ const RydeForm = props => {
   const showReoccurringOnEdit = props.isEditPage || props.reoccurringShowHide === 'show' ? 'show' : 'hide'
 
   let seats = props.seats.toString();
-  console.log(props.smoking);
 
   let labels = [
     props.isEditPage ? "Address" : "",

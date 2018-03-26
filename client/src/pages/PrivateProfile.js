@@ -6,6 +6,7 @@ import UpdateProfile from '../components/UpdateProfile';
 import BecomeADryver from '../components/BecomeADryver';
 import NoLongerDryve from '../components/NoLongerDryve';
 import DeleteUser from '../components/DeleteUser';
+import { Redirect } from 'react-router-dom';
 
 const mapStateToProps = state => {
   return {
@@ -55,17 +56,19 @@ class ConnectedPrivateProfile extends Component {
             <UpdateProfile />
           </div>
           <h3>Dryver Settings</h3>
-          <div className='row profile-card'>
+          <div className='row profile-card center'>
             <div>
               <h5>{dryverSignupText}</h5>
               {dryverOptions}
-
-              <br />
-              <div>
-                <Modal header='Delete Yourself!' trigger={<Button>Delete</Button>}>
-                	<DeleteUser />
-                </Modal>
-              </div>
+            </div>
+          </div>
+          <h3>User Settings</h3>
+          <div className='row profile-card center'>
+            <div>
+              <h5>Delete Profile:</h5>
+              <Modal trigger={<Button className='btn red darken-2'>Delete</Button>}>
+              	<DeleteUser />
+              </Modal>
             </div>
           </div>
         </div>

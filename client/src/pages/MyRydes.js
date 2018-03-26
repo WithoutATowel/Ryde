@@ -82,6 +82,7 @@ class ConnectedMyRydes extends Component {
   }
 
   render() {
+    console.log('rerender')
     if (!this.props.user) {
       return (<Redirect to='/login' />)
     } else if (this.props.user.dryver) {

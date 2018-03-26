@@ -24,7 +24,7 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         case TOGGLE_RYDES_TAB:
-            console.log('Toggled Rydes/Dryves tab');
+            // console.log('Toggled Rydes/Dryves tab');
             return {
                 ...state,
                 rydesTabIsToggled: action.payload.rydesTabIsToggled,
@@ -40,23 +40,23 @@ const rootReducer = (state = initialState, action) => {
             // console.log('Updating the user...', action.payload);
             return {...state, user: action.payload};
         case LOGOUT_USER:
-            console.log('Logging out user');
+            // console.log('Logging out user');
             return {...state, token: '', user: null };
         case LIFT_CLICKED_USER:
             // console.log('Lifting clickedUser to Redux');
             return {...state, clickedUser: action.payload};
         case LIFT_BIG_SEARCH:
-            console.log('Lifted big search results');
+            // console.log('Lifted big search results');
             return {...state, searchResults: action.payload.searchResults};
         case LIFT_MINI_SEARCH:
             // CAN THIS BE COMBINED WITH LIFT_BIG_SEARCH INTO JUST LIFT_SEARCH?
-            console.log('Lifted mini search results');
+            // console.log('Lifted mini search results');
             return {...state, searchResults: action.payload.searchResults};
         case LIFT_MY_RYDES_DRYVES:
-            console.log('Lifted my rydes/dryves');
+            // console.log('Lifted my rydes/dryves');
             return {...state, myRydesDryves: action.payload.myRydesDryves};
         case LIFT_CURRENT_RYDE:
-            console.log('Lifted current ryde');
+            // console.log('Lifted current ryde');
             return {...state, currentRyde: action.payload.currentRyde};
         default:
             return state;

@@ -26,6 +26,7 @@ class ConnectedProfileRyderDetails extends Component {
   }
 
   render() {
+    console.log('from profileRyderDetails',this.props.theUser)
     let displayReviewUser = null;
     let ratingAvg = this.state.clickedUser.ryderRatingAvg
     let cUser = this.props.clickedUser

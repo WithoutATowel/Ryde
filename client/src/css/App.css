@@ -228,11 +228,6 @@ a.main-menu-button-collapse {
   color: #18ED6E;
 }
 
-.active {
-  background-color: #333333;
-  color: #18ED6E;
-}
-
 #login-modal {
   max-width: 100%;
   width: 500px;
@@ -485,16 +480,33 @@ footer p {
 }
 
 .list-card-details > .row {
-  margin-top: 7px;
+  margin-top: 11px;
 }
 
 .list-card-recurring-days {
-  margin-left: 50px;
+  /* margin-left: 50px; */
+  width: 100%;
+  text-align: center;
 }
 
 .list-card-recurring-days label {
   padding-left: 25px;
   margin-right: 2%;
+}
+
+.list-card-extradetails .col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-card-extradetails .col h5 {
+  margin: 0px 0px 5px 0px;
+}
+
+.list-card-extradetails .col div p {
+  margin: 0 auto;
 }
 
 
@@ -598,14 +610,27 @@ body .switcher__label {
   left: 97px;
 }
 
+.list-card-main {
+  display: block;
+}
 
 @media screen and (min-width: 601px) {
+  .profile-card, .list-card-extradetails  {
+    display: flex;
+  }
+
+}
+
+@media screen only and (min-width: 894px) {
   .list-card-main {
     display: flex;
   }
-  
-  .profile-card  {
-    display: flex;
-  }
+}
 
+.border-background-red {
+  border: 2px solid firebrick;
+  border-radius: 10px;
+  background-color: #ed3838;
+  text-align: center;
+  color: black;
 }
