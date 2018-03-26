@@ -79,6 +79,17 @@ class ConnectedMyRydes extends Component {
         }).catch( err => console.log(err))
       }
     }
+
+    var oldJs = document.getElementById('resize-my-rydes-js');
+    if (oldJs) {
+      oldJs.parentElement.removeChild(oldJs);
+    }
+
+    const script = document.createElement("script");
+    script.id = 'resize-my-rydes-js';
+    script.src = "/js/resizeMyRydes.js";
+    script.async = true;
+    document.body.appendChild(script);
   }
 
   render() {
@@ -87,7 +98,7 @@ class ConnectedMyRydes extends Component {
       return (<Redirect to='/login' />)
     } else if (this.props.user.dryver) {
       return (
-        <div>
+        <div id="my-rydes-page">
           <div className="flexCol-vCenter-hCenter">
             <h1>My Rydes</h1>
             <div className="switcher">
@@ -119,7 +130,7 @@ class ConnectedMyRydes extends Component {
       )
     } else {
       return (
-        <div>
+        <div id="my-rydes-page">
           <div className="flexCol-vCenter-hCenter">
             <h1>My Rydes</h1>
           </div>
