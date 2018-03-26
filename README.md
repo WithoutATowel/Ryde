@@ -112,7 +112,7 @@ Ryde Homepage
     - city: {
       type: String,
     },
-   - state: {
+    - state: {
       type: String,
       minLength: 2,
       maxLength: 2
