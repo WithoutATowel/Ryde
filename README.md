@@ -45,7 +45,7 @@ Ryde Homepage
 | POST   | /ryde                           | Post a dryve.
 | GET    | /ryde/:id/edit                  | Load a dryve into edit form.
 | PUT    | /ryde/:id                       | Submit dryve edits.
-| PUT    | /ryde/delete                    | Delete a dryve. 
+| PUT    | /ryde/delete                    | Delete a dryve.
 | PUT    | /ryde/complete                  | Complete a dryve.
 | POST   | /mydryves                       | Approve/deny ryders for a dryve.
 | GET    | /mydryves/:id                   | Get logged in user's dryves.
@@ -243,10 +243,10 @@ Once we started thinking about it, however, we realized that the opportunity for
 ## Wireframes
 [to the top](https://github.com/ScoRoc/Ryde#Ryde)
 
-![alt text](https://raw.githubusercontent.com/ScoRoc/Ryde/master/readme-images/1.png "Landing page & map search")
-![alt text](https://raw.githubusercontent.com/ScoRoc/Ryde/master/readme-images/2.png "List search")
-![alt text](https://raw.githubusercontent.com/ScoRoc/Ryde/master/readme-images/3.png "Expandable result card")
-![alt text](https://raw.githubusercontent.com/ScoRoc/Ryde/master/readme-images/4.png "Log in & sign up")
+![Landing page wireframe](readme-images/1.png "Landing page & map search")
+![List search](readme-images/2.png "List search")
+![Expandable result card](readme-images/3.png "Expandable result card")
+![Login and signup](readme-images/4.png "Log in & sign up")
 
 
 ## Next Steps
