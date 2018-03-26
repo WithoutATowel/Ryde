@@ -13,6 +13,7 @@ const mapStateToProps = state => {
   return {
     user: state.user
   }
+}
 
 class ConnectedPrivateProfile extends Component {
   constructor(props) {
