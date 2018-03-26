@@ -46,50 +46,23 @@ Ryde Homepage
 | POST   | /auth/signup                    | Sign up.
 | POST   | /auth/login                     | Log in.
 | POST   | /auth/me/from/token                  | Lift login from token.
-
-<!-- Dryve stuff -->
-| POST   | /postARyde                      | Post a dryve.
-| GET    | /editARyde/:id                  | Load a dryve into edit form.
-| POST   | /editARyde/:id                  | Submit dryve edits.
-| POST   | /delete                         | Delete a dryve.
-| POST   | /complete                       | Complete a dryve.
-
 | POST   | /ryde                           | Post a dryve.
 | GET    | /ryde/:id/edit                  | Load a dryve into edit form.
 | PUT    | /ryde/:id                       | Submit dryve edits.
 | PUT    | /ryde/delete                    | Delete a dryve. 
 | PUT    | /ryde/complete                  | Complete a dryve.
-
 | POST   | /mydryves                       | Approve/deny ryders for a dryve.
 | GET    | /mydryves/:id                   | Get logged in user's dryves.
-
 | POST   | /ryders/confirmed               | Load confirmed ryders for a dryve.
 | POST   | /ryders/pending                 | Load pending ryders for a dryve.
-
-<!-- Rydes stuff -->
-| POST   | /myrydes                        | Request to join ryde.
+| PUT    | /myrydes                        | Request to join ryde.
 | GET    | /myrydes/:id                    | Get logged in user's rydes.
-
-
-<!-- Public profile stuff -->
-| GET    | /finduser/:id                   | Load public profile.
-| POST   | /profile/:id/reviewuser         | Submit review for other user.
-
 | GET    | /profile/:id                    | Load public profile.
 | POST   | /profile/:id/reviewuser         | Submit review for other user.
-
-<!-- Private profile stuff -->
-| POST   | /profile/:id/removedryverstatus | Delete dryver details.
-| POST   | /profile/:id/becomedryver       | Submit dryver details.
-| POST   | /profile/:id/edit               | 
-| DELETE | /deleteuser                     | Delete proile
-
-| PUT   | /profile/:id/removedryverstatus | Delete dryver details.
-| PUT   | /profile/:id/becomedryver       | Submit dryver details.
+| PUT    | /profile/:id/removedryverstatus | Delete dryver details.
+| PUT    | /profile/:id/becomedryver       | Submit dryver details.
 | PUT    | /profile/:id/edit               | Submit changes from private profile page.
-| DELETE | /profile/deleteuser             | Delete proile
-
-<!-- Search stuff -->
+| DELETE | /profile/:id                    | Delete proile
 | POST   | /bigsearch                      | Full ryde search.
 | POST   | /minisearch                     | Limited ryde search.
 
@@ -113,7 +86,7 @@ Ryde Homepage
 
 ## APIs Used
 [to the top](https://github.com/ScoRoc/Ryde#Ryde)
-- Avatar API
+- [Avatar API](https://www.avatarapi.com)
 - 
 
 ## User Stories
