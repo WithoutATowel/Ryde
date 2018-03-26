@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
 import { liftUpdatedUser } from '../redux/actions/index';
 import { Input } from 'react-materialize';
 // import store from '../redux/store/index';
@@ -18,21 +17,21 @@ class ConnectedUpdateProfile extends Component {
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.notifyUpdate = this.notifyUpdate.bind(this)
+    // this.notifyUpdate = this.notifyUpdate.bind(this)
   }
 
-  notifyUpdate = () => toast.info("Updated user profile!", {position: toast.POSITION.TOP_CENTER});
+  // notifyUpdate = () => toast.info("Updated user profile!", {position: toast.POSITION.TOP_CENTER});
 
-  becomeDryverSubmit(e) {
-    e.preventDefault()
-    let car = this.carType.value
-    let driversLicense = this.driversLicense.value
-    let userId = this.props.userId
-    axios.post('/profile/' + this.props.userId + '/becomedryver', {car, driversLicense, userId})
-      .then( result => {
-        this.props.liftUpdatedUser(result.data)
-    }).catch( err => console.log(err) )
-  }
+  // becomeDryverSubmit(e) {
+  //   e.preventDefault()
+  //   let car = this.carType.value
+  //   let driversLicense = this.driversLicense.value
+  //   let userId = this.props.userId
+  //   axios.post('/profile/' + this.props.userId + '/becomedryver', {car, driversLicense, userId})
+  //     .then( result => {
+  //       this.props.liftUpdatedUser(result.data)
+  //   }).catch( err => console.log(err) )
+  // }
 
   handleSubmit(e) {
     e.preventDefault()
@@ -54,7 +53,7 @@ class ConnectedUpdateProfile extends Component {
       {userId, name, email, dob, homeStreet, homeCity, homeState, homeZip, workStreet, workCity, workState, workZip})
         .then( result => {
         this.props.liftUpdatedUser(result.data)
-        this.notifyUpdate()
+        this.props.notifyUpdate('You have successfully updated your profile.')
     }).catch( err => console.log(err) )
   }
 
