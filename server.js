@@ -126,7 +126,7 @@ app.post('/bigsearch', (req, res, next) => {
     completed: false,
     deleted:false
   }
-
+  console.log(body.reoccur);
   for (let key in searchOptions) {
     console.log('--------------');
     if (searchOptions[key] === '' || searchOptions[key] === false || searchOptions[key] === undefined) {
@@ -149,7 +149,7 @@ app.post('/bigsearch', (req, res, next) => {
       return res.send({newTrips})
     } else {
       trips.forEach((trip,index)=>{
-        console.log('each trip cost: ',trip.cost);
+        console.log('each trip time: ',trip.departDate);
 
         // console.log('trip date: ',(new Date(trip.departDate)).toUTCString());
         // console.log('search date: ',(new Date(req.body.dateTime)).toUTCString());
