@@ -45,7 +45,7 @@ Ryde Homepage
 | GET    | /                               | Home page.
 | POST   | /auth/signup                    | Sign up.
 | POST   | /auth/login                     | Log in.
-| POST   | /me/from/token                  | Lift login from token.
+| POST   | /auth/me/from/token                  | Lift login from token.
 
 <!-- Dryve stuff -->
 | POST   | /postARyde                      | Post a dryve.
@@ -53,6 +53,12 @@ Ryde Homepage
 | POST   | /editARyde/:id                  | Submit dryve edits.
 | POST   | /delete                         | Delete a dryve.
 | POST   | /complete                       | Complete a dryve.
+
+| POST   | /ryde                           | Post a dryve.
+| GET    | /ryde/:id/edit                  | Load a dryve into edit form.
+| PUT    | /ryde/:id                       | Submit dryve edits.
+| PUT    | /ryde/delete                    | Delete a dryve. 
+| PUT    | /ryde/complete                  | Complete a dryve.
 
 | POST   | /mydryves                       | Approve/deny ryders for a dryve.
 | GET    | /mydryves/:id                   | Get logged in user's dryves.
@@ -69,11 +75,19 @@ Ryde Homepage
 | GET    | /finduser/:id                   | Load public profile.
 | POST   | /profile/:id/reviewuser         | Submit review for other user.
 
+| GET    | /profile/:id                    | Load public profile.
+| POST   | /profile/:id/reviewuser         | Submit review for other user.
+
 <!-- Private profile stuff -->
 | POST   | /profile/:id/removedryverstatus | Delete dryver details.
 | POST   | /profile/:id/becomedryver       | Submit dryver details.
 | POST   | /profile/:id/edit               | 
 | DELETE | /deleteuser                     | Delete proile
+
+| PUT   | /profile/:id/removedryverstatus | Delete dryver details.
+| PUT   | /profile/:id/becomedryver       | Submit dryver details.
+| PUT    | /profile/:id/edit               | Submit changes from private profile page.
+| DELETE | /profile/deleteuser             | Delete proile
 
 <!-- Search stuff -->
 | POST   | /bigsearch                      | Full ryde search.

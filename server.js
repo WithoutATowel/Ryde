@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.delete('/deleteuser', (req,res,next)=>{
+app.delete('/deleteuser', (req,res,next) => {
   let {email, password, userId} = req.body
   let toDelete = {
     email
@@ -57,7 +57,7 @@ app.delete('/deleteuser', (req,res,next)=>{
     deniedRiders: {$in:[userId]}
   }
   // remove the user from User table
-  User.findOne({email}, function(err, user){
+  User.findOne({email}, function(err, user) {
     if(!(bcrypt.compareSync(password, user.password))){
       res.send({msg:false})
     }
@@ -148,8 +148,8 @@ app.post('/bigsearch', (req, res, next) => {
     if(trips.length === 0) {
       return res.send({newTrips})
     } else {
-      trips.forEach((trip,index)=>{
-        console.log('each trip time: ',trip.departDate);
+      trips.forEach((trip,index) => {
+        console.log('each trip time: ', trip.departDate);
 
         // console.log('trip date: ',(new Date(trip.departDate)).toUTCString());
         // console.log('search date: ',(new Date(req.body.dateTime)).toUTCString());
@@ -157,7 +157,7 @@ app.post('/bigsearch', (req, res, next) => {
         let id = {'_id': ObjectId(trip.driverId)}
         let tripAvailability = (trip.seats - trip.ridersId.length - req.body.seat)
         //if no seats Available delete from index and count up
-        console.log('tripAvailability: ',tripAvailability);
+        console.log('tripAvailability: ', tripAvailability);
         tripAvailability <= 0 ? (
           delete trips[index],
           count++,
@@ -179,8 +179,7 @@ app.post('/bigsearch', (req, res, next) => {
   })
 })
 
-app.post('/complete', (req,res,next) =>{
-
+app.post('/complete', (req,res,next) => {
   User.findOneAndUpdate(
     {_id: req.body.userId},
     {$push:{completedDryves: req.body.rydeId}},
@@ -197,7 +196,6 @@ app.post('/complete', (req,res,next) =>{
 })
 
 app.post('/delete', (req,res,next) =>{
-
   User.findOneAndUpdate(
     {_id: req.body.userId},
     {$push:{deletedDryves: req.body.rydeId}},

@@ -48,7 +48,7 @@ class ConnectedBigSearch extends Component {
     let pets = this.petInput.state.checked
     let cost = this.state.cost
     let reoccur = this.reoccurInput.state.checked
-    let seat = this.seatInput.value - 1
+    let seat = (this.seatInput.value - 1) >= 0 ? (this.seatInput.value - 1) : 1;
     //Date.UTC turns the unpacked date and time into a time stamp
     let dateTime = Date.UTC(...sDate,...sTime)
     let current = Date.now();

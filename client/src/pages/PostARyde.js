@@ -49,7 +49,7 @@ class ConnectedPostARyde extends Component {
       tripPets: false,
       carType: '',
       seats: '',
-      redirect:false
+      redirect: false
     }
     this.handlePostARydeSubmit = this.handlePostARydeSubmit.bind(this)
     this.handleReoccurringChange = this.handleReoccurringChange.bind(this)
