@@ -90,7 +90,7 @@ class ConnectedEditARyde extends Component {
 
 
           this.setState({
-            reoccurring: false,
+            reoccurring: results.reoccurring,
             twoWay: false,
             rydeName: results.rydeName,
             startStreet: results.startAddress.street,
