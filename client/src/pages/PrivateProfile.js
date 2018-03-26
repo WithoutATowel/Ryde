@@ -62,7 +62,7 @@ class PrivateProfile extends Component {
           <div className='row profile-card center'>
             <div>
               <h5>Delete Profile:</h5>
-              <Modal trigger={<Button className='btn red darken-2'>Delete Yourself!</Button>}>
+              <Modal trigger={<Button className='btn red darken-2'>Delete</Button>}>
               	<DeleteUser />
               </Modal>
             </div>
