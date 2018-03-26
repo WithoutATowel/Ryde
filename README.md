@@ -69,7 +69,92 @@ Ryde Homepage
 
 #### User
 
+- name: {
+    type: String,
+    required: true,
+    minLength: 1,
+    maxLength: 99
+  }
 
+- email: {
+    type: String,
+    required: true,
+    unique: true,
+    minLength: 5,
+    maxLength: 99
+  },
+
+- password: {
+    type: String,
+    required: true,
+    minLength: 8,
+    maxLength: 99
+  },
+
+- homeAddress: {
+    street: String,
+    city: {
+      type: String,
+      required: true
+    },
+
+-  state: {
+      type: String,
+      required: true,
+      minLength: 2,
+      maxLength: 2
+    },
+    zip: Number
+  },
+
+- workAddress: {
+    street: String,
+    city: {
+      type: String,
+    },
+   state: {
+      type: String,
+      minLength: 2,
+      maxLength: 2
+    },
+    zip: Number
+  },
+
+- dob: {
+    type: String,
+    required: true
+  },
+
+- dryver: {
+    type:Boolean,
+    default: false,
+  },
+
+- car: String,
+- license: String,
+- dryverRatings: Array,
+- dryverRatingAvg: Number,
+- dryverReviews: Array,
+- ryderRatings: Array,
+- ryderRatingAvg: Number,
+- ryderReviews: Array,
+- reviewedDryvers: Array,
+- reviewedRyders: Array,
+- setTrips: Array,
+- pendingTrips: Array,
+- deniedTrips: Array,
+- completedTrips: {
+    type:Array,
+    default:[]
+  },
+- deletedDryves: {
+    type:Array,
+    default:[]
+  },
+- completedDryves: Array,
+- image: String,
+- trips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }]
+})
 
 #### Trip
 driverId: {
