@@ -41,7 +41,7 @@ const rootReducer = (state = initialState, action) => {
             return {...state, user: action.payload};
         case LOGOUT_USER:
             // console.log('Logging out user');
-            return {...state, token: '', user: null };
+            return {...state, token: '', user: null, searchResults: []};
         case LIFT_CLICKED_USER:
             // console.log('Lifting clickedUser to Redux');
             return {...state, clickedUser: action.payload};
