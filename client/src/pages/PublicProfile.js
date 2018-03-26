@@ -9,7 +9,7 @@ export const PublicProfile = props => {
       <div className='public-profile-page'>
         <div className='row'>
           <div className='col s12 center-align'>
-            <div className='profile-backing-off-white center-align'></div>
+            <div className='public-profile-backing-pic'></div>
             <div className='pic-circle'>
               <div dangerouslySetInnerHTML={{__html: props.clickedUser.image}} />
             </div>
