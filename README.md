@@ -157,75 +157,75 @@ Ryde Homepage
 })
 
 #### Trip
-driverId: {
+- driverId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  rydeName: {
+- rydeName: {
     type: String,
     required: true
   },
-  startAddress: {
-    street: String,
-    city: {
+- startAddress: {
+    - street: String,
+    - city: {
       type: String,
       required: true
     },
-    state: {
+    - state: {
       type: String,
       required: true,
       minLength: 2,
       maxLength: 2
     },
-    zip: Number
+    - zip: Number
   },
-  endAddress: {
-    street: String,
-    city: {
+- endAddress: {
+    - street: String,
+    - city: {
       type: String,
       required: true
     },
-    state: {
+    - state: {
       type: String,
       required: true,
       minLength: 2,
       maxLength: 2
     },
-    zip: Number
+    - zip: Number
   },
-  departDate: {
+- departDate: {
     type: Number,
     required: true
   },
-  reoccurring: {
+- reoccurring: {
     type: Boolean,
     required: true
   },
-  reoccurringDays: Array,
-  cost: {
+- reoccurringDays: Array,
+  - cost: {
     type: Number,
     required: true
   },
-  costBreakdown: String,
-  smoking: Boolean,
-  pets: Boolean,
-  carType: {
+- costBreakdown: String,
+- smoking: Boolean,
+- pets: Boolean,
+- carType: {
     type: String,
     required: true
   },
-  seats: {
+- seats: {
     type: Number,
     required: true
   },
-  comments: Array,
-  ridersId: Array,
-  pendingRiders: Array,
-  deniedRiders: Array,
-  completed: {
+- comments: Array,
+- ridersId: Array,
+- pendingRiders: Array,
+- deniedRiders: Array,
+- completed: {
     type:Boolean,
     default: false},
-  deleted: {
+- deleted: {
     type:Boolean,
     default: false
   }
