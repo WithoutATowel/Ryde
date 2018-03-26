@@ -93,7 +93,7 @@ Ryde Homepage
 
 - homeAddress: {
     street: String,
-    city: {
+    - city: {
       type: String,
       required: true
     },
@@ -104,20 +104,20 @@ Ryde Homepage
       minLength: 2,
       maxLength: 2
     },
-    zip: Number
+    - zip: Number
   },
 
 - workAddress: {
-    street: String,
-    city: {
+    - street: String,
+    - city: {
       type: String,
     },
-   state: {
+   - state: {
       type: String,
       minLength: 2,
       maxLength: 2
     },
-    zip: Number
+    - zip: Number
   },
 
 - dob: {
