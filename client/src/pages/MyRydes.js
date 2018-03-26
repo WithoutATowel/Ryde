@@ -109,7 +109,7 @@ class ConnectedMyRydes extends Component {
                 className="switcher__input switcher__input--myDrives"
                 onChange={this.handleTabToggle}
                 defaultChecked={!this.props.rydesTabIsToggled ? 'checked' : null} />
-              <label htmlFor="my-drives-radio" className="switcher__label">My Drives</label>
+              <label htmlFor="my-drives-radio" className="switcher__label">My Dryves</label>
 
               <span className="switcher__toggle"></span>
             </div>

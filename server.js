@@ -195,6 +195,7 @@ app.post('/complete', (req,res,next) =>{
     })
   })
 })
+
 app.post('/delete', (req,res,next) =>{
 
   User.findOneAndUpdate(
@@ -578,7 +579,7 @@ app.post('/editARyde/:id', (req, res, next) => {
 })
 
 app.post('/ryders/pending', (req, res, next) => {
-  console.log('Hit GET /ryders Route')
+  console.log('Hit POST /ryders Route')
   User.find({ _id: req.body.pending },
   ).lean().exec( function(err, user) {
     if (err) {
@@ -590,7 +591,7 @@ app.post('/ryders/pending', (req, res, next) => {
 })
 
 app.post('/ryders/confirmed', (req, res, next) => {
-  console.log('Hit GET /ryders Route')
+  console.log('Hit POST /ryders Route')
   User.find({ _id: req.body.confirmed }
   ).lean().exec(function(err, user) {
       if (err) {

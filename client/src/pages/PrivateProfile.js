@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import '../css/userprofile.css';
 import { Modal, Button} from 'react-materialize';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,10 +9,15 @@ import NoLongerDryve from '../components/NoLongerDryve';
 import DeleteUser from '../components/DeleteUser';
 import { Redirect } from 'react-router-dom';
 
-class PrivateProfile extends Component {
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+
+class ConnectedPrivateProfile extends Component {
   constructor(props) {
-    super(props)
-    this.notifyUpdate = this.notifyUpdate.bind(this)
+    super(props);
+    this.notifyUpdate = this.notifyUpdate.bind(this);
   }
 
   notifyUpdate = (msg) => toast.info(msg, {position: toast.POSITION.TOP_CENTER});
@@ -32,6 +38,7 @@ class PrivateProfile extends Component {
           <div className='row profile-card'>
             <div className='col m4'>
               <div className='pic-circle center-align'>
+                <img src={this.props.user.image} alt='profile' />
                 <div dangerouslySetInnerHTML={{__html: user.image}} />
               </div>
             </div>
@@ -79,5 +86,7 @@ class PrivateProfile extends Component {
     }
   }
 }
+
+const PrivateProfile = connect(mapStateToProps)(ConnectedPrivateProfile);
 
 export default PrivateProfile;
