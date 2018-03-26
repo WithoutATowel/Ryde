@@ -79,7 +79,6 @@ class ConnectedListCard extends Component {
       this.setState({
         disappear: 'disappear'
       })
-      console.log('does this happen');
     })
   }
   handleDeleted = () =>{
@@ -107,7 +106,6 @@ class ConnectedListCard extends Component {
       )
     } else if (this.props.myRydesPage && !this.props.rydesTabIsToggled) {
       // The user is logged in, on the MyRydes page, toggled to Dryves
-      console.log('Youre on the MyRydes page Dryves tab');
       // total hack otherwise edit/delete will be rotated for god knows why
       if (this.refs.addRemoveButton) {
         this.refs.addRemoveButton.style.transform = 'rotate(0deg)';
@@ -130,8 +128,7 @@ class ConnectedListCard extends Component {
       )
     }
 
-    //
-    console.log(ryde.reoccurringDays )
+    //console.log(ryde.reoccurringDays )
     if (ryde.reoccurring) {
       reocurringDaysJSX = (
         <span className='list-card-recurring-days'>

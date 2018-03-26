@@ -104,7 +104,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
   display: table;
 }
 
-.rydeGreenBtn:hover {
+.rydeGreenBtn:hover, .rydeGreenBtn:focus {
   background: #21fb79;
 }
 
@@ -114,7 +114,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
   color: #ffffff;
 }
 
-.rydeBlueBtn:hover {
+.rydeBlueBtn:hover, .rydeBlueBtn:focus {
   background: #4784c8;
 }
 
@@ -238,6 +238,10 @@ a.main-menu-button-collapse {
 #search-results-box {
   position: relative;
   overflow: auto;
+}
+
+#search-results-header {
+  margin: 1rem  auto;
 }
 
 #list-box-outer-div {
