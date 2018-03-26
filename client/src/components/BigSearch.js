@@ -26,6 +26,7 @@ class ConnectedBigSearch extends Component {
 
   handleBigSearch = (e)=>{
     e.preventDefault()
+
     if(this.props.user){
       var userId = this.props.user._id
     }
@@ -44,13 +45,15 @@ class ConnectedBigSearch extends Component {
     })) : (sDate = '')
     let sTime = this.state.time
     sTime ? (sTime = sTime.split(':').map(time=>+time)): (sTime = '')
-    let pets = this.petInput.state.value
+    let pets = this.petInput.state.checked
     let cost = this.state.cost
-    let reoccur = this.reoccurInput.checked
-    let seat = this.seatInput.value
+    let reoccur = this.reoccurInput.state.checked
+    let seat = this.seatInput.value - 1
     //Date.UTC turns the unpacked date and time into a time stamp
     let dateTime = Date.UTC(...sDate,...sTime)
     let current = Date.now();
+    console.log('this timestamp: ',(new Date(dateTime)).toUTCString(), dateTime);
+    console.log('current timestamp: ',(new Date(current)).toUTCString(), current);
     if(dateTime<=current || !(dateTime)){
       dateTime = current
     }
