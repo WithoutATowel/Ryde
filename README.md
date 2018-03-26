@@ -20,7 +20,7 @@ Ryde Homepage
 
 ---
 ## Technologies Used
-[to the top](https://github.com/ScoRoc/Ryde#Ryde)
+[to the top](https://github.com/ScoRoc/Ryde#ryde)
 
 - HTML5 / CSS3
 - JavaScript
@@ -34,7 +34,7 @@ Ryde Homepage
 - Mongoose
 
 ## Routes
-[to the top](https://github.com/ScoRoc/Ryde#Ryde)
+[to the top](https://github.com/ScoRoc/Ryde#ryde)
 
 | CRUD   | ROUTE                           | FUNCTIONALITY
 |--------|---------------------------------|--------------
@@ -45,7 +45,7 @@ Ryde Homepage
 | POST   | /ryde                           | Post a dryve.
 | GET    | /ryde/:id/edit                  | Load a dryve into edit form.
 | PUT    | /ryde/:id                       | Submit dryve edits.
-| PUT    | /ryde/delete                    | Delete a dryve. 
+| PUT    | /ryde/delete                    | Delete a dryve.
 | PUT    | /ryde/complete                  | Complete a dryve.
 | POST   | /mydryves                       | Approve/deny ryders for a dryve.
 | GET    | /mydryves/:id                   | Get logged in user's dryves.
@@ -65,7 +65,7 @@ Ryde Homepage
 
 
 ## Models
-[to the top](https://github.com/ScoRoc/Ryde#Ryde)
+[to the top](https://github.com/ScoRoc/Ryde#ryde)
 
 #### User
 
@@ -231,11 +231,11 @@ Ryde Homepage
   }
 
 ## APIs Used
-[to the top](https://github.com/ScoRoc/Ryde#Ryde)
+[to the top](https://github.com/ScoRoc/Ryde#ryde)
 - [Avatar API](https://www.avatarapi.com)
 
 ## User Stories
-[to the top](https://github.com/ScoRoc/Ryde#Ryde)
+[to the top](https://github.com/ScoRoc/Ryde#ryde)
 
 1. As a daily commuter, I'd prefer to carpool over taking public transportation or driving my own car to work every day. Commuting is cheaper, more pleasant than riding the bus, and is better for the environment.
 2. My friends and I are going to a music festival, but none of us have a car! We'd love to carpool
@@ -243,23 +243,23 @@ if someone else going has a few extra seats.
 3. I'm looking for something to do this weekend, and want to find trips that are leaving from my area. Maybe I'll make some new friends on the way!
 
 ## About the project
-[to the top](https://github.com/ScoRoc/Ryde#Ryde)
+[to the top](https://github.com/ScoRoc/Ryde#ryde)
 
 Ryde was originally inspired by the traffic and difficult commutes prevalent in Seattle. Organizing carpools at scale could reduce the number of cars on the road, helping to clear room and reduce travel times at peak hours.
 
 Once we started thinking about it, however, we realized that the opportunity for Ryde was even larger than daily commutes. Carpooling can help save money and provide access in a number of situations, including remote weekend activities (like skiing), traveling to popular destinations (Sasquatch music festival), and more.
 
 ## Wireframes
-[to the top](https://github.com/ScoRoc/Ryde#Ryde)
+[to the top](https://github.com/ScoRoc/Ryde#ryde)
 
-![alt text](https://raw.githubusercontent.com/ScoRoc/Ryde/master/readme-images/1.png "Landing page & map search")
-![alt text](https://raw.githubusercontent.com/ScoRoc/Ryde/master/readme-images/2.png "List search")
-![alt text](https://raw.githubusercontent.com/ScoRoc/Ryde/master/readme-images/3.png "Expandable result card")
-![alt text](https://raw.githubusercontent.com/ScoRoc/Ryde/master/readme-images/4.png "Log in & sign up")
+![Landing page wireframe](readme-images/1.jpg)
+![List search](readme-images/2.jpg)
+![Expandable result card](readme-images/3.jpg)
+![Login and signup](readme-images/4.jpg)
 
 
 ## Next Steps
-[to the top](https://github.com/ScoRoc/Ryde#Ryde)
+[to the top](https://github.com/ScoRoc/Ryde#ryde)
 
 - Improve ReadMe.md
 - Add payments API integration
