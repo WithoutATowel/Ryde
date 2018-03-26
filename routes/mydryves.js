@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/user');
-var Trips = require('../models/trips');
+var Trip = require('../models/trips');
+var ObjectId = require('mongoose').Types.ObjectId;
+var async = require('async')
 
 
 // This isn't fully RESTful. If we're editing a specific trip, the route should be POST /mydryves/:id

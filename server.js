@@ -7,7 +7,6 @@ var User = require('./models/user');
 var Trip = require('./models/trips');
 var lowerCase = require('./middleware/toLowerCase');
 var ObjectId = require('mongoose').Types.ObjectId;
-var async = require('async');
 var bcrypt = require('bcrypt');
 
 
