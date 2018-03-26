@@ -244,6 +244,7 @@ if someone else going has a few extra seats.
 
 ## About the project
 [to the top](https://github.com/ScoRoc/Ryde#Ryde)
+
 Ryde was originally inspired by the traffic and difficult commutes prevalent in Seattle. Organizing carpools at scale could reduce the number of cars on the road, helping to clear room and reduce travel times at peak hours.
 
 Once we started thinking about it, however, we realized that the opportunity for Ryde was even larger than daily commutes. Carpooling can help save money and provide access in a number of situations, including remote weekend activities (like skiing), traveling to popular destinations (Sasquatch music festival), and more.
