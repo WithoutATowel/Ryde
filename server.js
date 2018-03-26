@@ -215,22 +215,22 @@ app.post('/delete', (req,res,next) =>{
 
 app.post('/minisearch', (req,res,next) =>{
   let bodh = req.body
-  var miniSearchObj ={
+  var searchOptions ={
     'startAddress.zip': bodh.startZip,
     'endAddress.zip': bodh.endZip,
     departDate: {$gte: bodh.date}
   }
-  for(let key in miniSearchObj){
-    if (miniSearchObj[key] === '' || miniSearchObj[key] === false) {
-      delete miniSearchObj[key]
+  for(let key in searchOptions){
+    if (searchOptions[key] === '' || searchOptions[key] === false) {
+      delete searchOptions[key]
     }
   }
   if(bodh.userId){
-    searchOptions.driverId = {$ne:ObjectId(body.userId)}
-    searchOptions.deniedRiders = {$ne: body.userId}
+    searchOptions.driverId = {$ne:ObjectId(bodh.userId)}
+    searchOptions.deniedRiders = {$ne: bodh.userId}
   }
-  console.log(miniSearchObj);
-  Trip.find(miniSearchObj).lean().exec( function(err, trips){
+  console.log(searchOptions);
+  Trip.find(searchOptions).lean().exec( function(err, trips){
     let count = 0;
     let newTrips = []
 
