@@ -74,7 +74,7 @@ class ConnectedEditARyde extends Component {
 
   componentDidMount() {
     var getAndStorePost = () => {
-      axios.get('/editARyde/' + this.props.currentRyde)
+      axios.get('/ryde/' + this.props.currentRyde + '/edit')
       .then( result => {
         if (result.data && result.data.length > 0) {
           // console.log('results: ', result.data[0]);
@@ -218,7 +218,7 @@ class ConnectedEditARyde extends Component {
     }
     console.log(trip)
 
-    axios.post('/editARyde/' + this.props.currentRyde, trip).then(result => {
+    axios.put('/ryde/' + this.props.currentRyde, trip).then(result => {
       // console.log('added one way ', result.data)
       console.log('Updated ryde!');
       this.props.toggleRydesTab({ rydesTabIsToggled: false });
