@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { connect } from 'react-redux';
+import { liftUpdatedUser } from '../redux/actions/index';
 import axios from 'axios';
 
-class ReviewUser extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    liftUpdatedUser: user => dispatch(liftUpdatedUser(user)),
+  }
+}
+
+class ConnectedReviewUser extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -10,10 +17,7 @@ class ReviewUser extends Component {
     }
     this.handleRatingChange = this.handleRatingChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.notifyUpdate = this.notifyUpdate.bind(this)
   }
-
-  notifyUpdate = () => toast.info("You have reviewed this user.", {position: toast.POSITION.TOP_CENTER});
 
   handleRatingChange(e) {
     this.setState({ selectedRating: e.target.value })
@@ -30,7 +34,8 @@ class ReviewUser extends Component {
     }).then( result => {
       console.log(result.data)
       this.props.userType === 'ryder' ? this.props.updateProfileRyderDetails(result.data) : this.props.updateProfileDryverDetails(result.data)
-      this.notifyUpdate()
+      this.props.liftUpdatedUser(result.data.theUser)
+      this.props.notifyUpdate('You have reviewed this user.')
     }).catch( err => console.log(err) )
   }
 
@@ -47,10 +52,13 @@ class ReviewUser extends Component {
         <label htmlFor={this.props.userType + 'four-star'}>4</label>
         <input name='this.props.inputName' value='5' checked={this.state.selectedRating === '5'} onChange={this.handleRatingChange} type='radio' id={this.props.userType + 'five-star'} />
         <label htmlFor={this.props.userType + 'five-star'}>5</label>
+        <br />
         <input type='submit' className='rydeBlueBtn btn' value='Submit rating' />
       </form>
     )
   }
 }
+
+const ReviewUser = connect(null, mapDispatchToProps)(ConnectedReviewUser);
 
 export default ReviewUser;
