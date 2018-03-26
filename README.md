@@ -40,7 +40,7 @@ Ryde Homepage
 ## Routes
 [to the top](https://github.com/ScoRoc/Ryde#Ryde)
 
-| CRUD   | ROUTE              | FUNCTIONALITY
+| CRUD   | ROUTE                           | FUNCTIONALITY
 |--------|---------------------------------|--------------
 | GET    | /                               | Home page.
 | POST   | /auth/signup                    | Sign up.
@@ -86,7 +86,7 @@ Ryde Homepage
 
 #### User
 
-| id       | name   | type   | wTeaser | wUrl   | yUrl
+| id       | name   | email  | password | wUrl   | yUrl
 |----------|--------|--------|---------|--------|------
 | auto-gen | string | string | text    | string | string
 
@@ -99,7 +99,8 @@ Ryde Homepage
 
 ## APIs Used
 [to the top](https://github.com/ScoRoc/Ryde#Ryde)
-
+- Avatar API
+- 
 
 ## User Stories
 [to the top](https://github.com/ScoRoc/Ryde#Ryde)
@@ -150,7 +151,7 @@ Here are all of the colors used in the project:
 ## Next Steps
 [to the top](https://github.com/ScoRoc/Ryde#Ryde)
 
-
+Consolidate BigSearch and MiniSearch server routes.
 
 *END of content. Wireframe images below*
 

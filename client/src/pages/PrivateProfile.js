@@ -32,6 +32,7 @@ class ConnectedPrivateProfile extends Component {
             <div className='col m4'>
               <div className='pic-circle center-align'>
                 <img src={this.props.user.image} alt='profile' />
+                <div dangerouslySetInnerHTML={{__html: user.image}} />
               </div>
             </div>
               <div className='profile-stats-column col m4'>

@@ -28,7 +28,6 @@ class ConnectedListCard extends Component {
       expanded: false,
       driver: '',
       driverRating: 4.5,
-      profilePic: '',
       disappear: '',
     }
   }
@@ -71,27 +70,6 @@ class ConnectedListCard extends Component {
       }
     }
 
-    let profilePicUrl = 'https://www.avatarapi.com/js.aspx?email=' + this.props.ryde.driver.email + '&size=150'
-    var profilePic = ''
-    this.setState({
-      profilePic: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="150" height="150" />'
-    })
-    // axios.get(profilePicUrl).then(results => {
-    //   var all = results.data
-    //   profilePic = all.split('>')
-    //   profilePic = profilePic[1] + ' />'
-    //   if (profilePic === 'undefined />') {
-    //     this.setState({
-    //       profilePic: '<img src="http://www.everythingjustrocks.com/wp-content/uploads/default.png" width="150" height="150" />'
-    //     })
-    //   } else {
-    //     this.setState({
-    //       profilePic
-    //     })
-    //   }
-    //   console.log(all)
-    // })
-
   }
 
   handleCompleted = () =>{
@@ -105,6 +83,7 @@ class ConnectedListCard extends Component {
       console.log('does this happen');
     })
   }
+  
   handleDeleted = () =>{
     let rydeId = this.props.ryde._id
     let userId = this.props.user._id
@@ -222,7 +201,7 @@ class ConnectedListCard extends Component {
               <div className='list-card-driver-pic'>
                 <Link to={'/profile/' + ryde.driverId}>
                   <div className="ryder-profile-pic">
-                    <div dangerouslySetInnerHTML={{__html: this.state.profilePic}} />
+                    <div dangerouslySetInnerHTML={{__html: ryde.driver.image}} />
                   </div>
                 </Link>
               </div>
