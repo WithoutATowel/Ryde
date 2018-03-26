@@ -29,8 +29,6 @@ class ConnectedProfileDryverDetails extends Component {
   }
 
   render() {
-    console.log('from profileDruyverDetails',this.props.theUser)
-    console.log('clicked user from profileDryverDetails', this.state.clickedUser)
     let displayReviewUser = null;
     let ratingAvg = this.state.clickedUser.dryverRatingAvg
     let cUser = this.state.clickedUser
@@ -54,6 +52,7 @@ class ConnectedProfileDryverDetails extends Component {
       <div className='row'>
         <div className='col s12 center-align'>
           <div className='ryder-dryver-details-wrapper'>
+            <ToastContainer />
             <h4>Dryver</h4>
             {displayReviewUser}
             <p>{cUserName}'s Dryver rating: {ratingAvg > 0 ? ratingAvg : 'no ratings yet'}</p>

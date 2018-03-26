@@ -7,12 +7,12 @@ import UpdateProfile from '../components/UpdateProfile';
 import BecomeADryver from '../components/BecomeADryver';
 import NoLongerDryve from '../components/NoLongerDryve';
 import DeleteUser from '../components/DeleteUser';
-import { Redirect } from 'react-router-dom';
 
 const mapStateToProps = state => {
   return {
     user: state.user
   }
+}
 
 class ConnectedPrivateProfile extends Component {
   constructor(props) {
@@ -31,14 +31,11 @@ class ConnectedPrivateProfile extends Component {
     if (user) {
       return (
         <div id="private-profile" className="container">
-          <Modal header='Update Profile' id="update-profile-modal" >
-            <UpdateProfile userId={user._id} />
-          </Modal>
+          <ToastContainer />
           <h2 className='user-profile-h1'>{user.name}'s Profile</h2>
           <div className='row profile-card'>
             <div className='col m4'>
               <div className='pic-circle center-align'>
-                <img src={this.props.user.image} alt='profile' />
                 <div dangerouslySetInnerHTML={{__html: user.image}} />
               </div>
             </div>
@@ -59,7 +56,7 @@ class ConnectedPrivateProfile extends Component {
           </div>
           <h3>Details</h3>
           <div className='row profile-card'>
-            <UpdateProfile />
+            <UpdateProfile notifyUpdate={this.notifyUpdate} />
           </div>
           <h3>Dryver Settings</h3>
           <div className='row profile-card center'>
