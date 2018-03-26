@@ -42,11 +42,11 @@ class ConnectedDiscover extends Component {
             </a>
           </div>
           <div className='col s12 l3 hide-on-med-and-down discover-side-column'>
-            <h2 className='discover-h1'>Find a Ryde</h2>
+            <h3 className='discover-h1'>Find a Ryde</h3>
             <BigSearch />
           </div>
           <div className='list-box-div col s12 m12 l9'>
-            <h2 id='search-results-header'>Search Results</h2>
+            <h3 id='search-results-header'>Search Results</h3>
               <div id='search-results-box'>
                 <ListBox />
               </div>

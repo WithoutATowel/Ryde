@@ -7,7 +7,7 @@ mongoose.connect('mongodb://localhost/ryde');
       {
         name: 'Sean Cesmat',
         email: 'sean.cesmat@gmail.com',
-        password: 'blahblah',
+        password: 'password',
         homeAddress: {
           street: 'blah st',
           city: 'seattle',
@@ -33,11 +33,12 @@ mongoose.connect('mongodb://localhost/ryde');
         setTrips:[],
         deniedTrips:[],
         completedTrips:[],
+        image: '<img src="https://lh3.googleusercontent.com/-ZdFoCSr5UOk/AAAAAAAAAAI/AAAAAAAAAAA/ULfWeDpGJDo/s181-c/106358386125857915870.jpg" title="Sean Cesmat" class="avatarapi" width="200" height="200">'
       },
       {
-        name: 'Another User',
-        email: 'anotheruser@gmail.com',
-        password: 'blahblah',
+        name: 'Dan Heyward',
+        email: 'danheyward@gmail.com',
+        password: 'password',
         homeAddress: {
           street: 'blah st',
           city: 'seattle',
@@ -62,8 +63,8 @@ mongoose.connect('mongodb://localhost/ryde');
       },
       {
         name: 'Brett',
-        email: 'brettuser@gmail.com',
-        password: 'blahblah',
+        email: 'brettspencr@gmail.com',
+        password: 'password',
         homeAddress: {
           street: 'blah st',
           city: 'seattle',
@@ -88,8 +89,8 @@ mongoose.connect('mongodb://localhost/ryde');
       },
       {
         name: 'brant',
-        email: 'brantuser@gmail.com',
-        password: 'blahblah',
+        email: 'brantrporter@gmail.com',
+        password: 'password',
         homeAddress: {
           street: 'blah st',
           city: 'seattle',
@@ -114,8 +115,8 @@ mongoose.connect('mongodb://localhost/ryde');
       },
       {
         name: 'Scott',
-        email: 'scottuser@gmail.com',
-        password: 'blahblah',
+        email: 'scrosehart@gmail.com',
+        password: 'password',
         homeAddress: {
           street: 'blah st',
           city: 'seattle',
