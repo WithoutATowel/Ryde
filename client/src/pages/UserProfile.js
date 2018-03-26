@@ -21,24 +21,32 @@ const mapStateToProps = state => {
 }
 
 class ConnectedUserProfile extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      clickedUser: null
+    }
+  }
 
   componentDidMount() {
     this.props.liftCurrentPageToState('/profile/' + this.props.match.params.id)
     axios.get('/finduser/' + this.props.match.params.id)
       .then( result => {
         this.props.liftClickedUser(result.data)
+        this.setState({ clickedUser: result.data})
     }).catch( err => console.log(err.message))
   }
 
   render() {
+    let showProfile = this.state.clickedUser ? (<PublicProfile clickedUser={this.state.clickedUser} />) : (<h3>Loading...</h3>);
     if (this.props.user) {
       if (this.props.user._id === this.props.match.params.id) {
         return <PrivateProfile user={this.props.user} />
       } else {
-        return <PublicProfile clickedUser={this.props.clickedUser} />
+        return showProfile
       }
     } else {
-      return <PublicProfile clickedUser={this.props.clickedUser} />
+      return showProfile
     }
   }
 }

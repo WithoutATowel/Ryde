@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
 import { liftUpdatedUser } from '../redux/actions/index';
 // import store from '../redux/store/index';
 import axios from 'axios';
@@ -10,12 +9,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 class ConnectedBecomeADryver extends Component {
-  constructor(props) {
-    super(props)
-    this.notifyUpdate = this.notifyUpdate.bind(this)
-  }
-
-  notifyUpdate = () => toast.info("Congrats! You are now a Dryver! Check out your new Post a Ryde page in the navbar.", {position: toast.POSITION.TOP_CENTER});
 
   becomeDryverSubmit(e) {
     e.preventDefault()
@@ -25,7 +18,7 @@ class ConnectedBecomeADryver extends Component {
     axios.post('/profile/' + this.props.userId + '/becomedryver', {car, driversLicense, userId})
       .then( result => {
         this.props.liftUpdatedUser(result.data)
-        this.notifyUpdate()
+        this.props.notifyUpdate('You are now a Dryver! Check out your new Post a Ryde page in the navbar.')
     }).catch( err => console.log(err) )
   }
 
