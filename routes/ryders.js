@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/user');
-var Trips = require('../models/trips');
+var Trip = require('../models/trips');
 
 
 // Load Confirmed ryders for a dryve. | /ryders/confirmed

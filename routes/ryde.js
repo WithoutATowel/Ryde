@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/user');
-var Trips = require('../models/trips');
+var Trip = require('../models/trips');
+var lowerCase = require('../middleware/toLowerCase');
+
 
 
 // Post a ryde/trip | /ryde

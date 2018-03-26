@@ -7,6 +7,7 @@ var Trips = require('../models/trips');
 var bcrypt = require('bcrypt');
 var request = require('request');
 
+
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 

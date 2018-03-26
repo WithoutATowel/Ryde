@@ -2,12 +2,13 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/user');
-var Trips = require('../models/trips');
-var request = require('request');
+var Trip = require('../models/trips');
+var ObjectId = require('mongoose').Types.ObjectId;
+var async = require('async')
 
 
 // Request to join ryde | /myrydes
-router.post('/', (req, res, next) => {
+router.put('/', (req, res, next) => {
   let { userId, tripId } = req.body;
   Trip.findById(tripId, function (err, trip) {
     User.findById(userId, function (err, user) {
