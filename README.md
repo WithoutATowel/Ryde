@@ -243,10 +243,10 @@ Once we started thinking about it, however, we realized that the opportunity for
 ## Wireframes
 [to the top](https://github.com/ScoRoc/Ryde#Ryde)
 
-![Landing page wireframe](readme-images/1.png)
-![List search](readme-images/2.png)
-![Expandable result card](readme-images/3.png)
-![Login and signup](readme-images/4.png)
+![Landing page wireframe](readme-images/1.jpg)
+![List search](readme-images/2.jpg)
+![Expandable result card](readme-images/3.jpg)
+![Login and signup](readme-images/4.jpg)
 
 
 ## Next Steps
